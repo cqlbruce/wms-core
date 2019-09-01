@@ -1,3 +1,23 @@
+-----------------------------用户信息表 begin-------------------------------------------
+DROP TABLE IF EXISTS `user_info`;
+
+CREATE TABLE `user_info` (
+  `user_id` varchar(32) COLLATE utf8_bin NOT NULL COMMENT '用户id',
+  `login_name` varchar(128) COLLATE utf8_bin DEFAULT NULL COMMENT '登陆名称',
+  `passwd` varchar(128) COLLATE utf8_bin DEFAULT NULL COMMENT '密码',
+  `user_name` varchar(128) COLLATE utf8_bin DEFAULT NULL COMMENT '用户名称',
+  `token_id` varchar(64) COLLATE utf8_bin DEFAULT NULL COMMENT 'token_id',
+  `phone_no` varchar(32) COLLATE utf8_bin DEFAULT NULL COMMENT '电话号码',
+  `org_id` varchar(32) COLLATE utf8_bin DEFAULT NULL COMMENT '机构id',  
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `update_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+-----------------------------用户信息表 end-------------------------------------------
+
+
+
 
 -----------------------------供应商信息表 begin-------------------------------------------
 

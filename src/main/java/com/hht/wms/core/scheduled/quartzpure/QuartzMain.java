@@ -13,21 +13,21 @@ public class QuartzMain {
 	
 	public static void main(String[] args) {
 		
-		JobDetail job = JobBuilder.newJob(QuartzJob.class).build();
+//		JobDetail job = JobBuilder.newJob(QuartzJob.class).build();
 		
 //		Trigger trigger = TriggerBuilder.newTrigger().withSchedule(SimpleScheduleBuilder.repeatSecondlyForever()).build();
 		
-		Trigger trigger = TriggerBuilder.newTrigger().withSchedule(CronScheduleBuilder.cronSchedule("0/2 * * * * ?")).build();
+//		Trigger trigger = TriggerBuilder.newTrigger().withSchedule(CronScheduleBuilder.cronSchedule("0/2 * * * * ?")).build();
 
-		try {
-			Scheduler scheduler = StdSchedulerFactory.getDefaultScheduler();
-			scheduler.scheduleJob(job , trigger);
-			scheduler.start();
-		} catch (SchedulerException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+//		try {
+//			Scheduler scheduler = StdSchedulerFactory.getDefaultScheduler();
+//			scheduler.scheduleJob(job , trigger);
+//			scheduler.start();
+//		} catch (SchedulerException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		
 		
 	}
 

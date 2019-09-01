@@ -1,0 +1,592 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hht.wms.core.dao.StockInfoMapper">
+  <resultMap id="BaseResultMap" type="com.hht.wms.core.entity.StockInfo">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="supplier_name" jdbcType="VARCHAR" property="supplierName" />
+    <result column="so" jdbcType="VARCHAR" property="so" />
+    <result column="po" jdbcType="VARCHAR" property="po" />
+    <result column="sku" jdbcType="VARCHAR" property="sku" />
+    <result column="inbound_no" jdbcType="VARCHAR" property="inboundNo" />
+    <result column="customs_meterial_no" jdbcType="VARCHAR" property="customsMeterialNo" />
+    <result column="rcvd_date" jdbcType="VARCHAR" property="rcvdDate" />
+    <result column="rcvd_ctns" jdbcType="INTEGER" property="rcvdCtns" />
+    <result column="rcvd_pcs" jdbcType="INTEGER" property="rcvdPcs" />
+    <result column="items_per_box" jdbcType="INTEGER" property="itemsPerBox" />
+    <result column="gw_per_box_actul" jdbcType="DECIMAL" property="gwPerBoxActul" />
+    <result column="gw_all_actul" jdbcType="DECIMAL" property="gwAllActul" />
+    <result column="box_length_actul" jdbcType="DECIMAL" property="boxLengthActul" />
+    <result column="box_width_actul" jdbcType="DECIMAL" property="boxWidthActul" />
+    <result column="box_high_actul" jdbcType="DECIMAL" property="boxHighActul" />
+    <result column="box_per_volume_actul" jdbcType="DECIMAL" property="boxPerVolumeActul" />
+    <result column="box_all_volume_actul" jdbcType="DECIMAL" property="boxAllVolumeActul" />
+    <result column="custs_decla_piece_weigh" jdbcType="DECIMAL" property="custsDeclaPieceWeigh" />
+    <result column="custs_decla_all_weigh" jdbcType="DECIMAL" property="custsDeclaAllWeigh" />
+    <result column="warehouse_position" jdbcType="VARCHAR" property="warehousePosition" />
+    <result column="shipped_ctns" jdbcType="DECIMAL" property="shippedCtns" />
+    <result column="shipped_pcs" jdbcType="INTEGER" property="shippedPcs" />
+    <result column="shipped_gw" jdbcType="DECIMAL" property="shippedGw" />
+    <result column="shipped_weigh" jdbcType="DECIMAL" property="shippedWeigh" />
+    <result column="shipped_volume" jdbcType="DECIMAL" property="shippedVolume" />
+    <result column="stock_ctns" jdbcType="DECIMAL" property="stockCtns" />
+    <result column="stock_pcs" jdbcType="INTEGER" property="stockPcs" />
+    <result column="stock_gw" jdbcType="DECIMAL" property="stockGw" />
+    <result column="stock_volume" jdbcType="DECIMAL" property="stockVolume" />
+    <result column="stock_check" jdbcType="CHAR" property="stockCheck" />
+    <result column="customs_order_no" jdbcType="VARCHAR" property="customsOrderNo" />
+    <result column="customs_merch_no" jdbcType="VARCHAR" property="customsMerchNo" />
+    <result column="merch_name" jdbcType="VARCHAR" property="merchName" />
+    <result column="decla_count" jdbcType="INTEGER" property="declaCount" />
+    <result column="decla_unit" jdbcType="VARCHAR" property="declaUnit" />
+    <result column="decla_unit_price" jdbcType="DECIMAL" property="declaUnitPrice" />
+    <result column="decla_total_price" jdbcType="DECIMAL" property="declaTotalPrice" />
+    <result column="decla_currency" jdbcType="CHAR" property="declaCurrency" />
+    <result column="origin_country" jdbcType="VARCHAR" property="originCountry" />
+    <result column="dest_country" jdbcType="VARCHAR" property="destCountry" />
+    <result column="supervision_conditions" jdbcType="VARCHAR" property="supervisionConditions" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, supplier_name, so, po, sku, inbound_no, customs_meterial_no, rcvd_date, rcvd_ctns, 
+    rcvd_pcs, items_per_box, gw_per_box_actul, gw_all_actul, box_length_actul, box_width_actul, 
+    box_high_actul, box_per_volume_actul, box_all_volume_actul, custs_decla_piece_weigh, 
+    custs_decla_all_weigh, warehouse_position, shipped_ctns, shipped_pcs, shipped_gw, 
+    shipped_weigh, shipped_volume, stock_ctns, stock_pcs, stock_gw, stock_volume, stock_check, 
+    customs_order_no, customs_merch_no, merch_name, decla_count, decla_unit, decla_unit_price, 
+    decla_total_price, decla_currency, origin_country, dest_country, supervision_conditions, 
+    create_time, update_time
+  </sql>
+  <select id="selectByExample" parameterType="com.hht.wms.core.entity.StockInfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from stock_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from stock_info
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from stock_info
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.hht.wms.core.entity.StockInfo" useGeneratedKeys="true">
+    insert into stock_info (supplier_name, so, po, 
+      sku, inbound_no, customs_meterial_no, 
+      rcvd_date, rcvd_ctns, rcvd_pcs, 
+      items_per_box, gw_per_box_actul, gw_all_actul, 
+      box_length_actul, box_width_actul, box_high_actul, 
+      box_per_volume_actul, box_all_volume_actul, custs_decla_piece_weigh, 
+      custs_decla_all_weigh, warehouse_position, 
+      shipped_ctns, shipped_pcs, shipped_gw, 
+      shipped_weigh, shipped_volume, stock_ctns, 
+      stock_pcs, stock_gw, stock_volume, 
+      stock_check, customs_order_no, customs_merch_no, 
+      merch_name, decla_count, decla_unit, 
+      decla_unit_price, decla_total_price, decla_currency, 
+      origin_country, dest_country, supervision_conditions, 
+      create_time, update_time)
+    values (#{supplierName,jdbcType=VARCHAR}, #{so,jdbcType=VARCHAR}, #{po,jdbcType=VARCHAR}, 
+      #{sku,jdbcType=VARCHAR}, #{inboundNo,jdbcType=VARCHAR}, #{customsMeterialNo,jdbcType=VARCHAR}, 
+      #{rcvdDate,jdbcType=VARCHAR}, #{rcvdCtns,jdbcType=INTEGER}, #{rcvdPcs,jdbcType=INTEGER}, 
+      #{itemsPerBox,jdbcType=INTEGER}, #{gwPerBoxActul,jdbcType=DECIMAL}, #{gwAllActul,jdbcType=DECIMAL}, 
+      #{boxLengthActul,jdbcType=DECIMAL}, #{boxWidthActul,jdbcType=DECIMAL}, #{boxHighActul,jdbcType=DECIMAL}, 
+      #{boxPerVolumeActul,jdbcType=DECIMAL}, #{boxAllVolumeActul,jdbcType=DECIMAL}, #{custsDeclaPieceWeigh,jdbcType=DECIMAL}, 
+      #{custsDeclaAllWeigh,jdbcType=DECIMAL}, #{warehousePosition,jdbcType=VARCHAR}, 
+      #{shippedCtns,jdbcType=DECIMAL}, #{shippedPcs,jdbcType=INTEGER}, #{shippedGw,jdbcType=DECIMAL}, 
+      #{shippedWeigh,jdbcType=DECIMAL}, #{shippedVolume,jdbcType=DECIMAL}, #{stockCtns,jdbcType=DECIMAL}, 
+      #{stockPcs,jdbcType=INTEGER}, #{stockGw,jdbcType=DECIMAL}, #{stockVolume,jdbcType=DECIMAL}, 
+      #{stockCheck,jdbcType=CHAR}, #{customsOrderNo,jdbcType=VARCHAR}, #{customsMerchNo,jdbcType=VARCHAR}, 
+      #{merchName,jdbcType=VARCHAR}, #{declaCount,jdbcType=INTEGER}, #{declaUnit,jdbcType=VARCHAR}, 
+      #{declaUnitPrice,jdbcType=DECIMAL}, #{declaTotalPrice,jdbcType=DECIMAL}, #{declaCurrency,jdbcType=CHAR}, 
+      #{originCountry,jdbcType=VARCHAR}, #{destCountry,jdbcType=VARCHAR}, #{supervisionConditions,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.hht.wms.core.entity.StockInfo" useGeneratedKeys="true">
+    insert into stock_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="supplierName != null">
+        supplier_name,
+      </if>
+      <if test="so != null">
+        so,
+      </if>
+      <if test="po != null">
+        po,
+      </if>
+      <if test="sku != null">
+        sku,
+      </if>
+      <if test="inboundNo != null">
+        inbound_no,
+      </if>
+      <if test="customsMeterialNo != null">
+        customs_meterial_no,
+      </if>
+      <if test="rcvdDate != null">
+        rcvd_date,
+      </if>
+      <if test="rcvdCtns != null">
+        rcvd_ctns,
+      </if>
+      <if test="rcvdPcs != null">
+        rcvd_pcs,
+      </if>
+      <if test="itemsPerBox != null">
+        items_per_box,
+      </if>
+      <if test="gwPerBoxActul != null">
+        gw_per_box_actul,
+      </if>
+      <if test="gwAllActul != null">
+        gw_all_actul,
+      </if>
+      <if test="boxLengthActul != null">
+        box_length_actul,
+      </if>
+      <if test="boxWidthActul != null">
+        box_width_actul,
+      </if>
+      <if test="boxHighActul != null">
+        box_high_actul,
+      </if>
+      <if test="boxPerVolumeActul != null">
+        box_per_volume_actul,
+      </if>
+      <if test="boxAllVolumeActul != null">
+        box_all_volume_actul,
+      </if>
+      <if test="custsDeclaPieceWeigh != null">
+        custs_decla_piece_weigh,
+      </if>
+      <if test="custsDeclaAllWeigh != null">
+        custs_decla_all_weigh,
+      </if>
+      <if test="warehousePosition != null">
+        warehouse_position,
+      </if>
+      <if test="shippedCtns != null">
+        shipped_ctns,
+      </if>
+      <if test="shippedPcs != null">
+        shipped_pcs,
+      </if>
+      <if test="shippedGw != null">
+        shipped_gw,
+      </if>
+      <if test="shippedWeigh != null">
+        shipped_weigh,
+      </if>
+      <if test="shippedVolume != null">
+        shipped_volume,
+      </if>
+      <if test="stockCtns != null">
+        stock_ctns,
+      </if>
+      <if test="stockPcs != null">
+        stock_pcs,
+      </if>
+      <if test="stockGw != null">
+        stock_gw,
+      </if>
+      <if test="stockVolume != null">
+        stock_volume,
+      </if>
+      <if test="stockCheck != null">
+        stock_check,
+      </if>
+      <if test="customsOrderNo != null">
+        customs_order_no,
+      </if>
+      <if test="customsMerchNo != null">
+        customs_merch_no,
+      </if>
+      <if test="merchName != null">
+        merch_name,
+      </if>
+      <if test="declaCount != null">
+        decla_count,
+      </if>
+      <if test="declaUnit != null">
+        decla_unit,
+      </if>
+      <if test="declaUnitPrice != null">
+        decla_unit_price,
+      </if>
+      <if test="declaTotalPrice != null">
+        decla_total_price,
+      </if>
+      <if test="declaCurrency != null">
+        decla_currency,
+      </if>
+      <if test="originCountry != null">
+        origin_country,
+      </if>
+      <if test="destCountry != null">
+        dest_country,
+      </if>
+      <if test="supervisionConditions != null">
+        supervision_conditions,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="supplierName != null">
+        #{supplierName,jdbcType=VARCHAR},
+      </if>
+      <if test="so != null">
+        #{so,jdbcType=VARCHAR},
+      </if>
+      <if test="po != null">
+        #{po,jdbcType=VARCHAR},
+      </if>
+      <if test="sku != null">
+        #{sku,jdbcType=VARCHAR},
+      </if>
+      <if test="inboundNo != null">
+        #{inboundNo,jdbcType=VARCHAR},
+      </if>
+      <if test="customsMeterialNo != null">
+        #{customsMeterialNo,jdbcType=VARCHAR},
+      </if>
+      <if test="rcvdDate != null">
+        #{rcvdDate,jdbcType=VARCHAR},
+      </if>
+      <if test="rcvdCtns != null">
+        #{rcvdCtns,jdbcType=INTEGER},
+      </if>
+      <if test="rcvdPcs != null">
+        #{rcvdPcs,jdbcType=INTEGER},
+      </if>
+      <if test="itemsPerBox != null">
+        #{itemsPerBox,jdbcType=INTEGER},
+      </if>
+      <if test="gwPerBoxActul != null">
+        #{gwPerBoxActul,jdbcType=DECIMAL},
+      </if>
+      <if test="gwAllActul != null">
+        #{gwAllActul,jdbcType=DECIMAL},
+      </if>
+      <if test="boxLengthActul != null">
+        #{boxLengthActul,jdbcType=DECIMAL},
+      </if>
+      <if test="boxWidthActul != null">
+        #{boxWidthActul,jdbcType=DECIMAL},
+      </if>
+      <if test="boxHighActul != null">
+        #{boxHighActul,jdbcType=DECIMAL},
+      </if>
+      <if test="boxPerVolumeActul != null">
+        #{boxPerVolumeActul,jdbcType=DECIMAL},
+      </if>
+      <if test="boxAllVolumeActul != null">
+        #{boxAllVolumeActul,jdbcType=DECIMAL},
+      </if>
+      <if test="custsDeclaPieceWeigh != null">
+        #{custsDeclaPieceWeigh,jdbcType=DECIMAL},
+      </if>
+      <if test="custsDeclaAllWeigh != null">
+        #{custsDeclaAllWeigh,jdbcType=DECIMAL},
+      </if>
+      <if test="warehousePosition != null">
+        #{warehousePosition,jdbcType=VARCHAR},
+      </if>
+      <if test="shippedCtns != null">
+        #{shippedCtns,jdbcType=DECIMAL},
+      </if>
+      <if test="shippedPcs != null">
+        #{shippedPcs,jdbcType=INTEGER},
+      </if>
+      <if test="shippedGw != null">
+        #{shippedGw,jdbcType=DECIMAL},
+      </if>
+      <if test="shippedWeigh != null">
+        #{shippedWeigh,jdbcType=DECIMAL},
+      </if>
+      <if test="shippedVolume != null">
+        #{shippedVolume,jdbcType=DECIMAL},
+      </if>
+      <if test="stockCtns != null">
+        #{stockCtns,jdbcType=DECIMAL},
+      </if>
+      <if test="stockPcs != null">
+        #{stockPcs,jdbcType=INTEGER},
+      </if>
+      <if test="stockGw != null">
+        #{stockGw,jdbcType=DECIMAL},
+      </if>
+      <if test="stockVolume != null">
+        #{stockVolume,jdbcType=DECIMAL},
+      </if>
+      <if test="stockCheck != null">
+        #{stockCheck,jdbcType=CHAR},
+      </if>
+      <if test="customsOrderNo != null">
+        #{customsOrderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="customsMerchNo != null">
+        #{customsMerchNo,jdbcType=VARCHAR},
+      </if>
+      <if test="merchName != null">
+        #{merchName,jdbcType=VARCHAR},
+      </if>
+      <if test="declaCount != null">
+        #{declaCount,jdbcType=INTEGER},
+      </if>
+      <if test="declaUnit != null">
+        #{declaUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="declaUnitPrice != null">
+        #{declaUnitPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="declaTotalPrice != null">
+        #{declaTotalPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="declaCurrency != null">
+        #{declaCurrency,jdbcType=CHAR},
+      </if>
+      <if test="originCountry != null">
+        #{originCountry,jdbcType=VARCHAR},
+      </if>
+      <if test="destCountry != null">
+        #{destCountry,jdbcType=VARCHAR},
+      </if>
+      <if test="supervisionConditions != null">
+        #{supervisionConditions,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hht.wms.core.entity.StockInfo">
+    update stock_info
+    <set>
+      <if test="supplierName != null">
+        supplier_name = #{supplierName,jdbcType=VARCHAR},
+      </if>
+      <if test="so != null">
+        so = #{so,jdbcType=VARCHAR},
+      </if>
+      <if test="po != null">
+        po = #{po,jdbcType=VARCHAR},
+      </if>
+      <if test="sku != null">
+        sku = #{sku,jdbcType=VARCHAR},
+      </if>
+      <if test="inboundNo != null">
+        inbound_no = #{inboundNo,jdbcType=VARCHAR},
+      </if>
+      <if test="customsMeterialNo != null">
+        customs_meterial_no = #{customsMeterialNo,jdbcType=VARCHAR},
+      </if>
+      <if test="rcvdDate != null">
+        rcvd_date = #{rcvdDate,jdbcType=VARCHAR},
+      </if>
+      <if test="rcvdCtns != null">
+        rcvd_ctns = #{rcvdCtns,jdbcType=INTEGER},
+      </if>
+      <if test="rcvdPcs != null">
+        rcvd_pcs = #{rcvdPcs,jdbcType=INTEGER},
+      </if>
+      <if test="itemsPerBox != null">
+        items_per_box = #{itemsPerBox,jdbcType=INTEGER},
+      </if>
+      <if test="gwPerBoxActul != null">
+        gw_per_box_actul = #{gwPerBoxActul,jdbcType=DECIMAL},
+      </if>
+      <if test="gwAllActul != null">
+        gw_all_actul = #{gwAllActul,jdbcType=DECIMAL},
+      </if>
+      <if test="boxLengthActul != null">
+        box_length_actul = #{boxLengthActul,jdbcType=DECIMAL},
+      </if>
+      <if test="boxWidthActul != null">
+        box_width_actul = #{boxWidthActul,jdbcType=DECIMAL},
+      </if>
+      <if test="boxHighActul != null">
+        box_high_actul = #{boxHighActul,jdbcType=DECIMAL},
+      </if>
+      <if test="boxPerVolumeActul != null">
+        box_per_volume_actul = #{boxPerVolumeActul,jdbcType=DECIMAL},
+      </if>
+      <if test="boxAllVolumeActul != null">
+        box_all_volume_actul = #{boxAllVolumeActul,jdbcType=DECIMAL},
+      </if>
+      <if test="custsDeclaPieceWeigh != null">
+        custs_decla_piece_weigh = #{custsDeclaPieceWeigh,jdbcType=DECIMAL},
+      </if>
+      <if test="custsDeclaAllWeigh != null">
+        custs_decla_all_weigh = #{custsDeclaAllWeigh,jdbcType=DECIMAL},
+      </if>
+      <if test="warehousePosition != null">
+        warehouse_position = #{warehousePosition,jdbcType=VARCHAR},
+      </if>
+      <if test="shippedCtns != null">
+        shipped_ctns = #{shippedCtns,jdbcType=DECIMAL},
+      </if>
+      <if test="shippedPcs != null">
+        shipped_pcs = #{shippedPcs,jdbcType=INTEGER},
+      </if>
+      <if test="shippedGw != null">
+        shipped_gw = #{shippedGw,jdbcType=DECIMAL},
+      </if>
+      <if test="shippedWeigh != null">
+        shipped_weigh = #{shippedWeigh,jdbcType=DECIMAL},
+      </if>
+      <if test="shippedVolume != null">
+        shipped_volume = #{shippedVolume,jdbcType=DECIMAL},
+      </if>
+      <if test="stockCtns != null">
+        stock_ctns = #{stockCtns,jdbcType=DECIMAL},
+      </if>
+      <if test="stockPcs != null">
+        stock_pcs = #{stockPcs,jdbcType=INTEGER},
+      </if>
+      <if test="stockGw != null">
+        stock_gw = #{stockGw,jdbcType=DECIMAL},
+      </if>
+      <if test="stockVolume != null">
+        stock_volume = #{stockVolume,jdbcType=DECIMAL},
+      </if>
+      <if test="stockCheck != null">
+        stock_check = #{stockCheck,jdbcType=CHAR},
+      </if>
+      <if test="customsOrderNo != null">
+        customs_order_no = #{customsOrderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="customsMerchNo != null">
+        customs_merch_no = #{customsMerchNo,jdbcType=VARCHAR},
+      </if>
+      <if test="merchName != null">
+        merch_name = #{merchName,jdbcType=VARCHAR},
+      </if>
+      <if test="declaCount != null">
+        decla_count = #{declaCount,jdbcType=INTEGER},
+      </if>
+      <if test="declaUnit != null">
+        decla_unit = #{declaUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="declaUnitPrice != null">
+        decla_unit_price = #{declaUnitPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="declaTotalPrice != null">
+        decla_total_price = #{declaTotalPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="declaCurrency != null">
+        decla_currency = #{declaCurrency,jdbcType=CHAR},
+      </if>
+      <if test="originCountry != null">
+        origin_country = #{originCountry,jdbcType=VARCHAR},
+      </if>
+      <if test="destCountry != null">
+        dest_country = #{destCountry,jdbcType=VARCHAR},
+      </if>
+      <if test="supervisionConditions != null">
+        supervision_conditions = #{supervisionConditions,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hht.wms.core.entity.StockInfo">
+    update stock_info
+    set supplier_name = #{supplierName,jdbcType=VARCHAR},
+      so = #{so,jdbcType=VARCHAR},
+      po = #{po,jdbcType=VARCHAR},
+      sku = #{sku,jdbcType=VARCHAR},
+      inbound_no = #{inboundNo,jdbcType=VARCHAR},
+      customs_meterial_no = #{customsMeterialNo,jdbcType=VARCHAR},
+      rcvd_date = #{rcvdDate,jdbcType=VARCHAR},
+      rcvd_ctns = #{rcvdCtns,jdbcType=INTEGER},
+      rcvd_pcs = #{rcvdPcs,jdbcType=INTEGER},
+      items_per_box = #{itemsPerBox,jdbcType=INTEGER},
+      gw_per_box_actul = #{gwPerBoxActul,jdbcType=DECIMAL},
+      gw_all_actul = #{gwAllActul,jdbcType=DECIMAL},
+      box_length_actul = #{boxLengthActul,jdbcType=DECIMAL},
+      box_width_actul = #{boxWidthActul,jdbcType=DECIMAL},
+      box_high_actul = #{boxHighActul,jdbcType=DECIMAL},
+      box_per_volume_actul = #{boxPerVolumeActul,jdbcType=DECIMAL},
+      box_all_volume_actul = #{boxAllVolumeActul,jdbcType=DECIMAL},
+      custs_decla_piece_weigh = #{custsDeclaPieceWeigh,jdbcType=DECIMAL},
+      custs_decla_all_weigh = #{custsDeclaAllWeigh,jdbcType=DECIMAL},
+      warehouse_position = #{warehousePosition,jdbcType=VARCHAR},
+      shipped_ctns = #{shippedCtns,jdbcType=DECIMAL},
+      shipped_pcs = #{shippedPcs,jdbcType=INTEGER},
+      shipped_gw = #{shippedGw,jdbcType=DECIMAL},
+      shipped_weigh = #{shippedWeigh,jdbcType=DECIMAL},
+      shipped_volume = #{shippedVolume,jdbcType=DECIMAL},
+      stock_ctns = #{stockCtns,jdbcType=DECIMAL},
+      stock_pcs = #{stockPcs,jdbcType=INTEGER},
+      stock_gw = #{stockGw,jdbcType=DECIMAL},
+      stock_volume = #{stockVolume,jdbcType=DECIMAL},
+      stock_check = #{stockCheck,jdbcType=CHAR},
+      customs_order_no = #{customsOrderNo,jdbcType=VARCHAR},
+      customs_merch_no = #{customsMerchNo,jdbcType=VARCHAR},
+      merch_name = #{merchName,jdbcType=VARCHAR},
+      decla_count = #{declaCount,jdbcType=INTEGER},
+      decla_unit = #{declaUnit,jdbcType=VARCHAR},
+      decla_unit_price = #{declaUnitPrice,jdbcType=DECIMAL},
+      decla_total_price = #{declaTotalPrice,jdbcType=DECIMAL},
+      decla_currency = #{declaCurrency,jdbcType=CHAR},
+      origin_country = #{originCountry,jdbcType=VARCHAR},
+      dest_country = #{destCountry,jdbcType=VARCHAR},
+      supervision_conditions = #{supervisionConditions,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

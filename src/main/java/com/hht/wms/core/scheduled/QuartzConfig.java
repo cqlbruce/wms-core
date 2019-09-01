@@ -8,7 +8,7 @@ import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 
 import com.hht.wms.core.scheduled.quartzpure.QuartzJob;
 
-@Configuration
+//@Configuration
 public class QuartzConfig {
 	
 	
