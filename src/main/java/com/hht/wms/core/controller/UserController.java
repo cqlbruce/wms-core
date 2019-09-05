@@ -8,11 +8,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSON;
+import com.hht.wms.core.common.Req;
 import com.hht.wms.core.common.Resp;
+import com.hht.wms.core.dto.LoginReqDto;
 import com.hht.wms.core.dto.LoginRespDto;
 import com.hht.wms.core.dto.UserInfoRespDto;
 
@@ -26,10 +29,10 @@ public class UserController {
 	
 	@PostMapping("login")
     @ApiOperation(value = "用户登录", notes = "")
-//    public Resp<LoginRespDto> login(@RequestBody Req<LoginReqDto> req) {
-	public Resp<LoginRespDto> login(HttpServletRequest request) {
-		String userName = request.getParameter("userName");
-//		logger.info("login..............{}",JSON.toJSON(req) );
+    public Resp<LoginRespDto> login(@RequestBody Req<LoginReqDto> req) {
+	//public Resp<LoginRespDto> login(HttpServletRequest request) {
+		//String userName = request.getParameter("userName");
+ 		logger.info("login..............{}",JSON.toJSON(req) );
 		LoginRespDto respDto = new LoginRespDto();
 		respDto.setToken("asdfasdfasdbab"+new Random(9));
 		logger.info("login..............{}",JSON.toJSON(Resp.success("登陆成功" , respDto)) );
