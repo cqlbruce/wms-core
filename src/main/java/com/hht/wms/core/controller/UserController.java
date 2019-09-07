@@ -44,7 +44,7 @@ public class UserController {
 //    public Resp<UserInfoRespDto> getUserInfo(@RequestBody Req<UserInfoReqDto> req) {
 	public Resp<UserInfoRespDto> getUserInfo(HttpServletRequest request) {
 //      String userName = request.getParameter("userName");
-//		logger.info("login..............{}",JSON.toJSON(req) );
+		logger.info("getUserInfo..............{}" );
 		UserInfoRespDto respDto = new UserInfoRespDto();
 		respDto.setAvatar("https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif");
 		respDto.setIntroduction("I am a super administrator");
