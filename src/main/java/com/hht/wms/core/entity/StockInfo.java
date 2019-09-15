@@ -211,7 +211,7 @@ public class StockInfo {
     private String customsMerchNo;
 
     /**
-     * 报关单号
+     * 商品名称
      * 表字段 : stock_info.merch_name
      */
     private String merchName;

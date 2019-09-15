@@ -47,6 +47,11 @@ public class Resp<T> implements Serializable {
 		this.data = data;
 	}
 
+	public static <T>Resp success(String msg){
+
+        return new Resp<T>(SUCCESS_CODE,msg,null);
+    }
+	
 	public static <T>Resp success(String msg, T responseBody){
 
         return new Resp<T>(SUCCESS_CODE,msg,responseBody);

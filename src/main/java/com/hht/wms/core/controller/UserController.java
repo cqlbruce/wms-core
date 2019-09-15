@@ -30,9 +30,11 @@ public class UserController {
 	@PostMapping("login")
     @ApiOperation(value = "用户登录", notes = "")
     public Resp<LoginRespDto> login(@RequestBody Req<LoginReqDto> req) {
-	//public Resp<LoginRespDto> login(HttpServletRequest request) {
-		//String userName = request.getParameter("userName");
- 		logger.info("login..............{}",JSON.toJSON(req) );
+//	public Resp<LoginRespDto> login(@RequestParam("userName") String userName) {
+//		String userName = request.getParameter("userName");
+ 		logger.info("login.....change.........{}",JSON.toJSON(req) );
+// 		logger.info("login.....change.........{}",userName );
+
 		LoginRespDto respDto = new LoginRespDto();
 		respDto.setToken("asdfasdfasdbab"+new Random(9));
 		logger.info("login..............{}",JSON.toJSON(Resp.success("登陆成功" , respDto)) );
