@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.alibaba.fastjson.JSON;
 import com.hht.wms.core.common.Resp;
 import com.hht.wms.core.dto.StockInfoAddReqDto;
+import com.hht.wms.core.dto.StockInfoOutReqDto;
 import com.hht.wms.core.dto.StockInfoQueryReqDto;
 import com.hht.wms.core.dto.StockInfoRespDto;
 import com.hht.wms.core.entity.StockInfo;
@@ -32,7 +33,6 @@ public class StockController {
 	@PostMapping("load")
     @ApiOperation(value = "加载库存", notes = "")
 	public Resp<StockInfoRespDto> loadStock(@RequestBody StockInfoQueryReqDto reqDto) {
-		//String userName = request.getParameter("userName");
  		logger.info("stock....load..........{}",JSON.toJSON(reqDto) );
  		StockInfo sInfo1 = new StockInfo();
  		sInfo1.setPo("0708030310");
@@ -48,7 +48,6 @@ public class StockController {
  		sInfo1.setRcvdPcs(10);
  		sInfo1.setMerchName("Sn021045");
  		sInfo1.setItemsPerBox(18);
- 		
  		StockInfo sInfo2 = new StockInfo();
  		sInfo2.setPo("0708030311");
  		sInfo2.setSku("44088219");
@@ -72,10 +71,9 @@ public class StockController {
 		logger.info("login..............{}",JSON.toJSON(Resp.success("成功" , respDto)) );
 		return Resp.success("登陆成功" , respDto);
     }
-
 	
 	@PostMapping("add")
-    @ApiOperation(value = "加载库存", notes = "")
+    @ApiOperation(value = "新增库存", notes = "")
 	public Resp<StockInfoRespDto> addStock(@RequestBody StockInfoAddReqDto reqDto) {
 		//String userName = request.getParameter("userName");
  		logger.info("addStock..............{}",JSON.toJSON(reqDto) );
@@ -93,7 +91,6 @@ public class StockController {
  		sInfo1.setRcvdPcs(10);
  		sInfo1.setMerchName("Sn021045");
  		sInfo1.setItemsPerBox(18);
- 		
  		StockInfo sInfo2 = new StockInfo();
  		sInfo2.setPo("0708030311");
  		sInfo2.setSku("44088219");
@@ -118,16 +115,20 @@ public class StockController {
 		return Resp.success("登陆成功" , respDto);
     }	
 	
-	
 	@PostMapping("upload")
-    @ApiOperation(value = "上传excl", notes = "")
+    @ApiOperation(value = "上传excl,新增库存", notes = "")
 	public Resp uploadStock(@RequestParam("excelFile") MultipartFile excelFile)  throws Exception {
-		
 	    String fileName = excelFile.getOriginalFilename();
 	    System.out.println("filename========" + fileName);
-//		ExcelUtils.
 		return Resp.success("uploadStock");
 	}
+	
+	@PostMapping("out")
+    @ApiOperation(value = "出库", notes = "")
+	public Resp outStock(@RequestBody StockInfoOutReqDto reqDto) {
+ 		logger.info("outStock..............{}",JSON.toJSON(reqDto) );
+		return Resp.success("出库成功" );
+    }
 	
 
 }

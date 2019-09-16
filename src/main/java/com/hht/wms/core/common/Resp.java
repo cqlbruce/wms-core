@@ -22,6 +22,13 @@ public class Resp<T> implements Serializable {
     private T data;
 
     public Resp() {}
+    
+    public Resp(String code, String msg) {
+        RespHeader responseHeader =new RespHeader();
+        responseHeader.setRespCode(code);
+        responseHeader.setRespMsg(msg);
+        this.respHeader = responseHeader;
+    }
 
     public Resp(String code, String msg, T data) {
         RespHeader responseHeader =new RespHeader();
@@ -49,7 +56,7 @@ public class Resp<T> implements Serializable {
 
 	public static <T>Resp success(String msg){
 
-        return new Resp<T>(SUCCESS_CODE,msg,null);
+        return new Resp<T>(SUCCESS_CODE,msg);
     }
 	
 	public static <T>Resp success(String msg, T responseBody){
