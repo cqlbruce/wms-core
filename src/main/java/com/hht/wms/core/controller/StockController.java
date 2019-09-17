@@ -78,9 +78,11 @@ public class StockController {
 	
 	@PostMapping("add")
     @ApiOperation(value = "加载库存", notes = "")
-	public Resp<StockInfoRespDto> addStock(@RequestBody StockInfoAddReqDto reqDto) {
+	public Resp<StockInfoRespDto> addStock(@RequestBody StockInfo reqDto) {
 		//String userName = request.getParameter("userName");
  		logger.info("addStock..............{}",JSON.toJSON(reqDto) );
+ 		
+ 		
 
 		return Resp.success("新增成功");
     }	
