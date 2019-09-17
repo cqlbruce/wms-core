@@ -2,5 +2,7 @@
 nohup java  -jar wms-core-0.0.1-SNAPSHOT.jar >wms-core.log
 
 
-http://http://118.25.84.80:9080/xxx/swagger-ui.html
+http://118.25.84.80:9080/wms-core/swagger-ui.html
+
+
 
