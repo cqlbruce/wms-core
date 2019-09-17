@@ -81,43 +81,8 @@ public class StockController {
 	public Resp<StockInfoRespDto> addStock(@RequestBody StockInfoAddReqDto reqDto) {
 		//String userName = request.getParameter("userName");
  		logger.info("addStock..............{}",JSON.toJSON(reqDto) );
- 		StockInfo sInfo1 = new StockInfo();
- 		sInfo1.setPo("0708030310");
- 		sInfo1.setSku("44088219");
- 		sInfo1.setInboundNo("20190813");
- 		sInfo1.setCustomsMeterialNo("Nb07080303");
- 		sInfo1.setStockGw(new BigDecimal("89.8"));
- 		sInfo1.setOriginCountry("中国");
- 		sInfo1.setSupplierName("中外运");
- 		sInfo1.setSo("020160");
- 		sInfo1.setRcvdDate("20190806");
- 		sInfo1.setRcvdCtns(10);
- 		sInfo1.setRcvdPcs(10);
- 		sInfo1.setMerchName("Sn021045");
- 		sInfo1.setItemsPerBox(18);
- 		
- 		StockInfo sInfo2 = new StockInfo();
- 		sInfo2.setPo("0708030311");
- 		sInfo2.setSku("44088219");
- 		sInfo2.setInboundNo("20190813");
- 		sInfo2.setCustomsMeterialNo("Nb07080303");
- 		sInfo2.setStockGw(new BigDecimal("89.8"));
- 		sInfo2.setOriginCountry("中国");
- 		sInfo2.setSupplierName("中外运");
- 		sInfo2.setSo("020160");
- 		sInfo2.setRcvdDate("20190806");
- 		sInfo2.setRcvdCtns(10);
- 		sInfo2.setRcvdPcs(10);
- 		sInfo2.setMerchName("Sn021045");
- 		sInfo2.setItemsPerBox(18); 		
- 		StockInfoRespDto respDto = new StockInfoRespDto();
- 		List<StockInfo> sList = new ArrayList<StockInfo>();
- 		sList.add(sInfo1) ;
- 		sList.add(sInfo2) ;
- 		respDto.setTotal(20);
- 		respDto.setItems(sList);
-		logger.info("login..............{}",JSON.toJSON(Resp.success("成功" , respDto)) );
-		return Resp.success("登陆成功" , respDto);
+
+		return Resp.success("新增成功");
     }	
 	
 	@PostMapping("modify")
