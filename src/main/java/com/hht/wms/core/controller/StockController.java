@@ -130,7 +130,7 @@ public class StockController {
     }	
 	
 	@PostMapping("outbound")
-    @ApiOperation(value = "修改库存信息", notes = "")
+    @ApiOperation(value = "出库", notes = "")
 	public Resp outbound(@RequestBody OutboundReqDto reqDto) {
  		logger.info("outbound..............{}",JSON.toJSON(reqDto) );
 
