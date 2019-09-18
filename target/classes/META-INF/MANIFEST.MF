@@ -1,9 +1,0 @@
-Manifest-Version: 1.0
-Implementation-Title: wms-core
-Implementation-Version: 0.0.1-SNAPSHOT
-Built-By: hansh
-Implementation-Vendor-Id: hht.wms
-Build-Jdk: 1.8.0_77
-Implementation-URL: http://maven.apache.org
-Created-By: Maven Integration for Eclipse
-
