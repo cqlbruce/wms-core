@@ -1,5 +1,5 @@
 server:
-  port: 9080
+#  port: 9080
   servlet:
     context-path: /wms-core
     
@@ -33,7 +33,7 @@ spring:
     filters: stat,wall,log4j
     connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
   redis:
-    database: 0 #Redis数据库索引(默认为0)
+    database: 0 #Redis鏁版嵁搴撶储寮�(榛樿涓�0)
     host: 118.25.84.80
     port: 6379
     password: 123456
