@@ -19,7 +19,7 @@ WEB_DIR=$APP_HOME/static
 
 
 SYS_HOST=localhost
-JMX_PORT=21071
+JMX_PORT=9080
 #SYS_PORT=10010
 
 SYS_MAIN_CLASS=com.hht.wms.core.WmsCoreApplication
@@ -27,7 +27,7 @@ COMMAND=shutdown
 
 JAVA_OPTS=" -Dfile.encoding=UTF-8  "
 JAVA_OPTS+=" -Dcom.sun.management.jmxremote.port=$JMX_PORT -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false"
-JAVA_OPTS+=" -Xmx1024m -Xms1024m -XX:NewRatio=2 -XX:MaxMetaspaceSize=256m -XX:-UseBiasedLocking -XX:CompileThreshold=20000"
+JAVA_OPTS+=" -Xmx2048m -Xms2048m -XX:NewRatio=2 -XX:MaxMetaspaceSize=256m -XX:-UseBiasedLocking -XX:CompileThreshold=20000"
 JAVA_OPTS+=" -XX:+UseConcMarkSweepGC -XX:CMSInitiatingOccupancyFraction=70 -XX:+UseCMSInitiatingOccupancyOnly"
 JAVA_OPTS+=" -XX:-OmitStackTraceInFastThrow -XX:+ExplicitGCInvokesConcurrent -XX:+ParallelRefProcEnabled"
 JAVA_OPTS+=" -XX:+DisableExplicitGC -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+PrintGCApplicationStoppedTime -Xloggc:${LOG_DIR}/jvm.log"
@@ -64,7 +64,7 @@ checkExit()
 #help info
 help()
 {
-    echo "Usage: sh ${0} [start|stop|restart|check]"
+    echo "Usage: sh ${0} [start|stop|restart|check|startMock]"
     echo "eg: sh ${0} start"
     exit 0
 }
@@ -102,6 +102,13 @@ start()
     done
     echo "timeout(30s)!!! Please check log: ${INSTANCE_NAME}.out!"
     return 0
+}
+
+#start whith mock server
+startMock()
+{
+    JAVA_OPTS+=" -javaagent:/data/app/avatar/cfpd-avatar-1.0.2.jar=/data/app/avatar/${INSTANCE_NAME}.properties"
+    start
 }
 
 #stop
@@ -175,6 +182,9 @@ check()
 case "${1}" in
 start)
     start
+    ;;
+startMock)
+    startMock
     ;;
 stop)
     stop
