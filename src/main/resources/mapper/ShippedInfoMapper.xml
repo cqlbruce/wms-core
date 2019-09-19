@@ -25,6 +25,8 @@
     <result column="decla_currency" jdbcType="CHAR" property="declaCurrency" />
     <result column="origin_country" jdbcType="VARCHAR" property="originCountry" />
     <result column="dest_country" jdbcType="VARCHAR" property="destCountry" />
+    <result column="piece_weigh" jdbcType="DECIMAL" property="pieceWeigh" />
+    <result column="shipped_all_weigh" jdbcType="DECIMAL" property="shippedAllWeigh" />
     <result column="supervision_conditions" jdbcType="VARCHAR" property="supervisionConditions" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
@@ -62,8 +64,8 @@
     id, so, po, sku, inbound_no, customs_meterial_no, shipped_order_date, shipped_date, 
     shipped_no, warehouse_position, shipped_ctns, shipped_pcs, shipped_gw, shipped_volume, 
     customs_merch_no, merch_name, decla_count, decla_unit, decla_unit_price, decla_total_price, 
-    decla_currency, origin_country, dest_country, supervision_conditions, create_time, 
-    update_time
+    decla_currency, origin_country, dest_country, piece_weigh, shipped_all_weigh, supervision_conditions, 
+    create_time, update_time
   </sql>
   <select id="selectByExample" parameterType="com.hht.wms.core.entity.ShippedInfoExample" resultMap="BaseResultMap">
     select
@@ -97,8 +99,9 @@
       shipped_volume, customs_merch_no, merch_name, 
       decla_count, decla_unit, decla_unit_price, 
       decla_total_price, decla_currency, origin_country, 
-      dest_country, supervision_conditions, create_time, 
-      update_time)
+      dest_country, piece_weigh, shipped_all_weigh, 
+      supervision_conditions, create_time, update_time
+      )
     values (#{so,jdbcType=VARCHAR}, #{po,jdbcType=VARCHAR}, #{sku,jdbcType=VARCHAR}, 
       #{inboundNo,jdbcType=VARCHAR}, #{customsMeterialNo,jdbcType=VARCHAR}, #{shippedOrderDate,jdbcType=VARCHAR}, 
       #{shippedDate,jdbcType=VARCHAR}, #{shippedNo,jdbcType=VARCHAR}, #{warehousePosition,jdbcType=VARCHAR}, 
@@ -106,8 +109,9 @@
       #{shippedVolume,jdbcType=DECIMAL}, #{customsMerchNo,jdbcType=VARCHAR}, #{merchName,jdbcType=VARCHAR}, 
       #{declaCount,jdbcType=INTEGER}, #{declaUnit,jdbcType=VARCHAR}, #{declaUnitPrice,jdbcType=DECIMAL}, 
       #{declaTotalPrice,jdbcType=DECIMAL}, #{declaCurrency,jdbcType=CHAR}, #{originCountry,jdbcType=VARCHAR}, 
-      #{destCountry,jdbcType=VARCHAR}, #{supervisionConditions,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{updateTime,jdbcType=TIMESTAMP})
+      #{destCountry,jdbcType=VARCHAR}, #{pieceWeigh,jdbcType=DECIMAL}, #{shippedAllWeigh,jdbcType=DECIMAL}, 
+      #{supervisionConditions,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.hht.wms.core.entity.ShippedInfo" useGeneratedKeys="true">
     insert into shipped_info
@@ -177,6 +181,12 @@
       </if>
       <if test="destCountry != null">
         dest_country,
+      </if>
+      <if test="pieceWeigh != null">
+        piece_weigh,
+      </if>
+      <if test="shippedAllWeigh != null">
+        shipped_all_weigh,
       </if>
       <if test="supervisionConditions != null">
         supervision_conditions,
@@ -254,6 +264,12 @@
       </if>
       <if test="destCountry != null">
         #{destCountry,jdbcType=VARCHAR},
+      </if>
+      <if test="pieceWeigh != null">
+        #{pieceWeigh,jdbcType=DECIMAL},
+      </if>
+      <if test="shippedAllWeigh != null">
+        #{shippedAllWeigh,jdbcType=DECIMAL},
       </if>
       <if test="supervisionConditions != null">
         #{supervisionConditions,jdbcType=VARCHAR},
@@ -335,6 +351,12 @@
       <if test="destCountry != null">
         dest_country = #{destCountry,jdbcType=VARCHAR},
       </if>
+      <if test="pieceWeigh != null">
+        piece_weigh = #{pieceWeigh,jdbcType=DECIMAL},
+      </if>
+      <if test="shippedAllWeigh != null">
+        shipped_all_weigh = #{shippedAllWeigh,jdbcType=DECIMAL},
+      </if>
       <if test="supervisionConditions != null">
         supervision_conditions = #{supervisionConditions,jdbcType=VARCHAR},
       </if>
@@ -371,6 +393,8 @@
       decla_currency = #{declaCurrency,jdbcType=CHAR},
       origin_country = #{originCountry,jdbcType=VARCHAR},
       dest_country = #{destCountry,jdbcType=VARCHAR},
+      piece_weigh = #{pieceWeigh,jdbcType=DECIMAL},
+      shipped_all_weigh = #{shippedAllWeigh,jdbcType=DECIMAL},
       supervision_conditions = #{supervisionConditions,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP}

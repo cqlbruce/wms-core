@@ -28,12 +28,12 @@
                              type="XMLMAPPER"/>
                              
                              
-        <table schema="user_info" tableName="user_info" enableCountByExample="false"
-               enableSelectByExample="true"
-               enableUpdateByExample="UIfalse"
-               enableDeleteByExample="false" domainObjectName="UserInfo">
-            <generatedKey column="user_id" sqlStatement="JDBC"/>
-        </table>                             
+<!--         <table schema="user_info" tableName="user_info" enableCountByExample="false" -->
+<!--                enableSelectByExample="true" -->
+<!--                enableUpdateByExample="UIfalse" -->
+<!--                enableDeleteByExample="false" domainObjectName="UserInfo"> -->
+<!--             <generatedKey column="user_id" sqlStatement="JDBC"/> -->
+<!--         </table>                              -->
                              
 <!--         <table schema="supplier_info" tableName="supplier_info" enableCountByExample="false" -->
 <!--                enableSelectByExample="true" -->
@@ -53,11 +53,11 @@
 <!--                enableDeleteByExample="false" domainObjectName="StockInfo"> -->
 <!--             <generatedKey column="id" sqlStatement="JDBC"/> -->
 <!--         </table>            -->
-<!--         <table schema="shipped_info" tableName="shipped_info" enableCountByExample="false" -->
-<!--                enableSelectByExample="true" -->
-<!--                enableUpdateByExample="UIfalse" -->
-<!--                enableDeleteByExample="false" domainObjectName="ShippedInfo"> -->
-<!--             <generatedKey column="id" sqlStatement="JDBC"/> -->
-<!--         </table>              -->
+        <table schema="shipped_info" tableName="shipped_info" enableCountByExample="false"
+               enableSelectByExample="true"
+               enableUpdateByExample="UIfalse"
+               enableDeleteByExample="false" domainObjectName="ShippedInfo">
+            <generatedKey column="id" sqlStatement="JDBC"/>
+        </table>             
     </context>
 </generatorConfiguration>

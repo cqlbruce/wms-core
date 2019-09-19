@@ -151,6 +151,18 @@ public class ShippedInfo {
     private String destCountry;
 
     /**
+     * 单件净重
+     * 表字段 : shipped_info.piece_weigh
+     */
+    private BigDecimal pieceWeigh;
+
+    /**
+     * 出仓总净重
+     * 表字段 : shipped_info.shipped_all_weigh
+     */
+    private BigDecimal shippedAllWeigh;
+
+    /**
      * 海关监管条件
      * 表字段 : shipped_info.supervision_conditions
      */
@@ -580,6 +592,42 @@ public class ShippedInfo {
      */
     public void setDestCountry(String destCountry) {
         this.destCountry = destCountry;
+    }
+
+    /**
+     * 获取 单件净重 字段:shipped_info.piece_weigh
+     *
+     * @return shipped_info.piece_weigh, 单件净重
+     */
+    public BigDecimal getPieceWeigh() {
+        return pieceWeigh;
+    }
+
+    /**
+     * 设置 单件净重 字段:shipped_info.piece_weigh
+     *
+     * @param pieceWeigh the value for shipped_info.piece_weigh, 单件净重
+     */
+    public void setPieceWeigh(BigDecimal pieceWeigh) {
+        this.pieceWeigh = pieceWeigh;
+    }
+
+    /**
+     * 获取 出仓总净重 字段:shipped_info.shipped_all_weigh
+     *
+     * @return shipped_info.shipped_all_weigh, 出仓总净重
+     */
+    public BigDecimal getShippedAllWeigh() {
+        return shippedAllWeigh;
+    }
+
+    /**
+     * 设置 出仓总净重 字段:shipped_info.shipped_all_weigh
+     *
+     * @param shippedAllWeigh the value for shipped_info.shipped_all_weigh, 出仓总净重
+     */
+    public void setShippedAllWeigh(BigDecimal shippedAllWeigh) {
+        this.shippedAllWeigh = shippedAllWeigh;
     }
 
     /**

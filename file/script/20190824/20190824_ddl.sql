@@ -140,6 +140,8 @@ CREATE TABLE `shipped_info` (
   `decla_currency` char(2) COLLATE utf8_bin DEFAULT NULL COMMENT '成交币种/申报币种',
   `origin_country` varchar(128) COLLATE utf8_bin DEFAULT NULL COMMENT '原产国',
   `dest_country` varchar(128) COLLATE utf8_bin DEFAULT NULL COMMENT '目的国',
+  `piece_weigh` decimal(12,6) COLLATE utf8_bin DEFAULT NULL COMMENT '单件净重',
+  `shipped_all_weigh` decimal(12,6) COLLATE utf8_bin DEFAULT NULL COMMENT '出仓总净重',  
   `supervision_conditions` varchar(32) COLLATE utf8_bin DEFAULT NULL COMMENT '海关监管条件',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `update_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',

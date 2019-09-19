@@ -1708,6 +1708,126 @@ public class ShippedInfoExample {
             return (Criteria) this;
         }
 
+        public Criteria andPieceWeighIsNull() {
+            addCriterion("piece_weigh is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPieceWeighIsNotNull() {
+            addCriterion("piece_weigh is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPieceWeighEqualTo(BigDecimal value) {
+            addCriterion("piece_weigh =", value, "pieceWeigh");
+            return (Criteria) this;
+        }
+
+        public Criteria andPieceWeighNotEqualTo(BigDecimal value) {
+            addCriterion("piece_weigh <>", value, "pieceWeigh");
+            return (Criteria) this;
+        }
+
+        public Criteria andPieceWeighGreaterThan(BigDecimal value) {
+            addCriterion("piece_weigh >", value, "pieceWeigh");
+            return (Criteria) this;
+        }
+
+        public Criteria andPieceWeighGreaterThanOrEqualTo(BigDecimal value) {
+            addCriterion("piece_weigh >=", value, "pieceWeigh");
+            return (Criteria) this;
+        }
+
+        public Criteria andPieceWeighLessThan(BigDecimal value) {
+            addCriterion("piece_weigh <", value, "pieceWeigh");
+            return (Criteria) this;
+        }
+
+        public Criteria andPieceWeighLessThanOrEqualTo(BigDecimal value) {
+            addCriterion("piece_weigh <=", value, "pieceWeigh");
+            return (Criteria) this;
+        }
+
+        public Criteria andPieceWeighIn(List<BigDecimal> values) {
+            addCriterion("piece_weigh in", values, "pieceWeigh");
+            return (Criteria) this;
+        }
+
+        public Criteria andPieceWeighNotIn(List<BigDecimal> values) {
+            addCriterion("piece_weigh not in", values, "pieceWeigh");
+            return (Criteria) this;
+        }
+
+        public Criteria andPieceWeighBetween(BigDecimal value1, BigDecimal value2) {
+            addCriterion("piece_weigh between", value1, value2, "pieceWeigh");
+            return (Criteria) this;
+        }
+
+        public Criteria andPieceWeighNotBetween(BigDecimal value1, BigDecimal value2) {
+            addCriterion("piece_weigh not between", value1, value2, "pieceWeigh");
+            return (Criteria) this;
+        }
+
+        public Criteria andShippedAllWeighIsNull() {
+            addCriterion("shipped_all_weigh is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andShippedAllWeighIsNotNull() {
+            addCriterion("shipped_all_weigh is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andShippedAllWeighEqualTo(BigDecimal value) {
+            addCriterion("shipped_all_weigh =", value, "shippedAllWeigh");
+            return (Criteria) this;
+        }
+
+        public Criteria andShippedAllWeighNotEqualTo(BigDecimal value) {
+            addCriterion("shipped_all_weigh <>", value, "shippedAllWeigh");
+            return (Criteria) this;
+        }
+
+        public Criteria andShippedAllWeighGreaterThan(BigDecimal value) {
+            addCriterion("shipped_all_weigh >", value, "shippedAllWeigh");
+            return (Criteria) this;
+        }
+
+        public Criteria andShippedAllWeighGreaterThanOrEqualTo(BigDecimal value) {
+            addCriterion("shipped_all_weigh >=", value, "shippedAllWeigh");
+            return (Criteria) this;
+        }
+
+        public Criteria andShippedAllWeighLessThan(BigDecimal value) {
+            addCriterion("shipped_all_weigh <", value, "shippedAllWeigh");
+            return (Criteria) this;
+        }
+
+        public Criteria andShippedAllWeighLessThanOrEqualTo(BigDecimal value) {
+            addCriterion("shipped_all_weigh <=", value, "shippedAllWeigh");
+            return (Criteria) this;
+        }
+
+        public Criteria andShippedAllWeighIn(List<BigDecimal> values) {
+            addCriterion("shipped_all_weigh in", values, "shippedAllWeigh");
+            return (Criteria) this;
+        }
+
+        public Criteria andShippedAllWeighNotIn(List<BigDecimal> values) {
+            addCriterion("shipped_all_weigh not in", values, "shippedAllWeigh");
+            return (Criteria) this;
+        }
+
+        public Criteria andShippedAllWeighBetween(BigDecimal value1, BigDecimal value2) {
+            addCriterion("shipped_all_weigh between", value1, value2, "shippedAllWeigh");
+            return (Criteria) this;
+        }
+
+        public Criteria andShippedAllWeighNotBetween(BigDecimal value1, BigDecimal value2) {
+            addCriterion("shipped_all_weigh not between", value1, value2, "shippedAllWeigh");
+            return (Criteria) this;
+        }
+
         public Criteria andSupervisionConditionsIsNull() {
             addCriterion("supervision_conditions is null");
             return (Criteria) this;
