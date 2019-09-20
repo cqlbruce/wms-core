@@ -27,7 +27,7 @@ COMMAND=shutdown
 
 JAVA_OPTS=" -Dfile.encoding=UTF-8  "
 JAVA_OPTS+=" -Dcom.sun.management.jmxremote.port=$JMX_PORT -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false"
-JAVA_OPTS+=" -Xmx2048m -Xms2048m -XX:NewRatio=2 -XX:MaxMetaspaceSize=256m -XX:-UseBiasedLocking -XX:CompileThreshold=20000"
+JAVA_OPTS+=" -Xmx1024m -Xms1024m -XX:NewRatio=2 -XX:MaxMetaspaceSize=256m -XX:-UseBiasedLocking -XX:CompileThreshold=20000"
 JAVA_OPTS+=" -XX:+UseConcMarkSweepGC -XX:CMSInitiatingOccupancyFraction=70 -XX:+UseCMSInitiatingOccupancyOnly"
 JAVA_OPTS+=" -XX:-OmitStackTraceInFastThrow -XX:+ExplicitGCInvokesConcurrent -XX:+ParallelRefProcEnabled"
 JAVA_OPTS+=" -XX:+DisableExplicitGC -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+PrintGCApplicationStoppedTime -Xloggc:${LOG_DIR}/jvm.log"
