@@ -1,8 +1,10 @@
 package com.hht.wms.core.dao;
 
+import java.util.List;
+
+import com.hht.wms.core.dto.StockInfoQueryReqDto;
 import com.hht.wms.core.entity.StockInfo;
 import com.hht.wms.core.entity.StockInfoExample;
-import java.util.List;
 
 public interface StockInfoMapper {
     /**
@@ -53,4 +55,9 @@ public interface StockInfoMapper {
      * @param record
      */
     int updateByPrimaryKey(StockInfo record);
+    
+    List<StockInfo> queryList(StockInfoQueryReqDto reqDto);
+    
+    int selectCount(StockInfoQueryReqDto reqDto);
+    
 }
