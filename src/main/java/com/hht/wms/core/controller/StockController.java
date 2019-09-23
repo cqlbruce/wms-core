@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Row;
@@ -111,8 +112,14 @@ public class StockController {
             Row row = ss.getRow(i);
             if(null != row) {
           	   System.out.print("第"+(i)+"行 不为空  ");
+          	   System.out.println("第0列" + row.getCell(0));
+          	   System.out.println("第1列" + row.getCell(1));
+          	   row.getCell(0).setCellType(CellType.STRING);
+          	   if(StringUtils.isEmpty(row.getCell(0).getStringCellValue())) {
+          		   continue ; 
+          	   }
                //得到列对象
-               Iterator<Cell> cellIterator = row.cellIterator();  
+               Iterator<Cell> cellIterator = row.cellIterator(); 
                int columnCount=0; 
                //循环每一列            	
                while (cellIterator.hasNext()){
