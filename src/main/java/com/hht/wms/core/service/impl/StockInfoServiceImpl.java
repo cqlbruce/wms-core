@@ -3,6 +3,7 @@ package com.hht.wms.core.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.hht.wms.core.dao.StockInfoMapper;
 import com.hht.wms.core.dto.OutboundReqDto;
@@ -10,6 +11,7 @@ import com.hht.wms.core.dto.StockInfoQueryReqDto;
 import com.hht.wms.core.entity.StockInfo;
 import com.hht.wms.core.service.StockInfoService;
 
+@Service
 public class StockInfoServiceImpl implements StockInfoService{
 	
 	

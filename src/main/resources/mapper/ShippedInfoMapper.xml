@@ -404,7 +404,7 @@
   
   
 <!--   自定义 -->
-      List<ShippedInfo> queryList(ShippedInfoReqDto reqDto);
+<!--       List<ShippedInfo> queryList(ShippedInfoReqDto reqDto); -->
   
   
     <select id="queryList" resultMap="BaseResultMap" parameterType="com.hht.wms.core.dto.ShippedInfoReqDto" >
