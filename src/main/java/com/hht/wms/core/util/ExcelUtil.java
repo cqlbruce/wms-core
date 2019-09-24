@@ -14,6 +14,44 @@ public class ExcelUtil {
 	
 	
 	
+	/**
+	 * @param cell
+	 * @return 返回cell String类型值
+	 */
+	public static String getCellValue(Cell cell) {
+		String cellValue = "";
+		// 判断数据的类型
+		switch (cell.getCellType()) {
+			case NUMERIC: // 数字
+				cell.setCellType(CellType.STRING);
+				cellValue = cell.getStringCellValue();
+				break;
+        	case STRING: // 字符串
+        		cell.setCellType(CellType.STRING);
+        		cellValue = cell.getStringCellValue();
+        		break;
+        	case BOOLEAN: // Boolean
+        		cell.setCellType(CellType.STRING);
+        		cellValue = cell.getStringCellValue();
+        		break;
+        	case FORMULA: // 公式
+        		cell.setCellType(CellType.STRING);
+        		cellValue = cell.getStringCellValue();
+        		break;
+        	case BLANK: // 空值
+        		cellValue = "";
+        		break;
+        	case ERROR: // 故障
+        		cellValue = "非法字符";
+        		break;
+        	default:
+        		cellValue = "未知类型";
+        		break;
+		}
+		return cellValue ; 
+	}
+	
+	
 	public static void read(MultipartFile excelFile) throws Exception{
 		
 		if(excelFile.isEmpty()) {

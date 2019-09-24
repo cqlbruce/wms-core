@@ -32,6 +32,7 @@ import com.hht.wms.core.dto.StockInfoQueryReqDto;
 import com.hht.wms.core.dto.StockInfoRespDto;
 import com.hht.wms.core.entity.StockInfo;
 import com.hht.wms.core.service.StockInfoService;
+import com.hht.wms.core.util.ExcelUtil;
 
 import io.swagger.annotations.ApiOperation;
 
@@ -94,82 +95,127 @@ public class StockController {
 	@PostMapping("/fileUpload")
     @ApiOperation(value = "上传excl", notes = "")
 	public Resp uploadStock(@RequestParam("excelFile") MultipartFile excelFile)  throws Exception {
-		
+	    String fileName = excelFile.getOriginalFilename();
+ 		logger.info("fileUpload..............{}",fileName );
 		if(excelFile.isEmpty()) {
 			return Resp.fail("文件为空");
 		}
-		
 		Workbook wb  = new XSSFWorkbook(excelFile.getInputStream());   
-		//遍历Sheet页
-		for(int sheet=0; sheet < wb.getNumberOfSheets(); sheet++){
-			Sheet s = wb.getSheetAt(sheet);
-			System.out.println(s.getSheetName());
-		}
-		Sheet ss = wb.getSheetAt(1);
-		//得到行的迭代器
-        Iterator<Row> rowIterator = ss.iterator();  
-        for(int i=25 ; i<ss.getLastRowNum();i++) {
-            Row row = ss.getRow(i);
-            if(null != row) {
-          	   System.out.print("第"+(i)+"行 不为空  ");
-          	   System.out.println("第0列" + row.getCell(0));
-          	   System.out.println("第1列" + row.getCell(1));
-          	   row.getCell(0).setCellType(CellType.STRING);
-          	   if(StringUtils.isEmpty(row.getCell(0).getStringCellValue())) {
+		try{
+			Sheet ss = wb.getSheetAt(1);
+			List<StockInfo> stockInfoList = new ArrayList<StockInfo>();
+			//从25行开始
+	        for(int i=25 ; i<ss.getLastRowNum();i++) {
+	           Row row = ss.getRow(i);
+	       	   if(null==row||null == row.getCell(0)) {
+	       		   break ; 
+	       	   }
+	       	   //如果第0列为空，则直接返回
+	       	   row.getCell(0).setCellType(CellType.STRING);
+           	   if(StringUtils.isEmpty(row.getCell(0).getStringCellValue())) {
           		   continue ; 
-          	   }
-               //得到列对象
-               Iterator<Cell> cellIterator = row.cellIterator(); 
-               int columnCount=0; 
-               //循环每一列            	
-               while (cellIterator.hasNext()){
-                   //System.out.print("第"+(columnCount++)+"列:  ");
-                       //得到单元格对象
-                       Cell cell = cellIterator.next();
-               		   String cellValue = "";
-
-               		// 判断数据的类型
-               		   switch (cell.getCellType()) {
-               		   	case NUMERIC: // 数字
-            			cell.setCellType(CellType.STRING);
-            			cellValue = cell.getStringCellValue();
-            			break;
-               		   	case STRING: // 字符串
-            			cell.setCellType(CellType.STRING);
-            			cellValue = cell.getStringCellValue();
-            			break;
-               			case BOOLEAN: // Boolean
-               				cell.setCellType(CellType.STRING);
-               				cellValue = cell.getStringCellValue();
-               				break;
-               			case FORMULA: // 公式
-               				cell.setCellType(CellType.STRING);
-               				cellValue = cell.getStringCellValue();
-               				break;
-               			case BLANK: // 空值
-               				cellValue = "";
-               				break;
-               			case ERROR: // 故障
-               				cellValue = "非法字符";
-               				break;
-               			default:
-               				cellValue = "未知类型";
-               				break;
-               		   }
-//               		   if("报关单行号".equals(cellValue)) {
-               		   System.out.println("cellValue===" + cellValue);
-//               			   
-//               		   }
-                   }
-            	
-            }
-            
-        }
-        
-	    System.out.println("filename===upload=====" );
-	    String fileName = excelFile.getOriginalFilename();
-	    System.out.println("filename========" + fileName);
-//		ExcelUtils.
+          	   }	       	   
+           	   StockInfo info = new StockInfo();
+           	   //第一列SO
+           	   info.setSo(ExcelUtil.getCellValue(row.getCell(1)));
+           	   //第四列PO
+           	   info.setPo(ExcelUtil.getCellValue(row.getCell(4)));
+           	   //第五列sku item
+           	   info.setSku(ExcelUtil.getCellValue(row.getCell(5)));
+           	   //第9列 箱数-实收箱数
+           	   int rcvdCtns = Integer.parseInt(ExcelUtil.getCellValue(row.getCell(9)));
+           	   info.setRcvdCtns(rcvdCtns);
+           	   //第11列 数量-实收件数
+           	   int rcvdPcs = Integer.parseInt(ExcelUtil.getCellValue(row.getCell(11))) ;
+           	   info.setRcvdPcs(rcvdPcs);
+           	   //第10列 每箱数量 -- 计算，excel表有些为空
+           	   info.setItemsPerBox(rcvdPcs/rcvdCtns);           	   
+           	   //第12列 单位 PCS 
+           	   
+           	   //第15列 长 
+           	   
+           	   //16列 宽
+           	   
+           	   //17列 高
+           	   
+           	   //18 体积 CBM
+           	   
+           	   //19 体积计算单位 
+           	   
+           	   //20 车牌 --
+           	   
+           	   //22 海关编码 
+           	   
+           	   //23商检代码
+           	   
+           	   //24 报关品名 --
+           	   
+           	   //25 申报要素 --
+           	   
+           	   //26 申报数量  与 第11列 数量有什么区别
+           	   
+           	   //27 申报单位 
+           	   
+           	   //28 申报单价
+           	   
+           	   //29 申报价值
+           	   
+           	   //30 申报币种
+           	   
+           	   //31 第一法定数量
+           	   
+           	   //32 第一法定单位
+           	   
+           	   //33 第二法定数量
+           	   
+           	   //34 第二法定单位
+           	   
+           	   //35 总毛重
+           	   
+           	   //36 总净重
+           	   
+           	   //37 出口国别
+           	   
+           	   //38 手册备案序号--
+           	   
+           	   //41 重量单位
+           	   
+           	   //42 体积单位
+           	   
+           	   // 43 原产国
+           	   
+           	   //44 境内货源地
+           	   
+           	   //45 产地代码
+           	   
+           	   // 46 备注
+           	   
+           	   
+           	   
+           	   
+	       	   for(int j=1 ; j<row.getRowNum() ; j++) {
+	       		   
+	       		   
+	       	   }
+	       	   
+	          System.out.print("第"+(i)+"行 不为空  ");
+	          System.out.println("第0列" + row.getCell(0));
+	          System.out.println("第1列" + row.getCell(1));
+	          //得到列对象
+	          Iterator<Cell> cellIterator = row.cellIterator(); 
+	               int columnCount=0; 
+	               //循环每一列            	
+	               while (cellIterator.hasNext()){
+	                   //System.out.print("第"+(columnCount++)+"列:  ");
+	                       //得到单元格对象
+	                       Cell cell = cellIterator.next();
+	               		   String cellValue = "";
+	               		
+	                   }
+	        }
+		}finally{
+			wb.close();
+		}
 		return Resp.success("uploadStock");
 	}
 	
