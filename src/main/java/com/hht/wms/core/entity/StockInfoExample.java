@@ -1998,6 +1998,66 @@ public class StockInfoExample {
             return (Criteria) this;
         }
 
+        public Criteria andStockWeighIsNull() {
+            addCriterion("stock_weigh is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStockWeighIsNotNull() {
+            addCriterion("stock_weigh is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStockWeighEqualTo(BigDecimal value) {
+            addCriterion("stock_weigh =", value, "stockWeigh");
+            return (Criteria) this;
+        }
+
+        public Criteria andStockWeighNotEqualTo(BigDecimal value) {
+            addCriterion("stock_weigh <>", value, "stockWeigh");
+            return (Criteria) this;
+        }
+
+        public Criteria andStockWeighGreaterThan(BigDecimal value) {
+            addCriterion("stock_weigh >", value, "stockWeigh");
+            return (Criteria) this;
+        }
+
+        public Criteria andStockWeighGreaterThanOrEqualTo(BigDecimal value) {
+            addCriterion("stock_weigh >=", value, "stockWeigh");
+            return (Criteria) this;
+        }
+
+        public Criteria andStockWeighLessThan(BigDecimal value) {
+            addCriterion("stock_weigh <", value, "stockWeigh");
+            return (Criteria) this;
+        }
+
+        public Criteria andStockWeighLessThanOrEqualTo(BigDecimal value) {
+            addCriterion("stock_weigh <=", value, "stockWeigh");
+            return (Criteria) this;
+        }
+
+        public Criteria andStockWeighIn(List<BigDecimal> values) {
+            addCriterion("stock_weigh in", values, "stockWeigh");
+            return (Criteria) this;
+        }
+
+        public Criteria andStockWeighNotIn(List<BigDecimal> values) {
+            addCriterion("stock_weigh not in", values, "stockWeigh");
+            return (Criteria) this;
+        }
+
+        public Criteria andStockWeighBetween(BigDecimal value1, BigDecimal value2) {
+            addCriterion("stock_weigh between", value1, value2, "stockWeigh");
+            return (Criteria) this;
+        }
+
+        public Criteria andStockWeighNotBetween(BigDecimal value1, BigDecimal value2) {
+            addCriterion("stock_weigh not between", value1, value2, "stockWeigh");
+            return (Criteria) this;
+        }
+
         public Criteria andStockVolumeIsNull() {
             addCriterion("stock_volume is null");
             return (Criteria) this;

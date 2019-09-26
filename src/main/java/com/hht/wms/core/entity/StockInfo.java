@@ -7,7 +7,7 @@ import java.util.Date;
  * 
  * stock_info
  *
- * @author hansh
+ * @author chenqiliang
  *
  * @mbg.generated
  */
@@ -187,6 +187,12 @@ public class StockInfo {
     private BigDecimal stockGw;
 
     /**
+     * 总库存净重
+     * 表字段 : stock_info.stock_weigh
+     */
+    private BigDecimal stockWeigh;
+
+    /**
      * 总库存体积
      * 表字段 : stock_info.stock_volume
      */
@@ -211,7 +217,7 @@ public class StockInfo {
     private String customsMerchNo;
 
     /**
-     * 商品名称
+     * 报关单号
      * 表字段 : stock_info.merch_name
      */
     private String merchName;
@@ -796,6 +802,24 @@ public class StockInfo {
      */
     public void setStockGw(BigDecimal stockGw) {
         this.stockGw = stockGw;
+    }
+
+    /**
+     * 获取 总库存净重 字段:stock_info.stock_weigh
+     *
+     * @return stock_info.stock_weigh, 总库存净重
+     */
+    public BigDecimal getStockWeigh() {
+        return stockWeigh;
+    }
+
+    /**
+     * 设置 总库存净重 字段:stock_info.stock_weigh
+     *
+     * @param stockWeigh the value for stock_info.stock_weigh, 总库存净重
+     */
+    public void setStockWeigh(BigDecimal stockWeigh) {
+        this.stockWeigh = stockWeigh;
     }
 
     /**

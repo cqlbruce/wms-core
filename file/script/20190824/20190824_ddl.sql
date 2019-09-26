@@ -92,6 +92,7 @@ CREATE TABLE `stock_info` (
   `stock_ctns` decimal(12,6) COLLATE utf8_bin DEFAULT NULL COMMENT '总库存箱数',
   `stock_pcs` int(12) COLLATE utf8_bin DEFAULT NULL COMMENT '总库存件数',
   `stock_gw` decimal(18,6) COLLATE utf8_bin DEFAULT NULL COMMENT '总库存毛重',
+  `stock_weigh` decimal(18,6) COLLATE utf8_bin DEFAULT NULL COMMENT '总库存净重',
   `stock_volume` decimal(18,6) COLLATE utf8_bin DEFAULT NULL COMMENT '总库存体积',
   `stock_check` char(1) COLLATE utf8_bin DEFAULT NULL COMMENT '库存case pack 检验',
   `customs_order_no` varchar(32) COLLATE utf8_bin DEFAULT NULL COMMENT '报关单号',
@@ -101,7 +102,7 @@ CREATE TABLE `stock_info` (
   `decla_unit` varchar(32) COLLATE utf8_bin DEFAULT NULL COMMENT '申报单位/成交单位',
   `decla_unit_price` decimal(12,6) COLLATE utf8_bin DEFAULT NULL COMMENT '申报单位/成交单位',
   `decla_total_price` decimal(12,6) COLLATE utf8_bin DEFAULT NULL COMMENT '申报总价/成交总价',
-  `decla_currency` char(2) COLLATE utf8_bin DEFAULT NULL COMMENT '成交币种/申报币种',
+  `decla_currency` char(3) COLLATE utf8_bin DEFAULT NULL COMMENT '成交币种/申报币种',
   `origin_country` varchar(128) COLLATE utf8_bin DEFAULT NULL COMMENT '原产国',
   `dest_country` varchar(128) COLLATE utf8_bin DEFAULT NULL COMMENT '目的国',
   `supervision_conditions` varchar(32) COLLATE utf8_bin DEFAULT NULL COMMENT '海关监管条件',
@@ -109,7 +110,6 @@ CREATE TABLE `stock_info` (
   `update_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
-
 -----------------------------库存信息表 end-------------------------------------------
 
 

@@ -3,8 +3,7 @@ package com.hht.wms.core.controller;
 import com.alibaba.fastjson.JSON;
 import com.hht.wms.core.common.Resp;
 import com.hht.wms.core.dto.*;
-import com.hht.wms.core.entity.ShippedFee;
-import com.hht.wms.core.entity.StockFee;
+import com.hht.wms.core.entity.*;
 import io.swagger.annotations.ApiOperation;
 import org.assertj.core.util.Lists;
 import org.slf4j.Logger;
@@ -199,6 +198,209 @@ public class StatementAccountController {
 
         ShippedFeeExportRespDto respDto = new ShippedFeeExportRespDto();
         respDto.setItems(shippedFeeList);
+
+        return Resp.success("查询成功", respDto);
+    }
+
+    @PostMapping("loadStockGoods")
+    @ApiOperation(value = "存仓货物查询", notes = "")
+    public Resp<StockGoodsQueryRespDto> loadStockGoods(@RequestBody StockGoodsQueryReqDto reqDto) {
+        logger.info("存仓货物查询.........{}", JSON.toJSON(reqDto) );
+
+        List<StockGoods> stockGoodsList = Lists.newArrayList();
+
+        StockGoods stockGoods = new StockGoods();
+        stockGoods.setRcvdDate("2018/7/2");
+        stockGoods.setInboundNo("KAS18070201");
+        stockGoods.setSo("S10SZX1826002");
+        stockGoods.setPo("KG-ARI-1808-00019-00285");
+        stockGoods.setSku("42609926");
+        stockGoods.setStockPcs(new BigDecimal("6"));
+        stockGoods.setStockVolume(new BigDecimal("0.046"));
+        stockGoodsList.add(stockGoods);
+
+        StockGoods stockGoods1 = new StockGoods();
+        stockGoods1.setRcvdDate("2018/7/2");
+        stockGoods1.setInboundNo("KAS18070201");
+        stockGoods1.setSo("S10SZX1826002");
+        stockGoods1.setPo("KG-ARI-1808-00019-00285");
+        stockGoods1.setSku("42609926");
+        stockGoods1.setStockPcs(new BigDecimal("6"));
+        stockGoods1.setStockVolume(new BigDecimal("0.046"));
+        stockGoodsList.add(stockGoods1);
+
+        StockGoods stockGoods2 = new StockGoods();
+        stockGoods2.setRcvdDate("2018/7/2");
+        stockGoods2.setInboundNo("KAS18070201");
+        stockGoods2.setSo("S10SZX1826002");
+        stockGoods2.setPo("KG-ARI-1808-00019-00285");
+        stockGoods2.setSku("42609926");
+        stockGoods2.setStockPcs(new BigDecimal("6"));
+        stockGoods2.setStockVolume(new BigDecimal("0.046"));
+        stockGoodsList.add(stockGoods2);
+
+        StockGoodsQueryRespDto respDto = new StockGoodsQueryRespDto();
+        respDto.setTotal(stockGoodsList.size());
+        respDto.setItems(stockGoodsList);
+
+        return Resp.success("查询成功", respDto);
+    }
+
+    @PostMapping("exportStockGoods")
+    @ApiOperation(value = "存仓货物导出", notes = "")
+    public Resp<StockGoodsQueryRespDto> exportStockGoods(@RequestBody StockGoodsQueryReqDto reqDto) {
+        logger.info("存仓货物导出.........{}", JSON.toJSON(reqDto) );
+
+        List<StockGoods> stockGoodsList = Lists.newArrayList();
+
+        StockGoods stockGoods = new StockGoods();
+        stockGoods.setRcvdDate("2018/7/2");
+        stockGoods.setInboundNo("KAS18070201");
+        stockGoods.setSo("S10SZX1826002");
+        stockGoods.setPo("KG-ARI-1808-00019-00285");
+        stockGoods.setSku("42609926");
+        stockGoods.setStockPcs(new BigDecimal("6"));
+        stockGoods.setStockVolume(new BigDecimal("0.046"));
+        stockGoods.setOverStockDate("2019/7/1");
+        stockGoods.setOverStockDays(31);
+        stockGoods.setOverStockFee(new BigDecimal("2.01"));
+        stockGoods.setBillsBeginDate(reqDto.getBillsBeginDate());
+        stockGoods.setBillsEndDate(reqDto.getBillsEndDate());
+        stockGoods.setOverStockUnitPrice(reqDto.getOverStockUnitPrice());
+        stockGoodsList.add(stockGoods);
+
+
+        StockGoods stockGoods1 = new StockGoods();
+        stockGoods1.setRcvdDate("2018/7/2");
+        stockGoods1.setInboundNo("KAS18070201");
+        stockGoods1.setSo("S10SZX1826002");
+        stockGoods1.setPo("KG-ARI-1808-00019-00285");
+        stockGoods1.setSku("42609926");
+        stockGoods1.setStockPcs(new BigDecimal("6"));
+        stockGoods1.setStockVolume(new BigDecimal("0.046"));
+        stockGoods1.setOverStockDate("2019/7/1");
+        stockGoods1.setOverStockDays(31);
+        stockGoods1.setOverStockFee(new BigDecimal("2.01"));
+        stockGoods1.setBillsBeginDate(reqDto.getBillsBeginDate());
+        stockGoods1.setBillsEndDate(reqDto.getBillsEndDate());
+        stockGoods1.setOverStockUnitPrice(reqDto.getOverStockUnitPrice());
+        stockGoodsList.add(stockGoods1);
+
+        StockGoods stockGoods2 = new StockGoods();
+        stockGoods2.setRcvdDate("2018/7/2");
+        stockGoods2.setInboundNo("KAS18070201");
+        stockGoods2.setSo("S10SZX1826002");
+        stockGoods2.setPo("KG-ARI-1808-00019-00285");
+        stockGoods2.setSku("42609926");
+        stockGoods2.setStockPcs(new BigDecimal("6"));
+        stockGoods2.setStockVolume(new BigDecimal("0.046"));
+        stockGoods2.setOverStockDate("2019/7/1");
+        stockGoods2.setOverStockDays(31);
+        stockGoods2.setOverStockFee(new BigDecimal("2.01"));
+        stockGoods2.setBillsBeginDate(reqDto.getBillsBeginDate());
+        stockGoods2.setBillsEndDate(reqDto.getBillsEndDate());
+        stockGoods2.setOverStockUnitPrice(reqDto.getOverStockUnitPrice());
+        stockGoodsList.add(stockGoods2);
+
+        StockGoods stockGoods3 = new StockGoods();
+        stockGoods3.setRcvdDate("2018/7/2");
+        stockGoods3.setInboundNo("KAS18070201");
+        stockGoods3.setSo("S10SZX1826002");
+        stockGoods3.setPo("KG-ARI-1808-00019-00285");
+        stockGoods3.setSku("42609926");
+        stockGoods3.setStockPcs(new BigDecimal("6"));
+        stockGoods3.setStockVolume(new BigDecimal("0.046"));
+        stockGoods3.setOverStockDate("2019/7/1");
+        stockGoods3.setOverStockDays(31);
+        stockGoods3.setOverStockFee(new BigDecimal("2.01"));
+        stockGoods3.setBillsBeginDate(reqDto.getBillsBeginDate());
+        stockGoods3.setBillsEndDate(reqDto.getBillsEndDate());
+        stockGoods3.setOverStockUnitPrice(reqDto.getOverStockUnitPrice());
+        stockGoodsList.add(stockGoods3);
+
+        StockGoodsQueryRespDto respDto = new StockGoodsQueryRespDto();
+        respDto.setItems(stockGoodsList);
+
+        return Resp.success("查询成功", respDto);
+    }
+
+    @PostMapping("loadShippedGoods")
+    @ApiOperation(value = "出仓货物查询", notes = "")
+    public Resp<ShippedGoodsQueryRespDto> loadShippedGoods(@RequestBody ShippedGoodsQueryReqDto reqDto) {
+        logger.info("出仓货物查询.........{}", JSON.toJSON(reqDto) );
+
+        List<ShippedGoods> shippedGoodsList = Lists.newArrayList();
+
+        ShippedGoods shippedGoods = new ShippedGoods();
+        shippedGoods.setRcvdDate("2018/7/2");
+        shippedGoods.setInboundNo("KAS18070201");
+        shippedGoods.setSo("S10SZX1826002");
+        shippedGoods.setPo("KG-ARI-1808-00019-00285");
+        shippedGoods.setSku("42609926");
+        shippedGoods.setStockPcs(new BigDecimal("6"));
+        shippedGoods.setStockVolume(new BigDecimal("0.046"));
+        shippedGoods.setShippedNo("SPS190422T010SZX917JKT9");
+        shippedGoods.setShippedOrderDate("2019/7/4");
+        shippedGoodsList.add(shippedGoods);
+
+        ShippedGoods shippedGoods1 = new ShippedGoods();
+        shippedGoods1.setRcvdDate("2018/7/2");
+        shippedGoods1.setInboundNo("KAS18070201");
+        shippedGoods1.setSo("S10SZX1826002");
+        shippedGoods1.setPo("KG-ARI-1808-00019-00285");
+        shippedGoods1.setSku("42609926");
+        shippedGoods1.setStockPcs(new BigDecimal("6"));
+        shippedGoods1.setStockVolume(new BigDecimal("0.046"));
+        shippedGoods1.setShippedNo("SPS190422T010SZX917JKT9");
+        shippedGoods1.setShippedOrderDate("2019/7/4");
+        shippedGoodsList.add(shippedGoods1);
+
+        ShippedGoodsQueryRespDto respDto = new ShippedGoodsQueryRespDto();
+        respDto.setTotal(shippedGoodsList.size());
+        respDto.setItems(shippedGoodsList);
+
+        return Resp.success("查询成功", respDto);
+    }
+
+    @PostMapping("exportShippedGoods")
+    @ApiOperation(value = "出仓货物导出", notes = "")
+    public Resp<ShippedGoodsQueryRespDto> exportShippedGoods(@RequestBody ShippedGoodsQueryReqDto reqDto) {
+        logger.info("出仓货物导出.........{}", JSON.toJSON(reqDto) );
+
+        List<ShippedGoods> shippedGoodsList = Lists.newArrayList();
+
+        ShippedGoods shippedGoods = new ShippedGoods();
+        shippedGoods.setRcvdDate("2018/7/2");
+        shippedGoods.setInboundNo("KAS18070201");
+        shippedGoods.setSo("S10SZX1826002");
+        shippedGoods.setPo("KG-ARI-1808-00019-00285");
+        shippedGoods.setSku("42609926");
+        shippedGoods.setStockPcs(new BigDecimal("6"));
+        shippedGoods.setStockVolume(new BigDecimal("0.046"));
+        shippedGoods.setShippedNo("SPS190422T010SZX917JKT9");
+        shippedGoods.setShippedOrderDate("2019/7/4");
+        shippedGoods.setBillsBeginDate(reqDto.getBillsBeginDate());
+        shippedGoods.setBillsEndDate(reqDto.getBillsEndDate());
+        shippedGoods.setOverStockUnitPrice(reqDto.getOverStockUnitPrice());
+        shippedGoodsList.add(shippedGoods);
+
+        ShippedGoods shippedGoods1 = new ShippedGoods();
+        shippedGoods1.setRcvdDate("2018/7/2");
+        shippedGoods1.setInboundNo("KAS18070201");
+        shippedGoods1.setSo("S10SZX1826002");
+        shippedGoods1.setPo("KG-ARI-1808-00019-00285");
+        shippedGoods1.setSku("42609926");
+        shippedGoods1.setStockPcs(new BigDecimal("6"));
+        shippedGoods1.setStockVolume(new BigDecimal("0.046"));
+        shippedGoods1.setShippedNo("SPS190422T010SZX917JKT9");
+        shippedGoods1.setShippedOrderDate("2019/7/4");
+        shippedGoods.setBillsBeginDate(reqDto.getBillsBeginDate());
+        shippedGoods.setBillsEndDate(reqDto.getBillsEndDate());
+        shippedGoods.setOverStockUnitPrice(reqDto.getOverStockUnitPrice());
+        shippedGoodsList.add(shippedGoods1);
+
+        ShippedGoodsQueryRespDto respDto = new ShippedGoodsQueryRespDto();
+        respDto.setItems(shippedGoodsList);
 
         return Resp.success("查询成功", respDto);
     }

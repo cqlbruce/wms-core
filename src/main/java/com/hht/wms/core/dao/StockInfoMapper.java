@@ -60,4 +60,5 @@ public interface StockInfoMapper {
     
     int selectCount(StockInfoQueryReqDto reqDto);
     
+    
 }

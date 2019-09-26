@@ -1,10 +1,8 @@
 package com.hht.wms.core.dao;
 
-import java.util.List;
-
-import com.hht.wms.core.dto.ShippedInfoReqDto;
 import com.hht.wms.core.entity.ShippedInfo;
 import com.hht.wms.core.entity.ShippedInfoExample;
+import java.util.List;
 
 public interface ShippedInfoMapper {
     /**
@@ -55,10 +53,4 @@ public interface ShippedInfoMapper {
      * @param record
      */
     int updateByPrimaryKey(ShippedInfo record);
-    
-    
-    //    自定义
-    
-    List<ShippedInfo> queryList(ShippedInfoReqDto reqDto);
-    
 }

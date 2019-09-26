@@ -400,29 +400,4 @@
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=VARCHAR}
   </update>
-  
-  
-  
-<!--   自定义 -->
-<!--       List<ShippedInfo> queryList(ShippedInfoReqDto reqDto); -->
-  
-  
-    <select id="queryList" resultMap="BaseResultMap" parameterType="com.hht.wms.core.dto.ShippedInfoReqDto" >
-    select <include refid="Base_Column_List" /> from stock_info 
-  <where>  
-	<if test="so != null and so !=''">
-		so=#{so,jdbcType=VARCHAR}
-	</if>
-	<if test="po != null and po !=''">
-		and po = #{po,jdbcType=VARCHAR}
-	</if>    
-	<if test="sku != null and sku != ''">
-		and sku = #{sku,jdbcType=VARCHAR}
-	</if>    	
-	<if test="clp != null and clp != ''">
-		and shipped_no = #{clp,jdbcType=VARCHAR}
-	</if>    		
-   </where> 	
-  </select>
-  
 </mapper>

@@ -7,7 +7,7 @@ import java.util.Date;
  * 
  * shipped_info
  *
- * @author hansh
+ * @author chenqiliang
  *
  * @mbg.generated
  */
