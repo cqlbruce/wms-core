@@ -38,6 +38,7 @@ public class StockInfoServiceImpl implements StockInfoService{
        	   	info.setItemsPerBox(info.getRcvdPcs()/info.getRcvdCtns());           	   
 
 			//实收总毛重 = 每箱毛重 * 实收件数
+       	   	
 			info.setGwAllActul(info.getGwPerBoxActul().multiply(new BigDecimal(info.getRcvdPcs())));
 			//实测单箱体积 = 长 * 宽 * 高
 			info.setBoxPerVolumeActul(info.getBoxHighActul().multiply(info.getBoxLengthActul()).multiply(info.getBoxWidthActul()));
