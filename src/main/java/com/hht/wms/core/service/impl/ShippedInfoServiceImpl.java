@@ -14,7 +14,6 @@ public class ShippedInfoServiceImpl implements ShippedInfoService{
 	@Override
 	public List<ShippedInfo> queryList(ShippedInfoReqDto reqDto) {
 
-		
 		return null;
 	}
 

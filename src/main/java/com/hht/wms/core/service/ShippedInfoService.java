@@ -9,5 +9,6 @@ public interface ShippedInfoService {
 	
 	
 	List<ShippedInfo> queryList(ShippedInfoReqDto reqDto );
+	
 
 }

@@ -1,5 +1,6 @@
 package com.hht.wms.core.controller;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,6 +31,7 @@ import com.hht.wms.core.entity.StockInfo;
 import com.hht.wms.core.service.StockInfoService;
 import com.hht.wms.core.util.ExcelUtil;
 import com.hht.wms.core.util.NumberUtil;
+import com.hht.wms.core.util.StrUtil;
 
 import io.swagger.annotations.ApiOperation;
 
@@ -93,8 +95,7 @@ public class StockController {
     @ApiOperation(value = "出库", notes = "")
 	public Resp outbound(@RequestBody OutboundReqDto reqDto) {
  		logger.info("outbound..............{}",JSON.toJSON(reqDto) );
-
-	
+ 		stockInfoService.outbound(reqDto);	
 		return Resp.success("出库成功");
     }		
 	
@@ -130,8 +131,8 @@ public class StockController {
 	       	   	//第五列sku item
 	       	   	info.setSku(ExcelUtil.getCellValue(row.getCell(5)));
 	       	   	
-	       	   	String id = new StringBuilder().append(info.getSo()).append(info.getPo()).append(info.getSku()).toString();
-	       	    info.setId(id);
+//	       	   	String id = new StringBuilder().append(info.getSo()).append(info.getPo()).append(info.getSku()).toString();
+//	       	    info.setId(id);
 	       	   	//第9列 箱数-实收箱数
 	       	   	int rcvdCtns = Integer.parseInt(ExcelUtil.getCellValue(row.getCell(9)));
 	       	   	info.setRcvdCtns(rcvdCtns);
@@ -139,17 +140,17 @@ public class StockController {
 	       	   	int rcvdPcs = Integer.parseInt(ExcelUtil.getCellValue(row.getCell(11))) ;
 	       	   	info.setRcvdPcs(rcvdPcs);
 	       	   	//第10列 每箱数量 -- 计算，excel表有些为空
-	       	   	info.setItemsPerBox(rcvdPcs/rcvdCtns);           	   
+//	       	   	info.setItemsPerBox(rcvdPcs/rcvdCtns);           	   
 	       	   	//第12列 单位 PCS 
            	   
 	       	   	//第15列 长 
-           	   
+	       	   	info.setBoxLengthActul(new BigDecimal("0"));
 	       	   	//16列 宽
-           	   
+	       	   	info.setBoxWidthActul(new BigDecimal("0"));
 	       	   	//17列 高
-           	   
+	       	   	info.setBoxHighActul(new BigDecimal("0"));
 	       	   	//18 体积 CBM
-           	   
+	       	   	
 	       	   	//19 体积计算单位 
            	   
 	       	   	//20 车牌 --
@@ -199,6 +200,8 @@ public class StockController {
 	       	   	//45 产地代码
            	   
 	       	   	// 46 备注
+	       	 	info.setId(StrUtil.getStockInfoId(info.getSo(), info.getPo(), info.getSku()));
+	       	 	info.setGwPerBoxActul(new BigDecimal("0"));
 	       	   	stockInfoList.add(info);
 	        }
 		}finally{

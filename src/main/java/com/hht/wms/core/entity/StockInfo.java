@@ -287,9 +287,9 @@ public class StockInfo {
      *
      * @return stock_info.id, 主键 id
      */
-    public String getId() {
-        return id;
-    }
+//    public String getId() {
+//        return id;
+//    }
 
     /**
      * 设置 主键 id 字段:stock_info.id
@@ -1090,5 +1090,14 @@ public class StockInfo {
      */
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+    
+    
+    public String getId() {
+		return id;
+	}
+
+	public void appendId() {
+    	this.id = new StringBuilder().append(this.so).append(this.po).append(this.sku).toString() ;  
     }
 }

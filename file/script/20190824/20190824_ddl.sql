@@ -70,7 +70,7 @@ CREATE TABLE `stock_info` (
   `sku` varchar(32) COLLATE utf8_bin DEFAULT NULL COMMENT '货物款号 asn-item',
   `inbound_no` varchar(32) COLLATE utf8_bin DEFAULT NULL COMMENT '入仓编号',
   `customs_meterial_no` varchar(32) COLLATE utf8_bin DEFAULT NULL COMMENT '海关系统物料号',
-  `rcvd_date` varchar(8) COLLATE utf8_bin DEFAULT NULL COMMENT '收货日期',
+  `rcvd_date` varchar(16) COLLATE utf8_bin DEFAULT NULL COMMENT '收货日期',
   `rcvd_ctns` int(10) COLLATE utf8_bin DEFAULT NULL COMMENT '实收箱数',
   `rcvd_pcs` int(12) COLLATE utf8_bin DEFAULT NULL COMMENT '实收件数',
   `items_per_box` int(8) COLLATE utf8_bin DEFAULT NULL COMMENT '一箱几件',

@@ -145,277 +145,7 @@
       #{supervisionConditions,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
       )
   </insert>
-  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.hht.wms.core.entity.StockInfo" useGeneratedKeys="true">
-    insert into stock_info
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="supplierName != null">
-        supplier_name,
-      </if>
-      <if test="so != null">
-        so,
-      </if>
-      <if test="po != null">
-        po,
-      </if>
-      <if test="sku != null">
-        sku,
-      </if>
-      <if test="inboundNo != null">
-        inbound_no,
-      </if>
-      <if test="customsMeterialNo != null">
-        customs_meterial_no,
-      </if>
-      <if test="rcvdDate != null">
-        rcvd_date,
-      </if>
-      <if test="rcvdCtns != null">
-        rcvd_ctns,
-      </if>
-      <if test="rcvdPcs != null">
-        rcvd_pcs,
-      </if>
-      <if test="itemsPerBox != null">
-        items_per_box,
-      </if>
-      <if test="gwPerBoxActul != null">
-        gw_per_box_actul,
-      </if>
-      <if test="gwAllActul != null">
-        gw_all_actul,
-      </if>
-      <if test="boxLengthActul != null">
-        box_length_actul,
-      </if>
-      <if test="boxWidthActul != null">
-        box_width_actul,
-      </if>
-      <if test="boxHighActul != null">
-        box_high_actul,
-      </if>
-      <if test="boxPerVolumeActul != null">
-        box_per_volume_actul,
-      </if>
-      <if test="boxAllVolumeActul != null">
-        box_all_volume_actul,
-      </if>
-      <if test="custsDeclaPieceWeigh != null">
-        custs_decla_piece_weigh,
-      </if>
-      <if test="custsDeclaAllWeigh != null">
-        custs_decla_all_weigh,
-      </if>
-      <if test="warehousePosition != null">
-        warehouse_position,
-      </if>
-      <if test="shippedCtns != null">
-        shipped_ctns,
-      </if>
-      <if test="shippedPcs != null">
-        shipped_pcs,
-      </if>
-      <if test="shippedGw != null">
-        shipped_gw,
-      </if>
-      <if test="shippedWeigh != null">
-        shipped_weigh,
-      </if>
-      <if test="shippedVolume != null">
-        shipped_volume,
-      </if>
-      <if test="stockCtns != null">
-        stock_ctns,
-      </if>
-      <if test="stockPcs != null">
-        stock_pcs,
-      </if>
-      <if test="stockGw != null">
-        stock_gw,
-      </if>
-      <if test="stockWeigh != null">
-        stock_weigh,
-      </if>
-      <if test="stockVolume != null">
-        stock_volume,
-      </if>
-      <if test="stockCheck != null">
-        stock_check,
-      </if>
-      <if test="customsOrderNo != null">
-        customs_order_no,
-      </if>
-      <if test="customsMerchNo != null">
-        customs_merch_no,
-      </if>
-      <if test="merchName != null">
-        merch_name,
-      </if>
-      <if test="declaCount != null">
-        decla_count,
-      </if>
-      <if test="declaUnit != null">
-        decla_unit,
-      </if>
-      <if test="declaUnitPrice != null">
-        decla_unit_price,
-      </if>
-      <if test="declaTotalPrice != null">
-        decla_total_price,
-      </if>
-      <if test="declaCurrency != null">
-        decla_currency,
-      </if>
-      <if test="originCountry != null">
-        origin_country,
-      </if>
-      <if test="destCountry != null">
-        dest_country,
-      </if>
-      <if test="supervisionConditions != null">
-        supervision_conditions,
-      </if>
-      <if test="createTime != null">
-        create_time,
-      </if>
-      <if test="updateTime != null">
-        update_time,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="supplierName != null">
-        #{supplierName,jdbcType=VARCHAR},
-      </if>
-      <if test="so != null">
-        #{so,jdbcType=VARCHAR},
-      </if>
-      <if test="po != null">
-        #{po,jdbcType=VARCHAR},
-      </if>
-      <if test="sku != null">
-        #{sku,jdbcType=VARCHAR},
-      </if>
-      <if test="inboundNo != null">
-        #{inboundNo,jdbcType=VARCHAR},
-      </if>
-      <if test="customsMeterialNo != null">
-        #{customsMeterialNo,jdbcType=VARCHAR},
-      </if>
-      <if test="rcvdDate != null">
-        #{rcvdDate,jdbcType=VARCHAR},
-      </if>
-      <if test="rcvdCtns != null">
-        #{rcvdCtns,jdbcType=INTEGER},
-      </if>
-      <if test="rcvdPcs != null">
-        #{rcvdPcs,jdbcType=INTEGER},
-      </if>
-      <if test="itemsPerBox != null">
-        #{itemsPerBox,jdbcType=INTEGER},
-      </if>
-      <if test="gwPerBoxActul != null">
-        #{gwPerBoxActul,jdbcType=DECIMAL},
-      </if>
-      <if test="gwAllActul != null">
-        #{gwAllActul,jdbcType=DECIMAL},
-      </if>
-      <if test="boxLengthActul != null">
-        #{boxLengthActul,jdbcType=DECIMAL},
-      </if>
-      <if test="boxWidthActul != null">
-        #{boxWidthActul,jdbcType=DECIMAL},
-      </if>
-      <if test="boxHighActul != null">
-        #{boxHighActul,jdbcType=DECIMAL},
-      </if>
-      <if test="boxPerVolumeActul != null">
-        #{boxPerVolumeActul,jdbcType=DECIMAL},
-      </if>
-      <if test="boxAllVolumeActul != null">
-        #{boxAllVolumeActul,jdbcType=DECIMAL},
-      </if>
-      <if test="custsDeclaPieceWeigh != null">
-        #{custsDeclaPieceWeigh,jdbcType=DECIMAL},
-      </if>
-      <if test="custsDeclaAllWeigh != null">
-        #{custsDeclaAllWeigh,jdbcType=DECIMAL},
-      </if>
-      <if test="warehousePosition != null">
-        #{warehousePosition,jdbcType=VARCHAR},
-      </if>
-      <if test="shippedCtns != null">
-        #{shippedCtns,jdbcType=DECIMAL},
-      </if>
-      <if test="shippedPcs != null">
-        #{shippedPcs,jdbcType=INTEGER},
-      </if>
-      <if test="shippedGw != null">
-        #{shippedGw,jdbcType=DECIMAL},
-      </if>
-      <if test="shippedWeigh != null">
-        #{shippedWeigh,jdbcType=DECIMAL},
-      </if>
-      <if test="shippedVolume != null">
-        #{shippedVolume,jdbcType=DECIMAL},
-      </if>
-      <if test="stockCtns != null">
-        #{stockCtns,jdbcType=DECIMAL},
-      </if>
-      <if test="stockPcs != null">
-        #{stockPcs,jdbcType=INTEGER},
-      </if>
-      <if test="stockGw != null">
-        #{stockGw,jdbcType=DECIMAL},
-      </if>
-      <if test="stockWeigh != null">
-        #{stockWeigh,jdbcType=DECIMAL},
-      </if>
-      <if test="stockVolume != null">
-        #{stockVolume,jdbcType=DECIMAL},
-      </if>
-      <if test="stockCheck != null">
-        #{stockCheck,jdbcType=CHAR},
-      </if>
-      <if test="customsOrderNo != null">
-        #{customsOrderNo,jdbcType=VARCHAR},
-      </if>
-      <if test="customsMerchNo != null">
-        #{customsMerchNo,jdbcType=VARCHAR},
-      </if>
-      <if test="merchName != null">
-        #{merchName,jdbcType=VARCHAR},
-      </if>
-      <if test="declaCount != null">
-        #{declaCount,jdbcType=INTEGER},
-      </if>
-      <if test="declaUnit != null">
-        #{declaUnit,jdbcType=VARCHAR},
-      </if>
-      <if test="declaUnitPrice != null">
-        #{declaUnitPrice,jdbcType=DECIMAL},
-      </if>
-      <if test="declaTotalPrice != null">
-        #{declaTotalPrice,jdbcType=DECIMAL},
-      </if>
-      <if test="declaCurrency != null">
-        #{declaCurrency,jdbcType=CHAR},
-      </if>
-      <if test="originCountry != null">
-        #{originCountry,jdbcType=VARCHAR},
-      </if>
-      <if test="destCountry != null">
-        #{destCountry,jdbcType=VARCHAR},
-      </if>
-      <if test="supervisionConditions != null">
-        #{supervisionConditions,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null">
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null">
-        #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-    </trim>
-  </insert>
+ 
  
   <update id="updateByPrimaryKey" parameterType="com.hht.wms.core.entity.StockInfo">
     update stock_info
@@ -484,7 +214,6 @@
 	</if>    	
    </where> 	
   </select>
-  
   
   <select id="selectCount" resultType="java.lang.Integer" parameterType="com.hht.wms.core.dto.StockInfoQueryReqDto" >
   	select count(1) from stock_info 
@@ -588,8 +317,8 @@
       <if test="stockGw != null  and stockGw !=''">
         stock_gw = #{stockGw,jdbcType=DECIMAL},
       </if>
-      <if test="stockWeigh != null  and stock_weigh !=''">
-        stock_weigh = #{stock_weigh,jdbcType=DECIMAL},
+      <if test="stockWeigh != null  and stockWeigh !=''">
+        stock_weigh = #{stockWeigh,jdbcType=DECIMAL},
       </if>      
       <if test="stockVolume != null and stockVolume !=''">
         stock_volume = #{stockVolume,jdbcType=DECIMAL},
@@ -639,5 +368,284 @@
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
+  
+  
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.hht.wms.core.entity.StockInfo" useGeneratedKeys="true">
+    insert into stock_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null  and id !=''">
+        id,
+      </if>    
+      <if test="supplierName != null  and supplierName !=''">
+        supplier_name,
+      </if>
+      <if test="so != null and so !=''">
+        so,
+      </if>
+      <if test="po != null  and po !=''">
+        po,
+      </if>
+      <if test="sku != null  and sku !=''">
+        sku,
+      </if>
+      <if test="inboundNo != null and inboundNo !=''">
+        inbound_no,
+      </if>
+      <if test="customsMeterialNo != null and customsMeterialNo !=''">
+        customs_meterial_no,
+      </if>
+      <if test="rcvdDate != null and rcvdDate !=''">
+        rcvd_date,
+      </if>
+      <if test="rcvdCtns != null and rcvdCtns !=''">
+        rcvd_ctns,
+      </if>
+      <if test="rcvdPcs != null and rcvdPcs !=''">
+        rcvd_pcs,
+      </if>
+      <if test="itemsPerBox != null and itemsPerBox !=''">
+        items_per_box,
+      </if>
+      <if test="gwPerBoxActul != null and gwPerBoxActul !=''">
+        gw_per_box_actul,
+      </if>
+      <if test="gwAllActul != null  and gwAllActul !=''">
+        gw_all_actul,
+      </if>
+      <if test="boxLengthActul != null  and boxLengthActul !=''">
+        box_length_actul,
+      </if>
+      <if test="boxWidthActul != null  and boxWidthActul !=''">
+        box_width_actul,
+      </if>
+      <if test="boxHighActul != null  and boxHighActul !=''">
+        box_high_actul,
+      </if>
+      <if test="boxPerVolumeActul != null  and boxPerVolumeActul !=''">
+        box_per_volume_actul,
+      </if>
+      <if test="boxAllVolumeActul != null and boxAllVolumeActul !=''">
+        box_all_volume_actul,
+      </if>
+      <if test="custsDeclaPieceWeigh != null  and custsDeclaPieceWeigh !=''">
+        custs_decla_piece_weigh,
+      </if>
+      <if test="custsDeclaAllWeigh != null  and custsDeclaAllWeigh !=''">
+        custs_decla_all_weigh,
+      </if>
+      <if test="warehousePosition != null  and warehousePosition !=''">
+        warehouse_position,
+      </if>
+      <if test="shippedCtns != null  and shippedCtns !=''">
+        shipped_ctns,
+      </if>
+      <if test="shippedPcs != null and shippedPcs !=''">
+        shipped_pcs,
+      </if>
+      <if test="shippedGw != null and shippedGw !=''">
+        shipped_gw,
+      </if>
+      <if test="shippedWeigh != null and shippedWeigh !=''">
+        shipped_weigh,
+      </if>
+      <if test="shippedVolume != null and shippedVolume !=''">
+        shipped_volume,
+      </if>
+      <if test="stockCtns != null and stockCtns !=''">
+        stock_ctns,
+      </if>
+      <if test="stockPcs != null and stockPcs !=''">
+        stock_pcs,
+      </if>
+      <if test="stockGw != null and stockGw !=''">
+        stock_gw,
+      </if>
+      <if test="stockWeigh != null and stockWeigh !=''">
+        stock_weigh,
+      </if>
+      <if test="stockVolume != null  and stockVolume !=''">
+        stock_volume,
+      </if>
+      <if test="stockCheck != null  and stockCheck !=''">
+        stock_check,
+      </if>
+      <if test="customsOrderNo != null and customsOrderNo !=''">
+        customs_order_no,
+      </if>
+      <if test="customsMerchNo != null  and customsMerchNo !=''">
+        customs_merch_no,
+      </if>
+      <if test="merchName != null and merchName !=''">
+        merch_name,
+      </if>
+      <if test="declaCount != null and declaCount !=''">
+        decla_count,
+      </if>
+      <if test="declaUnit != null and declaUnit !=''">
+        decla_unit,
+      </if>
+      <if test="declaUnitPrice != null and declaUnitPrice !=''">
+        decla_unit_price,
+      </if>
+      <if test="declaTotalPrice != null and declaTotalPrice !=''">
+        decla_total_price,
+      </if>
+      <if test="declaCurrency != null and declaCurrency !=''">
+        decla_currency,
+      </if>
+      <if test="originCountry != null and originCountry !=''">
+        origin_country,
+      </if>
+      <if test="destCountry != null and destCountry !=''">
+        dest_country,
+      </if>
+      <if test="supervisionConditions != null and supervisionConditions !=''">
+        supervision_conditions,
+      </if>
+      <if test="createTime != null  and createTime !=''">
+        create_time,
+      </if>
+      <if test="updateTime != null and updateTime !=''">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null and id !=''">
+        #{id,jdbcType=VARCHAR},
+      </if>    
+      <if test="supplierName != null  and supplierName !=''">
+        #{supplierName,jdbcType=VARCHAR},
+      </if>
+      <if test="so != null and so !=''">
+        #{so,jdbcType=VARCHAR},
+      </if>
+      <if test="po != null and po !=''">
+        #{po,jdbcType=VARCHAR},
+      </if>
+      <if test="sku != null  and sku !=''">
+        #{sku,jdbcType=VARCHAR},
+      </if>
+      <if test="inboundNo != null  and inboundNo !=''">
+        #{inboundNo,jdbcType=VARCHAR},
+      </if>
+      <if test="customsMeterialNo != null  and customsMeterialNo !=''">
+        #{customsMeterialNo,jdbcType=VARCHAR},
+      </if>
+      <if test="rcvdDate != null  and rcvdDate !=''">
+        #{rcvdDate,jdbcType=VARCHAR},
+      </if>
+      <if test="rcvdCtns != null   and rcvdCtns !=''">
+        #{rcvdCtns,jdbcType=INTEGER},
+      </if>
+      <if test="rcvdPcs != null  and rcvdPcs !=''">
+        #{rcvdPcs,jdbcType=INTEGER},
+      </if>
+      <if test="itemsPerBox != null  and itemsPerBox !=''">
+        #{itemsPerBox,jdbcType=INTEGER},
+      </if>
+      <if test="gwPerBoxActul != null  and gwPerBoxActul !=''">
+        #{gwPerBoxActul,jdbcType=DECIMAL},
+      </if>
+      <if test="gwAllActul != null and gwAllActul !=''">
+        #{gwAllActul,jdbcType=DECIMAL},
+      </if>
+      <if test="boxLengthActul != null and boxLengthActul !=''">
+        #{boxLengthActul,jdbcType=DECIMAL},
+      </if>
+      <if test="boxWidthActul != null  and boxWidthActul !=''">
+        #{boxWidthActul,jdbcType=DECIMAL},
+      </if>
+      <if test="boxHighActul != null and boxHighActul !=''">
+        #{boxHighActul,jdbcType=DECIMAL},
+      </if>
+      <if test="boxPerVolumeActul != null and boxPerVolumeActul !=''">
+        #{boxPerVolumeActul,jdbcType=DECIMAL},
+      </if>
+      <if test="boxAllVolumeActul != null  and boxAllVolumeActul !=''">
+        #{boxAllVolumeActul,jdbcType=DECIMAL},
+      </if>
+      <if test="custsDeclaPieceWeigh != null and custsDeclaPieceWeigh !=''">
+        #{custsDeclaPieceWeigh,jdbcType=DECIMAL},
+      </if>
+      <if test="custsDeclaAllWeigh != null  and custsDeclaAllWeigh !=''">
+        #{custsDeclaAllWeigh,jdbcType=DECIMAL},
+      </if>
+      <if test="warehousePosition != null   and warehousePosition !=''">
+        #{warehousePosition,jdbcType=VARCHAR},
+      </if>
+      <if test="shippedCtns != null and shippedCtns !=''">
+        #{shippedCtns,jdbcType=DECIMAL},
+      </if>
+      <if test="shippedPcs != null  and shippedPcs !=''">
+        #{shippedPcs,jdbcType=INTEGER},
+      </if>
+      <if test="shippedGw != null  and shippedGw !=''">
+        #{shippedGw,jdbcType=DECIMAL},
+      </if>
+      <if test="shippedWeigh != null and shippedWeigh !=''">
+        #{shippedWeigh,jdbcType=DECIMAL},
+      </if>
+      <if test="shippedVolume != null and shippedVolume !=''">
+        #{shippedVolume,jdbcType=DECIMAL},
+      </if>
+      <if test="stockCtns != null  and stockCtns !=''">
+        #{stockCtns,jdbcType=DECIMAL},
+      </if>
+      <if test="stockPcs != null and stockPcs !=''">
+        #{stockPcs,jdbcType=INTEGER},
+      </if>
+      <if test="stockGw != null  and stockGw !=''">
+        #{stockGw,jdbcType=DECIMAL},
+      </if>
+      <if test="stockWeigh != null  and stockWeigh !=''">
+        #{stockWeigh,jdbcType=DECIMAL},
+      </if>
+      <if test="stockVolume != null and stockVolume !=''">
+        #{stockVolume,jdbcType=DECIMAL},
+      </if>
+      <if test="stockCheck != null  and stockCheck !=''">
+        #{stockCheck,jdbcType=CHAR},
+      </if>
+      <if test="customsOrderNo != null and customsOrderNo !=''">
+        #{customsOrderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="customsMerchNo != null and customsMerchNo !=''">
+        #{customsMerchNo,jdbcType=VARCHAR},
+      </if>
+      <if test="merchName != null  and merchName !=''">
+        #{merchName,jdbcType=VARCHAR},
+      </if>
+      <if test="declaCount != null  and declaCount !=''">
+        #{declaCount,jdbcType=INTEGER},
+      </if>
+      <if test="declaUnit != null  and declaUnit !=''">
+        #{declaUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="declaUnitPrice != null and declaUnitPrice !=''">
+        #{declaUnitPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="declaTotalPrice != null and declaTotalPrice !=''">
+        #{declaTotalPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="declaCurrency != null and declaCurrency !=''">
+        #{declaCurrency,jdbcType=CHAR},
+      </if>
+      <if test="originCountry != null and originCountry !=''">
+        #{originCountry,jdbcType=VARCHAR},
+      </if>
+      <if test="destCountry != null and destCountry !=''">
+        #{destCountry,jdbcType=VARCHAR},
+      </if>
+      <if test="supervisionConditions != null and supervisionConditions !=''">
+        #{supervisionConditions,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null and createTime !=''">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null and updateTime !=''">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
   
 </mapper>
