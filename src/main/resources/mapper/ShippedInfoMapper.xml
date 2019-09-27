@@ -326,7 +326,7 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null  and id !=''">
-        #{so,jdbcType=VARCHAR},
+        #{id,jdbcType=VARCHAR},
       </if>
       <if test="so != null  and so !=''">
         #{so,jdbcType=VARCHAR},
@@ -411,4 +411,25 @@
       </if>
     </trim>
   </insert>
+  
+  
+   <!--   自定义 -->
+   
+   
+  <select id="queryList" resultMap="BaseResultMap" parameterType="com.hht.wms.core.dto.ShippedInfoReqDto" >
+    select <include refid="Base_Column_List" /> from stock_info 
+  <where>  
+	<if test="so != null and so !=''">
+		so=#{so,jdbcType=VARCHAR}
+	</if>
+	<if test="po != null and po !=''">
+		and po = #{po,jdbcType=VARCHAR}
+	</if>    
+	<if test="sku != null and sku != ''">
+		and sku = #{sku,jdbcType=VARCHAR}
+	</if>    	
+   </where> 	
+  </select>
+   
+  
 </mapper>

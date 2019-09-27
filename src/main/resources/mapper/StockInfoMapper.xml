@@ -436,19 +436,19 @@
       <if test="warehousePosition != null  and warehousePosition !=''">
         warehouse_position,
       </if>
-      <if test="shippedCtns != null  and shippedCtns !=''">
+      <if test="shippedCtns != null ">
         shipped_ctns,
       </if>
-      <if test="shippedPcs != null and shippedPcs !=''">
+      <if test="shippedPcs != null ">
         shipped_pcs,
       </if>
-      <if test="shippedGw != null and shippedGw !=''">
+      <if test="shippedGw != null ">
         shipped_gw,
       </if>
-      <if test="shippedWeigh != null and shippedWeigh !=''">
+      <if test="shippedWeigh != null ">
         shipped_weigh,
       </if>
-      <if test="shippedVolume != null and shippedVolume !=''">
+      <if test="shippedVolume != null">
         shipped_volume,
       </if>
       <if test="stockCtns != null and stockCtns !=''">
@@ -573,19 +573,19 @@
       <if test="warehousePosition != null   and warehousePosition !=''">
         #{warehousePosition,jdbcType=VARCHAR},
       </if>
-      <if test="shippedCtns != null and shippedCtns !=''">
+      <if test="shippedCtns != null ">
         #{shippedCtns,jdbcType=DECIMAL},
       </if>
-      <if test="shippedPcs != null  and shippedPcs !=''">
+      <if test="shippedPcs != null ">
         #{shippedPcs,jdbcType=INTEGER},
       </if>
-      <if test="shippedGw != null  and shippedGw !=''">
+      <if test="shippedGw != null ">
         #{shippedGw,jdbcType=DECIMAL},
       </if>
-      <if test="shippedWeigh != null and shippedWeigh !=''">
+      <if test="shippedWeigh != null ">
         #{shippedWeigh,jdbcType=DECIMAL},
       </if>
-      <if test="shippedVolume != null and shippedVolume !=''">
+      <if test="shippedVolume != null ">
         #{shippedVolume,jdbcType=DECIMAL},
       </if>
       <if test="stockCtns != null  and stockCtns !=''">

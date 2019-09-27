@@ -2,13 +2,18 @@ package com.hht.wms.core.service.impl;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.Date;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.alibaba.fastjson.JSON;
+import com.hht.wms.core.controller.StockController;
 import com.hht.wms.core.dao.ShippedInfoMapper;
 import com.hht.wms.core.dao.StockInfoMapper;
 import com.hht.wms.core.dto.OutboundReqDto;
@@ -17,12 +22,14 @@ import com.hht.wms.core.entity.ShippedInfo;
 import com.hht.wms.core.entity.StockInfo;
 import com.hht.wms.core.service.StockInfoService;
 import com.hht.wms.core.util.DateUtil;
-import com.hht.wms.core.util.NumberUtil;
+import com.hht.wms.core.util.SnowFlakeUtil;
 import com.hht.wms.core.util.StrUtil;
 
 @Service
 public class StockInfoServiceImpl implements StockInfoService{
 	
+	private static Logger logger = LoggerFactory.getLogger(StockController.class) ; 
+
 	
 	@Autowired
 	private StockInfoMapper stockInfoMapper ; 
@@ -63,6 +70,15 @@ public class StockInfoServiceImpl implements StockInfoService{
 			info.setStockWeigh(info.getCustsDeclaAllWeigh());
 			//总库存体积
 			info.setStockVolume(info.getBoxAllVolumeActul());
+			
+			info.setShippedCtns(BigDecimal.ZERO);
+			info.setShippedGw(BigDecimal.ZERO);
+			info.setShippedPcs(0);
+			info.setShippedVolume(BigDecimal.ZERO);
+			info.setShippedWeigh(BigDecimal.ZERO);
+			
+			logger.info("add stock info ==========={} " , JSON.toJSON(info) );
+			
 			stockInfoMapper.insertSelective(info);
 		}
 		return 0;
@@ -70,6 +86,8 @@ public class StockInfoServiceImpl implements StockInfoService{
 
 	@Override
 	public int updateStock(StockInfo stockInfo) {
+		
+		logger.info("stockInfo============{}" , JSON.toJSON(stockInfo));
 		
 		int i = stockInfoMapper.updateByPrimaryKeySelective(stockInfo);
 
@@ -83,6 +101,7 @@ public class StockInfoServiceImpl implements StockInfoService{
 		//------查询 对应库存
 		String id = StrUtil.getStockInfoId(reqDto.getSo(), reqDto.getPo(), reqDto.getSku());
 		StockInfo stockInfo = stockInfoMapper.selectByPrimaryKey(id);
+		logger.info("库存扣减前===={}",JSON.toJSON(stockInfo));
 		
 		//------扣减库存 计算
 		
@@ -99,7 +118,7 @@ public class StockInfoServiceImpl implements StockInfoService{
 		//总出仓箱数
 		stockInfo.setShippedCtns(stockInfo.getShippedCtns().add(shippedCtns));
 		//总出仓件数
-		stockInfo.setShippedPcs(reqDto.getPcs());
+		stockInfo.setShippedPcs(stockInfo.getShippedPcs() + reqDto.getPcs());
 		//总出仓毛重
 		stockInfo.setShippedGw(stockInfo.getShippedGw().add(shippedGw));
 		//总出仓净重
@@ -116,6 +135,9 @@ public class StockInfoServiceImpl implements StockInfoService{
 		stockInfo.setStockWeigh(stockInfo.getStockWeigh().subtract(shippedWeigh));
 		//总库存体积
 		stockInfo.setStockVolume(stockInfo.getStockVolume().subtract(shippedVolume));
+		stockInfo.setCreateTime(null);
+		stockInfo.setUpdateTime(null);
+		logger.info("库存扣减==后===={}",JSON.toJSON(stockInfo));
 		
 		//库存扣减后更新
 		stockInfoMapper.updateByPrimaryKeySelective(stockInfo) ;
@@ -128,8 +150,14 @@ public class StockInfoServiceImpl implements StockInfoService{
 		shippedInfo.setShippedCtns(shippedCtns);
 		shippedInfo.setShippedGw(shippedGw);
 		shippedInfo.setShippedVolume(shippedVolume);
+		shippedInfo.setCreateTime(null);
+		shippedInfo.setUpdateTime(null);
+		shippedInfo.setId(SnowFlakeUtil.getNextId());
+		logger.info("shippedInfo1======={}",JSON.toJSON(shippedInfo));
+
 		//成交总价
 		shippedInfo.setDeclaTotalPrice(shippedInfo.getDeclaUnitPrice().multiply(new BigDecimal(reqDto.getPcs())));
+		logger.info("shippedInfo2======={}",JSON.toJSON(shippedInfo));
 		shippedInfoMapper.insertSelective(shippedInfo);	
 		return 1;
 	}

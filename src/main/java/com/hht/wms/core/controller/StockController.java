@@ -12,6 +12,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -25,6 +26,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.alibaba.fastjson.JSON;
 import com.hht.wms.core.common.Resp;
 import com.hht.wms.core.dto.OutboundReqDto;
+import com.hht.wms.core.dto.StockInfoModifyReqDto;
 import com.hht.wms.core.dto.StockInfoQueryReqDto;
 import com.hht.wms.core.dto.StockInfoRespDto;
 import com.hht.wms.core.entity.StockInfo;
@@ -57,6 +59,7 @@ public class StockController {
  	 		respDto.setItems(stockInfoList);
  	 		respDto.setTotal(stockInfoList.size());
  		}
+ 		logger.info("stock....return..........{}",JSON.toJSON(respDto) );
 		return Resp.success("加载库存成功" , respDto);
     }
 
@@ -75,19 +78,24 @@ public class StockController {
 	@SuppressWarnings("rawtypes")
 	@PostMapping("modify")
     @ApiOperation(value = "修改库存信息", notes = "")
-	public Resp modifyStockInfo(@RequestBody StockInfo reqDto) {
+	public Resp modifyStockInfo(@RequestBody StockInfoModifyReqDto reqDto) {
  		logger.info("modifyStockInfo..............{}",JSON.toJSON(reqDto) );
  		
+ 		StockInfo info = new StockInfo() ; 
+ 		BeanUtils.copyProperties(reqDto, info);
  		
- 		StockInfo info = new StockInfo();
+		//实测单箱体积 = 长 * 宽 * 高
+ 		info.setBoxPerVolumeActul(info.getBoxHighActul().multiply(info.getBoxLengthActul()).multiply(info.getBoxWidthActul()));
+ 		info.setBoxAllVolumeActul(info.getBoxPerVolumeActul().multiply(new BigDecimal(info.getStockPcs())));
+ 		info.setStockVolume(info.getBoxPerVolumeActul().multiply(new BigDecimal(info.getStockPcs())));
  		
+ 		//单箱毛重
+// 		reqDto.setGwPerBoxActul(NumberUtil.strToBigDecimal(reqDto.getGwPerBoxActul()));
+ 		//实收总毛重
+ 		info.setGwAllActul(info.getGwPerBoxActul().multiply(new BigDecimal(info.getStockPcs())));
+ 		info.setStockGw(info.getGwPerBoxActul().multiply(new BigDecimal(info.getStockPcs())));
  		
- 		
- 		
- 		
- 		
- 		reqDto.setUpdateTime(null);
- 		stockInfoService.updateStock(reqDto);
+ 		stockInfoService.updateStock(info);
 		return Resp.success("修改成功");
     }	
 	
