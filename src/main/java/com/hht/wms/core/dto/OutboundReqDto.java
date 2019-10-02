@@ -2,6 +2,7 @@ package com.hht.wms.core.dto;
 
 public class OutboundReqDto {
 
+	private String id ; 
 	
 	private String clp ; 
 	
@@ -12,6 +13,15 @@ public class OutboundReqDto {
 	private String sku ; 
 	
 	private String so ;
+	
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
 
 	public String getClp() {
 		return clp;

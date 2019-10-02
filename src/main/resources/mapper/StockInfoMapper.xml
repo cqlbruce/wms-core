@@ -207,12 +207,16 @@
 		so=#{so,jdbcType=VARCHAR}
 	</if>
 	<if test="po != null and po !=''">
-		and po = #{po,jdbcType=VARCHAR}
+		and po=#{po,jdbcType=VARCHAR}
 	</if>    
 	<if test="sku != null and sku != ''">
-		and sku = #{sku,jdbcType=VARCHAR}
+		and sku=#{sku,jdbcType=VARCHAR}
 	</if>    	
+	<if test="inbundNo != null and inbundNo != ''">
+		and inbound_no=#{inbundNo,jdbcType=VARCHAR}
+	</if>   	
    </where> 	
+   	order by id  LIMIT #{beginSize},#{size}    	
   </select>
   
   <select id="selectCount" resultType="java.lang.Integer" parameterType="com.hht.wms.core.dto.StockInfoQueryReqDto" >
@@ -227,8 +231,28 @@
 	<if test="sku != null and sku !=''">
 		and sku = #{sku,jdbcType=VARCHAR}
 	</if>    	
+	<if test="inbundNo != null and inbundNo != ''">
+		and inbound_no=#{inbundNo,jdbcType=VARCHAR}
+	</if>   	
   </where>  
   </select>  
+  
+  
+  <select id="queryByThreeElemet"  resultMap="BaseResultMap"   parameterType="com.hht.wms.core.entity.ThreeElement">
+  	select <include refid="Base_Column_List" /> from stock_info 
+  <where>    	
+  	<if test="so != null and so !=''">
+		so = #{so,jdbcType=VARCHAR}
+	</if>
+	<if test="po != null and po !=''">
+		and po = #{po,jdbcType=VARCHAR}
+	</if>    
+	<if test="sku != null and sku !=''">
+		and sku = #{sku,jdbcType=VARCHAR}
+	</if>    	
+  </where>  
+  </select>    
+  
   
   <update id="updateByPrimaryKeySelective" parameterType="com.hht.wms.core.entity.StockInfo">
     update stock_info

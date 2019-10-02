@@ -1,8 +1,10 @@
 package com.hht.wms.core.dao;
 
+import java.util.List;
+
+import com.hht.wms.core.dto.FrontDeskChargeReqDto;
 import com.hht.wms.core.entity.FrontDeskCharge;
 import com.hht.wms.core.entity.FrontDeskChargeExample;
-import java.util.List;
 
 public interface FrontDeskChargeMapper {
     /**
@@ -53,4 +55,12 @@ public interface FrontDeskChargeMapper {
      * @param record
      */
     int updateByPrimaryKey(FrontDeskCharge record);
+    
+    //    自定义
+    List<FrontDeskCharge> queryList(FrontDeskChargeReqDto reqDto) ;
+    
+    int selectCount(FrontDeskChargeReqDto reqDto) ;
+    
+    FrontDeskCharge selectByInboundNo(String inboundNo) ;
+   
 }

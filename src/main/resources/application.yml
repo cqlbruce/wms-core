@@ -47,5 +47,10 @@ spring:
 druid:
   stat:
    slowSqlMillis: 20      
+logging:
+  config: classpath:logback-boot.xml
+  level:
+    com.hht.wms: info
+  
    
    

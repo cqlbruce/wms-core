@@ -19,7 +19,7 @@ WEB_DIR=$APP_HOME/static
 
 
 SYS_HOST=localhost
-JMX_PORT=9080
+JMX_PORT=9081
 #SYS_PORT=10010
 
 SYS_MAIN_CLASS=com.hht.wms.core.WmsCoreApplication

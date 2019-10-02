@@ -7,12 +7,40 @@ public class StockInfoQueryReqDto {
 	private String po ; 
 	
 	private String sku ;
+	
+	private String inbundNo ; 
 		
 	private int  page ;
 	
-	private int limit ;
+	private int size;
+	
+	private int beginSize ; 
 	
 	
+	public String getInbundNo() {
+		return inbundNo;
+	}
+
+	public void setInbundNo(String inbundNo) {
+		this.inbundNo = inbundNo;
+	}
+
+	public int getBeginSize() {
+		return beginSize;
+	}
+
+	public void setBeginSize(int beginSize) {
+		this.beginSize = beginSize;
+	}
+
+	public int getSize() {
+		return size;
+	}
+
+	public void setSize(int size) {
+		this.size = size;
+	}
+
 	public String getSo() {
 		return so;
 	}
@@ -28,16 +56,6 @@ public class StockInfoQueryReqDto {
 	public void setPage(int page) {
 		this.page = page;
 	}
-
-	public int getLimit() {
-		return limit;
-	}
-
-	public void setLimit(int limit) {
-		this.limit = limit;
-	} 
-	
-
 
 	public String getPo() {
 		return po;

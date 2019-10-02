@@ -17,8 +17,6 @@ CREATE TABLE `user_info` (
 -----------------------------用户信息表 end-------------------------------------------
 
 
-
-
 -----------------------------供应商信息表 begin-------------------------------------------
 
 DROP TABLE IF EXISTS `supplier_info`;
@@ -35,29 +33,6 @@ CREATE TABLE `supplier_info` (
 
 
 -----------------------------供应商信息表 end-----------------------------------------------
-
-
------------------------------前台收费信息表 begin-------------------------------------------
-
-DROP TABLE IF EXISTS `front_desk_charge`;
-
-CREATE TABLE `front_desk_charge` (
-  `id` varchar(32) COLLATE utf8_bin NOT NULL COMMENT '主键id',
-  `inbound_no` varchar(32) COLLATE utf8_bin DEFAULT NULL COMMENT '入仓编号',
-  `cust_name` varchar(64) COLLATE utf8_bin DEFAULT NULL COMMENT '客户名称',
-  `project_name` varchar(64) COLLATE utf8_bin DEFAULT NULL COMMENT '项目名称',
-  `plate_num` varchar(64) COLLATE utf8_bin DEFAULT NULL COMMENT '车牌号',
-  `settlement_type` varchar(64) COLLATE utf8_bin DEFAULT NULL COMMENT '结算方式',
-  `enter_gate_fee` decimal(12,2) DEFAULT NULL COMMENT '入闸费',
-  `customs_declaration_fee` decimal(12,2) DEFAULT NULL COMMENT '报关费',
-  `create_date` varchar(8) COLLATE utf8_bin DEFAULT NULL COMMENT '创建日期',
-  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
-  `update_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
-
------------------------------前台收费信息表 end-------------------------------------------
-
 
 -----------------------------库存信息表 begin-------------------------------------------
 DROP TABLE IF EXISTS `stock_info`;
@@ -123,8 +98,8 @@ CREATE TABLE `shipped_info` (
   `sku` varchar(32) COLLATE utf8_bin DEFAULT NULL COMMENT '货物款号 asn-item',
   `inbound_no` varchar(32) COLLATE utf8_bin DEFAULT NULL COMMENT '入仓编号',
   `customs_meterial_no` varchar(32) COLLATE utf8_bin DEFAULT NULL COMMENT '海关系统物料号',
-  `shipped_order_date` varchar(8) COLLATE utf8_bin DEFAULT NULL COMMENT '出仓订单日期',
-  `shipped_date` varchar(8) COLLATE utf8_bin DEFAULT NULL COMMENT '实际离仓日期',  
+  `shipped_order_date` varchar(16) COLLATE utf8_bin DEFAULT NULL COMMENT '出仓订单日期',
+  `shipped_date` varchar(16) COLLATE utf8_bin DEFAULT NULL COMMENT '实际离仓日期',  
   `shipped_no` varchar(32) COLLATE utf8_bin DEFAULT NULL COMMENT '出仓单号clp',  
   `warehouse_position` varchar(32) COLLATE utf8_bin DEFAULT NULL COMMENT '仓库位置',
   `shipped_ctns` decimal(12,6) COLLATE utf8_bin DEFAULT NULL COMMENT '总出仓箱数',
@@ -151,7 +126,33 @@ CREATE TABLE `shipped_info` (
 -----------------------------库存信息表 end-------------------------------------------
 
 
+-----------------------------前台收费信息表 begin-------------------------------------------
 
+DROP TABLE IF EXISTS `front_desk_charge`;
+
+CREATE TABLE `front_desk_charge` (
+  `id` varchar(32) COLLATE utf8_bin NOT NULL COMMENT '主键id',
+  `inbound_no` varchar(64) COLLATE utf8_bin DEFAULT NULL COMMENT '入仓编号',
+  `so` varchar(64) COLLATE utf8_bin DEFAULT NULL COMMENT '落货纸号码',
+  `receipt_no` varchar(64) COLLATE utf8_bin DEFAULT NULL COMMENT '收据编码',
+  `cust_name` varchar(128) COLLATE utf8_bin DEFAULT NULL COMMENT '客户名称',
+  `factory` varchar(128) COLLATE utf8_bin DEFAULT NULL COMMENT '工厂名称',
+  `tran_date` varchar(12) COLLATE utf8_bin DEFAULT NULL COMMENT '收费日期',
+  `project_name` varchar(128) COLLATE utf8_bin DEFAULT NULL COMMENT '项目名称',
+  `bill_one_car` int(10) COLLATE utf8_bin DEFAULT NULL COMMENT '一车几单',
+  `car_num` varchar(64) COLLATE utf8_bin DEFAULT NULL COMMENT '车牌号',
+  `pay_type` varchar(2) COLLATE utf8_bin DEFAULT NULL COMMENT '支付方式  0 现金 1 微信支付',
+  `settlement_type` varchar(64) COLLATE utf8_bin DEFAULT NULL COMMENT '结算方式',
+  `rec_amt` decimal(18,2) DEFAULT NULL COMMENT '代收款合计',
+  `enter_gate_fee` decimal(18,2) DEFAULT NULL COMMENT '入闸费',
+  `customs_declaration_fee` decimal(18,2) DEFAULT NULL COMMENT '报关费',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `update_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+
+-----------------------------前台收费信息表 end-----------------------------------------------
 
 
 

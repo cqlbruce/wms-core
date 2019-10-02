@@ -25,10 +25,34 @@ public class FrontDeskCharge {
     private String inboundNo;
 
     /**
+     * 落货纸号码
+     * 表字段 : front_desk_charge.so
+     */
+    private String so;
+
+    /**
+     * 收据编码
+     * 表字段 : front_desk_charge.receipt_no
+     */
+    private String receiptNo;
+
+    /**
      * 客户名称
      * 表字段 : front_desk_charge.cust_name
      */
     private String custName;
+
+    /**
+     * 工厂名称
+     * 表字段 : front_desk_charge.factory
+     */
+    private String factory;
+
+    /**
+     * 收费日期
+     * 表字段 : front_desk_charge.tran_date
+     */
+    private String tranDate;
 
     /**
      * 项目名称
@@ -37,16 +61,34 @@ public class FrontDeskCharge {
     private String projectName;
 
     /**
-     * 车牌号
-     * 表字段 : front_desk_charge.plate_num
+     * 一车几单
+     * 表字段 : front_desk_charge.bill_one_car
      */
-    private String plateNum;
+    private Integer billOneCar;
+
+    /**
+     * 车牌号
+     * 表字段 : front_desk_charge.car_num
+     */
+    private String carNum;
+
+    /**
+     * 支付方式  0 现金 1 微信支付
+     * 表字段 : front_desk_charge.pay_type
+     */
+    private String payType;
 
     /**
      * 结算方式
      * 表字段 : front_desk_charge.settlement_type
      */
     private String settlementType;
+
+    /**
+     * 代收款合计
+     * 表字段 : front_desk_charge.rec_amt
+     */
+    private BigDecimal recAmt;
 
     /**
      * 入闸费
@@ -59,12 +101,6 @@ public class FrontDeskCharge {
      * 表字段 : front_desk_charge.customs_declaration_fee
      */
     private BigDecimal customsDeclarationFee;
-
-    /**
-     * 创建日期
-     * 表字段 : front_desk_charge.create_date
-     */
-    private String createDate;
 
     /**
      * 创建时间
@@ -115,6 +151,42 @@ public class FrontDeskCharge {
     }
 
     /**
+     * 获取 落货纸号码 字段:front_desk_charge.so
+     *
+     * @return front_desk_charge.so, 落货纸号码
+     */
+    public String getSo() {
+        return so;
+    }
+
+    /**
+     * 设置 落货纸号码 字段:front_desk_charge.so
+     *
+     * @param so the value for front_desk_charge.so, 落货纸号码
+     */
+    public void setSo(String so) {
+        this.so = so;
+    }
+
+    /**
+     * 获取 收据编码 字段:front_desk_charge.receipt_no
+     *
+     * @return front_desk_charge.receipt_no, 收据编码
+     */
+    public String getReceiptNo() {
+        return receiptNo;
+    }
+
+    /**
+     * 设置 收据编码 字段:front_desk_charge.receipt_no
+     *
+     * @param receiptNo the value for front_desk_charge.receipt_no, 收据编码
+     */
+    public void setReceiptNo(String receiptNo) {
+        this.receiptNo = receiptNo;
+    }
+
+    /**
      * 获取 客户名称 字段:front_desk_charge.cust_name
      *
      * @return front_desk_charge.cust_name, 客户名称
@@ -130,6 +202,42 @@ public class FrontDeskCharge {
      */
     public void setCustName(String custName) {
         this.custName = custName;
+    }
+
+    /**
+     * 获取 工厂名称 字段:front_desk_charge.factory
+     *
+     * @return front_desk_charge.factory, 工厂名称
+     */
+    public String getFactory() {
+        return factory;
+    }
+
+    /**
+     * 设置 工厂名称 字段:front_desk_charge.factory
+     *
+     * @param factory the value for front_desk_charge.factory, 工厂名称
+     */
+    public void setFactory(String factory) {
+        this.factory = factory;
+    }
+
+    /**
+     * 获取 收费日期 字段:front_desk_charge.tran_date
+     *
+     * @return front_desk_charge.tran_date, 收费日期
+     */
+    public String getTranDate() {
+        return tranDate;
+    }
+
+    /**
+     * 设置 收费日期 字段:front_desk_charge.tran_date
+     *
+     * @param tranDate the value for front_desk_charge.tran_date, 收费日期
+     */
+    public void setTranDate(String tranDate) {
+        this.tranDate = tranDate;
     }
 
     /**
@@ -151,21 +259,57 @@ public class FrontDeskCharge {
     }
 
     /**
-     * 获取 车牌号 字段:front_desk_charge.plate_num
+     * 获取 一车几单 字段:front_desk_charge.bill_one_car
      *
-     * @return front_desk_charge.plate_num, 车牌号
+     * @return front_desk_charge.bill_one_car, 一车几单
      */
-    public String getPlateNum() {
-        return plateNum;
+    public Integer getBillOneCar() {
+        return billOneCar;
     }
 
     /**
-     * 设置 车牌号 字段:front_desk_charge.plate_num
+     * 设置 一车几单 字段:front_desk_charge.bill_one_car
      *
-     * @param plateNum the value for front_desk_charge.plate_num, 车牌号
+     * @param billOneCar the value for front_desk_charge.bill_one_car, 一车几单
      */
-    public void setPlateNum(String plateNum) {
-        this.plateNum = plateNum;
+    public void setBillOneCar(Integer billOneCar) {
+        this.billOneCar = billOneCar;
+    }
+
+    /**
+     * 获取 车牌号 字段:front_desk_charge.car_num
+     *
+     * @return front_desk_charge.car_num, 车牌号
+     */
+    public String getCarNum() {
+        return carNum;
+    }
+
+    /**
+     * 设置 车牌号 字段:front_desk_charge.car_num
+     *
+     * @param carNum the value for front_desk_charge.car_num, 车牌号
+     */
+    public void setCarNum(String carNum) {
+        this.carNum = carNum;
+    }
+
+    /**
+     * 获取 支付方式  0 现金 1 微信支付 字段:front_desk_charge.pay_type
+     *
+     * @return front_desk_charge.pay_type, 支付方式  0 现金 1 微信支付
+     */
+    public String getPayType() {
+        return payType;
+    }
+
+    /**
+     * 设置 支付方式  0 现金 1 微信支付 字段:front_desk_charge.pay_type
+     *
+     * @param payType the value for front_desk_charge.pay_type, 支付方式  0 现金 1 微信支付
+     */
+    public void setPayType(String payType) {
+        this.payType = payType;
     }
 
     /**
@@ -184,6 +328,24 @@ public class FrontDeskCharge {
      */
     public void setSettlementType(String settlementType) {
         this.settlementType = settlementType;
+    }
+
+    /**
+     * 获取 代收款合计 字段:front_desk_charge.rec_amt
+     *
+     * @return front_desk_charge.rec_amt, 代收款合计
+     */
+    public BigDecimal getRecAmt() {
+        return recAmt;
+    }
+
+    /**
+     * 设置 代收款合计 字段:front_desk_charge.rec_amt
+     *
+     * @param recAmt the value for front_desk_charge.rec_amt, 代收款合计
+     */
+    public void setRecAmt(BigDecimal recAmt) {
+        this.recAmt = recAmt;
     }
 
     /**
@@ -220,24 +382,6 @@ public class FrontDeskCharge {
      */
     public void setCustomsDeclarationFee(BigDecimal customsDeclarationFee) {
         this.customsDeclarationFee = customsDeclarationFee;
-    }
-
-    /**
-     * 获取 创建日期 字段:front_desk_charge.create_date
-     *
-     * @return front_desk_charge.create_date, 创建日期
-     */
-    public String getCreateDate() {
-        return createDate;
-    }
-
-    /**
-     * 设置 创建日期 字段:front_desk_charge.create_date
-     *
-     * @param createDate the value for front_desk_charge.create_date, 创建日期
-     */
-    public void setCreateDate(String createDate) {
-        this.createDate = createDate;
     }
 
     /**

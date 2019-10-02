@@ -5,6 +5,7 @@ import java.util.List;
 import com.hht.wms.core.dto.StockInfoQueryReqDto;
 import com.hht.wms.core.entity.StockInfo;
 import com.hht.wms.core.entity.StockInfoExample;
+import com.hht.wms.core.entity.ThreeElement;
 
 public interface StockInfoMapper {
     /**
@@ -59,6 +60,8 @@ public interface StockInfoMapper {
     List<StockInfo> queryList(StockInfoQueryReqDto reqDto);
     
     int selectCount(StockInfoQueryReqDto reqDto);
+    
+    StockInfo queryByThreeElemet(ThreeElement te);
     
     
 }

@@ -2,9 +2,9 @@ package com.hht.wms.core.service.impl;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -13,22 +13,24 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.fastjson.JSON;
-import com.hht.wms.core.controller.StockController;
+import com.hht.wms.core.dao.FrontDeskChargeMapper;
 import com.hht.wms.core.dao.ShippedInfoMapper;
 import com.hht.wms.core.dao.StockInfoMapper;
 import com.hht.wms.core.dto.OutboundReqDto;
 import com.hht.wms.core.dto.StockInfoQueryReqDto;
+import com.hht.wms.core.dto.StockInfoRespDto;
+import com.hht.wms.core.entity.FrontDeskCharge;
 import com.hht.wms.core.entity.ShippedInfo;
 import com.hht.wms.core.entity.StockInfo;
+import com.hht.wms.core.entity.ThreeElement;
 import com.hht.wms.core.service.StockInfoService;
 import com.hht.wms.core.util.DateUtil;
 import com.hht.wms.core.util.SnowFlakeUtil;
-import com.hht.wms.core.util.StrUtil;
 
 @Service
 public class StockInfoServiceImpl implements StockInfoService{
 	
-	private static Logger logger = LoggerFactory.getLogger(StockController.class) ; 
+	private static Logger logger = LoggerFactory.getLogger(StockInfoServiceImpl.class) ; 
 
 	
 	@Autowired
@@ -36,16 +38,31 @@ public class StockInfoServiceImpl implements StockInfoService{
 	
 	@Autowired
 	private ShippedInfoMapper shippedInfoMapper ; 
+	
+	@Autowired
+	private FrontDeskChargeMapper frontDeskChargeMapper ; 
 
 	@Override
-	public List<StockInfo> loadStock(StockInfoQueryReqDto reqDto) {
-		
-		List<StockInfo> stockInfo = stockInfoMapper.queryList(reqDto);
-		return stockInfoMapper.queryList(reqDto);
+	public StockInfoRespDto loadStock(StockInfoQueryReqDto reqDto) {
+		logger.info("StockInfoServiceImpl ---loadStock-----{}",JSON.toJSON(reqDto));
+		StockInfoRespDto respDto = new StockInfoRespDto();
+		int total = stockInfoMapper.selectCount(reqDto);
+		if(total==0) {
+			respDto.setTotal(0);
+			return respDto ;
+		}
+		respDto.setTotal(total);
+		int beginSize = (reqDto.getPage()-1) * reqDto.getSize() ; 
+		reqDto.setBeginSize(beginSize);
+		List<StockInfo> list =  stockInfoMapper.queryList(reqDto);
+		respDto.setItems(list);
+		return respDto ;
 	}
 
 	@Override
+	@Transactional
 	public int addStock(List<StockInfo> stockInfoList) {
+		int i = 0 ; 
 		for(StockInfo info : stockInfoList) {
 			
 			//收货日期
@@ -78,20 +95,26 @@ public class StockInfoServiceImpl implements StockInfoService{
 			info.setShippedWeigh(BigDecimal.ZERO);
 			
 			logger.info("add stock info ==========={} " , JSON.toJSON(info) );
+			//增加库存
+			i+=stockInfoMapper.insertSelective(info);
 			
-			stockInfoMapper.insertSelective(info);
+			if(StringUtils.isNotEmpty(info.getInboundNo())) {
+				FrontDeskCharge charge = frontDeskChargeMapper.selectByInboundNo(info.getInboundNo());
+				charge.setCustName(info.getSupplierName());
+				charge.setSo(info.getSo());
+				frontDeskChargeMapper.updateByPrimaryKeySelective(charge);
+			}
 		}
-		return 0;
+		return i;
 	}
 
 	@Override
 	public int updateStock(StockInfo stockInfo) {
 		
 		logger.info("stockInfo============{}" , JSON.toJSON(stockInfo));
-		
 		int i = stockInfoMapper.updateByPrimaryKeySelective(stockInfo);
-
 		return i;
+		
 	}
 
 	@Override
@@ -99,8 +122,13 @@ public class StockInfoServiceImpl implements StockInfoService{
 	public int outbound(OutboundReqDto reqDto) {
 		
 		//------查询 对应库存
-		String id = StrUtil.getStockInfoId(reqDto.getSo(), reqDto.getPo(), reqDto.getSku());
-		StockInfo stockInfo = stockInfoMapper.selectByPrimaryKey(id);
+//		String id = StrUtil.getStockInfoId(reqDto.getSo(), reqDto.getPo(), reqDto.getSku());
+//		StockInfo stockInfo = stockInfoMapper.selectByPrimaryKey(id);
+		ThreeElement te = new ThreeElement();
+		te.setPo(reqDto.getPo());
+		te.setSku(reqDto.getSku());
+		te.setSo(reqDto.getSo());
+		StockInfo stockInfo = stockInfoMapper.queryByThreeElemet(te);
 		logger.info("库存扣减前===={}",JSON.toJSON(stockInfo));
 		
 		//------扣减库存 计算
@@ -113,7 +141,6 @@ public class StockInfoServiceImpl implements StockInfoService{
 		BigDecimal shippedWeigh = new BigDecimal(reqDto.getPcs()).multiply(stockInfo.getCustsDeclaPieceWeigh()) ;
 		//本次出仓体积
 		BigDecimal shippedVolume = new BigDecimal(reqDto.getPcs()).multiply(stockInfo.getBoxPerVolumeActul()) ;
-		
 		
 		//总出仓箱数
 		stockInfo.setShippedCtns(stockInfo.getShippedCtns().add(shippedCtns));
@@ -149,6 +176,7 @@ public class StockInfoServiceImpl implements StockInfoService{
 		shippedInfo.setShippedPcs(reqDto.getPcs());
 		shippedInfo.setShippedCtns(shippedCtns);
 		shippedInfo.setShippedGw(shippedGw);
+		shippedInfo.setShippedDate(DateUtil.getNowTime(DateUtil.ISO_DATE_FORMAT_CROSSBAR));
 		shippedInfo.setShippedVolume(shippedVolume);
 		shippedInfo.setCreateTime(null);
 		shippedInfo.setUpdateTime(null);

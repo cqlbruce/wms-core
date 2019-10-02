@@ -4,13 +4,19 @@
   <resultMap id="BaseResultMap" type="com.hht.wms.core.entity.FrontDeskCharge">
     <id column="id" jdbcType="VARCHAR" property="id" />
     <result column="inbound_no" jdbcType="VARCHAR" property="inboundNo" />
+    <result column="so" jdbcType="VARCHAR" property="so" />
+    <result column="receipt_no" jdbcType="VARCHAR" property="receiptNo" />
     <result column="cust_name" jdbcType="VARCHAR" property="custName" />
+    <result column="factory" jdbcType="VARCHAR" property="factory" />
+    <result column="tran_date" jdbcType="VARCHAR" property="tranDate" />
     <result column="project_name" jdbcType="VARCHAR" property="projectName" />
-    <result column="plate_num" jdbcType="VARCHAR" property="plateNum" />
+    <result column="bill_one_car" jdbcType="INTEGER" property="billOneCar" />
+    <result column="car_num" jdbcType="VARCHAR" property="carNum" />
+    <result column="pay_type" jdbcType="VARCHAR" property="payType" />
     <result column="settlement_type" jdbcType="VARCHAR" property="settlementType" />
+    <result column="rec_amt" jdbcType="DECIMAL" property="recAmt" />
     <result column="enter_gate_fee" jdbcType="DECIMAL" property="enterGateFee" />
     <result column="customs_declaration_fee" jdbcType="DECIMAL" property="customsDeclarationFee" />
-    <result column="create_date" jdbcType="VARCHAR" property="createDate" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
@@ -44,8 +50,9 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, inbound_no, cust_name, project_name, plate_num, settlement_type, enter_gate_fee, 
-    customs_declaration_fee, create_date, create_time, update_time
+    id, inbound_no, so, receipt_no, cust_name, factory, tran_date, project_name, bill_one_car, 
+    car_num, pay_type, settlement_type, rec_amt, enter_gate_fee, customs_declaration_fee, 
+    create_time, update_time
   </sql>
   <select id="selectByExample" parameterType="com.hht.wms.core.entity.FrontDeskChargeExample" resultMap="BaseResultMap">
     select
@@ -72,41 +79,66 @@
     where id = #{id,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.hht.wms.core.entity.FrontDeskCharge" useGeneratedKeys="true">
-    insert into front_desk_charge (inbound_no, cust_name, project_name, 
-      plate_num, settlement_type, enter_gate_fee, 
-      customs_declaration_fee, create_date, create_time, 
+    insert into front_desk_charge (inbound_no, so, receipt_no, 
+      cust_name, factory, tran_date, 
+      project_name, bill_one_car, car_num, 
+      pay_type, settlement_type, rec_amt, 
+      enter_gate_fee, customs_declaration_fee, create_time, 
       update_time)
-    values (#{inboundNo,jdbcType=VARCHAR}, #{custName,jdbcType=VARCHAR}, #{projectName,jdbcType=VARCHAR}, 
-      #{plateNum,jdbcType=VARCHAR}, #{settlementType,jdbcType=VARCHAR}, #{enterGateFee,jdbcType=DECIMAL}, 
-      #{customsDeclarationFee,jdbcType=DECIMAL}, #{createDate,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+    values (#{inboundNo,jdbcType=VARCHAR}, #{so,jdbcType=VARCHAR}, #{receiptNo,jdbcType=VARCHAR}, 
+      #{custName,jdbcType=VARCHAR}, #{factory,jdbcType=VARCHAR}, #{tranDate,jdbcType=VARCHAR}, 
+      #{projectName,jdbcType=VARCHAR}, #{billOneCar,jdbcType=INTEGER}, #{carNum,jdbcType=VARCHAR}, 
+      #{payType,jdbcType=VARCHAR}, #{settlementType,jdbcType=VARCHAR}, #{recAmt,jdbcType=DECIMAL}, 
+      #{enterGateFee,jdbcType=DECIMAL}, #{customsDeclarationFee,jdbcType=DECIMAL}, #{createTime,jdbcType=TIMESTAMP}, 
       #{updateTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.hht.wms.core.entity.FrontDeskCharge" useGeneratedKeys="true">
     insert into front_desk_charge
     <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>    
       <if test="inboundNo != null">
         inbound_no,
+      </if>
+      <if test="so != null">
+        so,
+      </if>
+      <if test="receiptNo != null">
+        receipt_no,
       </if>
       <if test="custName != null">
         cust_name,
       </if>
+      <if test="factory != null">
+        factory,
+      </if>
+      <if test="tranDate != null">
+        tran_date,
+      </if>
       <if test="projectName != null">
         project_name,
       </if>
-      <if test="plateNum != null">
-        plate_num,
+      <if test="billOneCar != null">
+        bill_one_car,
+      </if>
+      <if test="carNum != null">
+        car_num,
+      </if>
+      <if test="payType != null">
+        pay_type,
       </if>
       <if test="settlementType != null">
         settlement_type,
+      </if>
+      <if test="recAmt != null">
+        rec_amt,
       </if>
       <if test="enterGateFee != null">
         enter_gate_fee,
       </if>
       <if test="customsDeclarationFee != null">
         customs_declaration_fee,
-      </if>
-      <if test="createDate != null">
-        create_date,
       </if>
       <if test="createTime != null">
         create_time,
@@ -116,29 +148,50 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>    
       <if test="inboundNo != null">
         #{inboundNo,jdbcType=VARCHAR},
+      </if>
+      <if test="so != null">
+        #{so,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptNo != null">
+        #{receiptNo,jdbcType=VARCHAR},
       </if>
       <if test="custName != null">
         #{custName,jdbcType=VARCHAR},
       </if>
+      <if test="factory != null">
+        #{factory,jdbcType=VARCHAR},
+      </if>
+      <if test="tranDate != null">
+        #{tranDate,jdbcType=VARCHAR},
+      </if>
       <if test="projectName != null">
         #{projectName,jdbcType=VARCHAR},
       </if>
-      <if test="plateNum != null">
-        #{plateNum,jdbcType=VARCHAR},
+      <if test="billOneCar != null">
+        #{billOneCar,jdbcType=INTEGER},
+      </if>
+      <if test="carNum != null">
+        #{carNum,jdbcType=VARCHAR},
+      </if>
+      <if test="payType != null">
+        #{payType,jdbcType=VARCHAR},
       </if>
       <if test="settlementType != null">
         #{settlementType,jdbcType=VARCHAR},
+      </if>
+      <if test="recAmt != null">
+        #{recAmt,jdbcType=DECIMAL},
       </if>
       <if test="enterGateFee != null">
         #{enterGateFee,jdbcType=DECIMAL},
       </if>
       <if test="customsDeclarationFee != null">
         #{customsDeclarationFee,jdbcType=DECIMAL},
-      </if>
-      <if test="createDate != null">
-        #{createDate,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
@@ -154,26 +207,44 @@
       <if test="inboundNo != null">
         inbound_no = #{inboundNo,jdbcType=VARCHAR},
       </if>
+      <if test="so != null">
+        so = #{so,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptNo != null">
+        receipt_no = #{receiptNo,jdbcType=VARCHAR},
+      </if>
       <if test="custName != null">
         cust_name = #{custName,jdbcType=VARCHAR},
+      </if>
+      <if test="factory != null">
+        factory = #{factory,jdbcType=VARCHAR},
+      </if>
+      <if test="tranDate != null">
+        tran_date = #{tranDate,jdbcType=VARCHAR},
       </if>
       <if test="projectName != null">
         project_name = #{projectName,jdbcType=VARCHAR},
       </if>
-      <if test="plateNum != null">
-        plate_num = #{plateNum,jdbcType=VARCHAR},
+      <if test="billOneCar != null">
+        bill_one_car = #{billOneCar,jdbcType=INTEGER},
+      </if>
+      <if test="carNum != null">
+        car_num = #{carNum,jdbcType=VARCHAR},
+      </if>
+      <if test="payType != null">
+        pay_type = #{payType,jdbcType=VARCHAR},
       </if>
       <if test="settlementType != null">
         settlement_type = #{settlementType,jdbcType=VARCHAR},
+      </if>
+      <if test="recAmt != null">
+        rec_amt = #{recAmt,jdbcType=DECIMAL},
       </if>
       <if test="enterGateFee != null">
         enter_gate_fee = #{enterGateFee,jdbcType=DECIMAL},
       </if>
       <if test="customsDeclarationFee != null">
         customs_declaration_fee = #{customsDeclarationFee,jdbcType=DECIMAL},
-      </if>
-      <if test="createDate != null">
-        create_date = #{createDate,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
@@ -187,15 +258,51 @@
   <update id="updateByPrimaryKey" parameterType="com.hht.wms.core.entity.FrontDeskCharge">
     update front_desk_charge
     set inbound_no = #{inboundNo,jdbcType=VARCHAR},
+      so = #{so,jdbcType=VARCHAR},
+      receipt_no = #{receiptNo,jdbcType=VARCHAR},
       cust_name = #{custName,jdbcType=VARCHAR},
+      factory = #{factory,jdbcType=VARCHAR},
+      tran_date = #{tranDate,jdbcType=VARCHAR},
       project_name = #{projectName,jdbcType=VARCHAR},
-      plate_num = #{plateNum,jdbcType=VARCHAR},
+      bill_one_car = #{billOneCar,jdbcType=INTEGER},
+      car_num = #{carNum,jdbcType=VARCHAR},
+      pay_type = #{payType,jdbcType=VARCHAR},
       settlement_type = #{settlementType,jdbcType=VARCHAR},
+      rec_amt = #{recAmt,jdbcType=DECIMAL},
       enter_gate_fee = #{enterGateFee,jdbcType=DECIMAL},
       customs_declaration_fee = #{customsDeclarationFee,jdbcType=DECIMAL},
-      create_date = #{createDate,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=VARCHAR}
   </update>
+  
+  
+   <select id="queryList" resultMap="BaseResultMap" parameterType="com.hht.wms.core.dto.FrontDeskChargeReqDto" >
+    select <include refid="Base_Column_List" /> from front_desk_charge 
+  <where>  
+	<if test="inboundNo != null and inboundNo !=''">
+		inboundNo=#{inboundNo,jdbcType=VARCHAR}
+	</if>
+   </where> 	
+    order by id  LIMIT #{beginSize},#{size}    	
+     
+  </select>
+   
+  <select id="selectCount" resultType="java.lang.Integer"  parameterType="com.hht.wms.core.dto.FrontDeskChargeReqDto" >
+    select count(1) from front_desk_charge 
+  <where>  
+	<if test="inboundNo != null and inboundNo !=''">
+		inboundNo=#{inboundNo,jdbcType=VARCHAR}
+	</if>
+   </where> 	
+  </select>  
+
+  <select id="selectByInboundNo" resultType="BaseResultMap"  parameterType="java.lang.String">
+    select <include refid="Base_Column_List" />  from front_desk_charge 
+  <where>  
+	<if test="inboundNo != null and inboundNo !=''">
+		inboundNo=#{inboundNo,jdbcType=VARCHAR}
+	</if>
+   </where> 	
+  </select>    
 </mapper>

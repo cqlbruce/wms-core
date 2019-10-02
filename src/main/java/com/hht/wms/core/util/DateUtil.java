@@ -10,6 +10,7 @@ import java.util.GregorianCalendar;
 public class DateUtil
 {
   public static final String ISO_DATE_FORMAT = "dd-MMM-yyyy";
+  public static final String ISO_DATE_FORMAT_CROSSBAR = "yyyy-MM-dd";
   public static final String ISO_TIME_FORMAT = "HH:mm:ss";
   public static final String ISO_TIME_WITH_MILLISECOND_FORMAT = "HH:mm:ss.SSS";
   public static final String ISO_DATETIME_FORMAT = "dd-MMM-yyyy HH:mm:ss";
@@ -22,6 +23,10 @@ public class DateUtil
   public static final String AMR_SHORT_DATE_FORMAT = "yyyy/MM";
   public static final String AMR_DATE_WITHOUT_SLASH_FORMAT = "yyyyMMdd";
   public static final String AMR_ARS_DATE_FORMAT = "yyyyMMdd";
+  
+  public static void main(String[] args) {
+	System.out.println(DateUtil.getNowTime(DateUtil.ISO_DATE_FORMAT_CROSSBAR));
+  }
 
   public static String getNowTime()
   {

@@ -33,6 +33,7 @@ import com.hht.wms.core.entity.StockInfo;
 import com.hht.wms.core.service.StockInfoService;
 import com.hht.wms.core.util.ExcelUtil;
 import com.hht.wms.core.util.NumberUtil;
+import com.hht.wms.core.util.SnowFlakeUtil;
 import com.hht.wms.core.util.StrUtil;
 
 import io.swagger.annotations.ApiOperation;
@@ -51,16 +52,7 @@ public class StockController {
     @ApiOperation(value = "加载库存", notes = "")
 	public Resp<StockInfoRespDto> loadStock(@RequestBody StockInfoQueryReqDto reqDto) {
  		logger.info("stock....load..........{}",JSON.toJSON(reqDto) );
- 		List<StockInfo> stockInfoList = stockInfoService.loadStock(reqDto) ;
- 		StockInfoRespDto respDto = new StockInfoRespDto();
- 		if(CollectionUtils.isEmpty(stockInfoList)) {
- 			respDto.setTotal(0);
- 		}else {
- 	 		respDto.setItems(stockInfoList);
- 	 		respDto.setTotal(stockInfoList.size());
- 		}
- 		logger.info("stock....return..........{}",JSON.toJSON(respDto) );
-		return Resp.success("加载库存成功" , respDto);
+		return Resp.success("加载库存成功" , stockInfoService.loadStock(reqDto));
     }
 
 	
@@ -70,6 +62,11 @@ public class StockController {
 	public Resp<StockInfoRespDto> addStock(@RequestBody StockInfo reqDto) {
  		logger.info("addStock..............{}",JSON.toJSON(reqDto) );
  		List<StockInfo> stockList = new ArrayList<StockInfo>();
+ 		reqDto.setId(SnowFlakeUtil.getNextId());
+ 		
+ 		//申报总价
+ 		reqDto.setDeclaTotalPrice(reqDto.getDeclaUnitPrice().multiply(new BigDecimal(reqDto.getRcvdPcs())));
+   	   	
  		stockList.add(reqDto);
  		stockInfoService.addStock(stockList);
 		return Resp.success("库存新增成功");
@@ -95,6 +92,8 @@ public class StockController {
  		info.setGwAllActul(info.getGwPerBoxActul().multiply(new BigDecimal(info.getStockPcs())));
  		info.setStockGw(info.getGwPerBoxActul().multiply(new BigDecimal(info.getStockPcs())));
  		
+ 		info.setDeclaTotalPrice(info.getDeclaUnitPrice().multiply(new BigDecimal(info.getStockPcs())));
+ 		
  		stockInfoService.updateStock(info);
 		return Resp.success("修改成功");
     }	
@@ -119,9 +118,16 @@ public class StockController {
 		List<StockInfo> stockInfoList = new ArrayList<StockInfo>();
 		Workbook wb  = new XSSFWorkbook(excelFile.getInputStream());   
 		try{
-			Sheet ss = wb.getSheetAt(1);
+			Sheet ss = wb.getSheetAt(2);
+			
+			//获取入仓单号
+			String inboundNo = "";
+			Row row1 = ss.getRow(23);
+			if(null!=row1&&null!=row1.getCell(1)) {
+				inboundNo = ExcelUtil.getCellValue(row1.getCell(1));
+			}
 			//从25行开始
-			for(int i=25 ; i<ss.getLastRowNum();i++) {
+			for(int i=26 ; i<ss.getLastRowNum();i++) {
 				Row row = ss.getRow(i);
 	       	   	if(null==row||null == row.getCell(0)) {
 	       	   		break ; 
@@ -132,6 +138,8 @@ public class StockController {
 	       	   		continue ; 
 	       	   	}	       	   
 	       	   	StockInfo info = new StockInfo();
+	       	   	
+	       	   	info.setInboundNo(inboundNo);
 	       	   	//第一列SO
 	       	   	info.setSo(ExcelUtil.getCellValue(row.getCell(1)));
 	       	   	//第四列PO
@@ -208,7 +216,7 @@ public class StockController {
 	       	   	//45 产地代码
            	   
 	       	   	// 46 备注
-	       	 	info.setId(StrUtil.getStockInfoId(info.getSo(), info.getPo(), info.getSku()));
+	       	 	info.setId(SnowFlakeUtil.getNextId());
 	       	 	info.setGwPerBoxActul(new BigDecimal("0"));
 	       	   	stockInfoList.add(info);
 	        }

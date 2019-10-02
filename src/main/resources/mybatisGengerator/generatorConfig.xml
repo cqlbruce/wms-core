@@ -41,23 +41,23 @@
 <!--                enableDeleteByExample="false" domainObjectName="SupplierInfo"> -->
 <!--             <generatedKey column="id" sqlStatement="JDBC"/> -->
 <!--         </table> -->
-<!--         <table schema="front_desk_charge" tableName="front_desk_charge" enableCountByExample="false" -->
-<!--                enableSelectByExample="true" -->
-<!--                enableUpdateByExample="UIfalse" -->
-<!--                enableDeleteByExample="false" domainObjectName="FrontDeskCharge"> -->
-<!--             <generatedKey column="id" sqlStatement="JDBC"/> -->
-<!--         </table> -->
+        <table schema="front_desk_charge" tableName="front_desk_charge" enableCountByExample="false"
+               enableSelectByExample="true"
+               enableUpdateByExample="UIfalse"
+               enableDeleteByExample="false" domainObjectName="FrontDeskCharge">
+            <generatedKey column="id" sqlStatement="JDBC"/>
+        </table>
 <!--         <table schema="stock_info" tableName="stock_info" enableCountByExample="false" -->
 <!--                enableSelectByExample="true" -->
 <!--                enableUpdateByExample="UIfalse" -->
 <!--                enableDeleteByExample="false" domainObjectName="StockInfo"> -->
 <!--             <generatedKey column="id" sqlStatement="JDBC"/> -->
 <!--         </table>            -->
-        <table schema="shipped_info" tableName="shipped_info" enableCountByExample="false"
-               enableSelectByExample="true"
-               enableUpdateByExample="UIfalse"
-               enableDeleteByExample="false" domainObjectName="ShippedInfo">
-            <generatedKey column="id" sqlStatement="JDBC"/>
-        </table>             
+<!--         <table schema="shipped_info" tableName="shipped_info" enableCountByExample="false" -->
+<!--                enableSelectByExample="true" -->
+<!--                enableUpdateByExample="UIfalse" -->
+<!--                enableDeleteByExample="false" domainObjectName="ShippedInfo"> -->
+<!--             <generatedKey column="id" sqlStatement="JDBC"/> -->
+<!--         </table>              -->
     </context>
 </generatorConfiguration>
