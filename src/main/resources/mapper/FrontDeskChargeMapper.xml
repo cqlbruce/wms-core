@@ -281,28 +281,28 @@
     select <include refid="Base_Column_List" /> from front_desk_charge 
   <where>  
 	<if test="inboundNo != null and inboundNo !=''">
-		inboundNo=#{inboundNo,jdbcType=VARCHAR}
+		inbound_no=#{inboundNo,jdbcType=VARCHAR}
 	</if>
    </where> 	
-    order by id  LIMIT #{beginSize},#{size}    	
-     
+    order by id  LIMIT #{beginSize},#{size} 
   </select>
    
   <select id="selectCount" resultType="java.lang.Integer"  parameterType="com.hht.wms.core.dto.FrontDeskChargeReqDto" >
     select count(1) from front_desk_charge 
-  <where>  
+  	<where>  
 	<if test="inboundNo != null and inboundNo !=''">
-		inboundNo=#{inboundNo,jdbcType=VARCHAR}
+		inbound_no=#{inboundNo,jdbcType=VARCHAR}
 	</if>
    </where> 	
   </select>  
 
-  <select id="selectByInboundNo" resultType="BaseResultMap"  parameterType="java.lang.String">
-    select <include refid="Base_Column_List" />  from front_desk_charge 
-  <where>  
+  <select id="selectByInboundNo" resultMap="BaseResultMap"  parameterType="java.lang.String">
+    select <include refid="Base_Column_List" /> from front_desk_charge 
+  	<where>  
 	<if test="inboundNo != null and inboundNo !=''">
-		inboundNo=#{inboundNo,jdbcType=VARCHAR}
+		inbound_no=#{inboundNo,jdbcType=VARCHAR}
 	</if>
    </where> 	
-  </select>    
+  </select>   
+   
 </mapper>

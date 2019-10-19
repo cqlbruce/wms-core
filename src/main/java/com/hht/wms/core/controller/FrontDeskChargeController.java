@@ -8,8 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hht.wms.core.common.Resp;
+import com.hht.wms.core.dto.FrontDeskChargeReqDto;
+import com.hht.wms.core.dto.FrontDeskChargeRespDto;
 import com.hht.wms.core.entity.FrontDeskCharge;
-import com.hht.wms.core.entity.StockInfo;
 import com.hht.wms.core.service.FrontDeskChargeService;
 import com.hht.wms.core.util.DateUtil;
 import com.hht.wms.core.util.SnowFlakeUtil;
@@ -33,7 +34,7 @@ public class FrontDeskChargeController {
 		
 		reqDto.setTranDate(DateUtil.getNowTime(DateUtil.ISO_DATE_FORMAT_CROSSBAR));
 		reqDto.setId(SnowFlakeUtil.getNewNextId());
-		
+		frontDeskChargeService.add(reqDto);
 		return Resp.success("新增前台收费成功");
 
 	}
@@ -41,14 +42,10 @@ public class FrontDeskChargeController {
 	@SuppressWarnings("unchecked")
 	@PostMapping("query")
     @ApiOperation(value = "查询前台收费", notes = "")
-	public Resp<FrontDeskCharge> query(@RequestBody StockInfo reqDto) {
+	public Resp<FrontDeskChargeRespDto> query(@RequestBody FrontDeskChargeReqDto reqDto) {
 		
-		
-		
-		
-		
-		return Resp.success("查询前台收费成功" , null );
-
+		FrontDeskChargeRespDto respDto = frontDeskChargeService.query(reqDto);
+		return Resp.success("查询前台收费成功" , respDto );
 	}
 	
 

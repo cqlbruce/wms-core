@@ -102,6 +102,8 @@ public class StockInfoServiceImpl implements StockInfoService{
 				FrontDeskCharge charge = frontDeskChargeMapper.selectByInboundNo(info.getInboundNo());
 				charge.setCustName(info.getSupplierName());
 				charge.setSo(info.getSo());
+				charge.setFactory(info.getSupplierName());
+//				charge.setCarNum(info.set);
 				frontDeskChargeMapper.updateByPrimaryKeySelective(charge);
 			}
 		}
