@@ -1,5 +1,11 @@
 package com.hht.wms.core.util;
 
+import java.io.ByteArrayOutputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Iterator;
 
 import org.apache.poi.ss.usermodel.Cell;
@@ -7,7 +13,10 @@ import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.web.multipart.MultipartFile;
 
 public class ExcelUtil {
@@ -123,5 +132,74 @@ public class ExcelUtil {
 	}
 	
 	
+	  /** 
+	    * 得到一个已有的工作薄的POI对象 
+	    * @return 
+	    */  
+    public static XSSFWorkbook returnWorkBookGivenFileHandle(String excelPath) {  
 
+    	ClassPathResource classPathResource = new ClassPathResource(excelPath);
+        XSSFWorkbook wb = null;  
+        FileInputStream fis = null;  
+        try {  
+            if (classPathResource != null) {  
+                InputStream inputStream = classPathResource.getInputStream();
+                wb = new XSSFWorkbook(inputStream);  
+            }  
+        } catch (Exception e) {  
+        	e.printStackTrace();
+        	return null ; 
+        } finally {  
+            if (fis != null) {  
+                try {  
+                    fis.close();  
+                } catch (IOException e) {  
+                    e.printStackTrace();  
+                }  
+            }  
+        }  
+        return wb;  
+    }  
+	    
+    /** 
+     * 保存工作薄 
+     * @param wb 
+     */  
+    public static byte[] saveExcel(XSSFWorkbook wb , String excelPath) {
+        FileOutputStream fileOut = null;  
+        try {  
+            fileOut = new FileOutputStream(excelPath);  
+            wb.write(fileOut);  
+            fileOut.flush();
+        } catch (FileNotFoundException e) {  
+            e.printStackTrace();  
+        } catch (IOException e) {  
+            e.printStackTrace();  
+        }finally {
+        	try {
+        		if(null != fileOut) {
+                	fileOut.close();  
+        		}
+        	}catch(Exception e) {
+                e.printStackTrace();  
+        	}
+        }
+        return null ; 
+    }  
+    
+    /** 
+     * 找到需要插入的行数，并新建一个POI的row对象 
+     * @param sheet 
+     * @param rowIndex 
+     * @return 
+     */  
+    public static XSSFRow createRow(XSSFSheet sheet, Integer rowIndex) {  
+         XSSFRow row = null;  
+//         if (sheet.getRow(rowIndex) != null) {  
+         int lastRowNo = sheet.getLastRowNum();  
+         sheet.shiftRows(rowIndex, lastRowNo, 3);  
+//         }  
+         row = sheet.createRow(rowIndex);  
+         return row;  
+     }      
 }

@@ -152,7 +152,7 @@
         #{id,jdbcType=VARCHAR},
       </if>    
       <if test="inboundNo != null">
-        #{inboundNo,jdbcType=VARCHAR},
+        #{inbound_no,jdbcType=VARCHAR},
       </if>
       <if test="so != null">
         #{so,jdbcType=VARCHAR},

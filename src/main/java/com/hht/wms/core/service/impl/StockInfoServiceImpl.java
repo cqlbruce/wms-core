@@ -122,7 +122,6 @@ public class StockInfoServiceImpl implements StockInfoService{
 	@Override
 	@Transactional
 	public int outbound(OutboundReqDto reqDto) {
-		
 		//------查询 对应库存
 //		String id = StrUtil.getStockInfoId(reqDto.getSo(), reqDto.getPo(), reqDto.getSku());
 //		StockInfo stockInfo = stockInfoMapper.selectByPrimaryKey(id);
@@ -134,7 +133,6 @@ public class StockInfoServiceImpl implements StockInfoService{
 		logger.info("库存扣减前===={}",JSON.toJSON(stockInfo));
 		
 		//------扣减库存 计算
-		
 		//本次出仓箱数
 		BigDecimal shippedCtns = new BigDecimal(reqDto.getPcs()).divide(new BigDecimal(stockInfo.getItemsPerBox()), 2 , RoundingMode.HALF_DOWN);
 		//本次出仓毛重
@@ -180,6 +178,7 @@ public class StockInfoServiceImpl implements StockInfoService{
 		shippedInfo.setShippedGw(shippedGw);
 		shippedInfo.setShippedDate(DateUtil.getNowTime(DateUtil.ISO_DATE_FORMAT_CROSSBAR));
 		shippedInfo.setShippedVolume(shippedVolume);
+		shippedInfo.setShippedAllWeigh(shippedWeigh);
 		shippedInfo.setCreateTime(null);
 		shippedInfo.setUpdateTime(null);
 		shippedInfo.setId(SnowFlakeUtil.getNextId());

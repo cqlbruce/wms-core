@@ -428,8 +428,8 @@
 	<if test="sku != null and sku != ''">
 		and sku = #{sku,jdbcType=VARCHAR}
 	</if>
-	<if test="clp != null and clp != ''">
-		and shipped_no = #{clp,jdbcType=VARCHAR}
+	<if test="shippedNo != null and shippedNo != ''">
+		and shipped_no = #{shippedNo,jdbcType=VARCHAR}
 	</if>	
 	<if test="beginDate != null and beginDate != ''">
 		and shipped_date &gt;= #{beginDate,jdbcType=VARCHAR}
@@ -454,8 +454,8 @@
 	<if test="sku != null and sku != ''">
 		and sku = #{sku,jdbcType=VARCHAR}
 	</if>
-	<if test="clp != null and clp != ''">
-		and shipped_no = #{clp,jdbcType=VARCHAR}
+	<if test="shippedNo != null and shippedNo != ''">
+		and shipped_no = #{shippedNo,jdbcType=VARCHAR}
 	</if>	
 	<if test="beginDate != null and beginDate != ''">
 		and shipped_date &gt;= #{beginDate,jdbcType=VARCHAR}

@@ -34,10 +34,11 @@ public class DownloadController {
 
     @RequestMapping("stockFile")
     public byte[] stockFile() {
+    	ByteArrayOutputStream bos = null ; 
         try {
             ClassPathResource classPathResource = new ClassPathResource("fileTemplate/stock.xlsx");
             InputStream inputStream = classPathResource.getInputStream();
-            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            bos = new ByteArrayOutputStream();
             byte[] b = new byte[1024];
             int len;
             while((len = inputStream.read(b)) != -1) {
@@ -47,16 +48,25 @@ public class DownloadController {
         } catch (IOException e) {
             LOG.error("下载入库模板失败：{}", e.getMessage());
             e.printStackTrace();
+        }finally {
+        	try {
+        		if(null != bos) {
+        			bos.close();
+        		}
+        	}catch(Exception e) {
+        		e.printStackTrace();
+        	}
         }
         return null;
     }
 
     @RequestMapping("shippedFile")
     public byte[] shippedFile() {
+    	ByteArrayOutputStream bos = null ; 
         try {
             ClassPathResource classPathResource = new ClassPathResource("fileTemplate/shipped.xlsx");
             InputStream inputStream = classPathResource.getInputStream();
-            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            bos = new ByteArrayOutputStream();
             byte[] b = new byte[1024];
             int len;
             while((len = inputStream.read(b)) != -1) {
@@ -66,6 +76,14 @@ public class DownloadController {
         } catch (IOException e) {
             LOG.error("下载出库模板失败：{}", e.getMessage());
             e.printStackTrace();
+        }finally {
+        	try {
+        		if(null != bos) {
+        			bos.close();
+        		}
+        	}catch(Exception e) {
+        		e.printStackTrace();
+        	}
         }
         return null;
     }

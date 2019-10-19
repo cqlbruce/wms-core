@@ -8,7 +8,7 @@ public class ShippedInfoReqDto {
 	
 	private String sku ;
 	
-	private String clp ; 
+	private String shippedNo ; 
 	
 	private String beginDate ; 
 	
@@ -61,12 +61,12 @@ public class ShippedInfoReqDto {
 		this.sku = sku;
 	}
 
-	public String getClp() {
-		return clp;
+	public String getShippedNo() {
+		return shippedNo;
 	}
 
-	public void setClp(String clp) {
-		this.clp = clp;
+	public void setShippedNo(String shippedNo) {
+		this.shippedNo = shippedNo;
 	}
 
 	public int getPage() {
