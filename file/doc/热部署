@@ -1,0 +1,14 @@
+
+
+
+gradle build -x test
+
+
+
+生产环境打包
+
+npm run build:prod
+
+
+
+cp -rf ../dist/static /data/app/web/wms/wms-core/

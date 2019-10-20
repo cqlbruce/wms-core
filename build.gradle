@@ -53,7 +53,8 @@ dependencyManagement {
 
 dependencies {
     implementation 'com.baomidou:mybatis-plus-boot-starter:3.2.0'
-    implementation 'org.projectlombok:lombok'
+    compile 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
     compile('org.springframework.boot:spring-boot-starter-web')
     compile('org.springframework.boot:spring-boot-starter-data-redis')
     compile('org.springframework.boot:spring-boot-starter-test')
