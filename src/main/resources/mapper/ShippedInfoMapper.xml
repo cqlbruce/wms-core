@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hht.wms.core.dao.ShippedInfoDao">
    <!--   自定义 -->
-  <select id="queryList" resultMap="BaseResultMap" parameterType="com.hht.wms.core.dto.ShippedInfoReqDto" >
-    select <include refid="Base_Column_List" /> from shipped_info 
+  <select id="queryList" resultType="com.hht.wms.core.entity.ShippedInfo" parameterType="com.hht.wms.core.dto.ShippedInfoReqDto" >
+    select * from shipped_info 
   <where>  
 	<if test="so != null and so !=''">
 		so=#{so,jdbcType=VARCHAR}

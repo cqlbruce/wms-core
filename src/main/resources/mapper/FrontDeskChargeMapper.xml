@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hht.wms.core.dao.FrontDeskChargeDao">
   
-   <select id="queryList" resultMap="BaseResultMap" parameterType="com.hht.wms.core.dto.FrontDeskChargeReqDto" >
-    select <include refid="Base_Column_List" /> from front_desk_charge 
+   <select id="queryList" resultType="com.hht.wms.core.entity.FrontDeskCharge" parameterType="com.hht.wms.core.dto.FrontDeskChargeReqDto" >
+    select * from front_desk_charge 
   <where>  
 	<if test="inboundNo != null and inboundNo !=''">
 		inbound_no=#{inboundNo,jdbcType=VARCHAR}
@@ -21,8 +21,8 @@
    </where> 	
   </select>  
 
-  <select id="selectByInboundNo" resultMap="BaseResultMap"  parameterType="java.lang.String">
-    select <include refid="Base_Column_List" /> from front_desk_charge 
+  <select id="selectByInboundNo" resultType="com.hht.wms.core.entity.FrontDeskCharge"  parameterType="java.lang.String">
+    select * from front_desk_charge 
   	<where>  
 	<if test="inboundNo != null and inboundNo !=''">
 		inbound_no=#{inboundNo,jdbcType=VARCHAR}

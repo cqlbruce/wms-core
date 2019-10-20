@@ -26,10 +26,10 @@ import com.hht.wms.core.dto.StockFeeQueryReqDto;
 import com.hht.wms.core.dto.StockFeeQueryRespDto;
 import com.hht.wms.core.dto.StockGoodsQueryReqDto;
 import com.hht.wms.core.dto.StockGoodsQueryRespDto;
-import com.hht.wms.core.entity.ShippedFee;
-import com.hht.wms.core.entity.ShippedGoods;
-import com.hht.wms.core.entity.StockFee;
-import com.hht.wms.core.entity.StockGoods;
+import com.hht.wms.core.dto.vo.ShippedFee;
+import com.hht.wms.core.dto.vo.ShippedGoods;
+import com.hht.wms.core.dto.vo.StockFee;
+import com.hht.wms.core.dto.vo.StockGoods;
 
 import io.swagger.annotations.ApiOperation;
 

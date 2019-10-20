@@ -6,8 +6,8 @@ server:
    
 mybatis-plus:
   mapper-locations: classpath:mapper/*.xml
-  typeAliasesPackage: com.shanhe.springboot.entity  
-  type-aliases-super-type: java.lang.Object
+  typeAliasesPackage: com.hht.wms.core.entity
+  #type-aliases-super-type: java.lang.Object
   
 #mybatis:
  # mapper-locations: classpath:mapper/*.xml
@@ -56,7 +56,7 @@ druid:
 logging:
   config: classpath:logback-boot.xml
   level:
-    com.hht.wms: info
+    com.hht.wms: debug
   
    
    

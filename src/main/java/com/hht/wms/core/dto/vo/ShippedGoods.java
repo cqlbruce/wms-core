@@ -1,58 +1,41 @@
 /**
  * Copyright (C), 2018-2019, 深圳惠金卓信科技有限公司
- * FileName: StockGoods
+ * FileName: ShippedGoods
  * Author:   MG01873
- * Date:     2019/9/24 17:31
- * Description: 入仓货物表
+ * Date:     2019/9/24 18:38
+ * Description:
  * History:
  */
-package com.hht.wms.core.entity;
+package com.hht.wms.core.dto.vo;
 
 import java.math.BigDecimal;
 
 /**
- * 〈入仓货物表〉
+ * 〈出仓货物〉<br>
  *
  * @author MG01873
  * @create 2019/9/24
  * @since 1.0.0
  */
-public class StockGoods {
+public class ShippedGoods {
 
-    /**
-     * 收货日期
-     * */
     private String rcvdDate;
 
-    /**
-     * 入仓编号
-     * */
     private String inboundNo;
 
-    /**
-     * 入仓落货纸号
-     * */
     private String so;
 
-    /**
-     * 客户采购订单号
-     * */
     private String po;
 
-    /**
-     * 货物款号
-     * */
     private String sku;
 
-    /**
-     * 总库存件数
-     * */
     private BigDecimal stockPcs;
 
-    /**
-     * 总库存体积
-     * */
     private BigDecimal stockVolume;
+
+    private String shippedNo;
+
+    private String shippedOrderDate;
 
     /**
      * 超仓期起算时间
@@ -138,6 +121,22 @@ public class StockGoods {
 
     public void setStockVolume(BigDecimal stockVolume) {
         this.stockVolume = stockVolume;
+    }
+
+    public String getShippedNo() {
+        return shippedNo;
+    }
+
+    public void setShippedNo(String shippedNo) {
+        this.shippedNo = shippedNo;
+    }
+
+    public String getShippedOrderDate() {
+        return shippedOrderDate;
+    }
+
+    public void setShippedOrderDate(String shippedOrderDate) {
+        this.shippedOrderDate = shippedOrderDate;
     }
 
     public String getOverStockDate() {

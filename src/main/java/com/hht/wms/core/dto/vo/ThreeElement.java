@@ -1,4 +1,4 @@
-package com.hht.wms.core.entity;
+package com.hht.wms.core.dto.vo;
 
 public class ThreeElement {
 	

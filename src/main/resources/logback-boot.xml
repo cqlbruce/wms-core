@@ -54,11 +54,15 @@
 		</layout>
 	</appender>
 	<logger name="com.shanhe.springboot" additivity="true">
-		<level value="info" />
+		<level value="debug" />
 		<appender-ref ref="FILE" />
 	</logger>
+	<logger name="com.alibaba.druid" additivity="true">
+		<level value="debug" />
+		<appender-ref ref="FILE" />
+	</logger>	
 	<root>
-		<level value="info" />
+		<level value="debug" />
 		<appender-ref ref="CONSOLE" />
 	</root>
 </configuration>
