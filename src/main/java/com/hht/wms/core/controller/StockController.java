@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -14,7 +13,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -34,7 +32,6 @@ import com.hht.wms.core.service.StockInfoService;
 import com.hht.wms.core.util.ExcelUtil;
 import com.hht.wms.core.util.NumberUtil;
 import com.hht.wms.core.util.SnowFlakeUtil;
-import com.hht.wms.core.util.StrUtil;
 
 import io.swagger.annotations.ApiOperation;
 
@@ -98,18 +95,19 @@ public class StockController {
 		return Resp.success("修改成功");
     }	
 	
+	@Deprecated
 	@PostMapping("outbound")
     @ApiOperation(value = "出库", notes = "")
-	public Resp outbound(@RequestBody OutboundReqDto reqDto) {
+	public Resp<?> outbound(@RequestBody OutboundReqDto reqDto) {
  		logger.info("outbound..............{}",JSON.toJSON(reqDto) );
- 		stockInfoService.outbound(reqDto);	
+// 		stockInfoService.outbound(reqDto);	
 		return Resp.success("出库成功");
     }		
 	
 	
 	@PostMapping("/upload")
     @ApiOperation(value = "上传excl", notes = "")
-	public Resp fileUploadStock(@RequestParam("excelFile") MultipartFile excelFile)  throws Exception {
+	public Resp<?> fileUploadStock(@RequestParam("excelFile") MultipartFile excelFile)  throws Exception {
 	    String fileName = excelFile.getOriginalFilename();
  		logger.info("fileUpload..............{}",fileName );
 		if(excelFile.isEmpty()) {
@@ -133,7 +131,7 @@ public class StockController {
 	       	   		break ; 
 	       	   	}
 	       	   	//如果第0列为空，则直接返回
-	       	   	row.getCell(0).setCellType(CellType.STRING);
+//	       	   	row.getCell(0).setCellType(CellType.STRING);
 	       	   	if(StringUtils.isEmpty(row.getCell(0).getStringCellValue())) {
 	       	   		continue ; 
 	       	   	}	       	   

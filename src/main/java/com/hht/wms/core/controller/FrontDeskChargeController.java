@@ -26,7 +26,6 @@ public class FrontDeskChargeController {
 	private FrontDeskChargeService frontDeskChargeService ; 
 	
 	
-	@SuppressWarnings("unchecked")
 	@PostMapping("add")
     @ApiOperation(value = "新增前台收费", notes = "")
 	public Resp<?> add(@RequestBody FrontDeskCharge reqDto) {

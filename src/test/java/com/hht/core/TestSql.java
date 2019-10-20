@@ -8,8 +8,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.alibaba.fastjson.JSON;
-import com.hht.wms.core.dao.ShippedInfoMapper;
-import com.hht.wms.core.dao.StockInfoMapper;
+import com.hht.wms.core.dao.ShippedInfoDao;
+import com.hht.wms.core.dao.StockInfoDao;
 import com.hht.wms.core.dto.ShippedInfoReqDto;
 import com.hht.wms.core.entity.ShippedInfo;
 import com.hht.wms.core.service.ShippedInfoService;
@@ -18,13 +18,13 @@ public class TestSql extends TestBase{
 	private static Logger logger = LoggerFactory.getLogger(TestSql.class) ;
 	
     @Autowired 
-	private StockInfoMapper mapper ; 
+	private StockInfoDao mapper ; 
     
     @Autowired
     private ShippedInfoService shippedInfoService ;
     
     @Autowired
-    private ShippedInfoMapper shippedInfoMapper ; 
+    private ShippedInfoDao shippedInfoMapper ; 
 	
 	@Test
 	public void test() {
@@ -35,7 +35,6 @@ public class TestSql extends TestBase{
 		reqDto.setPo("");
 		reqDto.setEndDate("2019-06-10");
 		reqDto.setBeginDate("2019-06-03");
-		reqDto.setClp("");
 		reqDto.setSku("");
 		reqDto.setSo("");
 //		reqDto.setLimit(10);	
