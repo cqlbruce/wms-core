@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -81,7 +82,7 @@ public class ShippedInfoController {
 	       	   		break ; 
 	       	   	}
 	       	   	//如果第0列为空，则直接返回
-//	       	   	row.getCell(0).setCellType(CellType.STRING);
+	       	   	row.getCell(0).setCellType(CellType.STRING);
 	       	   	if(StringUtils.isEmpty(row.getCell(0).getStringCellValue())) {
 	       	   		continue ; 
 	       	   	}	       	   
