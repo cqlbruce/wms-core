@@ -90,7 +90,7 @@ public class StockInfoServiceImpl extends ServiceImpl<StockInfoDao, StockInfo> i
 			i+=baseMapper.insert(info);
 			
 			//更新前台收费信息，注意事务测试
-			frontDeskChargeService.updateByInboundNo(info.getInboundNo(), info);
+			frontDeskChargeService.updateByInboundNo(info);
 		}
 		return i;
 	}

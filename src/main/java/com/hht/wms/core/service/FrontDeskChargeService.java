@@ -13,7 +13,7 @@ public interface FrontDeskChargeService {
 	
 	FrontDeskChargeRespDto query(FrontDeskChargeReqDto reqDto);
 	
-	int updateByInboundNo(String inboundNo , StockInfo info);
+	int updateByInboundNo(StockInfo info);
 
 
 }

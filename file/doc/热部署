@@ -10,5 +10,5 @@ gradle build -x test
 npm run build:prod
 
 
-
+cp -rf ../dist/* /data/app/web/wms/wms-core/
 cp -rf ../dist/static /data/app/web/wms/wms-core/
