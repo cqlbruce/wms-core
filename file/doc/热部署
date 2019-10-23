@@ -8,7 +8,33 @@ gradle build -x test
 生产环境打包
 
 npm run build:prod
-
+//console.log('aaaaaaaaaaaaa============================='+process.env.VUE_APP_BASE_API),
 
 cp -rf ../dist/* /data/app/web/wms/wms-core/
 cp -rf ../dist/static /data/app/web/wms/wms-core/
+
+cp -rf ../dist/* ./
+
+package.json --->
+"build:prod": "vue-cli-service build"
+-->vue.config.js-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

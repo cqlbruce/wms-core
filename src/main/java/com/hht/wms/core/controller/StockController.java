@@ -35,6 +35,7 @@ import com.hht.wms.core.util.NumberUtil;
 import com.hht.wms.core.util.SnowFlakeUtil;
 
 import io.swagger.annotations.ApiOperation;
+import springfox.documentation.spring.web.json.Json;
 
 @RestController
 @RequestMapping(value="/stock/")
@@ -57,7 +58,7 @@ public class StockController {
 	@SuppressWarnings("unchecked")
 	@PostMapping("add")
     @ApiOperation(value = "库存新增", notes = "")
-	public Resp<StockInfoRespDto> addStock(@RequestBody StockInfo reqDto) {
+	public Resp<StockInfoRespDto> addStock(@RequestBody StockInfo reqDto) throws Exception{
  		logger.info("addStock..............{}",JSON.toJSON(reqDto) );
  		List<StockInfo> stockList = new ArrayList<StockInfo>();
  		reqDto.setId(SnowFlakeUtil.getNextId());
@@ -219,10 +220,18 @@ public class StockController {
 	       	 	info.setGwPerBoxActul(new BigDecimal("0"));
 	       	   	stockInfoList.add(info);
 	        }
-		}finally{
+		}catch(Exception e) {
+        	logger.error("库存文件导入出错"  , e );
+			return Resp.fail("库存文件导入出错");
+        }finally{
 			wb.close();
 		}
-		stockInfoService.addStock(stockInfoList);
+		logger.info("excl文件解析成功,导入数据==={}",JSON.toJSON(stockInfoList));
+		try {
+			stockInfoService.addStock(stockInfoList);
+		}catch(Exception e) {
+			return Resp.fail(e.getMessage());
+		}
 		return Resp.success("uploadStock");
 	}
 	

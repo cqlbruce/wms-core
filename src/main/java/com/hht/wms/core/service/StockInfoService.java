@@ -10,7 +10,7 @@ public interface StockInfoService {
 	
 	StockInfoRespDto loadStock(StockInfoQueryReqDto reqDto);
 	
-	int addStock(List<StockInfo> stockInfoList);
+	int addStock(List<StockInfo> stockInfoList) throws Exception;
 	
 	int updateStock(StockInfo stockInfo);
 	

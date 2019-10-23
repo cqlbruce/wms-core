@@ -52,7 +52,7 @@ public class StockInfoServiceImpl extends ServiceImpl<StockInfoDao, StockInfo> i
 
 	@Override
 	@Transactional
-	public int addStock(List<StockInfo> stockInfoList) {
+	public int addStock(List<StockInfo> stockInfoList) throws Exception{
 		int i = 0 ; 
 		for(StockInfo info : stockInfoList) {
 			

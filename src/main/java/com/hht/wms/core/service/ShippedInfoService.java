@@ -9,7 +9,7 @@ public interface ShippedInfoService {
 	
 	ShippedInfoRespDto queryList(ShippedInfoReqDto reqDto );
 	
-	int outbound(OutboundReqDto reqDto);
+	int outbound(OutboundReqDto reqDto) throws Exception;
 	
 
 }

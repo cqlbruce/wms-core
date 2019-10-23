@@ -51,9 +51,13 @@ public class ShippedInfoServiceImpl extends ServiceImpl<ShippedInfoDao, ShippedI
 	
 	@Override
 	@Transactional
-	public int outbound(OutboundReqDto reqDto) {
+	public int outbound(OutboundReqDto reqDto) throws Exception{
 		//------查询 对应库存
 		StockInfo stockInfo = stockInfoService.queryByThreeElemet(reqDto.getSo(), reqDto.getPo(), reqDto.getSku());
+		if(null == stockInfo) {
+			logger.error("出仓失败，对应的库存信息不存在 {} " , JSON.toJSON(reqDto));
+			throw new Exception("出仓失败，对应的库存信息不存在");
+		}
 		logger.info("库存扣减前===={}",JSON.toJSON(stockInfo));
 		//------扣减库存 计算
 		//本次出仓箱数

@@ -50,14 +50,16 @@ public class FrontDeskChargeServiceImpl extends ServiceImpl<FrontDeskChargeDao, 
 	}
 	
 	
-	public int updateByInboundNo(StockInfo info) {
+	public int updateByInboundNo(StockInfo info) throws Exception{
 		
 		if(StringUtils.isEmpty(info.getInboundNo())) {
 			logger.error("入仓编号为空，无法更新前台收费信息");
+			throw new Exception("入仓编号为空，无法更新前台收费信息");
 		}
 		FrontDeskCharge charge = baseMapper.selectByInboundNo(info.getInboundNo());
 		if(null == charge) {
 			logger.error("对应入仓编号{}的前台收费信息为空，更新失败",info.getInboundNo());
+			throw new Exception("对应入仓编号的前台收费信息为空，更新失败");
 		}
 		charge.setCustName(info.getSupplierName());
 		charge.setSo(info.getSo());

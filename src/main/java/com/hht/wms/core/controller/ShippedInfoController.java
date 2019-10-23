@@ -102,7 +102,12 @@ public class ShippedInfoController {
 		}
 		if(CollectionUtils.isNotEmpty(outList)) {
 			for(OutboundReqDto reqDto:outList){
-				shippedInfoService.outbound(reqDto);	
+				try {
+					shippedInfoService.outbound(reqDto);	
+				}catch(Exception e) {
+					return Resp.fail(e.getMessage());
+				}
+				
 			}
 		}
 		return Resp.success("uploadStock");
@@ -223,6 +228,5 @@ public class ShippedInfoController {
         }
         return bos.toByteArray();
     }
-	
 	
 }
