@@ -35,7 +35,6 @@ import com.hht.wms.core.util.NumberUtil;
 import com.hht.wms.core.util.SnowFlakeUtil;
 
 import io.swagger.annotations.ApiOperation;
-import springfox.documentation.spring.web.json.Json;
 
 @RestController
 @RequestMapping(value="/stock/")

@@ -34,6 +34,27 @@ CREATE TABLE `supplier_info` (
 
 -----------------------------供应商信息表 end-----------------------------------------------
 
+
+
+
+-----------------------------库存摘要信息表 begin-------------------------------------------
+
+DROP TABLE IF EXISTS `stock_abstract_info`;
+
+CREATE TABLE `stock_abstract_info` (
+  `id` varchar(32) COLLATE utf8_bin NOT NULL COMMENT '主键 id',
+  `cust_id` varchar(128) COLLATE utf8_bin DEFAULT NULL COMMENT '客户id 对应客户管理',
+  `inbound_no` varchar(32) COLLATE utf8_bin DEFAULT NULL COMMENT '入仓编号',
+  `car_num` varchar(64) COLLATE utf8_bin DEFAULT NULL COMMENT '车牌号',
+  `status` varchar(32) COLLATE utf8_bin DEFAULT NULL COMMENT '入库状态',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `update_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+-----------------------------库存摘要信息表 end-------------------------------------------
+
+
 -----------------------------库存信息表 begin-------------------------------------------
 DROP TABLE IF EXISTS `stock_info`;
 
@@ -42,7 +63,7 @@ CREATE TABLE `stock_info` (
   `cust_id` varchar(128) COLLATE utf8_bin DEFAULT NULL COMMENT '客户id 对应客户管理',
   `so` varchar(32) COLLATE utf8_bin DEFAULT NULL COMMENT '入仓落货纸号',
   `po` varchar(32) COLLATE utf8_bin DEFAULT NULL COMMENT '客户采购订单号',
-  `sku` varchar(32) COLLATE utf8_bin DEFAULT NULL COMMENT '货物款号 asn-item',
+  `item` varchar(32) COLLATE utf8_bin DEFAULT NULL COMMENT '货物款号 asn-item',
   `inbound_no` varchar(32) COLLATE utf8_bin DEFAULT NULL COMMENT '入仓编号',
   `car_num` varchar(64) COLLATE utf8_bin DEFAULT NULL COMMENT '车牌号',
   `customs_meterial_no` varchar(32) COLLATE utf8_bin DEFAULT NULL COMMENT '海关系统物料号',
