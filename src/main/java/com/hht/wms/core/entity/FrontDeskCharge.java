@@ -116,6 +116,17 @@ public class FrontDeskCharge {
      */
     @TableField
     private BigDecimal customsDeclarationFee;
+    
+    
+    @TableField
+    private String customsMeterialNo;    
+    
+    @TableField
+    private String commercialInspectionFlag;
+    
+    
+    @TableField
+    private BigDecimal feeTotal;    
 
     /**
      * 创建时间

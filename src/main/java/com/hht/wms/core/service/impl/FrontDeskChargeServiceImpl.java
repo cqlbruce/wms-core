@@ -11,8 +11,8 @@ import org.springframework.stereotype.Service;
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.hht.wms.core.dao.FrontDeskChargeDao;
-import com.hht.wms.core.dto.FrontDeskChargeReqDto;
-import com.hht.wms.core.dto.FrontDeskChargeRespDto;
+import com.hht.wms.core.dto.FrontDeskChargeQueryReqDto;
+import com.hht.wms.core.dto.FrontDeskChargeQueryRespDto;
 import com.hht.wms.core.entity.FrontDeskCharge;
 import com.hht.wms.core.entity.StockInfo;
 import com.hht.wms.core.service.FrontDeskChargeService;
@@ -28,14 +28,13 @@ public class FrontDeskChargeServiceImpl extends ServiceImpl<FrontDeskChargeDao, 
 
 	@Override
 	public int add(FrontDeskCharge reqDto) {
-		
 		return baseMapper.insert(reqDto) ;
 	}
 
 	@Override
-	public FrontDeskChargeRespDto query(FrontDeskChargeReqDto reqDto) {
+	public FrontDeskChargeQueryRespDto query(FrontDeskChargeQueryReqDto reqDto) {
 		logger.info("FrontDeskChargeServiceImpl ---query--reqDto---{}",JSON.toJSON(reqDto));
-		FrontDeskChargeRespDto respDto = new FrontDeskChargeRespDto();
+		FrontDeskChargeQueryRespDto respDto = new FrontDeskChargeQueryRespDto();
 		int total = frontDeskChargeMapper.selectCount(reqDto);
 		if(total==0) {
 			respDto.setTotal(0);

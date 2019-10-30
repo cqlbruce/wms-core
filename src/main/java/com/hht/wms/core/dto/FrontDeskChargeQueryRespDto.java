@@ -5,7 +5,7 @@ import java.util.List;
 import com.hht.wms.core.entity.FrontDeskCharge;
 
 
-public class FrontDeskChargeRespDto {
+public class FrontDeskChargeQueryRespDto {
 	
 	
 	private int total ; 

@@ -1,5 +1,10 @@
 package com.hht.wms.core.controller;
 
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -7,9 +12,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.alibaba.fastjson.JSON;
 import com.hht.wms.core.common.Resp;
-import com.hht.wms.core.dto.FrontDeskChargeReqDto;
-import com.hht.wms.core.dto.FrontDeskChargeRespDto;
+import com.hht.wms.core.dto.FrontDeskChargeAddReqDto;
+import com.hht.wms.core.dto.FrontDeskChargeDetail;
+import com.hht.wms.core.dto.FrontDeskChargeQueryReqDto;
+import com.hht.wms.core.dto.FrontDeskChargeQueryRespDto;
 import com.hht.wms.core.entity.FrontDeskCharge;
 import com.hht.wms.core.service.FrontDeskChargeService;
 import com.hht.wms.core.util.DateUtil;
@@ -22,28 +30,37 @@ import io.swagger.annotations.ApiOperation;
 @CrossOrigin 
 public class FrontDeskChargeController {
 	
+	private static Logger logger = LoggerFactory.getLogger(FrontDeskChargeController.class) ; 
+
+	
 	@Autowired
 	private FrontDeskChargeService frontDeskChargeService ; 
 	
 	
 	@PostMapping("add")
     @ApiOperation(value = "新增前台收费", notes = "")
-	public Resp<?> add(@RequestBody FrontDeskCharge reqDto) {
+	public Resp<?> add(@RequestBody FrontDeskChargeAddReqDto reqDto) {
+ 		logger.info("---FrontDeskChargeAddReqDto..............{}",JSON.toJSON(reqDto) );
 		//页面需输入   入仓号 代收款合计  支付方式  收据编码  一车几单
-		
-		reqDto.setTranDate(DateUtil.getNowTime(DateUtil.ISO_DATE_FORMAT_CROSSBAR));
-		reqDto.setId(SnowFlakeUtil.getNewNextId());
-		frontDeskChargeService.add(reqDto);
+		List<FrontDeskChargeDetail> detailList = reqDto.getItems() ; 
+		FrontDeskCharge fdc = new FrontDeskCharge();
+		BeanUtils.copyProperties(reqDto, fdc);
+		fdc.setTranDate(DateUtil.getNowTime(DateUtil.ISO_DATE_FORMAT_CROSSBAR));
+		fdc.setId(SnowFlakeUtil.getNewNextId());
+		for(FrontDeskChargeDetail detail : detailList) {
+			BeanUtils.copyProperties(detail, fdc);
+			frontDeskChargeService.add(fdc);
+		}
 		return Resp.success("新增前台收费成功");
-
 	}
+	
 	
 	@SuppressWarnings("unchecked")
 	@PostMapping("query")
     @ApiOperation(value = "查询前台收费", notes = "")
-	public Resp<FrontDeskChargeRespDto> query(@RequestBody FrontDeskChargeReqDto reqDto) {
+	public Resp<FrontDeskChargeQueryRespDto> query(@RequestBody FrontDeskChargeQueryReqDto reqDto) {
 		
-		FrontDeskChargeRespDto respDto = frontDeskChargeService.query(reqDto);
+		FrontDeskChargeQueryRespDto respDto = frontDeskChargeService.query(reqDto);
 		return Resp.success("查询前台收费成功" , respDto );
 	}
 	

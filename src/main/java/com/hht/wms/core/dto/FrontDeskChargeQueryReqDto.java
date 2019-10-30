@@ -3,7 +3,7 @@ package com.hht.wms.core.dto;
 import lombok.Data;
 
 @Data
-public class FrontDeskChargeReqDto {
+public class FrontDeskChargeQueryReqDto {
 	
 	private String inboundNo ;
 
