@@ -17,25 +17,6 @@ CREATE TABLE `user_info` (
 -----------------------------用户信息表 end-------------------------------------------
 
 
------------------------------供应商信息表 begin-------------------------------------------
-
-DROP TABLE IF EXISTS `supplier_info`;
-
-CREATE TABLE `supplier_info` (
-  `id` varchar(32) COLLATE utf8_bin NOT NULL COMMENT '主键id',
-  `cust_name` varchar(128) COLLATE utf8_bin DEFAULT NULL COMMENT '客户名称',
-  `project_name` varchar(128) COLLATE utf8_bin DEFAULT NULL COMMENT '项目名称',
-  `supplier_name` varchar(128) COLLATE utf8_bin DEFAULT NULL COMMENT '供应商名称',
-  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
-  `update_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
-
-
------------------------------供应商信息表 end-----------------------------------------------
-
-
-
 
 -----------------------------库存摘要信息表 begin-------------------------------------------
 
