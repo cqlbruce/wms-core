@@ -71,7 +71,7 @@ public class ShippedInfo {
      * 表字段 : shipped_info.shipped_no
      */
 	  @TableField
-    private String shippedNo;
+    private String clp;
 
     /**
      * 仓库位置

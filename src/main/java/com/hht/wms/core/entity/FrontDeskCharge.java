@@ -45,7 +45,7 @@ public class FrontDeskCharge {
      * 表字段 : front_desk_charge.cust_name
      */
 	@TableField
-    private String custName;
+    private String custId;
 
     /**
      * 工厂名称
@@ -66,7 +66,7 @@ public class FrontDeskCharge {
      * 表字段 : front_desk_charge.project_name
      */
 	@TableField
-    private String projectName;
+    private String projectId;
 
     /**
      * 一车几单

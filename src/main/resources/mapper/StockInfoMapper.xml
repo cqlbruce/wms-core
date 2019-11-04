@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hht.wms.core.dao.StockInfoDao">
+
+
+  <select id="selectByInboundNoList" resultMap="BaseResultMap">
+    select * from stock_info where inbound_no IN 
+	<foreach collection="list" item="inboundNo" index="index" open="(" close=")" separator=",">
+		#{inboundNo}
+    </foreach>
+  </select>
+
 	<!--   自定义 -->
   <select id="queryList" resultType="com.hht.wms.core.entity.StockInfo" parameterType="com.hht.wms.core.dto.StockInfoQueryReqDto" >
     select * from stock_info 

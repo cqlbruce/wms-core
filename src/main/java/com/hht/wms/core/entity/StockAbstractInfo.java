@@ -24,20 +24,20 @@ public class StockAbstractInfo {
 	     * 表字段 : shipped_info.so
 	     */
 		@TableField
-	    private String cust_id;
+	    private String custId;
 
 	    /**
 	     * 客户采购订单号
 	     * 表字段 : shipped_info.po
 	     */
 		@TableField
-	    private String inbound_no;
+	    private String inboundNo;
 	    /**
 	     * 货物款号 asn-item
 	     * 表字段 : shipped_info.sku
 	     */
 		@TableField
-	    private String car_num;
+	    private String carNum;
 	    /**
 	     * 入仓编号
 	     * 表字段 : shipped_info.inbound_no

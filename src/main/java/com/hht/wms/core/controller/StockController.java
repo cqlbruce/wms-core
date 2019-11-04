@@ -108,7 +108,7 @@ public class StockController {
 	
 	@PostMapping("/upload")
     @ApiOperation(value = "上传excl", notes = "")
-	public Resp<?> fileUploadStock(@RequestParam("excelFile") MultipartFile excelFile)  throws Exception {
+	public Resp<?> fileUploadStock(@RequestParam("excelFile") MultipartFile excelFile , @RequestParam("inboundNo") String inboundNo ,@RequestParam("custId") String custId)  throws Exception {
 	    String fileName = excelFile.getOriginalFilename();
  		logger.info("fileUpload..............{}",fileName );
 		if(excelFile.isEmpty()) {
@@ -120,13 +120,13 @@ public class StockController {
 			Sheet ss = wb.getSheetAt(2);
 			
 			//获取入仓单号
-			String inboundNo = "";
-			Row row1 = ss.getRow(23);
-			if(null!=row1&&null!=row1.getCell(1)) {
-				inboundNo = ExcelUtil.getCellValue(row1.getCell(1));
-			}
+//			String inboundNo = "";
+//			Row row1 = ss.getRow(23);
+//			if(null!=row1&&null!=row1.getCell(1)) {
+//				inboundNo = ExcelUtil.getCellValue(row1.getCell(1));
+//			}
 			//从25行开始
-			for(int i=26 ; i<ss.getLastRowNum();i++) {
+			for(int i=25 ; i<ss.getLastRowNum();i++) {
 				Row row = ss.getRow(i);
 	       	   	if(null==row||null == row.getCell(0)) {
 	       	   		break ; 
@@ -139,6 +139,8 @@ public class StockController {
 	       	   	StockInfo info = new StockInfo();
 	       	   	
 	       	   	info.setInboundNo(inboundNo);
+	       	   	info.setCustId(custId);
+	       	   	
 	       	   	//第一列SO
 	       	   	info.setSo(ExcelUtil.getCellValue(row.getCell(1)));
 	       	   	//第四列PO

@@ -2,14 +2,14 @@ package com.hht.wms.core.dto;
 
 import java.util.List;
 
-import com.hht.wms.core.entity.StockAbstractInfo;
+import com.hht.wms.core.entity.ShippedAbstractInfo;
 
-public class StockAbstractQueryRespDto {
+public class ShippedAbstractQueryRespDto {
 	
 	
 	private int total ; 
 	
-	List<StockAbstractInfo> items ;
+	List<ShippedAbstractInfo> items ;
 
 	public int getTotal() {
 		return total;
@@ -19,14 +19,14 @@ public class StockAbstractQueryRespDto {
 		this.total = total;
 	}
 
-	public List<StockAbstractInfo> getItems() {
+	public List<ShippedAbstractInfo> getItems() {
 		return items;
 	}
 
-	public void setItems(List<StockAbstractInfo> items) {
+	public void setItems(List<ShippedAbstractInfo> items) {
 		this.items = items;
 	}
-	
+
 	
 
 }

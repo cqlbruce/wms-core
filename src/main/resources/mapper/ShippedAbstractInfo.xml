@@ -1,21 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.hht.wms.core.dao.StockAbstractInfoDao">
-
- 
-   <!--   自定义 -->
-  <insert id="insertOrUpdate" parameterType="com.hht.wms.core.entity.StockAbstractInfo" >
+<mapper namespace="com.hht.wms.core.dao.ShippedAbstractInfoDao">
+   
+     <!--   自定义 -->
+  <insert id="insertOrUpdate" parameterType="com.hht.wms.core.entity.ShippedAbstractQueryReqDto" >
   <foreach collection="list" item="item" index="index" separator=";">
     insert into stock_abstract_info
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="item.inboundNo != null" >
-        inbound_no,
+      <if test="item.clp != null" >
+        clp,
       </if>
       <if test="item.custId != null" >
         cust_id,
-      </if>
-      <if test="item.carNum != null" >
-        car_num,
       </if>
       <if test="item.createTime != null" >
         create_time,
@@ -25,15 +21,12 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="item.inboundNo != null" >
-        #{item.inbound_no,jdbcType=VARCHAR},
+      <if test="item.clp != null" >
+        #{item.clp,jdbcType=VARCHAR},
       </if>
 
       <if test="item.custId != null" >
         #{item.cust_id,jdbcType=VARCHAR},
-      </if>
-      <if test="item.carNum != null" >
-        #{item.car_num,jdbcType=VARCHAR},
       </if>
       <if test="item.createTime != null" >
         #{item.create_time,jdbcType=VARCHAR},
@@ -43,56 +36,35 @@
       </if>            
     </trim>
     	on duplicate key update 
-    	inbound_no = #{item.inboundNo,jdbcType=VARCHAR},
+    	clp = #{item.clp,jdbcType=VARCHAR},
     	cust_id = #{item.custId,jdbcType=VARCHAR},
-    	car_num = #{item.carNum,jdbcType=VARCHAR},
     	create_time = #{item.createTime,jdbcType=VARCHAR},
     	update_time = #{item.updateTime,jdbcType=VARCHAR}
     </foreach>
   </insert>
-   
-   
-  <select id="queryList" resultType="com.hht.wms.core.entity.StockAbstractInfo" parameterType="com.hht.wms.core.dto.StockAbstractQueryReqDto" >
+  
+  <select id="queryList" resultType="com.hht.wms.core.entity.ShippedAbstractInfo" parameterType="com.hht.wms.core.dto.StockAbstractQueryReqDto" >
     select * from stock_abstract_info 
   <where>  
-	<if test="so != null and so !=''">
-		so=#{so,jdbcType=VARCHAR}
+	<if test="clp != null and clp !=''">
+		clp=#{clp,jdbcType=VARCHAR}
 	</if>
-	<if test="po != null and po !=''">
-		and po = #{po,jdbcType=VARCHAR}
-	</if>    
-	<if test="sku != null and sku != ''">
-		and sku = #{sku,jdbcType=VARCHAR}
-	</if>
-	<if test="inboundNo != null and inboundNo != ''">
-		and inbound_no = #{inboundNo,jdbcType=VARCHAR}
-	</if>	
-	<if test="custId != null and custId != ''">
+	<if test="custId != null and custId !=''">
 		and cust_id = #{custId,jdbcType=VARCHAR}
-	</if>		
+	</if>    
    </where> 	
     order by id  LIMIT #{beginSize},#{size}    	
-     
   </select>
    
   <select id="selectCount" resultType="java.lang.Integer"  parameterType="com.hht.wms.core.dto.StockAbstractQueryReqDto" >
     select count(1) from stock_abstract_info 
   <where>  
-	<if test="so != null and so !=''">
-		so=#{so,jdbcType=VARCHAR}
+	<if test="clp != null and clp !=''">
+		clp=#{clp,jdbcType=VARCHAR}
 	</if>
-	<if test="po != null and po !=''">
-		and po = #{po,jdbcType=VARCHAR}
-	</if>    
-	<if test="sku != null and sku != ''">
-		and sku = #{sku,jdbcType=VARCHAR}
-	</if>
-	<if test="inboundNo != null and inboundNo != ''">
-		and inbound_no = #{inboundNo,jdbcType=VARCHAR}
-	</if>	
-	<if test="custId != null and custId != ''">
+	<if test="custId != null and custId !=''">
 		and cust_id = #{custId,jdbcType=VARCHAR}
-	</if>		
+	</if>    
    </where> 	
   </select>  
  

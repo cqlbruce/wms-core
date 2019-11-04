@@ -20,11 +20,11 @@ public class StockInfo {
     private String id;
 
     /**
-     * 供应商名称
-     * 表字段 : stock_info.supplier_name
+     * 客户
+     * 表字段
      */
 	@TableField
-	private String supplierName;
+	private String custId;
 
     /**
      * 入仓落货纸号
@@ -81,6 +81,9 @@ public class StockInfo {
      */
 	@TableField
     private Integer rcvdPcs;
+	
+	@TableField
+    private String carNum;
 
     /**
      * 一箱几件
@@ -270,6 +273,9 @@ public class StockInfo {
      */
 	@TableField
     private String declaUnit;
+	
+	@TableField
+    private String status;	
 
     /**
      * 申报单位/成交单位

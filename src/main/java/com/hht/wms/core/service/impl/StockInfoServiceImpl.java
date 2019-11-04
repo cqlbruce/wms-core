@@ -2,6 +2,7 @@ package com.hht.wms.core.service.impl;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -12,14 +13,17 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.hht.wms.core.dao.StockAbstractInfoDao;
 import com.hht.wms.core.dao.StockInfoDao;
 import com.hht.wms.core.dto.StockInfoQueryReqDto;
 import com.hht.wms.core.dto.StockInfoRespDto;
 import com.hht.wms.core.dto.vo.ThreeElement;
+import com.hht.wms.core.entity.StockAbstractInfo;
 import com.hht.wms.core.entity.StockInfo;
 import com.hht.wms.core.service.FrontDeskChargeService;
 import com.hht.wms.core.service.StockInfoService;
 import com.hht.wms.core.util.DateUtil;
+import com.hht.wms.core.util.SnowFlakeUtil;
 
 @Service
 public class StockInfoServiceImpl extends ServiceImpl<StockInfoDao, StockInfo> implements StockInfoService{
@@ -28,16 +32,17 @@ public class StockInfoServiceImpl extends ServiceImpl<StockInfoDao, StockInfo> i
 
 	
 	@Autowired
-	private StockInfoDao stockInfoMapper ; 
+	private StockAbstractInfoDao stockAbstractInfoDao ; 
 	
 	@Autowired
 	private FrontDeskChargeService frontDeskChargeService ; 
+
 
 	@Override
 	public StockInfoRespDto loadStock(StockInfoQueryReqDto reqDto) {
 		logger.info("StockInfoServiceImpl ---loadStock-----{}",JSON.toJSON(reqDto));
 		StockInfoRespDto respDto = new StockInfoRespDto();
-		int total = stockInfoMapper.selectCount(reqDto);
+		int total = baseMapper.selectCount(reqDto);
 		if(total==0) {
 			respDto.setTotal(0);
 			return respDto ;
@@ -45,7 +50,7 @@ public class StockInfoServiceImpl extends ServiceImpl<StockInfoDao, StockInfo> i
 		respDto.setTotal(total);
 		int beginSize = (reqDto.getPage()-1) * reqDto.getSize() ; 
 		reqDto.setBeginSize(beginSize);
-		List<StockInfo> list =  stockInfoMapper.queryList(reqDto);
+		List<StockInfo> list =  baseMapper.queryList(reqDto);
 		respDto.setItems(list);
 		return respDto ;
 	}
@@ -54,6 +59,7 @@ public class StockInfoServiceImpl extends ServiceImpl<StockInfoDao, StockInfo> i
 	@Transactional
 	public int addStock(List<StockInfo> stockInfoList) throws Exception{
 		int i = 0 ; 
+		List<StockAbstractInfo> abstractInfoList = new ArrayList<StockAbstractInfo>(); 
 		for(StockInfo info : stockInfoList) {
 			
 			//收货日期
@@ -78,6 +84,12 @@ public class StockInfoServiceImpl extends ServiceImpl<StockInfoDao, StockInfo> i
 			info.setStockWeigh(info.getCustsDeclaAllWeigh());
 			//总库存体积
 			info.setStockVolume(info.getBoxAllVolumeActul());
+
+			if(null == info.getBoxLengthActul()||null==info.getBoxWidthActul()||null == info.getBoxHighActul()||null ==info.getGwPerBoxActul()) {
+				info.setStatus("0");
+			}else {
+				info.setStatus("1");
+			}
 			
 			info.setShippedCtns(BigDecimal.ZERO);
 			info.setShippedGw(BigDecimal.ZERO);
@@ -89,16 +101,32 @@ public class StockInfoServiceImpl extends ServiceImpl<StockInfoDao, StockInfo> i
 			//增加库存
 			i+=baseMapper.insert(info);
 			
-			//更新前台收费信息，注意事务测试
+			StockAbstractInfo stockAbstractInfo = new StockAbstractInfo();
+			stockAbstractInfo.setId(SnowFlakeUtil.getNewNextId());
+			stockAbstractInfo.setCustId(info.getCustId());
+			stockAbstractInfo.setInboundNo(info.getInboundNo());
+			stockAbstractInfo.setCarNum(info.getCarNum());
+			
+			//更新总条目，这里关键是总条目的状态，状态与所有明细状态有关系  insertOrUpdate。
+			abstractInfoList.add(stockAbstractInfo);
+			
+			//更新前台收费信息，注意事务测试 , 不一定存在，存在则更新 
 			frontDeskChargeService.updateByInboundNo(info);
 		}
+		stockAbstractInfoDao.insertOrUpdate(abstractInfoList);
+
 		return i;
 	}
 
 	@Override
-	public int updateStock(StockInfo stockInfo) {
-		logger.info("stockInfo============{}" , JSON.toJSON(stockInfo));
-		int i = baseMapper.updateById(stockInfo);
+	public int updateStock(StockInfo info) {
+		logger.info("stockInfo============{}" , JSON.toJSON(info));
+		if(null == info.getBoxLengthActul()||null==info.getBoxWidthActul()||null == info.getBoxHighActul()||null ==info.getGwPerBoxActul()) {
+			info.setStatus("0");
+		}else {
+			info.setStatus("1");
+		}
+		int i = baseMapper.updateById(info);
 		return i;
 	}
 	

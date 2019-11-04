@@ -7,7 +7,6 @@ import com.hht.wms.core.entity.FrontDeskCharge;
 
 public class FrontDeskChargeQueryRespDto {
 	
-	
 	private int total ; 
 	
 	List<FrontDeskCharge> items ;

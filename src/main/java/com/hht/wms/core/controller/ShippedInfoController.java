@@ -29,6 +29,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.alibaba.fastjson.JSON;
 import com.hht.wms.core.common.Resp;
 import com.hht.wms.core.dto.OutboundReqDto;
+import com.hht.wms.core.dto.ShippedAbstractQueryRespDto;
 import com.hht.wms.core.dto.ShippedInfoReqDto;
 import com.hht.wms.core.dto.ShippedInfoRespDto;
 import com.hht.wms.core.entity.ShippedInfo;
@@ -49,13 +50,21 @@ public class ShippedInfoController {
 	private ShippedInfoService shippedInfoService ; 
 	
 	@SuppressWarnings("unchecked")
+	@PostMapping("abstract/load")
+    @ApiOperation(value = "批次查询", notes = "")
+	public Resp<ShippedAbstractQueryRespDto> shippedAbstractQuery(@RequestBody ShippedInfoReqDto reqDto) {
+ 		logger.info("shippedInfoQuery..............{}",JSON.toJSON(reqDto) );
+		return Resp.success("出仓数据查询成功" , shippedInfoService.queryList(reqDto));
+    }
+
+	@SuppressWarnings("unchecked")
 	@PostMapping("load")
     @ApiOperation(value = "出仓数据", notes = "")
 	public Resp<ShippedInfoRespDto> shippedInfoQuery(@RequestBody ShippedInfoReqDto reqDto) {
  		logger.info("shippedInfoQuery..............{}",JSON.toJSON(reqDto) );
 		return Resp.success("出仓数据查询成功" , shippedInfoService.queryList(reqDto));
     }
-
+	
 	
 	@PostMapping("/upload")
     @ApiOperation(value = "导入excl,批量出仓", notes = "")

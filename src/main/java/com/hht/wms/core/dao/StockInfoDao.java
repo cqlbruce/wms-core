@@ -15,4 +15,6 @@ public interface StockInfoDao extends BaseDao<StockInfo>{
     
     StockInfo queryByThreeElemet(ThreeElement te);
     
+    List<StockInfo> selectByInboundNoList(List<String> inboundNoList);
+    
 }

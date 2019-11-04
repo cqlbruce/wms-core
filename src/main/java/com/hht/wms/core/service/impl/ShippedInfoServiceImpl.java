@@ -96,7 +96,7 @@ public class ShippedInfoServiceImpl extends ServiceImpl<ShippedInfoDao, ShippedI
 		//------生成出库记录
 		ShippedInfo shippedInfo = new ShippedInfo();
 		BeanUtils.copyProperties(stockInfo, shippedInfo);
-		shippedInfo.setShippedNo(reqDto.getClp());
+		shippedInfo.setClp(reqDto.getClp());
 		shippedInfo.setShippedPcs(reqDto.getPcs());
 		shippedInfo.setShippedCtns(shippedCtns);
 		shippedInfo.setShippedGw(shippedGw);
