@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class StockAbstractQueryReqDto {
 	
-	private String clp ; 
+	private String inboundNo ; 
 	
 	private String custId ; 
 	

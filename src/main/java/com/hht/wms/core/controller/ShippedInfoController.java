@@ -29,10 +29,12 @@ import org.springframework.web.multipart.MultipartFile;
 import com.alibaba.fastjson.JSON;
 import com.hht.wms.core.common.Resp;
 import com.hht.wms.core.dto.OutboundReqDto;
+import com.hht.wms.core.dto.ShippedAbstractQueryReqDto;
 import com.hht.wms.core.dto.ShippedAbstractQueryRespDto;
 import com.hht.wms.core.dto.ShippedInfoReqDto;
 import com.hht.wms.core.dto.ShippedInfoRespDto;
 import com.hht.wms.core.entity.ShippedInfo;
+import com.hht.wms.core.service.ShippedAbstractService;
 import com.hht.wms.core.service.ShippedInfoService;
 import com.hht.wms.core.util.ExcelUtil;
 import com.hht.wms.core.util.SnowFlakeUtil;
@@ -49,12 +51,15 @@ public class ShippedInfoController {
 	@Autowired
 	private ShippedInfoService shippedInfoService ; 
 	
+	@Autowired
+	private ShippedAbstractService shippedAbstractService ; 
+	
 	@SuppressWarnings("unchecked")
 	@PostMapping("abstract/load")
     @ApiOperation(value = "批次查询", notes = "")
-	public Resp<ShippedAbstractQueryRespDto> shippedAbstractQuery(@RequestBody ShippedInfoReqDto reqDto) {
+	public Resp<ShippedAbstractQueryRespDto> shippedAbstractQuery(@RequestBody ShippedAbstractQueryReqDto reqDto) {
  		logger.info("shippedInfoQuery..............{}",JSON.toJSON(reqDto) );
-		return Resp.success("出仓数据查询成功" , shippedInfoService.queryList(reqDto));
+		return Resp.success("出仓数据查询成功" , shippedAbstractService.queryList(reqDto));
     }
 
 	@SuppressWarnings("unchecked")
@@ -66,7 +71,7 @@ public class ShippedInfoController {
     }
 	
 	
-	@PostMapping("/upload")
+	@PostMapping("upload")
     @ApiOperation(value = "导入excl,批量出仓", notes = "")
 	public Resp<?> fileUploadShipped(@RequestParam("excelFile") MultipartFile excelFile)  throws Exception {
 	    String fileName = excelFile.getOriginalFilename();

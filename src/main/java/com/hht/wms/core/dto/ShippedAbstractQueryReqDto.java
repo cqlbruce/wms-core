@@ -19,6 +19,10 @@ public class ShippedAbstractQueryReqDto {
 	
 	private String shippedDate ; 
 	
+	private int  page ;
 	
+	private int size;
+	
+	private int beginSize ; 
 
 }

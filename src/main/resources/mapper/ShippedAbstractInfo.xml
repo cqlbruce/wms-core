@@ -43,6 +43,8 @@
     </foreach>
   </insert>
   
+  
+  
   <select id="queryList" resultType="com.hht.wms.core.entity.ShippedAbstractInfo" parameterType="com.hht.wms.core.dto.StockAbstractQueryReqDto" >
     select * from stock_abstract_info 
   <where>  
@@ -52,9 +54,25 @@
 	<if test="custId != null and custId !=''">
 		and cust_id = #{custId,jdbcType=VARCHAR}
 	</if>    
+	<if test="so != null and so !=''">
+		and so = #{so,jdbcType=VARCHAR}
+	</if>    
+	<if test="po != null and po !=''">
+		and po = #{po,jdbcType=VARCHAR}
+	</if>    
+	<if test="item != null and item !=''">
+		and item = #{item,jdbcType=VARCHAR}
+	</if>    
+	<if test="cntrNo != null and cntrNo !=''">
+		and cntr_no = #{cntrNo,jdbcType=VARCHAR}
+	</if>   
+	<if test="shippedDate != null and shippedDate !=''">
+		and shipped_date = #{shippedDate,jdbcType=VARCHAR}
+	</if>   
    </where> 	
     order by id  LIMIT #{beginSize},#{size}    	
   </select>
+  
    
   <select id="selectCount" resultType="java.lang.Integer"  parameterType="com.hht.wms.core.dto.StockAbstractQueryReqDto" >
     select count(1) from stock_abstract_info 
@@ -65,6 +83,21 @@
 	<if test="custId != null and custId !=''">
 		and cust_id = #{custId,jdbcType=VARCHAR}
 	</if>    
+	<if test="so != null and so !=''">
+		and so = #{so,jdbcType=VARCHAR}
+	</if>    
+	<if test="po != null and po !=''">
+		and po = #{po,jdbcType=VARCHAR}
+	</if>    
+	<if test="item != null and item !=''">
+		and item = #{item,jdbcType=VARCHAR}
+	</if>    
+	<if test="cntrNo != null and cntrNo !=''">
+		and cntr_no = #{cntrNo,jdbcType=VARCHAR}
+	</if>   
+	<if test="shippedDate != null and shippedDate !=''">
+		and shipped_date = #{shippedDate,jdbcType=VARCHAR}
+	</if>   
    </where> 	
   </select>  
  
