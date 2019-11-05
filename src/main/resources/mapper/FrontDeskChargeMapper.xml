@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hht.wms.core.dao.FrontDeskChargeDao">
   
-   <select id="queryList" resultType="com.hht.wms.core.entity.FrontDeskCharge" parameterType="com.hht.wms.core.dto.FrontDeskChargeReqDto" >
+   <select id="queryList" resultType="com.hht.wms.core.entity.FrontDeskCharge" parameterType="com.hht.wms.core.dto.FrontDeskChargeQueryReqDto" >
     select * from front_desk_charge 
   <where>  
 	<if test="inboundNo != null and inboundNo !=''">
@@ -12,7 +12,7 @@
     order by id  LIMIT #{beginSize},#{size} 
   </select>
    
-  <select id="selectCount" resultType="java.lang.Integer"  parameterType="com.hht.wms.core.dto.FrontDeskChargeReqDto" >
+  <select id="selectCount" resultType="java.lang.Integer"  parameterType="com.hht.wms.core.dto.FrontDeskChargeQueryReqDto" >
     select count(1) from front_desk_charge 
   	<where>  
 	<if test="inboundNo != null and inboundNo !=''">

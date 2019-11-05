@@ -46,8 +46,8 @@ public class FrontDeskChargeController {
 		FrontDeskCharge fdc = new FrontDeskCharge();
 		BeanUtils.copyProperties(reqDto, fdc);
 		fdc.setTranDate(DateUtil.getNowTime(DateUtil.ISO_DATE_FORMAT_CROSSBAR));
-		fdc.setId(SnowFlakeUtil.getNewNextId());
 		for(FrontDeskChargeDetail detail : detailList) {
+			fdc.setId(SnowFlakeUtil.getNewNextId());
 			BeanUtils.copyProperties(detail, fdc);
 			frontDeskChargeService.add(fdc);
 		}

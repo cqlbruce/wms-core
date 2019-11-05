@@ -8,7 +8,7 @@ import lombok.Data;
 @Data
 public class FrontDeskChargeAddReqDto {
 	
-    private String custName;
+    private String custId;
     
     private String carNum;
     
@@ -18,7 +18,7 @@ public class FrontDeskChargeAddReqDto {
 
     private String receiptNo;
     
-    private String projectName;
+    private String projectId;
 
     private Integer billOneCar;
 

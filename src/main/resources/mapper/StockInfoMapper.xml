@@ -3,7 +3,7 @@
 <mapper namespace="com.hht.wms.core.dao.StockInfoDao">
 
 
-  <select id="selectByInboundNoList" resultMap="BaseResultMap">
+  <select id="selectByInboundNoList" resultType="com.hht.wms.core.entity.StockInfo">
     select * from stock_info where inbound_no IN 
 	<foreach collection="list" item="inboundNo" index="index" open="(" close=")" separator=",">
 		#{inboundNo}

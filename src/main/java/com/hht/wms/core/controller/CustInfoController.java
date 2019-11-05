@@ -1,5 +1,8 @@
 package com.hht.wms.core.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +35,7 @@ public class CustInfoController {
 	@SuppressWarnings("unchecked")
 	@PostMapping("add")
     @ApiOperation(value = "客户项目信息新增", notes = "")
-	public Resp<StockInfoRespDto> addCust(@RequestBody CustInfo reqDto) throws Exception{
+	public Resp addCust(@RequestBody CustInfo reqDto) throws Exception{
  		logger.info("...addCust..............{}",JSON.toJSON(reqDto) );
  		custInfoService.add(reqDto);
 		return Resp.success("客户项目信息新增成功");
@@ -45,7 +48,16 @@ public class CustInfoController {
 	public Resp<CustInfoQueryRespDto> query(@RequestBody CustInfoQueryReqDto reqDto) {
 		
 		CustInfoQueryRespDto respDto = custInfoService.queryList(reqDto);
-		
+//		CustInfoQueryRespDto respDto = new CustInfoQueryRespDto();
+//		respDto.setTotal(2);
+//		
+//		List<CustInfo> items = new ArrayList<CustInfo>() ;
+//		CustInfo ci = new CustInfo();
+//		ci.setId("asdf");
+//		ci.setProjectId("asdf");
+//		ci.setProjectName("asdfas");
+//		items.add(ci);
+//		respDto.setItems(items);
 		return Resp.success("查询前台收费成功" , respDto );
 	}	
 	
