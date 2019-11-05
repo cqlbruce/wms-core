@@ -51,6 +51,16 @@ public class ShippedInfo {
      */
 	  @TableField
     private String customsMeterialNo;
+	  
+	  
+	@TableField
+    private String cntrNo;
+
+	@TableField
+    private String seal;
+
+	@TableField
+    private BigDecimal cntrWeigh;
 
     /**
      * 出仓订单日期

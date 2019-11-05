@@ -3,7 +3,13 @@
 <mapper namespace="com.hht.wms.core.dao.ShippedAbstractInfoDao">
    
      <!--   自定义 -->
-  <insert id="insertOrUpdate" parameterType="com.hht.wms.core.entity.ShippedAbstractQueryReqDto" >
+     
+	<select id="selectByClp" resultType="com.hht.wms.core.entity.ShippedAbstractInfo" parameterType="java.lang.String" >
+		select * from stock_abstract_info where clp=#{clp,jdbcType=VARCHAR}
+	</select>
+
+     
+  <insert id="insertOrUpdate" parameterType="com.hht.wms.core.entity.ShippedAbstractInfo" >
   <foreach collection="list" item="item" index="index" separator=";">
     insert into stock_abstract_info
     <trim prefix="(" suffix=")" suffixOverrides="," >
@@ -13,6 +19,15 @@
       <if test="item.custId != null" >
         cust_id,
       </if>
+      <if test="item.cntrNo != null" >
+        cntr_no,
+      </if>
+      <if test="item.seal != null" >
+        seal,
+      </if>
+      <if test="item.cntrWeigh != null" >
+        cntr_weigh,
+      </if>                  
       <if test="item.createTime != null" >
         create_time,
       </if>
@@ -24,10 +39,18 @@
       <if test="item.clp != null" >
         #{item.clp,jdbcType=VARCHAR},
       </if>
-
       <if test="item.custId != null" >
         #{item.cust_id,jdbcType=VARCHAR},
       </if>
+      <if test="item.cntrNo != null" >
+        #{item.cntr_no,jdbcType=VARCHAR},
+      </if>
+      <if test="item.seal != null" >
+        #{item.seal,jdbcType=VARCHAR},
+      </if>            
+      <if test="item.cntrWeigh != null" >
+        #{item.cntr_weigh,jdbcType=VARCHAR},
+      </if>           
       <if test="item.createTime != null" >
         #{item.create_time,jdbcType=VARCHAR},
       </if>
@@ -38,12 +61,13 @@
     	on duplicate key update 
     	clp = #{item.clp,jdbcType=VARCHAR},
     	cust_id = #{item.custId,jdbcType=VARCHAR},
+    	cntr_no = #{item.cntrNo,jdbcType=VARCHAR},
+    	seal = #{item.seal,jdbcType=VARCHAR},
+    	cntr_weigh = #{item.cntrWeigh,jdbcType=VARCHAR},
     	create_time = #{item.createTime,jdbcType=VARCHAR},
     	update_time = #{item.updateTime,jdbcType=VARCHAR}
     </foreach>
   </insert>
-  
-  
   
   <select id="queryList" resultType="com.hht.wms.core.entity.ShippedAbstractInfo" parameterType="com.hht.wms.core.dto.StockAbstractQueryReqDto" >
     select * from stock_abstract_info 

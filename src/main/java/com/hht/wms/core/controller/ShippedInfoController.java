@@ -31,12 +31,15 @@ import com.hht.wms.core.common.Resp;
 import com.hht.wms.core.dto.OutboundReqDto;
 import com.hht.wms.core.dto.ShippedAbstractQueryReqDto;
 import com.hht.wms.core.dto.ShippedAbstractQueryRespDto;
+import com.hht.wms.core.dto.ShippedInfoExportReqDto;
 import com.hht.wms.core.dto.ShippedInfoReqDto;
 import com.hht.wms.core.dto.ShippedInfoRespDto;
+import com.hht.wms.core.entity.ShippedAbstractInfo;
 import com.hht.wms.core.entity.ShippedInfo;
 import com.hht.wms.core.service.ShippedAbstractService;
 import com.hht.wms.core.service.ShippedInfoService;
 import com.hht.wms.core.util.ExcelUtil;
+import com.hht.wms.core.util.NumberUtil;
 import com.hht.wms.core.util.SnowFlakeUtil;
 
 import io.swagger.annotations.ApiOperation;
@@ -129,13 +132,39 @@ public class ShippedInfoController {
 	
 	@RequestMapping("download")
     @ApiOperation(value = "出仓数据导出", notes = "")
-	public byte[] shippedInfodownload(@RequestBody ShippedInfoReqDto reqDto) {
+	public byte[] shippedInfodownload(@RequestBody ShippedInfoExportReqDto reqDto) {
  		logger.info("......shippedInfoReqDto..............{}",JSON.toJSON(reqDto) );
  		
- 		ShippedInfoRespDto shippedInfoDto =  shippedInfoService.queryList(reqDto) ;
- 		if(CollectionUtils.isEmpty(shippedInfoDto.getItems())) {
+ 		//一、更新总批次封条 柜重等信息
+ 		
+
+ 		
+ 		List<ShippedAbstractInfo> saiList = shippedAbstractService.selectByClp(reqDto.getClp());
+ 		if(CollectionUtils.isEmpty(saiList)) {
  			return null ; 
  		}
+ 		//更新更新对应
+ 		for(ShippedAbstractInfo saInfo : saiList) {
+ 			saInfo.setCntrNo(reqDto.getCntrNo());
+ 			saInfo.setSeal(reqDto.getSeal());
+ 			saInfo.setCntrWeigh(reqDto.getCntrWeigh());
+ 		}
+ 		//更新批次柜重 封条等信息
+ 		shippedAbstractService.addByShipped(saiList);
+ 		
+
+ 		//二、更新明细 封条柜重等信息
+ 		List<ShippedInfo> sList = shippedInfoService.queryListByClp(reqDto.getClp());
+ 		for(ShippedInfo shippedInfo : sList) {
+ 			shippedInfo.setCntrNo(reqDto.getCntrNo());
+ 			shippedInfo.setSeal(reqDto.getSeal());
+ 			shippedInfo.setCntrWeigh(reqDto.getCntrWeigh());
+ 		}
+ 		shippedInfoService.batchUpdate(sList);
+ 		
+ 		
+ 		//三、写入excl 
+ 		
  		//从第二行插进入
  		int startInsertRow = 2 ; 
  		String shipInfoTemplate= "fileTemplate/shipInfoTemplate.xlsx"; 
@@ -147,15 +176,14 @@ public class ShippedInfoController {
 //			.toString();
  		XSSFWorkbook wb = ExcelUtil.returnWorkBookGivenFileHandle(shipInfoTemplate); 
         XSSFSheet sheet = wb.getSheetAt(0);  
-        List<ShippedInfo> siList = shippedInfoDto.getItems() ; 
         int declaCountAll = 0 ; 
         int pcsAll = 0 ; 
         BigDecimal gwAll = BigDecimal.ZERO;
         BigDecimal allWeighAll = BigDecimal.ZERO;
         BigDecimal volumeAll = BigDecimal.ZERO;
         
-        for(int i=0 ; i<siList.size() ; i++) {
- 			ShippedInfo shipInfo = (ShippedInfo)siList.get(i) ; 
+        for(int i=0 ; i<sList.size() ; i++) {
+ 			ShippedInfo shipInfo = (ShippedInfo)sList.get(i) ; 
  	        XSSFRow row = sheet.createRow(i+startInsertRow);  
  	        //生成列
  	        row.createCell((short) 0).setCellValue(shipInfo.getShippedDate());//入仓还是出仓日期？
@@ -197,10 +225,15 @@ public class ShippedInfoController {
 	    
 	    XSSFRow row2 = sheet.createRow(rowNum+3);  
 	    row2.createCell((short) 0).setCellValue("柜号：");//入仓还是出仓日期？
+	    row2.createCell((short) 1).setCellValue(reqDto.getCntrNo());//入仓还是出仓日期？
+	    
+	    
 	    row2.createCell((short) 3).setCellValue("柜重：");//入仓还是出仓日期？
+	    row2.createCell((short) 4).setCellValue(reqDto.getCntrWeigh().toString());//入仓还是出仓日期？
 	    
 	    XSSFRow row3 = sheet.createRow(rowNum+5);
 	    row3.createCell((short) 0).setCellValue("封条：");//入仓还是出仓日期？
+	    row3.createCell((short) 1).setCellValue(reqDto.getSeal());//入仓还是出仓日期？
 
 	    
 //	    row1.createCell((short) 5).setCellValue("合计：");//入仓还是出仓日期？

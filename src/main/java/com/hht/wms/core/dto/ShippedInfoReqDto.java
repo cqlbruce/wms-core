@@ -10,6 +10,10 @@ public class ShippedInfoReqDto {
 	
 	private String shippedNo ; 
 	
+	private String seal ; 
+	
+	private String cntrNo ; 
+	
 	private String beginDate ; 
 	
 	private String endDate ; 
@@ -92,5 +96,22 @@ public class ShippedInfoReqDto {
 	public void setEndDate(String endDate) {
 		this.endDate = endDate;
 	}
+
+	public String getSeal() {
+		return seal;
+	}
+
+	public void setSeal(String seal) {
+		this.seal = seal;
+	}
+
+	public String getCntrNo() {
+		return cntrNo;
+	}
+
+	public void setCntrNo(String cntrNo) {
+		this.cntrNo = cntrNo;
+	}
+	
 	
 }

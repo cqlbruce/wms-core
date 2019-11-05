@@ -32,6 +32,15 @@ public class ShippedInfoServiceImpl extends ServiceImpl<ShippedInfoDao, ShippedI
 	@Autowired
 	private StockInfoService stockInfoService ; 
 	
+
+	
+	
+	@Override
+	public List<ShippedInfo> queryListByClp(String clp) {
+		return baseMapper.queryListByClp(clp);
+	}
+	
+	
 	@Override
 	public ShippedInfoRespDto queryList(ShippedInfoReqDto reqDto) {
 		logger.info("ShippedInfoServiceImpl ---reqDto-----{}",JSON.toJSON(reqDto));
@@ -110,7 +119,16 @@ public class ShippedInfoServiceImpl extends ServiceImpl<ShippedInfoDao, ShippedI
 		//成交总价
 		shippedInfo.setDeclaTotalPrice(shippedInfo.getDeclaUnitPrice().multiply(new BigDecimal(reqDto.getPcs())));
 		logger.info("shippedInfo2======={}",JSON.toJSON(shippedInfo));
- 		return baseMapper.insert(shippedInfo);
-	}	
+		baseMapper.insert(shippedInfo);
+		
+ 		return 1;
+	}
+
+
+	@Override
+	public void batchUpdate(List<ShippedInfo> list) {
+		baseMapper.batchUpdate(list);
+	}
+
 
 }

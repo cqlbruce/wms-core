@@ -17,6 +17,7 @@ import com.hht.wms.core.dao.StockAbstractInfoDao;
 import com.hht.wms.core.dao.StockInfoDao;
 import com.hht.wms.core.dto.StockAbstractQueryReqDto;
 import com.hht.wms.core.dto.StockAbstractQueryRespDto;
+import com.hht.wms.core.entity.ShippedAbstractInfo;
 import com.hht.wms.core.entity.StockAbstractInfo;
 import com.hht.wms.core.entity.StockInfo;
 import com.hht.wms.core.service.StockAbstractService;
@@ -33,6 +34,7 @@ public class StockAbstractServiceImpl extends ServiceImpl<StockAbstractInfoDao, 
 	public int add(StockAbstractInfo stockAbstractInfo) throws Exception {
 		return baseMapper.insert(stockAbstractInfo) ; 
 	}
+	
 
 	@Override
 	public StockAbstractQueryRespDto queryList(StockAbstractQueryReqDto reqDto) {

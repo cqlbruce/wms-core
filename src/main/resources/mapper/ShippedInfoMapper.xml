@@ -2,6 +2,38 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hht.wms.core.dao.ShippedInfoDao">
    <!--   自定义 -->
+   
+  <update id="batchUpdate" parameterType="java.util.List" >
+    <foreach collection="list" item="item" index="index" open="begin" close=";end;"  separator=";">
+      update shipped_info 
+        <set>
+	      <if test="item.cntrNo != null" >
+            cntr_no = #{item.cntrNo,jdbcType=VARCHAR},
+          </if>          
+	      <if test="item.cntrNo != null" >
+            seal = #{item.seal,jdbcType=VARCHAR},
+          </if>           
+	      <if test="item.cntrNo != null" >
+            cntr_weigh = #{item.cntrWeigh,jdbcType=VARCHAR},
+          </if>           
+        
+        </set>
+      <where>
+        id = #{item.id,jdbcType=VARCHAR}
+      </where>
+     </foreach>
+  </update>   
+  
+  <select id="queryListByClp" resultType="com.hht.wms.core.entity.ShippedInfo" parameterType="java.lang.String" >
+    select * from shipped_info 
+   <where>  
+	<if test="clp != null and clp !=''">
+		clp=#{clp,jdbcType=VARCHAR}
+	</if>
+   </where> 	
+  </select>
+   
+   
   <select id="queryList" resultType="com.hht.wms.core.entity.ShippedInfo" parameterType="com.hht.wms.core.dto.ShippedInfoReqDto" >
     select * from shipped_info 
   <where>  
@@ -25,7 +57,6 @@
 	</if>		
    </where> 	
     order by id  LIMIT #{beginSize},#{size}    	
-     
   </select>
    
   <select id="selectCount" resultType="java.lang.Integer"  parameterType="com.hht.wms.core.dto.ShippedInfoReqDto" >

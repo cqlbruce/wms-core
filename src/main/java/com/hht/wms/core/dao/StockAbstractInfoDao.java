@@ -16,5 +16,4 @@ public interface StockAbstractInfoDao extends BaseDao<StockAbstractInfo >{
     
     void insertOrUpdate(List<StockAbstractInfo> list);
     
-     
 }

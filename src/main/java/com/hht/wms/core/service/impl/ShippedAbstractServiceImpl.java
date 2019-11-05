@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -11,11 +12,20 @@ import com.hht.wms.core.dao.ShippedAbstractInfoDao;
 import com.hht.wms.core.dto.ShippedAbstractQueryReqDto;
 import com.hht.wms.core.dto.ShippedAbstractQueryRespDto;
 import com.hht.wms.core.entity.ShippedAbstractInfo;
+import com.hht.wms.core.entity.ShippedInfo;
 import com.hht.wms.core.service.ShippedAbstractService;
 
+@Service
 public class ShippedAbstractServiceImpl extends ServiceImpl<ShippedAbstractInfoDao, ShippedAbstractInfo> implements ShippedAbstractService{
 
 	private static Logger logger = LoggerFactory.getLogger(ShippedAbstractServiceImpl.class) ; 
+	
+	
+	
+	@Override
+	public List<ShippedAbstractInfo> selectByClp(String clp) {
+		return baseMapper.selectByClp(clp);
+	}	
 	
 	
 	@Override
@@ -33,6 +43,12 @@ public class ShippedAbstractServiceImpl extends ServiceImpl<ShippedAbstractInfoD
 		List<ShippedAbstractInfo> list =  baseMapper.queryList(reqDto);
 		respDto.setItems(list);
 		return respDto ;		
+	}
+
+
+	@Override
+	public void addByShipped(List<ShippedAbstractInfo> info) {
+		baseMapper.insertOrUpdate(info);
 	}
 
 	

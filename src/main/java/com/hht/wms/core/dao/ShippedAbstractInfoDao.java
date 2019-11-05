@@ -14,5 +14,7 @@ public interface ShippedAbstractInfoDao  extends BaseDao<ShippedAbstractInfo > {
     List<ShippedAbstractInfo> queryList(ShippedAbstractQueryReqDto reqDto) ;
     
     void insertOrUpdate(List<ShippedAbstractInfo> list);
+    
+    List<ShippedAbstractInfo> selectByClp(String clp);
 
 }
