@@ -3,7 +3,6 @@ package com.hht.wms.core.dao;
 import java.util.List;
 
 import com.hht.wms.core.dto.ShippedInfoReqDto;
-import com.hht.wms.core.entity.ShippedAbstractInfo;
 import com.hht.wms.core.entity.ShippedInfo;
 import com.hht.wms.core.util.BaseDao;
 

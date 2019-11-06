@@ -12,7 +12,6 @@ import com.hht.wms.core.dao.ShippedAbstractInfoDao;
 import com.hht.wms.core.dto.ShippedAbstractQueryReqDto;
 import com.hht.wms.core.dto.ShippedAbstractQueryRespDto;
 import com.hht.wms.core.entity.ShippedAbstractInfo;
-import com.hht.wms.core.entity.ShippedInfo;
 import com.hht.wms.core.service.ShippedAbstractService;
 
 @Service

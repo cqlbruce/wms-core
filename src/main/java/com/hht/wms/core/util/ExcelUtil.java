@@ -1,6 +1,5 @@
 package com.hht.wms.core.util;
 
-import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
