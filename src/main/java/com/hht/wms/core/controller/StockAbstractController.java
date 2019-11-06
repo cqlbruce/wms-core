@@ -24,17 +24,13 @@ public class StockAbstractController {
 	
 	@Autowired
 	private StockAbstractService stockAbstractService ; 
-
 	
 	@SuppressWarnings("unchecked")
 	@PostMapping("query")
     @ApiOperation(value = "客户项目信息查询", notes = "")
 	public Resp<StockAbstractQueryRespDto> query(@RequestBody StockAbstractQueryReqDto reqDto) {
-		
 		logger.info("-----StockAbstractController---query--req--{}",reqDto);
-		
 		StockAbstractQueryRespDto respDto = stockAbstractService.queryList(reqDto);
-		
 		return Resp.success("查询前台收费成功" , respDto );
 	}	
 	

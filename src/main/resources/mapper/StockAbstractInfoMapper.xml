@@ -26,20 +26,20 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="item.inboundNo != null" >
-        #{item.inbound_no,jdbcType=VARCHAR},
+        #{item.inboundNo,jdbcType=VARCHAR},
       </if>
 
       <if test="item.custId != null" >
-        #{item.cust_id,jdbcType=VARCHAR},
+        #{item.custId,jdbcType=VARCHAR},
       </if>
       <if test="item.carNum != null" >
-        #{item.car_num,jdbcType=VARCHAR},
+        #{item.carNum,jdbcType=VARCHAR},
       </if>
       <if test="item.createTime != null" >
-        #{item.create_time,jdbcType=VARCHAR},
+        #{item.createTime,jdbcType=VARCHAR},
       </if>
       <if test="item.updateTime != null" >
-        #{item.update_time,jdbcType=VARCHAR},
+        #{item.updateTime,jdbcType=VARCHAR},
       </if>            
     </trim>
     	on duplicate key update 

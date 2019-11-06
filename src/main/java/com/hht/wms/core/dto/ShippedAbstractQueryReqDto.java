@@ -9,12 +9,6 @@ public class ShippedAbstractQueryReqDto {
 	
 	private String clp ; 
 	
-	private String so ; 
-	
-	private String po ; 
-	
-	private String item ; 
-	
 	private String cntrNo ; 
 	
 	private String shippedDate ; 

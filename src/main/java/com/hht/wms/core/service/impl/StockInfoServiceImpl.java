@@ -13,11 +13,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.hht.wms.core.dao.FrontDeskChargeDao;
 import com.hht.wms.core.dao.StockAbstractInfoDao;
 import com.hht.wms.core.dao.StockInfoDao;
 import com.hht.wms.core.dto.StockInfoQueryReqDto;
 import com.hht.wms.core.dto.StockInfoRespDto;
 import com.hht.wms.core.dto.vo.ThreeElement;
+import com.hht.wms.core.entity.FrontDeskCharge;
 import com.hht.wms.core.entity.StockAbstractInfo;
 import com.hht.wms.core.entity.StockInfo;
 import com.hht.wms.core.service.FrontDeskChargeService;
@@ -36,6 +38,9 @@ public class StockInfoServiceImpl extends ServiceImpl<StockInfoDao, StockInfo> i
 	
 	@Autowired
 	private FrontDeskChargeService frontDeskChargeService ; 
+	
+	@Autowired
+	private FrontDeskChargeDao frontDeskChargeMapper ; 
 
 
 	@Override
@@ -98,11 +103,16 @@ public class StockInfoServiceImpl extends ServiceImpl<StockInfoDao, StockInfo> i
 			info.setShippedWeigh(BigDecimal.ZERO);
 			
 			logger.info("add stock info ==========={} " , JSON.toJSON(info) );
-			//增加库存
+			//增加库存记录
+			FrontDeskCharge charge = frontDeskChargeMapper.selectByInboundNo(info.getInboundNo());
+			if(null != charge) {
+				info.setCarNum(charge.getCarNum());
+			}
 			i+=baseMapper.insert(info);
 			
+			
 			StockAbstractInfo stockAbstractInfo = new StockAbstractInfo();
-			stockAbstractInfo.setId(SnowFlakeUtil.getNewNextId());
+//			stockAbstractInfo.setId(SnowFlakeUtil.getNewNextId());
 			stockAbstractInfo.setCustId(info.getCustId());
 			stockAbstractInfo.setInboundNo(info.getInboundNo());
 			stockAbstractInfo.setCarNum(info.getCarNum());
@@ -130,13 +140,13 @@ public class StockInfoServiceImpl extends ServiceImpl<StockInfoDao, StockInfo> i
 		return i;
 	}
 	
-	public StockInfo queryByThreeElemet(String so , String po , String sku) {
+	public List<StockInfo> queryByThreeElemet(String so , String po , String item) {
 		ThreeElement te = new ThreeElement();
 		te.setPo(po);
-		te.setSku(sku);
+		te.setItem(item);
 		te.setSo(so);
-		StockInfo stockInfo = baseMapper.queryByThreeElemet(te);
-		return stockInfo ; 
+//		StockInfo stockInfo = 
+		return baseMapper.queryByThreeElemet(te);
 	}
 
 

@@ -14,6 +14,6 @@ public interface StockInfoService {
 	
 	int updateStock(StockInfo stockInfo);
 	
-	StockInfo queryByThreeElemet(String so , String po , String sku);
+	List<StockInfo> queryByThreeElemet(String so , String po , String item);
 
 }

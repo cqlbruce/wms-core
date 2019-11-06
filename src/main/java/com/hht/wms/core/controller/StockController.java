@@ -110,7 +110,7 @@ public class StockController {
     @ApiOperation(value = "上传excl", notes = "")
 	public Resp<?> fileUploadStock(@RequestParam("excelFile") MultipartFile excelFile , @RequestParam("inboundNo") String inboundNo ,@RequestParam("custId") String custId)  throws Exception {
 	    String fileName = excelFile.getOriginalFilename();
- 		logger.info("fileUpload..............{}",fileName );
+ 		logger.info("fileUpload..............fileName={}..inboundNo={}...custId={}",fileName,inboundNo,custId );
 		if(excelFile.isEmpty()) {
 			return Resp.fail("文件为空");
 		}
@@ -146,7 +146,7 @@ public class StockController {
 	       	   	//第四列PO
 	       	   	info.setPo(ExcelUtil.getCellValue(row.getCell(4)));
 	       	   	//第五列sku item
-	       	   	info.setSku(ExcelUtil.getCellValue(row.getCell(5)));
+	       	   	info.setItem(ExcelUtil.getCellValue(row.getCell(5)));
 	       	   	
 //	       	   	String id = new StringBuilder().append(info.getSo()).append(info.getPo()).append(info.getSku()).toString();
 //	       	    info.setId(id);
@@ -231,6 +231,7 @@ public class StockController {
 		try {
 			stockInfoService.addStock(stockInfoList);
 		}catch(Exception e) {
+			logger.error("fileUploadStock has an errors " , e);
 			return Resp.fail(e.getMessage());
 		}
 		return Resp.success("uploadStock");

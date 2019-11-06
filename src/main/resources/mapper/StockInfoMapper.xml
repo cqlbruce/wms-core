@@ -20,8 +20,8 @@
 	<if test="po != null and po !=''">
 		and po=#{po,jdbcType=VARCHAR}
 	</if>    
-	<if test="sku != null and sku != ''">
-		and sku=#{sku,jdbcType=VARCHAR}
+	<if test="item != null and item != ''">
+		and item=#{item,jdbcType=VARCHAR}
 	</if>    	
 	<if test="inbundNo != null and inbundNo != ''">
 		and inbound_no=#{inbundNo,jdbcType=VARCHAR}
@@ -39,8 +39,8 @@
 	<if test="po != null and po !=''">
 		and po = #{po,jdbcType=VARCHAR}
 	</if>    
-	<if test="sku != null and sku !=''">
-		and sku = #{sku,jdbcType=VARCHAR}
+	<if test="item != null and item !=''">
+		and item = #{item,jdbcType=VARCHAR}
 	</if>    	
 	<if test="inbundNo != null and inbundNo != ''">
 		and inbound_no=#{inbundNo,jdbcType=VARCHAR}
@@ -57,8 +57,8 @@
 	<if test="po != null and po !=''">
 		and po = #{po,jdbcType=VARCHAR}
 	</if>    
-	<if test="sku != null and sku !=''">
-		and sku = #{sku,jdbcType=VARCHAR}
+	<if test="item != null and item !=''">
+		and item = #{item,jdbcType=VARCHAR}
 	</if>    	
   </where>  
   </select>    

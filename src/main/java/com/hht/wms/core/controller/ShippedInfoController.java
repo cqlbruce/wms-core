@@ -107,7 +107,7 @@ public class ShippedInfoController {
 				outboundReqDto.setId(SnowFlakeUtil.getNewNextId());
 				outboundReqDto.setPo(ExcelUtil.getCellValue(row.getCell(0)));
 				outboundReqDto.setSo(ExcelUtil.getCellValue(row.getCell(1)));
-				outboundReqDto.setSku(ExcelUtil.getCellValue(row.getCell(2)));
+				outboundReqDto.setItem(ExcelUtil.getCellValue(row.getCell(2)));
 	       	   	int pcs = Integer.parseInt(ExcelUtil.getCellValue(row.getCell(3))) ;
 	       	   	outboundReqDto.setPcs(pcs);
 	       	   	outList.add(outboundReqDto);
@@ -121,6 +121,7 @@ public class ShippedInfoController {
 				try {
 					shippedInfoService.outbound(reqDto);	
 				}catch(Exception e) {
+					logger.error("出仓导出失败" , e );
 					return Resp.fail(e.getMessage());
 				}
 				
@@ -129,7 +130,8 @@ public class ShippedInfoController {
 		return Resp.success("uploadStock");
 	}
 	
-	@RequestMapping("download")
+//	@RequestMapping("download")
+	@PostMapping("download")
     @ApiOperation(value = "出仓数据导出", notes = "")
 	public byte[] shippedInfodownload(@RequestBody ShippedInfoExportReqDto reqDto) {
  		logger.info("......shippedInfoReqDto..............{}",JSON.toJSON(reqDto) );

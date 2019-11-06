@@ -45,7 +45,7 @@ public class StockInfo {
      * 表字段 : stock_info.sku
      */
 	@TableField
-    private String sku;
+    private String item;
 
     /**
      * 入仓编号

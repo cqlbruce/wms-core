@@ -13,7 +13,7 @@ public interface StockInfoDao extends BaseDao<StockInfo>{
     
     int selectCount(StockInfoQueryReqDto reqDto);
     
-    StockInfo queryByThreeElemet(ThreeElement te);
+    List<StockInfo> queryByThreeElemet(ThreeElement te);
     
     List<StockInfo> selectByInboundNoList(List<String> inboundNoList);
     

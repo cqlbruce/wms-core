@@ -46,7 +46,6 @@ public class CustInfoController {
 		CustInfoQueryRespDto respDto = custInfoService.queryList(reqDto);
 //		CustInfoQueryRespDto respDto = new CustInfoQueryRespDto();
 //		respDto.setTotal(2);
-//		
 //		List<CustInfo> items = new ArrayList<CustInfo>() ;
 //		CustInfo ci = new CustInfo();
 //		ci.setId("asdf");
