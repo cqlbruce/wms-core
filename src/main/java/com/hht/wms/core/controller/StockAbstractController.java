@@ -34,6 +34,5 @@ public class StockAbstractController {
 		return Resp.success("查询前台收费成功" , respDto );
 	}	
 	
-	
 
 }

@@ -38,6 +38,7 @@ import com.hht.wms.core.entity.ShippedAbstractInfo;
 import com.hht.wms.core.entity.ShippedInfo;
 import com.hht.wms.core.service.ShippedAbstractService;
 import com.hht.wms.core.service.ShippedInfoService;
+import com.hht.wms.core.util.DateUtil;
 import com.hht.wms.core.util.ExcelUtil;
 import com.hht.wms.core.util.SnowFlakeUtil;
 
@@ -78,6 +79,8 @@ public class ShippedInfoController {
 	public Resp<?> fileUploadShipped(@RequestParam("excelFile") MultipartFile excelFile)  throws Exception {
 	    String fileName = excelFile.getOriginalFilename();
  		logger.info("...fileUploadShipped...............{}",fileName );
+		List<ShippedAbstractInfo> shippedAbstractInfoList = new ArrayList<ShippedAbstractInfo>();
+
 		if(excelFile.isEmpty()) {
 			return Resp.fail("文件为空");
 		}
@@ -102,7 +105,9 @@ public class ShippedInfoController {
 	       	   	if(StringUtils.isEmpty(row.getCell(0).getStringCellValue())) {
 	       	   		continue ; 
 	       	   	}	       	   
-				OutboundReqDto outboundReqDto = new OutboundReqDto(); 
+				
+	       	   	//出仓明细
+	       	   	OutboundReqDto outboundReqDto = new OutboundReqDto(); 
 				outboundReqDto.setClp(clp);
 				outboundReqDto.setId(SnowFlakeUtil.getNewNextId());
 				outboundReqDto.setPo(ExcelUtil.getCellValue(row.getCell(0)));
@@ -111,6 +116,12 @@ public class ShippedInfoController {
 	       	   	int pcs = Integer.parseInt(ExcelUtil.getCellValue(row.getCell(3))) ;
 	       	   	outboundReqDto.setPcs(pcs);
 	       	   	outList.add(outboundReqDto);
+	       	   	
+	       	   	//出仓总批次
+	       	   	ShippedAbstractInfo saInfo = new ShippedAbstractInfo();
+	       	   	saInfo.setClp(outboundReqDto.getClp());
+	       	   	saInfo.setShippedDate(DateUtil.getNowTime(DateUtil.ISO_DATE_FORMAT_CROSSBAR));
+	       	   	shippedAbstractInfoList.add(saInfo);
 	        }
 
 		}finally{
@@ -127,6 +138,7 @@ public class ShippedInfoController {
 				
 			}
 		}
+		shippedAbstractService.addByShipped(shippedAbstractInfoList);		
 		return Resp.success("uploadStock");
 	}
 	

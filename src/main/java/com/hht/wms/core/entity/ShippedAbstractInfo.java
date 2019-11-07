@@ -26,7 +26,10 @@ public class ShippedAbstractInfo {
 	    private String seal;
 		
 		@TableField
-	    private BigDecimal cntrWeigh;		
+	    private BigDecimal cntrWeigh;	
+		
+		@TableField
+		private String shippedDate ; 
 		
 		@TableField
 	    private String createTime;
