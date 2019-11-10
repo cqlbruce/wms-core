@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSON;
@@ -59,9 +60,25 @@ public class FrontDeskChargeController {
 	@PostMapping("query")
     @ApiOperation(value = "查询前台收费", notes = "")
 	public Resp<FrontDeskChargeQueryRespDto> query(@RequestBody FrontDeskChargeQueryReqDto reqDto) {
-		
 		FrontDeskChargeQueryRespDto respDto = frontDeskChargeService.query(reqDto);
 		return Resp.success("查询前台收费成功" , respDto );
+	}
+	
+	@SuppressWarnings("unchecked")
+	@PostMapping("update")
+    @ApiOperation(value = "修改前台收费", notes = "")
+	public Resp update(@RequestBody FrontDeskCharge reqDto) {
+		frontDeskChargeService.update(reqDto);
+		return Resp.success("修改前台收费成功" );
+		
+	}
+	
+	@SuppressWarnings("unchecked")
+	@PostMapping("delete")
+    @ApiOperation(value = "删除前台收费", notes = "")
+	public Resp delete(@RequestParam("id") String id) {
+		frontDeskChargeService.delete(id);
+		return Resp.success("删除前台收费成功");
 	}
 	
 

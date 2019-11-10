@@ -47,8 +47,14 @@ public class CustInfoServiceImpl extends ServiceImpl<CustInfoDao, CustInfo> impl
 		respDto.setItems(list);
 		return respDto ;
 	}
-	
-	
-	
 
+	@Override
+	public int modify(CustInfo reqDto) {
+		return baseMapper.updateById(reqDto);
+	}
+	
+	@Override
+	public int delete(String custId) {
+		return baseMapper.deleteById(custId);
+	}
 }

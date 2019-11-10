@@ -9,6 +9,9 @@ public interface CustInfoService {
 	int add(CustInfo custInfo) throws Exception;
 	
 	CustInfoQueryRespDto queryList(CustInfoQueryReqDto reqDto );
-
-
+	
+	int modify(CustInfo reqDto) ;
+	
+	int delete(String custId);
+	
 }

@@ -67,8 +67,15 @@ public class FrontDeskChargeServiceImpl extends ServiceImpl<FrontDeskChargeDao, 
 //		frontDeskChargeMapper.updateByPrimaryKeySelective(charge);
 		return baseMapper.updateById(charge);
 	}
-	
-	
-	
+
+	@Override
+	public int update(FrontDeskCharge reqDto) {
+		return baseMapper.updateById(reqDto);
+	}
+
+	@Override
+	public int delete(String id) {
+		return baseMapper.deleteById(id);
+	}
 
 }

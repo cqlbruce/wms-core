@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSON;
@@ -42,7 +43,6 @@ public class CustInfoController {
 	@PostMapping("query")
     @ApiOperation(value = "客户项目信息查询", notes = "")
 	public Resp<CustInfoQueryRespDto> query(@RequestBody CustInfoQueryReqDto reqDto) {
-		
 		CustInfoQueryRespDto respDto = custInfoService.queryList(reqDto);
 //		CustInfoQueryRespDto respDto = new CustInfoQueryRespDto();
 //		respDto.setTotal(2);
@@ -53,9 +53,25 @@ public class CustInfoController {
 //		ci.setProjectName("asdfas");
 //		items.add(ci);
 //		respDto.setItems(items);
-		return Resp.success("查询前台收费成功" , respDto );
+		return Resp.success("客户项目信息查询成功" , respDto );
 	}	
 	
+	@SuppressWarnings("unchecked")
+	@PostMapping("update")
+    @ApiOperation(value = "客户项目信息修改", notes = "")
+	public Resp update(@RequestBody CustInfo reqDto) throws Exception{
+ 		logger.info("...modify..............{}",JSON.toJSON(reqDto) );
+ 		custInfoService.modify(reqDto);
+		return Resp.success("客户项目信息修改成功");
+    }	
 	
+	@SuppressWarnings("unchecked")
+	@PostMapping("delete")
+    @ApiOperation(value = "客户项目信息删除", notes = "")
+	public Resp delete(@RequestParam("custId") String custId) throws Exception{
+ 		logger.info("...delete..............{}",JSON.toJSON(custId) );
+ 		custInfoService.delete(custId);
+		return Resp.success("客户项目信息删除成功");
+    }	
 	
 }
