@@ -135,7 +135,6 @@ public class ShippedInfoController {
 					logger.error("出仓导出失败" , e );
 					return Resp.fail(e.getMessage());
 				}
-				
 			}
 		}
 		shippedAbstractService.addByShipped(shippedAbstractInfoList);		

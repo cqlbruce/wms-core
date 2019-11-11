@@ -3,12 +3,10 @@
 <mapper namespace="com.hht.wms.core.dao.ShippedAbstractInfoDao">
    
      <!--   自定义 -->
-     
 	<select id="selectByClp" resultType="com.hht.wms.core.entity.ShippedAbstractInfo" parameterType="java.lang.String" >
 		select * from shipped_abstract_info where clp=#{clp,jdbcType=VARCHAR}
 	</select>
 
-     
   <insert id="insertOrUpdate" parameterType="com.hht.wms.core.entity.ShippedAbstractInfo" >
   <foreach collection="list" item="item" index="index" separator=";">
     insert into shipped_abstract_info
@@ -16,6 +14,9 @@
       <if test="item.clp != null" >
         clp,
       </if>
+      <if test="item.shippedDate != null" >
+        shipped_date,
+      </if>      
       <if test="item.custId != null" >
         cust_id,
       </if>
@@ -39,27 +40,31 @@
       <if test="item.clp != null" >
         #{item.clp,jdbcType=VARCHAR},
       </if>
+      <if test="item.shippedDate != null" >
+        #{item.shippedDate,jdbcType=VARCHAR},
+      </if>      
       <if test="item.custId != null" >
-        #{item.cust_id,jdbcType=VARCHAR},
+        #{item.custId,jdbcType=VARCHAR},
       </if>
       <if test="item.cntrNo != null" >
-        #{item.cntr_no,jdbcType=VARCHAR},
+        #{item.cntrNo,jdbcType=VARCHAR},
       </if>
       <if test="item.seal != null" >
         #{item.seal,jdbcType=VARCHAR},
       </if>            
       <if test="item.cntrWeigh != null" >
-        #{item.cntr_weigh,jdbcType=VARCHAR},
+        #{item.cntrWeigh,jdbcType=VARCHAR},
       </if>           
       <if test="item.createTime != null" >
-        #{item.create_time,jdbcType=VARCHAR},
+        #{item.createTime,jdbcType=VARCHAR},
       </if>
       <if test="item.updateTime != null" >
-        #{item.update_time,jdbcType=VARCHAR},
+        #{item.updateTime,jdbcType=VARCHAR},
       </if>            
     </trim>
     	on duplicate key update 
     	clp = #{item.clp,jdbcType=VARCHAR},
+    	shipped_date = #{item.shippedDate,jdbcType=VARCHAR},
     	cust_id = #{item.custId,jdbcType=VARCHAR},
     	cntr_no = #{item.cntrNo,jdbcType=VARCHAR},
     	seal = #{item.seal,jdbcType=VARCHAR},
@@ -87,7 +92,6 @@
    </where> 	
     order by id  LIMIT #{beginSize},#{size}    	
   </select>
-  
    
   <select id="selectCount" resultType="java.lang.Integer"  parameterType="com.hht.wms.core.dto.ShippedAbstractQueryReqDto" >
     select count(1) from shipped_abstract_info 
@@ -106,5 +110,4 @@
 	</if>   
    </where> 	
   </select>  
- 
 </mapper>

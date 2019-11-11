@@ -74,7 +74,25 @@ public class StockInfo {
      */
 	@TableField
     private Integer rcvdCtns;
-
+	
+	@TableField
+	private String firstUnitMeasurement ; 
+	
+	@TableField
+    private Integer firstLegalCount;	
+	
+	@TableField
+	private String secondUnitMeasurement ; 
+	
+	@TableField
+    private Integer secondLegalCount;	
+	
+	@TableField
+	private String transactionUnit ; 
+	
+	@TableField
+    private Integer transactionCount;		
+	
     /**
      * 实收件数
      * 表字段 : stock_info.rcvd_pcs

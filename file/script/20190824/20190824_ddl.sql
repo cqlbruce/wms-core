@@ -35,6 +35,8 @@ CREATE TABLE `stock_abstract_info` (
 -----------------------------库存摘要信息表 end-------------------------------------------
 
 
+
+
 -----------------------------库存信息表 begin-------------------------------------------
 DROP TABLE IF EXISTS `stock_info`;
 
@@ -46,7 +48,13 @@ CREATE TABLE `stock_info` (
   `item` varchar(32) COLLATE utf8_bin DEFAULT NULL COMMENT '货物款号 asn-item',
   `inbound_no` varchar(32) COLLATE utf8_bin DEFAULT NULL COMMENT '入仓编号',
   `car_num` varchar(64) COLLATE utf8_bin DEFAULT NULL COMMENT '车牌号',
-  `customs_meterial_no` varchar(32) COLLATE utf8_bin DEFAULT NULL COMMENT '海关系统物料号',
+  `First_Unit_Measurement` varchar(64) COLLATE utf8_bin DEFAULT NULL COMMENT '第一计量单位',
+  `First_legal_count` int(10) COLLATE utf8_bin DEFAULT NULL COMMENT '第一法定数量',
+  `Second_Unit_Measurement` varchar(64) COLLATE utf8_bin DEFAULT NULL COMMENT '第二法定计量单位', 
+  `Second_legal_count` int(10) COLLATE utf8_bin DEFAULT NULL COMMENT '第二法定数量',
+  `Transaction_Unit` varchar(64) COLLATE utf8_bin DEFAULT NULL COMMENT '成交单位',
+  `Transaction_count` int(10) COLLATE utf8_bin DEFAULT NULL COMMENT '成交数量',
+  `customs_meterial_no` varchar(32) COLLATE utf8_bin DEFAULT NULL COMMENT '海关系统物料号', 
   `rcvd_date` varchar(16) COLLATE utf8_bin DEFAULT NULL COMMENT '收货日期',
   `rcvd_ctns` int(10) COLLATE utf8_bin DEFAULT NULL COMMENT '实收箱数',
   `rcvd_pcs` int(12) COLLATE utf8_bin DEFAULT NULL COMMENT '实收件数',

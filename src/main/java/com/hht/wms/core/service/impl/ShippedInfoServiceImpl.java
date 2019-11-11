@@ -2,7 +2,6 @@ package com.hht.wms.core.service.impl;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.collections4.CollectionUtils;
@@ -19,7 +18,6 @@ import com.hht.wms.core.dao.ShippedInfoDao;
 import com.hht.wms.core.dto.OutboundReqDto;
 import com.hht.wms.core.dto.ShippedInfoReqDto;
 import com.hht.wms.core.dto.ShippedInfoRespDto;
-import com.hht.wms.core.entity.ShippedAbstractInfo;
 import com.hht.wms.core.entity.ShippedInfo;
 import com.hht.wms.core.entity.StockInfo;
 import com.hht.wms.core.service.ShippedAbstractService;
@@ -48,7 +46,7 @@ public class ShippedInfoServiceImpl extends ServiceImpl<ShippedInfoDao, ShippedI
 	
 	@Override
 	public ShippedInfoRespDto queryList(ShippedInfoReqDto reqDto) {
-		logger.info("ShippedInfoServiceImpl ---reqDto-----{}",JSON.toJSON(reqDto));
+		logger.info("---ShippedInfoServiceImpl---reqDto-----{}",JSON.toJSON(reqDto));
 		ShippedInfoRespDto respDto = new ShippedInfoRespDto();
 		int total = baseMapper.selectCount(reqDto);
 		if(total==0) {
