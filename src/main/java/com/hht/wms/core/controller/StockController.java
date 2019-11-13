@@ -25,10 +25,13 @@ import org.springframework.web.multipart.MultipartFile;
 import com.alibaba.fastjson.JSON;
 import com.hht.wms.core.common.Resp;
 import com.hht.wms.core.dto.OutboundReqDto;
+import com.hht.wms.core.dto.StockAbstractQueryReqDto;
+import com.hht.wms.core.dto.StockAbstractQueryRespDto;
 import com.hht.wms.core.dto.StockInfoModifyReqDto;
 import com.hht.wms.core.dto.StockInfoQueryReqDto;
 import com.hht.wms.core.dto.StockInfoRespDto;
 import com.hht.wms.core.entity.StockInfo;
+import com.hht.wms.core.service.StockAbstractService;
 import com.hht.wms.core.service.StockInfoService;
 import com.hht.wms.core.util.ExcelUtil;
 import com.hht.wms.core.util.NumberUtil;
@@ -41,6 +44,9 @@ import io.swagger.annotations.ApiOperation;
 @CrossOrigin 
 public class StockController {
 	private static Logger logger = LoggerFactory.getLogger(StockController.class) ; 
+	
+	@Autowired
+	private StockAbstractService stockAbstractService ; 
 	
 	@Autowired
 	private StockInfoService stockInfoService ; 
@@ -67,6 +73,16 @@ public class StockController {
  		stockInfoService.addStock(stockList);
 		return Resp.success("库存新增成功");
     }	
+	
+	@SuppressWarnings("unchecked")
+	@PostMapping("abstract/query")
+    @ApiOperation(value = "库存概要信息查询", notes = "")
+	public Resp<StockAbstractQueryRespDto> abstractQuery(@RequestBody StockAbstractQueryReqDto reqDto) {
+		logger.info("-----StockAbstractController---query--req--{}",reqDto);
+		StockAbstractQueryRespDto respDto = stockAbstractService.queryList(reqDto);
+		return Resp.success("库存概要信息查询成功" , respDto );
+	}	
+		
 	
 	@SuppressWarnings("rawtypes")
 	@PostMapping("modify")
