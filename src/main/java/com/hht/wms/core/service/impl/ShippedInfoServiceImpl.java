@@ -20,7 +20,6 @@ import com.hht.wms.core.dto.ShippedInfoReqDto;
 import com.hht.wms.core.dto.ShippedInfoRespDto;
 import com.hht.wms.core.entity.ShippedInfo;
 import com.hht.wms.core.entity.StockInfo;
-import com.hht.wms.core.service.ShippedAbstractService;
 import com.hht.wms.core.service.ShippedInfoService;
 import com.hht.wms.core.service.StockInfoService;
 import com.hht.wms.core.util.DateUtil;
@@ -33,10 +32,6 @@ public class ShippedInfoServiceImpl extends ServiceImpl<ShippedInfoDao, ShippedI
 	
 	@Autowired
 	private StockInfoService stockInfoService ; 
-	
-	@Autowired
-	private ShippedAbstractService shippedAbstractService ; 
-	
 	
 	@Override
 	public List<ShippedInfo> queryListByClp(String clp) {

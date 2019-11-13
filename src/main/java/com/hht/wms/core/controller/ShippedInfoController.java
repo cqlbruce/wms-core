@@ -74,6 +74,7 @@ public class ShippedInfoController {
     }
 	
 	
+	@SuppressWarnings("deprecation")
 	@PostMapping("upload")
     @ApiOperation(value = "导入excl,批量出仓", notes = "")
 	public Resp<?> fileUploadShipped(@RequestParam("excelFile") MultipartFile excelFile)  throws Exception {

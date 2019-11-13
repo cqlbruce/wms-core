@@ -120,6 +120,7 @@ public class StockController {
     }		
 	
 	
+	@SuppressWarnings("deprecation")
 	@PostMapping("/upload")
     @ApiOperation(value = "上传excl", notes = "")
 	public Resp<?> fileUploadStock(@RequestParam("excelFile") MultipartFile excelFile , @RequestParam("inboundNo") String inboundNo ,@RequestParam("custId") String custId)  throws Exception {

@@ -25,7 +25,6 @@ import com.hht.wms.core.entity.StockInfo;
 import com.hht.wms.core.service.FrontDeskChargeService;
 import com.hht.wms.core.service.StockInfoService;
 import com.hht.wms.core.util.DateUtil;
-import com.hht.wms.core.util.SnowFlakeUtil;
 
 @Service
 public class StockInfoServiceImpl extends ServiceImpl<StockInfoDao, StockInfo> implements StockInfoService{

@@ -64,7 +64,8 @@ public class FrontDeskChargeController {
 		return Resp.success("查询前台收费成功" , respDto );
 	}
 	
-	@SuppressWarnings("unchecked")
+
+	@SuppressWarnings("rawtypes")
 	@PostMapping("update")
     @ApiOperation(value = "修改前台收费", notes = "")
 	public Resp update(@RequestBody FrontDeskCharge reqDto) {
@@ -73,7 +74,8 @@ public class FrontDeskChargeController {
 		
 	}
 	
-	@SuppressWarnings("unchecked")
+
+	@SuppressWarnings("rawtypes")
 	@PostMapping("delete")
     @ApiOperation(value = "删除前台收费", notes = "")
 	public Resp delete(@RequestParam("id") String id) {

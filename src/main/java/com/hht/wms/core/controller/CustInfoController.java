@@ -29,7 +29,7 @@ public class CustInfoController {
 	@Autowired
 	private CustInfoService custInfoService ;
 	
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("rawtypes")
 	@PostMapping("add")
     @ApiOperation(value = "客户项目信息新增", notes = "")
 	public Resp addCust(@RequestBody CustInfo reqDto) throws Exception{
@@ -56,7 +56,7 @@ public class CustInfoController {
 		return Resp.success("客户项目信息查询成功" , respDto );
 	}	
 	
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("rawtypes")
 	@PostMapping("update")
     @ApiOperation(value = "客户项目信息修改", notes = "")
 	public Resp update(@RequestBody CustInfo reqDto) throws Exception{
@@ -65,7 +65,7 @@ public class CustInfoController {
 		return Resp.success("客户项目信息修改成功");
     }	
 	
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("rawtypes")
 	@PostMapping("delete")
     @ApiOperation(value = "客户项目信息删除", notes = "")
 	public Resp delete(@RequestParam("custId") String custId) throws Exception{
