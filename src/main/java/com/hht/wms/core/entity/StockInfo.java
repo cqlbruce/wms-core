@@ -67,6 +67,14 @@ public class StockInfo {
      */
 	@TableField
     private String rcvdDate;
+	
+    /**
+     * 包装类型
+     * 表字段 : stock_info.pack_type
+     */
+	@TableField
+    private String packType;	
+	
 
     /**
      * 实收箱数
@@ -75,21 +83,50 @@ public class StockInfo {
 	@TableField
     private Integer rcvdCtns;
 	
+    /**
+     * 第一计量单位
+     * 表字段 : stock_info.firstUnitMeasurement
+     */	
 	@TableField
 	private String firstUnitMeasurement ; 
 	
+	
+    /**
+     * 第一法定数量
+     * 表字段 : stock_info.firstLegalCount
+     */		
 	@TableField
     private Integer firstLegalCount;	
 	
+	
+    /**
+     * 第二法定单位
+     * 表字段 : stock_info.secondUnitMeasurement
+     */			
 	@TableField
 	private String secondUnitMeasurement ; 
 	
+	
+    /**
+         * 第二法定数量 
+         * 表字段 : stock_info.secondLegalCount
+     */		
 	@TableField
     private Integer secondLegalCount;	
 	
+	
+    /**
+         * 成交单位  
+         * 表字段 : stock_info.transactionUnit
+     */			
 	@TableField
 	private String transactionUnit ; 
 	
+	
+    /**
+         * 成交数量
+         * 表字段 : stock_info.transactionCount
+     */			
 	@TableField
     private Integer transactionCount;		
 	
@@ -123,7 +160,10 @@ public class StockInfo {
      */
 	@TableField
     private BigDecimal gwAllActul;
-
+	
+	@TableField
+    private String customsNo;	
+	
     /**
      * 实测外箱长L
      * 表字段 : stock_info.box_length_actul
@@ -179,7 +219,14 @@ public class StockInfo {
      */
 	@TableField
     private String warehousePosition;
-
+	
+    /**
+     * 报关品名
+     * 表字段 : stock_info.productName
+     */
+	@TableField
+    private String productName;	
+	
     /**
      * 总出仓箱数
      * 表字段 : stock_info.shipped_ctns

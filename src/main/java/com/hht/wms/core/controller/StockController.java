@@ -61,10 +61,8 @@ public class StockController {
  		logger.info("addStock..............{}",JSON.toJSON(reqDto) );
  		List<StockInfo> stockList = new ArrayList<StockInfo>();
  		reqDto.setId(SnowFlakeUtil.getNextId());
- 		
  		//申报总价
  		reqDto.setDeclaTotalPrice(reqDto.getDeclaUnitPrice().multiply(new BigDecimal(reqDto.getRcvdPcs())));
-   	   	
  		stockList.add(reqDto);
  		stockInfoService.addStock(stockList);
 		return Resp.success("库存新增成功");
@@ -153,12 +151,13 @@ public class StockController {
 	       	   	//第9列 箱数-实收箱数
 	       	   	int rcvdCtns = Integer.parseInt(ExcelUtil.getCellValue(row.getCell(9)));
 	       	   	info.setRcvdCtns(rcvdCtns);
-	       	   	//第11列 数量-实收件数
+	       	   	//第11列 数量-实收件数 -- 成交数量
 	       	   	int rcvdPcs = Integer.parseInt(ExcelUtil.getCellValue(row.getCell(11))) ;
 	       	   	info.setRcvdPcs(rcvdPcs);
 	       	   	//第10列 每箱数量 -- 计算，excel表有些为空
 //	       	   	info.setItemsPerBox(rcvdPcs/rcvdCtns);           	   
-	       	   	//第12列 单位 PCS 
+	       	   	//第12列 单位 PCS -- 成交单位
+	       	    info.setTransactionUnit(ExcelUtil.getCellValue(row.getCell(12)));
            	   
 	       	   	//第15列 长 
 	       	   	info.setBoxLengthActul(new BigDecimal("0"));
@@ -171,12 +170,18 @@ public class StockController {
 	       	   	//19 体积计算单位 
            	   
 	       	   	//20 车牌 --
+	       	    info.setCarNum(ExcelUtil.getCellValue(row.getCell(20)));
+	       	    
+	       	    //21 混装编号
+	       	    
            	   
 	       	   	//22 海关编码 
+	       	    info.setCustomsNo(ExcelUtil.getCellValue(row.getCell(22)));
            	   
 	       	   	//23商检代码
 	       	   	info.setCustomsMerchNo(ExcelUtil.getCellValue(row.getCell(23)));
 	       	   	//24 报关品名 --
+	       	    info.setProductName(ExcelUtil.getCellValue(row.getCell(24)));
            	   
 	       	   	//25 申报要素 --
            	   
@@ -186,24 +191,29 @@ public class StockController {
 	       	   	info.setDeclaUnit(ExcelUtil.getCellValue(row.getCell(27)));
 	       	   	//28 申报单价
 	       	   	info.setDeclaUnitPrice(NumberUtil.strToBigDecimal(ExcelUtil.getCellValue(row.getCell(28))));
-	       	   	//29 申报价值
+	       	   	//29 申报价值 申报总价
 	       	   	info.setDeclaTotalPrice(NumberUtil.strToBigDecimal(ExcelUtil.getCellValue(row.getCell(29))));
 	       	   	//30 申报币种
 	       	   	info.setDeclaCurrency(ExcelUtil.getCellValue(row.getCell(30)));
 	       	   	//31 第一法定数量
-           	   
+	       	   	int legalCount = Integer.parseInt(ExcelUtil.getCellValue(row.getCell(31)));
+	       	    info.setFirstLegalCount(legalCount);
 	       	   	//32 第一法定单位
-           	   
+	       	    info.setFirstUnitMeasurement(ExcelUtil.getCellValue(row.getCell(32)));
+	       	    
 	       	   	//33 第二法定数量
+	       	    int secondLegalCount = Integer.parseInt(ExcelUtil.getCellValue(row.getCell(33)));
+	       	    info.setSecondLegalCount(secondLegalCount);
            	   
 	       	   	//34 第二法定单位
+	       	    info.setSecondUnitMeasurement(ExcelUtil.getCellValue(row.getCell(34)));
            	   
 	       	   	//35 总毛重
            	   
 	       	   	//36 总净重
 	       	    info.setCustsDeclaAllWeigh(NumberUtil.strToBigDecimal(ExcelUtil.getCellValue(row.getCell(36))));
-	       	   	//37 出口国别
-           	   
+	       	   	//37 出口国别 最终目的国
+	       	    info.setDestCountry(ExcelUtil.getCellValue(row.getCell(37)));
 	       	   	//38 手册备案序号--
            	   
 	       	   	//41 重量单位
