@@ -11,6 +11,8 @@ public interface FrontDeskChargeService {
 	
 	FrontDeskChargeQueryRespDto query(FrontDeskChargeQueryReqDto reqDto);
 	
+	FrontDeskChargeQueryRespDto queryByPage(FrontDeskChargeQueryReqDto reqDto);
+	
 	int updateByInboundNo(StockInfo info)  throws Exception;
 	
 	int update(FrontDeskCharge reqDto);

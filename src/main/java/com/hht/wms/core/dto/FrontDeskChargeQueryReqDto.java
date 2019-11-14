@@ -5,6 +5,12 @@ import lombok.Data;
 @Data
 public class FrontDeskChargeQueryReqDto {
 	
+    private String custId ;
+    
+    private String carNum ;
+    
+    private String tranDate ;
+	
 	private String inboundNo ;
 
 	private int  page ;

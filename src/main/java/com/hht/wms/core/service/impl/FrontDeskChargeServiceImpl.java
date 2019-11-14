@@ -43,10 +43,12 @@ public class FrontDeskChargeServiceImpl extends ServiceImpl<FrontDeskChargeDao, 
 		respDto.setTotal(total);
 		int beginSize = (reqDto.getPage()-1) * reqDto.getSize() ; 
 		reqDto.setBeginSize(beginSize);
-		List<FrontDeskCharge> list =  frontDeskChargeMapper.queryList(reqDto);
+		List<FrontDeskCharge> list = frontDeskChargeMapper.queryByPage(reqDto);
 		respDto.setItems(list);
 		return respDto ;		
 	}
+	
+	
 	
 	
 	public int updateByInboundNo(StockInfo info) throws Exception{
@@ -76,6 +78,15 @@ public class FrontDeskChargeServiceImpl extends ServiceImpl<FrontDeskChargeDao, 
 	@Override
 	public int delete(String id) {
 		return baseMapper.deleteById(id);
+	}
+
+	@Override
+	public FrontDeskChargeQueryRespDto queryByPage(FrontDeskChargeQueryReqDto reqDto) {
+		FrontDeskChargeQueryRespDto respDto = new FrontDeskChargeQueryRespDto();
+		List<FrontDeskCharge> items = baseMapper.queryList(reqDto) ;
+		respDto.setItems(items);
+		// TODO Auto-generated method stub
+		return respDto;
 	}
 
 }

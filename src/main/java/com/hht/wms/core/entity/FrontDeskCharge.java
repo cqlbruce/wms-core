@@ -88,7 +88,10 @@ public class FrontDeskCharge {
      */
 	@TableField
     private String payType;
-
+	
+	@TableField
+    private String remark;	
+	
     /**
      * 结算方式
      * 表字段 : front_desk_charge.settlement_type

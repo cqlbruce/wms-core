@@ -55,12 +55,21 @@ public class FrontDeskChargeController {
 		return Resp.success("新增前台收费成功");
 	}
 	
+	@SuppressWarnings("unchecked")
+	@PostMapping("export")
+    @ApiOperation(value = "前台收费导出", notes = "")
+	public Resp<FrontDeskChargeQueryRespDto> export(@RequestBody FrontDeskChargeQueryReqDto reqDto) {
+		FrontDeskChargeQueryRespDto respDto = frontDeskChargeService.query(reqDto);
+		return Resp.success("查询前台收费成功" , respDto );
+	}
+	
+	
 	
 	@SuppressWarnings("unchecked")
 	@PostMapping("query")
     @ApiOperation(value = "查询前台收费", notes = "")
 	public Resp<FrontDeskChargeQueryRespDto> query(@RequestBody FrontDeskChargeQueryReqDto reqDto) {
-		FrontDeskChargeQueryRespDto respDto = frontDeskChargeService.query(reqDto);
+		FrontDeskChargeQueryRespDto respDto = frontDeskChargeService.queryByPage(reqDto);
 		return Resp.success("查询前台收费成功" , respDto );
 	}
 	
@@ -82,6 +91,5 @@ public class FrontDeskChargeController {
 		frontDeskChargeService.delete(id);
 		return Resp.success("删除前台收费成功");
 	}
-	
 
 }

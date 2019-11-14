@@ -16,5 +16,7 @@ public interface FrontDeskChargeDao extends BaseDao<FrontDeskCharge>{
     int selectCount(FrontDeskChargeQueryReqDto reqDto) ;
     
     FrontDeskCharge selectByInboundNo(@Param("inboundNo")String inboundNo) ;
+    
+    List<FrontDeskCharge> queryByPage(FrontDeskChargeQueryReqDto reqDto) ;
    
 }

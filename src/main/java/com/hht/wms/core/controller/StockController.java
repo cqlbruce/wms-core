@@ -85,7 +85,7 @@ public class StockController {
 		
 	
 	@SuppressWarnings("rawtypes")
-	@PostMapping("modify")
+	@PostMapping("update")
     @ApiOperation(value = "修改库存信息", notes = "")
 	public Resp modifyStockInfo(@RequestBody StockInfoModifyReqDto reqDto) {
  		logger.info("modifyStockInfo..............{}",JSON.toJSON(reqDto) );
