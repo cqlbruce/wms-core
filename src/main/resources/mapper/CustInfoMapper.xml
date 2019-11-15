@@ -9,8 +9,17 @@
 		cust_id=#{custId,jdbcType=VARCHAR}
 	</if>
    </where> 	
-   	order by id  LIMIT #{beginSize},#{size}    	
   </select>
+  
+ <select id="queryByPage" resultType="com.hht.wms.core.entity.CustInfo" parameterType="com.hht.wms.core.dto.CustInfoQueryReqDto" >
+    select * from cust_info  
+  <where>  
+	<if test="custId != null and custId !=''">
+		cust_id=#{custId,jdbcType=VARCHAR}
+	</if>
+   </where> 	
+   	order by id  LIMIT #{beginSize},#{size}    	
+  </select>  
   
   <select id="selectCount" resultType="java.lang.Integer" parameterType="com.hht.wms.core.dto.CustInfoQueryReqDto" >
   	select count(1) from cust_info 

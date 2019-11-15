@@ -38,23 +38,21 @@ public class CustInfoController {
 		return Resp.success("客户项目信息新增成功");
     }	
 	
-	
 	@SuppressWarnings("unchecked")
 	@PostMapping("query")
-    @ApiOperation(value = "客户项目信息查询", notes = "")
+    @ApiOperation(value = "客户信息查询", notes = "")
 	public Resp<CustInfoQueryRespDto> query(@RequestBody CustInfoQueryReqDto reqDto) {
-		CustInfoQueryRespDto respDto = custInfoService.queryList(reqDto);
-//		CustInfoQueryRespDto respDto = new CustInfoQueryRespDto();
-//		respDto.setTotal(2);
-//		List<CustInfo> items = new ArrayList<CustInfo>() ;
-//		CustInfo ci = new CustInfo();
-//		ci.setId("asdf");
-//		ci.setProjectId("asdf");
-//		ci.setProjectName("asdfas");
-//		items.add(ci);
-//		respDto.setItems(items);
+ 		logger.info("....custInfoController....query......{}",JSON.toJSON(reqDto) );
+ 		CustInfoQueryRespDto respDto = null ; 
+ 		if(0==reqDto.getSize()) {
+ 			respDto = custInfoService.queryList(reqDto);
+ 		}else {
+ 			respDto = custInfoService.queryByPage(reqDto);
+ 		}
+ 		
 		return Resp.success("客户项目信息查询成功" , respDto );
-	}	
+	}		
+	
 	
 	@SuppressWarnings("rawtypes")
 	@PostMapping("update")

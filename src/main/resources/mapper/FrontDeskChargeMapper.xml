@@ -9,13 +9,13 @@
 		inbound_no=#{inboundNo,jdbcType=VARCHAR}
 	</if>
 	<if test="custId != null and custId !=''">
-		cust_id=#{custId,jdbcType=VARCHAR}
+		and cust_id=#{custId,jdbcType=VARCHAR}
 	</if>	
 	<if test="carNum != null and carNum !=''">
-		car_num=#{carNum,jdbcType=VARCHAR}
+		and car_num=#{carNum,jdbcType=VARCHAR}
 	</if>
 	<if test="tranDate != null and tranDate !=''">
-		tran_date=#{tranDate,jdbcType=VARCHAR}
+		and tran_date=#{tranDate,jdbcType=VARCHAR}
 	</if>	
    </where> 	
     order by id  LIMIT #{beginSize},#{size} 
@@ -28,13 +28,13 @@
 		inbound_no=#{inboundNo,jdbcType=VARCHAR}
 	</if>
 	<if test="custId != null and custId !=''">
-		cust_id=#{custId,jdbcType=VARCHAR}
+		and cust_id=#{custId,jdbcType=VARCHAR}
 	</if>	
 	<if test="carNum != null and carNum !=''">
-		car_num=#{carNum,jdbcType=VARCHAR}
+		and car_num=#{carNum,jdbcType=VARCHAR}
 	</if>
 	<if test="tranDate != null and tranDate !=''">
-		tran_date=#{tranDate,jdbcType=VARCHAR}
+		and tran_date=#{tranDate,jdbcType=VARCHAR}
 	</if>	
 	</where>
    </select>  
@@ -47,13 +47,13 @@
 		inbound_no=#{inboundNo,jdbcType=VARCHAR}
 	</if>
 	<if test="custId != null and custId !=''">
-		cust_id=#{custId,jdbcType=VARCHAR}
+		and cust_id=#{custId,jdbcType=VARCHAR}
 	</if>	
 	<if test="carNum != null and carNum !=''">
-		car_num=#{carNum,jdbcType=VARCHAR}
+		and car_num=#{carNum,jdbcType=VARCHAR}
 	</if>
 	<if test="tranDate != null and tranDate !=''">
-		tran_date=#{tranDate,jdbcType=VARCHAR}
+		and tran_date=#{tranDate,jdbcType=VARCHAR}
 	</if>	
    </where> 	
   </select>  

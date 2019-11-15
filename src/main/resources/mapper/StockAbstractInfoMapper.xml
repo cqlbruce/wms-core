@@ -61,8 +61,8 @@
 	<if test="po != null and po !=''">
 		and po = #{po,jdbcType=VARCHAR}
 	</if>    
-	<if test="sku != null and sku != ''">
-		and sku = #{sku,jdbcType=VARCHAR}
+	<if test="item != null and item != ''">
+		and item = #{item,jdbcType=VARCHAR}
 	</if>
 	<if test="inboundNo != null and inboundNo != ''">
 		and inbound_no = #{inboundNo,jdbcType=VARCHAR}
@@ -71,7 +71,7 @@
 		and cust_id = #{custId,jdbcType=VARCHAR}
 	</if>		
    </where> 	
-    order by id  LIMIT #{beginSize},#{size}    	
+    order by inbound_no  LIMIT #{beginSize},#{size}    	
      
   </select>
    
@@ -84,8 +84,8 @@
 	<if test="po != null and po !=''">
 		and po = #{po,jdbcType=VARCHAR}
 	</if>    
-	<if test="sku != null and sku != ''">
-		and sku = #{sku,jdbcType=VARCHAR}
+	<if test="item != null and item != ''">
+		and item = #{item,jdbcType=VARCHAR}
 	</if>
 	<if test="inboundNo != null and inboundNo != ''">
 		and inbound_no = #{inboundNo,jdbcType=VARCHAR}

@@ -22,6 +22,7 @@ import com.hht.wms.core.dto.FrontDeskChargeQueryRespDto;
 import com.hht.wms.core.entity.FrontDeskCharge;
 import com.hht.wms.core.service.FrontDeskChargeService;
 import com.hht.wms.core.util.DateUtil;
+import com.hht.wms.core.util.NumberUtil;
 import com.hht.wms.core.util.SnowFlakeUtil;
 
 import io.swagger.annotations.ApiOperation;
@@ -50,6 +51,7 @@ public class FrontDeskChargeController {
 		for(FrontDeskChargeDetail detail : detailList) {
 			fdc.setId(SnowFlakeUtil.getNewNextId());
 			BeanUtils.copyProperties(detail, fdc);
+			fdc.setFeeTotal(NumberUtil.getBigDecimal(reqDto.getEnterGateFee()).add(reqDto.getCustomsDeclarationFee()));
 			frontDeskChargeService.add(fdc);
 		}
 		return Resp.success("新增前台收费成功");

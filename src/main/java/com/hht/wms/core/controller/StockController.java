@@ -162,8 +162,6 @@ public class StockController {
 	       	   	info.setPo(ExcelUtil.getCellValue(row.getCell(4)));
 	       	   	//第五列sku item
 	       	   	info.setItem(ExcelUtil.getCellValue(row.getCell(5)));
-	       	   	
-//	       	   	String id = new StringBuilder().append(info.getSo()).append(info.getPo()).append(info.getSku()).toString();
 //	       	    info.setId(id);
 	       	   	//第9列 箱数-实收箱数
 	       	   	int rcvdCtns = Integer.parseInt(ExcelUtil.getCellValue(row.getCell(9)));

@@ -8,6 +8,7 @@ import com.hht.wms.core.util.BaseDao;
 
 public interface CustInfoDao extends BaseDao<CustInfo>{
 	
+	List<CustInfo> queryByPage(CustInfoQueryReqDto reqDto);
 	
     List<CustInfo> queryList(CustInfoQueryReqDto reqDto);
     

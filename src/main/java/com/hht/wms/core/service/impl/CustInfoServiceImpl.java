@@ -32,7 +32,7 @@ public class CustInfoServiceImpl extends ServiceImpl<CustInfoDao, CustInfo> impl
 	}
 
 	@Override
-	public CustInfoQueryRespDto queryList(CustInfoQueryReqDto reqDto) {
+	public CustInfoQueryRespDto queryByPage(CustInfoQueryReqDto reqDto) {
 		logger.info("CustInfoServiceImpl ---queryinfo-----{}",JSON.toJSON(reqDto));
 		CustInfoQueryRespDto respDto = new CustInfoQueryRespDto();
 		int total = custInfoDao.selectCount(reqDto);
@@ -47,6 +47,8 @@ public class CustInfoServiceImpl extends ServiceImpl<CustInfoDao, CustInfo> impl
 		respDto.setItems(list);
 		return respDto ;
 	}
+	
+	
 
 	@Override
 	public int modify(CustInfo reqDto) {
@@ -56,5 +58,13 @@ public class CustInfoServiceImpl extends ServiceImpl<CustInfoDao, CustInfo> impl
 	@Override
 	public int delete(String custId) {
 		return baseMapper.deleteById(custId);
+	}
+
+	@Override
+	public CustInfoQueryRespDto queryList(CustInfoQueryReqDto reqDto) {
+		CustInfoQueryRespDto respDto = new CustInfoQueryRespDto();
+		List<CustInfo> list =  custInfoDao.queryList(reqDto);
+		respDto.setItems(list);
+		return respDto ;
 	}
 }

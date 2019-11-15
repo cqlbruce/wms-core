@@ -8,6 +8,8 @@ public interface CustInfoService {
 	
 	int add(CustInfo custInfo) throws Exception;
 	
+	CustInfoQueryRespDto queryByPage(CustInfoQueryReqDto reqDto );
+	
 	CustInfoQueryRespDto queryList(CustInfoQueryReqDto reqDto );
 	
 	int modify(CustInfo reqDto) ;

@@ -75,7 +75,7 @@
   </insert>
   
   <select id="queryList" resultType="com.hht.wms.core.entity.ShippedAbstractInfo" parameterType="com.hht.wms.core.dto.ShippedAbstractQueryReqDto" >
-    select * from stock_abstract_info 
+    select * from shipped_abstract_info 
   <where>  
 	<if test="clp != null and clp !=''">
 		clp=#{clp,jdbcType=VARCHAR}
@@ -90,7 +90,7 @@
 		and shipped_date = #{shippedDate,jdbcType=VARCHAR}
 	</if>   
    </where> 	
-    order by id  LIMIT #{beginSize},#{size}    	
+    order by clp  LIMIT #{beginSize},#{size}    	
   </select>
    
   <select id="selectCount" resultType="java.lang.Integer"  parameterType="com.hht.wms.core.dto.ShippedAbstractQueryReqDto" >

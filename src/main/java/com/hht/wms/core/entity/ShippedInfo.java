@@ -37,7 +37,7 @@ public class ShippedInfo {
      * 表字段 : shipped_info.sku
      */
 	  @TableField
-    private String sku;
+    private String item;
     /**
      * 入仓编号
      * 表字段 : shipped_info.inbound_no

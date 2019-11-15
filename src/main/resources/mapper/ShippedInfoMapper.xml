@@ -43,11 +43,11 @@
 	<if test="po != null and po !=''">
 		and po = #{po,jdbcType=VARCHAR}
 	</if>    
-	<if test="sku != null and sku != ''">
-		and sku = #{sku,jdbcType=VARCHAR}
+	<if test="item != null and item != ''">
+		and item = #{item,jdbcType=VARCHAR}
 	</if>
-	<if test="shippedNo != null and shippedNo != ''">
-		and shipped_no = #{shippedNo,jdbcType=VARCHAR}
+	<if test="clp != null and clp != ''">
+		and clp = #{clp,jdbcType=VARCHAR}
 	</if>	
 	<if test="beginDate != null and beginDate != ''">
 		and shipped_date &gt;= #{beginDate,jdbcType=VARCHAR}
@@ -68,11 +68,11 @@
 	<if test="po != null and po !=''">
 		and po = #{po,jdbcType=VARCHAR}
 	</if>    
-	<if test="sku != null and sku != ''">
-		and sku = #{sku,jdbcType=VARCHAR}
+	<if test="item != null and item != ''">
+		and item = #{item,jdbcType=VARCHAR}
 	</if>
-	<if test="shippedNo != null and shippedNo != ''">
-		and shipped_no = #{shippedNo,jdbcType=VARCHAR}
+	<if test="clp != null and clp != ''">
+		and clp = #{clp,jdbcType=VARCHAR}
 	</if>	
 	<if test="beginDate != null and beginDate != ''">
 		and shipped_date &gt;= #{beginDate,jdbcType=VARCHAR}
