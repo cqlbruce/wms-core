@@ -7,13 +7,13 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSON;
 import com.hht.wms.core.common.Resp;
 import com.hht.wms.core.dto.CustInfoQueryReqDto;
 import com.hht.wms.core.dto.CustInfoQueryRespDto;
+import com.hht.wms.core.dto.IdReqDto;
 import com.hht.wms.core.entity.CustInfo;
 import com.hht.wms.core.service.CustInfoService;
 
@@ -66,9 +66,9 @@ public class CustInfoController {
 	@SuppressWarnings("rawtypes")
 	@PostMapping("delete")
     @ApiOperation(value = "客户项目信息删除", notes = "")
-	public Resp delete(@RequestParam("custId") String custId) throws Exception{
- 		logger.info("...delete..............{}",JSON.toJSON(custId) );
- 		custInfoService.delete(custId);
+	public Resp delete(@RequestBody IdReqDto reqDto) throws Exception{
+ 		logger.info("...delete..............{}",JSON.toJSON(reqDto.getId()));
+ 		custInfoService.delete(reqDto.getId());
 		return Resp.success("客户项目信息删除成功");
     }	
 	
