@@ -80,7 +80,6 @@ public class ShippedInfoController {
 	public Resp<?> fileUploadShipped(@RequestParam("excelFile") MultipartFile excelFile)  throws Exception {
 	    String fileName = excelFile.getOriginalFilename();
  		logger.info("...fileUploadShipped...............{}",fileName );
-		List<ShippedAbstractInfo> shippedAbstractInfoList = new ArrayList<ShippedAbstractInfo>();
 
 		if(excelFile.isEmpty()) {
 			return Resp.fail("文件为空");
@@ -117,12 +116,6 @@ public class ShippedInfoController {
 	       	   	int pcs = Integer.parseInt(ExcelUtil.getCellValue(row.getCell(3))) ;
 	       	   	outboundReqDto.setPcs(pcs);
 	       	   	outList.add(outboundReqDto);
-	       	   	
-	       	   	//出仓总批次
-	       	   	ShippedAbstractInfo saInfo = new ShippedAbstractInfo();
-	       	   	saInfo.setClp(outboundReqDto.getClp());
-	       	   	saInfo.setShippedDate(DateUtil.getNowTime(DateUtil.ISO_DATE_FORMAT_CROSSBAR));
-	       	   	shippedAbstractInfoList.add(saInfo);
 	        }
 
 		}finally{
@@ -138,7 +131,6 @@ public class ShippedInfoController {
 				}
 			}
 		}
-		shippedAbstractService.addByShipped(shippedAbstractInfoList);		
 		return Resp.success("uploadStock");
 	}
 	

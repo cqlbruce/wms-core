@@ -47,7 +47,11 @@ public class ShippedAbstractServiceImpl extends ServiceImpl<ShippedAbstractInfoD
 
 	@Override
 	public void addByShipped(List<ShippedAbstractInfo> info) {
-		baseMapper.insertOrUpdate(info);
+		try {
+			baseMapper.insertOrUpdate(info);
+		}catch(Exception e) {
+			logger.error("have sometion exception to add ShippedAbstractInfo " , e);
+		}
 	}
 
 	

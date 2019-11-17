@@ -2,6 +2,7 @@ package com.hht.wms.core.service.impl;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.collections4.CollectionUtils;
@@ -18,8 +19,10 @@ import com.hht.wms.core.dao.ShippedInfoDao;
 import com.hht.wms.core.dto.OutboundReqDto;
 import com.hht.wms.core.dto.ShippedInfoReqDto;
 import com.hht.wms.core.dto.ShippedInfoRespDto;
+import com.hht.wms.core.entity.ShippedAbstractInfo;
 import com.hht.wms.core.entity.ShippedInfo;
 import com.hht.wms.core.entity.StockInfo;
+import com.hht.wms.core.service.ShippedAbstractService;
 import com.hht.wms.core.service.ShippedInfoService;
 import com.hht.wms.core.service.StockInfoService;
 import com.hht.wms.core.util.DateUtil;
@@ -32,6 +35,9 @@ public class ShippedInfoServiceImpl extends ServiceImpl<ShippedInfoDao, ShippedI
 	
 	@Autowired
 	private StockInfoService stockInfoService ; 
+	
+	@Autowired
+	private ShippedAbstractService shippedAbstractService ; 
 	
 	@Override
 	public List<ShippedInfo> queryListByClp(String clp) {
@@ -65,6 +71,7 @@ public class ShippedInfoServiceImpl extends ServiceImpl<ShippedInfoDao, ShippedI
 			logger.error("出仓失败，对应的库存信息不存在 {} " , JSON.toJSON(reqDto));
 			throw new Exception("出仓失败，对应的库存信息不存在");
 		}
+		List<ShippedAbstractInfo> shippedAbstractInfoList = new ArrayList<ShippedAbstractInfo>();
 		for(StockInfo stockInfo : stockInfoList) {
 			logger.info("库存扣减前===={}",JSON.toJSON(stockInfo));
 			//------扣减库存 计算
@@ -118,9 +125,18 @@ public class ShippedInfoServiceImpl extends ServiceImpl<ShippedInfoDao, ShippedI
 			//成交总价
 			shippedInfo.setDeclaTotalPrice(shippedInfo.getDeclaUnitPrice().multiply(new BigDecimal(reqDto.getPcs())));
 			logger.info("shippedInfo2======={}",JSON.toJSON(shippedInfo));
+			
+       	   	//出仓总批次
+       	   	ShippedAbstractInfo saInfo = new ShippedAbstractInfo();
+       	   	saInfo.setClp(shippedInfo.getClp());
+       	   	saInfo.setCustId(stockInfo.getCustId());
+       	   	saInfo.setShippedDate(DateUtil.getNowTime(DateUtil.ISO_DATE_FORMAT_CROSSBAR));
+       	   	shippedAbstractInfoList.add(saInfo);
+       	   	
 			baseMapper.insert(shippedInfo);
 		}
-
+		shippedAbstractService.addByShipped(shippedAbstractInfoList);	
+		
  		return 1;
 	}
 

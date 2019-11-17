@@ -12,7 +12,6 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -75,7 +74,7 @@ public class StockController {
     }	
 	
 	@SuppressWarnings("unchecked")
-	@PostMapping("abstract/query")
+	@PostMapping("abstract/load")
     @ApiOperation(value = "库存概要信息查询", notes = "")
 	public Resp<StockAbstractQueryRespDto> abstractQuery(@RequestBody StockAbstractQueryReqDto reqDto) {
 		logger.info("-----StockAbstractController---query--req--{}",reqDto);
@@ -85,28 +84,13 @@ public class StockController {
 		
 	
 	@SuppressWarnings("rawtypes")
-	@PostMapping("update")
+	@PostMapping("modify")
     @ApiOperation(value = "修改库存信息", notes = "")
 	public Resp modifyStockInfo(@RequestBody StockInfoModifyReqDto reqDto) {
+		
  		logger.info("modifyStockInfo..............{}",JSON.toJSON(reqDto) );
+ 		stockInfoService.modify(reqDto);
  		
- 		StockInfo info = new StockInfo() ; 
- 		BeanUtils.copyProperties(reqDto, info);
- 		
-		//实测单箱体积 = 长 * 宽 * 高
- 		info.setBoxPerVolumeActul(info.getBoxHighActul().multiply(info.getBoxLengthActul()).multiply(info.getBoxWidthActul()));
- 		info.setBoxAllVolumeActul(info.getBoxPerVolumeActul().multiply(new BigDecimal(info.getStockPcs())));
- 		info.setStockVolume(info.getBoxPerVolumeActul().multiply(new BigDecimal(info.getStockPcs())));
- 		
- 		//单箱毛重
-// 		reqDto.setGwPerBoxActul(NumberUtil.strToBigDecimal(reqDto.getGwPerBoxActul()));
- 		//实收总毛重
- 		info.setGwAllActul(info.getGwPerBoxActul().multiply(new BigDecimal(info.getStockPcs())));
- 		info.setStockGw(info.getGwPerBoxActul().multiply(new BigDecimal(info.getStockPcs())));
- 		
- 		info.setDeclaTotalPrice(info.getDeclaUnitPrice().multiply(new BigDecimal(info.getStockPcs())));
- 		
- 		stockInfoService.updateStock(info);
 		return Resp.success("修改成功");
     }	
 	
@@ -138,6 +122,7 @@ public class StockController {
 //			String inboundNo = "";
 //			Row row1 = ss.getRow(23);
 //			if(null!=row1&&null!=row1.getCell(1)) {
+			
 //				inboundNo = ExcelUtil.getCellValue(row1.getCell(1));
 //			}
 			//从25行开始

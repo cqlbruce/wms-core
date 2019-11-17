@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.hht.wms.core.common.Constant;
 import com.hht.wms.core.dao.StockAbstractInfoDao;
 import com.hht.wms.core.dao.StockInfoDao;
 import com.hht.wms.core.dto.StockAbstractQueryReqDto;
@@ -69,13 +70,17 @@ public class StockAbstractServiceImpl extends ServiceImpl<StockAbstractInfoDao, 
 		//设置根据明细设置 总批次状态
 		for(StockAbstractInfo sai : list) {
 			List<StockInfo> tempList = map.get(sai.getInboundNo());
+			String status = Constant.INBOUND_STATUS_FINISH;
 			if(CollectionUtils.isNotEmpty(tempList)) {
 				// status 0 登记  1 已入库
-				String status = "1";
 				for(StockInfo si : tempList) {
-					status = "0".equals(si.getStatus()) ? "0" : status ; 
+					if(Constant.INBOUND_STATUS_READY.equals(si.getStatus())) {
+						status = Constant.INBOUND_STATUS_READY ; 
+						break ; 
+					}
 				}
 			}
+			sai.setStatus(status);
 		}
 		respDto.setItems(list);
 		return respDto ;

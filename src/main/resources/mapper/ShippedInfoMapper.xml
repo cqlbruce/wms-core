@@ -3,21 +3,20 @@
 <mapper namespace="com.hht.wms.core.dao.ShippedInfoDao">
    <!--   自定义 -->
    
-  <update id="batchUpdate" parameterType="java.util.List" >
-    <foreach collection="list" item="item" index="index" open="begin" close=";end;"  separator=";">
-      update shipped_info 
-        <set>
+	<update id="batchUpdate" parameterType="java.util.List">
+		<foreach collection="list" index="index" item="item" separator=";">
+      	update shipped_info 
+			<set>
 	      <if test="item.cntrNo != null" >
             cntr_no = #{item.cntrNo,jdbcType=VARCHAR},
           </if>          
-	      <if test="item.cntrNo != null" >
+	      <if test="item.seal != null" >
             seal = #{item.seal,jdbcType=VARCHAR},
           </if>           
-	      <if test="item.cntrNo != null" >
+	      <if test="item.cntrWeigh != null" >
             cntr_weigh = #{item.cntrWeigh,jdbcType=VARCHAR},
           </if>           
-        
-        </set>
+			</set>
       <where>
         id = #{item.id,jdbcType=VARCHAR}
       </where>

@@ -25,6 +25,9 @@ public class StockAbstractInfo {
 
 		@TableField
 	    private String status;
+		
+		@TableField
+	    private String rcvdDate;
 
 		@TableField
 	    private Date createTime;
@@ -32,7 +35,6 @@ public class StockAbstractInfo {
 		@TableField
 	    private Date updateTime;
 
-		
 		
 	  
 }

@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,6 +17,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.hht.wms.core.dao.FrontDeskChargeDao;
 import com.hht.wms.core.dao.StockAbstractInfoDao;
 import com.hht.wms.core.dao.StockInfoDao;
+import com.hht.wms.core.dto.StockInfoModifyReqDto;
 import com.hht.wms.core.dto.StockInfoQueryReqDto;
 import com.hht.wms.core.dto.StockInfoRespDto;
 import com.hht.wms.core.dto.vo.ThreeElement;
@@ -108,13 +110,14 @@ public class StockInfoServiceImpl extends ServiceImpl<StockInfoDao, StockInfo> i
 				info.setCarNum(charge.getCarNum());
 			}
 			i+=baseMapper.insert(info);
-			
+
 			
 			StockAbstractInfo stockAbstractInfo = new StockAbstractInfo();
 //			stockAbstractInfo.setId(SnowFlakeUtil.getNewNextId());
 			stockAbstractInfo.setCustId(info.getCustId());
 			stockAbstractInfo.setInboundNo(info.getInboundNo());
 			stockAbstractInfo.setCarNum(info.getCarNum());
+			stockAbstractInfo.setRcvdDate(info.getRcvdDate());
 			
 			//更新总条目，这里关键是总条目的状态，状态与所有明细状态有关系  insertOrUpdate。
 			abstractInfoList.add(stockAbstractInfo);
@@ -126,9 +129,34 @@ public class StockInfoServiceImpl extends ServiceImpl<StockInfoDao, StockInfo> i
 
 		return i;
 	}
+	
+	@Override
+	public int modify(StockInfoModifyReqDto reqDto) {
+		StockInfo info = baseMapper.selectById(reqDto.getId());
+		
+		BeanUtils.copyProperties(reqDto, info);
+ 		
+		//实测单箱体积 = 长 * 宽 * 高
+ 		info.setBoxPerVolumeActul(info.getBoxHighActul().multiply(info.getBoxLengthActul()).multiply(info.getBoxWidthActul()));
+ 		info.setBoxAllVolumeActul(info.getBoxPerVolumeActul().multiply(new BigDecimal(info.getStockPcs())));
+ 		info.setStockVolume(info.getBoxPerVolumeActul().multiply(new BigDecimal(info.getStockPcs())));
+ 		
+ 		//单箱毛重
+// 		reqDto.setGwPerBoxActul(NumberUtil.strToBigDecimal(reqDto.getGwPerBoxActul()));
+ 		
+ 		//实收总毛重
+ 		info.setGwAllActul(info.getGwPerBoxActul().multiply(new BigDecimal(info.getStockPcs())));
+ 		info.setStockGw(info.getGwPerBoxActul().multiply(new BigDecimal(info.getStockPcs())));
+ 		
+ 		info.setDeclaTotalPrice(info.getDeclaUnitPrice().multiply(new BigDecimal(info.getStockPcs())));
+ 		return updateStock(info);
+		
+	}
+	
 
 	@Override
 	public int updateStock(StockInfo info) {
+		
 		logger.info("stockInfo============{}" , JSON.toJSON(info));
 		if(null == info.getBoxLengthActul()||null==info.getBoxWidthActul()||null == info.getBoxHighActul()||null ==info.getGwPerBoxActul()) {
 			info.setStatus("0");
