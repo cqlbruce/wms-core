@@ -38,7 +38,6 @@ import com.hht.wms.core.entity.ShippedAbstractInfo;
 import com.hht.wms.core.entity.ShippedInfo;
 import com.hht.wms.core.service.ShippedAbstractService;
 import com.hht.wms.core.service.ShippedInfoService;
-import com.hht.wms.core.util.DateUtil;
 import com.hht.wms.core.util.ExcelUtil;
 import com.hht.wms.core.util.SnowFlakeUtil;
 

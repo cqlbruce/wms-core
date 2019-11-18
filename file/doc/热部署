@@ -11,6 +11,7 @@ npm run build:prod
 //console.log('aaaaaaaaaaaaa============================='+process.env.VUE_APP_BASE_API),
 
 cp -rf ../dist/* /data/app/web/wms/wms-core/
+
 cp -rf ../dist/static /data/app/web/wms/wms-core/
 
 cp -rf ../dist/* ./

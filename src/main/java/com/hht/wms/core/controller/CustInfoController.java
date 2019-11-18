@@ -33,7 +33,7 @@ public class CustInfoController {
 	@PostMapping("add")
     @ApiOperation(value = "客户项目信息新增", notes = "")
 	public Resp addCust(@RequestBody CustInfo reqDto) throws Exception{
- 		logger.info("...addCust..............{}",JSON.toJSON(reqDto) );
+ 		logger.info("...addCust..............{}..",JSON.toJSON(reqDto) );
  		custInfoService.add(reqDto);
 		return Resp.success("客户项目信息新增成功");
     }	

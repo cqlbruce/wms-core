@@ -73,11 +73,17 @@ public class StockInfoServiceImpl extends ServiceImpl<StockInfoDao, StockInfo> i
 			//一箱几件
        	   	info.setItemsPerBox(info.getRcvdPcs()/info.getRcvdCtns());           	   
 			//实收总毛重 = 每箱毛重 * 实收件数
-			info.setGwAllActul(info.getGwPerBoxActul().multiply(new BigDecimal(info.getRcvdPcs())));
+       	   	if(null != info.getGwPerBoxActul()) {
+       	   		info.setGwAllActul(info.getGwPerBoxActul().multiply(new BigDecimal(info.getRcvdPcs())));
+       	   	}
 			//实测单箱体积 = 长 * 宽 * 高
-			info.setBoxPerVolumeActul(info.getBoxHighActul().multiply(info.getBoxLengthActul()).multiply(info.getBoxWidthActul()));
+       	   	if(null != info.getBoxHighActul() && null != info.getBoxLengthActul() && null != info.getBoxWidthActul()) {
+       	   		info.setBoxPerVolumeActul(info.getBoxHighActul().multiply(info.getBoxLengthActul()).multiply(info.getBoxWidthActul()));
+       	   	}
 			//实测总体积 = 实测单箱体积 * 件数
-			info.setBoxAllVolumeActul(info.getBoxPerVolumeActul().multiply(new BigDecimal(info.getRcvdPcs())));
+       	   	if(null != info.getBoxPerVolumeActul()) {
+    			info.setBoxAllVolumeActul(info.getBoxPerVolumeActul().multiply(new BigDecimal(info.getRcvdPcs())));
+       	   	}
 			//入仓报关单件净重 四舍五入 保留两位小数
 			info.setCustsDeclaPieceWeigh(info.getCustsDeclaAllWeigh().divide(new BigDecimal(info.getRcvdPcs()), 2 , RoundingMode.HALF_DOWN));
 			//总库存箱数

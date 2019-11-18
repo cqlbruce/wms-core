@@ -33,7 +33,7 @@ public class CustInfoServiceImpl extends ServiceImpl<CustInfoDao, CustInfo> impl
 
 	@Override
 	public CustInfoQueryRespDto queryByPage(CustInfoQueryReqDto reqDto) {
-		logger.info("CustInfoServiceImpl ---queryinfo-----{}",JSON.toJSON(reqDto));
+		logger.info("--CustInfoServiceImpl---queryinfo-----{}--",JSON.toJSON(reqDto));
 		CustInfoQueryRespDto respDto = new CustInfoQueryRespDto();
 		int total = custInfoDao.selectCount(reqDto);
 		if(total==0) {
