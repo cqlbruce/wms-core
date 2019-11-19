@@ -49,7 +49,6 @@ public class CustInfoController {
  		}else {
  			respDto = custInfoService.queryByPage(reqDto);
  		}
- 		
 		return Resp.success("客户项目信息查询成功" , respDto );
 	}		
 	
