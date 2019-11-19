@@ -35,8 +35,8 @@ import io.swagger.annotations.ApiOperation;
 public class DownloadController {
     private static final Logger LOG = LoggerFactory.getLogger(DownloadController.class);
 
-//    @RequestMapping("stockFile")
-    @GetMapping("stockFile")
+    @RequestMapping("stockFile")
+//    @GetMapping("stockFile")
     @ApiOperation(value = "库存模板文件下载", notes = "")
     public byte[] stockFile() {
     	ByteArrayOutputStream bos = null ; 
@@ -65,7 +65,8 @@ public class DownloadController {
         return null;
     }
 
-    @GetMapping("shippedFile")
+//    @GetMapping("shippedFile")
+    @RequestMapping("shippedFile")
     @ApiOperation(value = "出库模板文件下载", notes = "")
     public byte[] shippedFile() {
     	ByteArrayOutputStream bos = null ; 
