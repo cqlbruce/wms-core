@@ -1,5 +1,6 @@
 package com.hht.wms.core.controller;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -42,17 +43,25 @@ public class FrontDeskChargeController {
 	@PostMapping("add")
     @ApiOperation(value = "新增前台收费", notes = "")
 	public Resp<?> add(@RequestBody FrontDeskChargeAddReqDto reqDto) {
- 		logger.info("---FrontDeskChargeAddReqDto..............{}",JSON.toJSON(reqDto) );
+ 		logger.info("...FrontDeskChargeAddReqDto..............{}",JSON.toJSON(reqDto) );
 		//页面需输入   入仓号 代收款合计  支付方式  收据编码  一车几单
 		List<FrontDeskChargeDetail> detailList = reqDto.getItems() ; 
 		FrontDeskCharge fdc = new FrontDeskCharge();
 		BeanUtils.copyProperties(reqDto, fdc);
 		fdc.setTranDate(DateUtil.getNowTime(DateUtil.ISO_DATE_FORMAT_CROSSBAR));
+		int i = 0 ; 
 		for(FrontDeskChargeDetail detail : detailList) {
 			fdc.setId(SnowFlakeUtil.getNewNextId());
 			BeanUtils.copyProperties(detail, fdc);
 			fdc.setFeeTotal(NumberUtil.getBigDecimal(reqDto.getEnterGateFee()).add(reqDto.getCustomsDeclarationFee()));
+			if(0!=i) {
+				fdc.setEnterGateFee(BigDecimal.ZERO);
+				fdc.setFeeTotal(BigDecimal.ZERO);
+				fdc.setRecAmt(BigDecimal.ZERO);
+				fdc.setCustomsDeclarationFee(BigDecimal.ZERO);
+			}			
 			frontDeskChargeService.add(fdc);
+			i++ ; 
 		}
 		return Resp.success("新增前台收费成功");
 	}
