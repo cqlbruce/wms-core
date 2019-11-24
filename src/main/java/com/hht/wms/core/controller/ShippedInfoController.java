@@ -39,6 +39,7 @@ import com.hht.wms.core.entity.ShippedInfo;
 import com.hht.wms.core.service.ShippedAbstractService;
 import com.hht.wms.core.service.ShippedInfoService;
 import com.hht.wms.core.util.ExcelUtil;
+import com.hht.wms.core.util.NumberUtil;
 import com.hht.wms.core.util.SnowFlakeUtil;
 
 import io.swagger.annotations.ApiOperation;
@@ -109,11 +110,15 @@ public class ShippedInfoController {
 	       	   	OutboundReqDto outboundReqDto = new OutboundReqDto(); 
 				outboundReqDto.setClp(clp);
 				outboundReqDto.setId(SnowFlakeUtil.getNewNextId());
-				outboundReqDto.setPo(ExcelUtil.getCellValue(row.getCell(0)));
-				outboundReqDto.setSo(ExcelUtil.getCellValue(row.getCell(1)));
+				outboundReqDto.setSo(ExcelUtil.getCellValue(row.getCell(0)));
+				outboundReqDto.setPo(ExcelUtil.getCellValue(row.getCell(1)));
 				outboundReqDto.setItem(ExcelUtil.getCellValue(row.getCell(2)));
-	       	   	int pcs = Integer.parseInt(ExcelUtil.getCellValue(row.getCell(3))) ;
+				int ctns = Integer.parseInt(ExcelUtil.getCellValue(row.getCell(3)));
+				outboundReqDto.setCtns(ctns);
+	       	   	int pcs = Integer.parseInt(ExcelUtil.getCellValue(row.getCell(4))) ;
 	       	   	outboundReqDto.setPcs(pcs);
+	       	    outboundReqDto.setGw(NumberUtil.strToBigDecimal(ExcelUtil.getCellValue(row.getCell(5))));
+	       	    outboundReqDto.setVolume(NumberUtil.strToBigDecimal(ExcelUtil.getCellValue(row.getCell(6))));
 	       	   	outList.add(outboundReqDto);
 	        }
 
