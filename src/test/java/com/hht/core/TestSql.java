@@ -35,7 +35,6 @@ public class TestSql extends TestBase{
 		reqDto.setPo("");
 		reqDto.setEndDate("2019-06-10");
 		reqDto.setBeginDate("2019-06-03");
-		reqDto.setSku("");
 		reqDto.setSo("");
 //		reqDto.setLimit(10);	
 		reqDto.setPage(2);
