@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hht.wms.core.dao.StockAbstractInfoDao">
+
+ 
+   <!--   自定义 -->
+  <insert id="insertOrUpdate" parameterType="com.hht.wms.core.entity.StockAbstractInfo" >
+  <foreach collection="list" item="item" index="index" separator=";">
+    insert into stock_abstract_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="item.inboundNo != null" >
+        inbound_no,
+      </if>
+      <if test="item.custId != null" >
+        cust_id,
+      </if>
+      <if test="item.carNum != null" >
+        car_num,
+      </if>
+      <if test="item.rcvdDate != null" >
+        rcvd_date,
+      </if>      
+      <if test="item.createTime != null" >
+        create_time,
+      </if>
+      <if test="item.updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="item.inboundNo != null" >
+        #{item.inboundNo,jdbcType=VARCHAR},
+      </if>
+      <if test="item.custId != null" >
+        #{item.custId,jdbcType=VARCHAR},
+      </if>
+      <if test="item.carNum != null" >
+        #{item.carNum,jdbcType=VARCHAR},
+      </if>
+      <if test="item.rcvdDate != null" >
+        #{item.rcvdDate,jdbcType=VARCHAR},
+      </if>      
+      <if test="item.createTime != null" >
+        #{item.createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="item.updateTime != null" >
+        #{item.updateTime,jdbcType=VARCHAR},
+      </if>            
+    </trim>
+    	on duplicate key update 
+    	inbound_no = #{item.inboundNo,jdbcType=VARCHAR},
+    	cust_id = #{item.custId,jdbcType=VARCHAR},
+    	car_num = #{item.carNum,jdbcType=VARCHAR},
+    	rcvd_date = #{item.rcvdDate,jdbcType=VARCHAR},
+    	create_time = #{item.createTime,jdbcType=VARCHAR},
+    	update_time = #{item.updateTime,jdbcType=VARCHAR}
+    </foreach>
+  </insert>
+   
+   
+  <select id="queryList" resultType="com.hht.wms.core.entity.StockAbstractInfo" parameterType="com.hht.wms.core.dto.StockAbstractQueryReqDto" >
+    select * from stock_abstract_info 
+  <where>  
+	<if test="inboundNo != null and inboundNo != ''">
+		and inbound_no = #{inboundNo,jdbcType=VARCHAR}
+	</if>	
+	<if test="custId != null and custId != ''">
+		and cust_id = #{custId,jdbcType=VARCHAR}
+	</if>		
+   </where> 	
+    order by inbound_no  LIMIT #{beginSize},#{size}    	
+     
+  </select>
+   
+  <select id="selectCount" resultType="java.lang.Integer"  parameterType="com.hht.wms.core.dto.StockAbstractQueryReqDto" >
+    select count(1) from stock_abstract_info 
+  <where>  
+	<if test="inboundNo != null and inboundNo != ''">
+		and inbound_no = #{inboundNo,jdbcType=VARCHAR}
+	</if>	
+	<if test="custId != null and custId != ''">
+		and cust_id = #{custId,jdbcType=VARCHAR}
+	</if>		
+   </where> 	
+  </select>  
+ 
+</mapper>

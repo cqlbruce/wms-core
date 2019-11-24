@@ -8,9 +8,9 @@
  */
 package com.hht.wms.core.dto;
 
-import com.hht.wms.core.entity.StockGoods;
-
 import java.util.List;
+
+import com.hht.wms.core.dto.vo.StockGoods;
 
 /**
  * 〈进仓货物查询返回DTO〉

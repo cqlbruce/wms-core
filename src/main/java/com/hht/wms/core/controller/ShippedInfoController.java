@@ -8,7 +8,6 @@ import java.util.List;
 
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -30,11 +29,15 @@ import org.springframework.web.multipart.MultipartFile;
 import com.alibaba.fastjson.JSON;
 import com.hht.wms.core.common.Resp;
 import com.hht.wms.core.dto.OutboundReqDto;
+import com.hht.wms.core.dto.ShippedAbstractQueryReqDto;
+import com.hht.wms.core.dto.ShippedAbstractQueryRespDto;
+import com.hht.wms.core.dto.ShippedInfoExportReqDto;
 import com.hht.wms.core.dto.ShippedInfoReqDto;
 import com.hht.wms.core.dto.ShippedInfoRespDto;
+import com.hht.wms.core.entity.ShippedAbstractInfo;
 import com.hht.wms.core.entity.ShippedInfo;
+import com.hht.wms.core.service.ShippedAbstractService;
 import com.hht.wms.core.service.ShippedInfoService;
-import com.hht.wms.core.service.StockInfoService;
 import com.hht.wms.core.util.ExcelUtil;
 import com.hht.wms.core.util.SnowFlakeUtil;
 
@@ -49,9 +52,18 @@ public class ShippedInfoController {
 
 	@Autowired
 	private ShippedInfoService shippedInfoService ; 
-	@Autowired
-	private StockInfoService stockInfoService ; 
 	
+	@Autowired
+	private ShippedAbstractService shippedAbstractService ; 
+	
+	@SuppressWarnings("unchecked")
+	@PostMapping("abstract/load")
+    @ApiOperation(value = "批次查询", notes = "")
+	public Resp<ShippedAbstractQueryRespDto> shippedAbstractQuery(@RequestBody ShippedAbstractQueryReqDto reqDto) {
+ 		logger.info("shippedInfoQuery..............{}",JSON.toJSON(reqDto) );
+		return Resp.success("出仓数据查询成功" , shippedAbstractService.queryList(reqDto));
+    }
+
 	@SuppressWarnings("unchecked")
 	@PostMapping("load")
     @ApiOperation(value = "出仓数据", notes = "")
@@ -59,13 +71,15 @@ public class ShippedInfoController {
  		logger.info("shippedInfoQuery..............{}",JSON.toJSON(reqDto) );
 		return Resp.success("出仓数据查询成功" , shippedInfoService.queryList(reqDto));
     }
-
 	
-	@PostMapping("/upload")
+	
+	@SuppressWarnings("deprecation")
+	@PostMapping("upload")
     @ApiOperation(value = "导入excl,批量出仓", notes = "")
-	public Resp fileUploadShipped(@RequestParam("excelFile") MultipartFile excelFile)  throws Exception {
+	public Resp<?> fileUploadShipped(@RequestParam("excelFile") MultipartFile excelFile)  throws Exception {
 	    String fileName = excelFile.getOriginalFilename();
  		logger.info("...fileUploadShipped...............{}",fileName );
+
 		if(excelFile.isEmpty()) {
 			return Resp.fail("文件为空");
 		}
@@ -90,12 +104,14 @@ public class ShippedInfoController {
 	       	   	if(StringUtils.isEmpty(row.getCell(0).getStringCellValue())) {
 	       	   		continue ; 
 	       	   	}	       	   
-				OutboundReqDto outboundReqDto = new OutboundReqDto(); 
+				
+	       	   	//出仓明细
+	       	   	OutboundReqDto outboundReqDto = new OutboundReqDto(); 
 				outboundReqDto.setClp(clp);
 				outboundReqDto.setId(SnowFlakeUtil.getNewNextId());
 				outboundReqDto.setPo(ExcelUtil.getCellValue(row.getCell(0)));
 				outboundReqDto.setSo(ExcelUtil.getCellValue(row.getCell(1)));
-				outboundReqDto.setSku(ExcelUtil.getCellValue(row.getCell(2)));
+				outboundReqDto.setItem(ExcelUtil.getCellValue(row.getCell(2)));
 	       	   	int pcs = Integer.parseInt(ExcelUtil.getCellValue(row.getCell(3))) ;
 	       	   	outboundReqDto.setPcs(pcs);
 	       	   	outList.add(outboundReqDto);
@@ -106,23 +122,53 @@ public class ShippedInfoController {
 		}
 		if(CollectionUtils.isNotEmpty(outList)) {
 			for(OutboundReqDto reqDto:outList){
-		 		stockInfoService.outbound(reqDto);	
+				try {
+					shippedInfoService.outbound(reqDto);	
+				}catch(Exception e) {
+					logger.error("出仓导出失败" , e );
+					return Resp.fail(e.getMessage());
+				}
 			}
 		}
 		return Resp.success("uploadStock");
 	}
 	
-	
-	@SuppressWarnings("unchecked")
-	@RequestMapping("download")
+//	@RequestMapping("download")
+	@PostMapping("download")
     @ApiOperation(value = "出仓数据导出", notes = "")
-	public byte[] shippedInfodownload(@RequestBody ShippedInfoReqDto reqDto) {
+	public byte[] shippedInfodownload(@RequestBody ShippedInfoExportReqDto reqDto) {
  		logger.info("......shippedInfoReqDto..............{}",JSON.toJSON(reqDto) );
  		
- 		ShippedInfoRespDto shippedInfoDto =  shippedInfoService.queryList(reqDto) ;
- 		if(CollectionUtils.isEmpty(shippedInfoDto.getItems())) {
+ 		//一、更新总批次封条 柜重等信息
+ 		
+
+ 		
+ 		List<ShippedAbstractInfo> saiList = shippedAbstractService.selectByClp(reqDto.getClp());
+ 		if(CollectionUtils.isEmpty(saiList)) {
  			return null ; 
  		}
+ 		//更新更新对应
+ 		for(ShippedAbstractInfo saInfo : saiList) {
+ 			saInfo.setCntrNo(reqDto.getCntrNo());
+ 			saInfo.setSeal(reqDto.getSeal());
+ 			saInfo.setCntrWeigh(reqDto.getCntrWeigh());
+ 		}
+ 		//更新批次柜重 封条等信息
+ 		shippedAbstractService.addByShipped(saiList);
+ 		
+
+ 		//二、更新明细 封条柜重等信息
+ 		List<ShippedInfo> sList = shippedInfoService.queryListByClp(reqDto.getClp());
+ 		for(ShippedInfo shippedInfo : sList) {
+ 			shippedInfo.setCntrNo(reqDto.getCntrNo());
+ 			shippedInfo.setSeal(reqDto.getSeal());
+ 			shippedInfo.setCntrWeigh(reqDto.getCntrWeigh());
+ 		}
+ 		shippedInfoService.batchUpdate(sList);
+ 		
+ 		
+ 		//三、写入excl 
+ 		
  		//从第二行插进入
  		int startInsertRow = 2 ; 
  		String shipInfoTemplate= "fileTemplate/shipInfoTemplate.xlsx"; 
@@ -134,15 +180,14 @@ public class ShippedInfoController {
 //			.toString();
  		XSSFWorkbook wb = ExcelUtil.returnWorkBookGivenFileHandle(shipInfoTemplate); 
         XSSFSheet sheet = wb.getSheetAt(0);  
-        List<ShippedInfo> siList = shippedInfoDto.getItems() ; 
         int declaCountAll = 0 ; 
         int pcsAll = 0 ; 
         BigDecimal gwAll = BigDecimal.ZERO;
         BigDecimal allWeighAll = BigDecimal.ZERO;
         BigDecimal volumeAll = BigDecimal.ZERO;
         
-        for(int i=0 ; i<siList.size() ; i++) {
- 			ShippedInfo shipInfo = (ShippedInfo)siList.get(i) ; 
+        for(int i=0 ; i<sList.size() ; i++) {
+ 			ShippedInfo shipInfo = (ShippedInfo)sList.get(i) ; 
  	        XSSFRow row = sheet.createRow(i+startInsertRow);  
  	        //生成列
  	        row.createCell((short) 0).setCellValue(shipInfo.getShippedDate());//入仓还是出仓日期？
@@ -184,10 +229,15 @@ public class ShippedInfoController {
 	    
 	    XSSFRow row2 = sheet.createRow(rowNum+3);  
 	    row2.createCell((short) 0).setCellValue("柜号：");//入仓还是出仓日期？
+	    row2.createCell((short) 1).setCellValue(reqDto.getCntrNo());//入仓还是出仓日期？
+	    
+	    
 	    row2.createCell((short) 3).setCellValue("柜重：");//入仓还是出仓日期？
+	    row2.createCell((short) 4).setCellValue(reqDto.getCntrWeigh().toString());//入仓还是出仓日期？
 	    
 	    XSSFRow row3 = sheet.createRow(rowNum+5);
 	    row3.createCell((short) 0).setCellValue("封条：");//入仓还是出仓日期？
+	    row3.createCell((short) 1).setCellValue(reqDto.getSeal());//入仓还是出仓日期？
 
 	    
 //	    row1.createCell((short) 5).setCellValue("合计：");//入仓还是出仓日期？
@@ -229,6 +279,5 @@ public class ShippedInfoController {
         }
         return bos.toByteArray();
     }
-	
 	
 }

@@ -1,17 +1,37 @@
 package com.hht.wms.core.controller;
 
-import com.alibaba.fastjson.JSON;
-import com.hht.wms.core.common.Resp;
-import com.hht.wms.core.dto.*;
-import com.hht.wms.core.entity.*;
-import io.swagger.annotations.ApiOperation;
+import java.math.BigDecimal;
+import java.util.List;
+
 import org.assertj.core.util.Lists;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.math.BigDecimal;
-import java.util.List;
+import com.alibaba.fastjson.JSON;
+import com.hht.wms.core.common.Resp;
+import com.hht.wms.core.dto.ShippedFeeExportReqDto;
+import com.hht.wms.core.dto.ShippedFeeExportRespDto;
+import com.hht.wms.core.dto.ShippedFeeQueryReqDto;
+import com.hht.wms.core.dto.ShippedFeeQueryRespDto;
+import com.hht.wms.core.dto.ShippedGoodsQueryReqDto;
+import com.hht.wms.core.dto.ShippedGoodsQueryRespDto;
+import com.hht.wms.core.dto.StockFeeExportReqDto;
+import com.hht.wms.core.dto.StockFeeExportRespDto;
+import com.hht.wms.core.dto.StockFeeQueryReqDto;
+import com.hht.wms.core.dto.StockFeeQueryRespDto;
+import com.hht.wms.core.dto.StockGoodsQueryReqDto;
+import com.hht.wms.core.dto.StockGoodsQueryRespDto;
+import com.hht.wms.core.dto.vo.ShippedFee;
+import com.hht.wms.core.dto.vo.ShippedGoods;
+import com.hht.wms.core.dto.vo.StockFee;
+import com.hht.wms.core.dto.vo.StockGoods;
+
+import io.swagger.annotations.ApiOperation;
 
 @RestController
 @RequestMapping(value="/statement/")
@@ -19,7 +39,8 @@ import java.util.List;
 public class StatementAccountController {
     private static Logger logger = LoggerFactory.getLogger(StatementAccountController.class) ;
 
-    @PostMapping("loadStockFee")
+    @SuppressWarnings("unchecked")
+	@PostMapping("loadStockFee")
     @ApiOperation(value = "入仓费用查询", notes = "")
     public Resp<StockFeeQueryRespDto> loadStock(@RequestBody StockFeeQueryReqDto reqDto) {
         logger.info("入仓费用查询.........{}", JSON.toJSON(reqDto) );
@@ -56,7 +77,8 @@ public class StatementAccountController {
         return Resp.success("查询成功", respDto);
     }
 
-    @PostMapping("exportStockFee")
+    @SuppressWarnings("unchecked")
+	@PostMapping("exportStockFee")
     @ApiOperation(value = "入仓费用导出", notes = "")
     public Resp<StockFeeExportRespDto> exportStockFee(@RequestBody StockFeeExportReqDto reqDto) {
         logger.info("入仓费用导出..........{}", JSON.toJSON(reqDto) );
@@ -100,7 +122,8 @@ public class StatementAccountController {
         return Resp.success("查询成功", respDto);
     }
 
-    @PostMapping("loadShippedFee")
+    @SuppressWarnings("unchecked")
+	@PostMapping("loadShippedFee")
     @ApiOperation(value = "出仓费用查询", notes = "")
     public Resp<ShippedFeeQueryRespDto> loadShippedFee(@RequestBody ShippedFeeQueryReqDto reqDto) {
         logger.info("出仓费用查询.........{}", JSON.toJSON(reqDto) );
@@ -146,7 +169,8 @@ public class StatementAccountController {
         return Resp.success("查询成功", respDto);
     }
 
-    @PostMapping("exportShippedFee")
+    @SuppressWarnings("unchecked")
+	@PostMapping("exportShippedFee")
     @ApiOperation(value = "出仓费用导出", notes = "")
     public Resp<ShippedFeeExportRespDto> exportShippedFee(@RequestBody ShippedFeeExportReqDto reqDto) {
         logger.info("出仓费用导出.........{}", JSON.toJSON(reqDto) );
@@ -202,7 +226,8 @@ public class StatementAccountController {
         return Resp.success("查询成功", respDto);
     }
 
-    @PostMapping("loadStockGoods")
+    @SuppressWarnings("unchecked")
+	@PostMapping("loadStockGoods")
     @ApiOperation(value = "存仓货物查询", notes = "")
     public Resp<StockGoodsQueryRespDto> loadStockGoods(@RequestBody StockGoodsQueryReqDto reqDto) {
         logger.info("存仓货物查询.........{}", JSON.toJSON(reqDto) );
@@ -246,7 +271,8 @@ public class StatementAccountController {
         return Resp.success("查询成功", respDto);
     }
 
-    @PostMapping("exportStockGoods")
+    @SuppressWarnings("unchecked")
+	@PostMapping("exportStockGoods")
     @ApiOperation(value = "存仓货物导出", notes = "")
     public Resp<StockGoodsQueryRespDto> exportStockGoods(@RequestBody StockGoodsQueryReqDto reqDto) {
         logger.info("存仓货物导出.........{}", JSON.toJSON(reqDto) );
@@ -324,7 +350,8 @@ public class StatementAccountController {
         return Resp.success("查询成功", respDto);
     }
 
-    @PostMapping("loadShippedGoods")
+    @SuppressWarnings("unchecked")
+	@PostMapping("loadShippedGoods")
     @ApiOperation(value = "出仓货物查询", notes = "")
     public Resp<ShippedGoodsQueryRespDto> loadShippedGoods(@RequestBody ShippedGoodsQueryReqDto reqDto) {
         logger.info("出仓货物查询.........{}", JSON.toJSON(reqDto) );
@@ -362,7 +389,8 @@ public class StatementAccountController {
         return Resp.success("查询成功", respDto);
     }
 
-    @PostMapping("exportShippedGoods")
+    @SuppressWarnings("unchecked")
+	@PostMapping("exportShippedGoods")
     @ApiOperation(value = "出仓货物导出", notes = "")
     public Resp<ShippedGoodsQueryRespDto> exportShippedGoods(@RequestBody ShippedGoodsQueryReqDto reqDto) {
         logger.info("出仓货物导出.........{}", JSON.toJSON(reqDto) );
@@ -401,7 +429,6 @@ public class StatementAccountController {
 
         ShippedGoodsQueryRespDto respDto = new ShippedGoodsQueryRespDto();
         respDto.setItems(shippedGoodsList);
-
         return Resp.success("查询成功", respDto);
     }
 }

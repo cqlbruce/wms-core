@@ -1,8 +1,8 @@
 package com.hht.wms.core.dto;
 
-import com.hht.wms.core.entity.ShippedFee;
-
 import java.util.List;
+
+import com.hht.wms.core.dto.vo.ShippedFee;
 
 /**
  * @author 蓝小路

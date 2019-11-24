@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hht.wms.core.dao.ShippedAbstractInfoDao">
+   
+     <!--   自定义 -->
+	<select id="selectByClp" resultType="com.hht.wms.core.entity.ShippedAbstractInfo" parameterType="java.lang.String" >
+		select * from shipped_abstract_info where clp=#{clp,jdbcType=VARCHAR}
+	</select>
+
+  <insert id="insertOrUpdate" parameterType="com.hht.wms.core.entity.ShippedAbstractInfo" >
+  <foreach collection="list" item="item" index="index" separator=";">
+    insert into shipped_abstract_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="item.clp != null" >
+        clp,
+      </if>
+      <if test="item.shippedDate != null" >
+        shipped_date,
+      </if>      
+      <if test="item.custId != null" >
+        cust_id,
+      </if>
+      <if test="item.cntrNo != null" >
+        cntr_no,
+      </if>
+      <if test="item.seal != null" >
+        seal,
+      </if>
+      <if test="item.cntrWeigh != null" >
+        cntr_weigh,
+      </if>                  
+      <if test="item.createTime != null" >
+        create_time,
+      </if>
+      <if test="item.updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="item.clp != null" >
+        #{item.clp,jdbcType=VARCHAR},
+      </if>
+      <if test="item.shippedDate != null" >
+        #{item.shippedDate,jdbcType=VARCHAR},
+      </if>      
+      <if test="item.custId != null" >
+        #{item.custId,jdbcType=VARCHAR},
+      </if>
+      <if test="item.cntrNo != null" >
+        #{item.cntrNo,jdbcType=VARCHAR},
+      </if>
+      <if test="item.seal != null" >
+        #{item.seal,jdbcType=VARCHAR},
+      </if>            
+      <if test="item.cntrWeigh != null" >
+        #{item.cntrWeigh,jdbcType=VARCHAR},
+      </if>           
+      <if test="item.createTime != null" >
+        #{item.createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="item.updateTime != null" >
+        #{item.updateTime,jdbcType=VARCHAR},
+      </if>            
+    </trim>
+    	on duplicate key update 
+    	clp = #{item.clp,jdbcType=VARCHAR},
+    	shipped_date = #{item.shippedDate,jdbcType=VARCHAR},
+    	cust_id = #{item.custId,jdbcType=VARCHAR},
+    	cntr_no = #{item.cntrNo,jdbcType=VARCHAR},
+    	seal = #{item.seal,jdbcType=VARCHAR},
+    	cntr_weigh = #{item.cntrWeigh,jdbcType=VARCHAR},
+    	create_time = #{item.createTime,jdbcType=VARCHAR},
+    	update_time = #{item.updateTime,jdbcType=VARCHAR}
+    </foreach>
+  </insert>
+  
+  <select id="queryList" resultType="com.hht.wms.core.entity.ShippedAbstractInfo" parameterType="com.hht.wms.core.dto.ShippedAbstractQueryReqDto" >
+    select * from shipped_abstract_info 
+  <where>  
+	<if test="clp != null and clp !=''">
+		clp=#{clp,jdbcType=VARCHAR}
+	</if>
+	<if test="custId != null and custId !=''">
+		and cust_id = #{custId,jdbcType=VARCHAR}
+	</if>    
+	<if test="cntrNo != null and cntrNo !=''">
+		and cntr_no = #{cntrNo,jdbcType=VARCHAR}
+	</if>   
+	<if test="shippedDate != null and shippedDate !=''">
+		and shipped_date = #{shippedDate,jdbcType=VARCHAR}
+	</if>   
+   </where> 	
+    order by clp  LIMIT #{beginSize},#{size}    	
+  </select>
+   
+  <select id="selectCount" resultType="java.lang.Integer"  parameterType="com.hht.wms.core.dto.ShippedAbstractQueryReqDto" >
+    select count(1) from shipped_abstract_info 
+  <where>  
+	<if test="clp != null and clp !=''">
+		clp=#{clp,jdbcType=VARCHAR}
+	</if>
+	<if test="custId != null and custId !=''">
+		and cust_id = #{custId,jdbcType=VARCHAR}
+	</if>    
+	<if test="cntrNo != null and cntrNo !=''">
+		and cntr_no = #{cntrNo,jdbcType=VARCHAR}
+	</if>   
+	<if test="shippedDate != null and shippedDate !=''">
+		and shipped_date = #{shippedDate,jdbcType=VARCHAR}
+	</if>   
+   </where> 	
+  </select>  
+</mapper>

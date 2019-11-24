@@ -27,6 +27,7 @@ import io.swagger.annotations.ApiOperation;
 public class UserController {
 	private static Logger logger = LoggerFactory.getLogger(UserController.class) ; 
 	
+	@SuppressWarnings("unchecked")
 	@PostMapping("login")
     @ApiOperation(value = "用户登录", notes = "")
     public Resp<LoginRespDto> login(@RequestBody Req<LoginReqDto> req) {
@@ -41,6 +42,7 @@ public class UserController {
 		return Resp.success("登陆成功" , respDto);
     }
 
+	@SuppressWarnings("unchecked")
 	@PostMapping("info")
     @ApiOperation(value = "用户登录", notes = "")
 //    public Resp<UserInfoRespDto> getUserInfo(@RequestBody Req<UserInfoReqDto> req) {
@@ -55,6 +57,7 @@ public class UserController {
 		return Resp.success("登陆成功" , respDto);
     }
 	
+	@SuppressWarnings("unchecked")
 	@PostMapping("logout")
     @ApiOperation(value = "退出登陆", notes = "")
 //    public Resp<UserInfoRespDto> getUserInfo(@RequestBody Req<UserInfoReqDto> req) {
@@ -64,7 +67,5 @@ public class UserController {
 		
 		return Resp.success("退出成功","");
     }
-
-	
 
 }

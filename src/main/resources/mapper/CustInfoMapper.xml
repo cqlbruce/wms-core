@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hht.wms.core.dao.CustInfoDao">
+
+ <select id="queryList" resultType="com.hht.wms.core.entity.CustInfo" parameterType="com.hht.wms.core.dto.CustInfoQueryReqDto" >
+    select * from cust_info  
+  <where>  
+	<if test="custId != null and custId !=''">
+		cust_id=#{custId,jdbcType=VARCHAR}
+	</if>
+   </where> 	
+  </select>
+  
+ <select id="queryByPage" resultType="com.hht.wms.core.entity.CustInfo" parameterType="com.hht.wms.core.dto.CustInfoQueryReqDto" >
+    select * from cust_info  
+  <where>  
+	<if test="custId != null and custId !=''">
+		cust_id=#{custId,jdbcType=VARCHAR}
+	</if>
+   </where> 	
+   	order by id  LIMIT #{beginSize},#{size}    	
+  </select>  
+  
+  <select id="selectCount" resultType="java.lang.Integer" parameterType="com.hht.wms.core.dto.CustInfoQueryReqDto" >
+  	select count(1) from cust_info 
+  <where>    	
+	<if test="custId != null and custId !=''">
+		cust_id=#{custId,jdbcType=VARCHAR}
+	</if>
+  </where>  
+  </select>  
+
+</mapper>

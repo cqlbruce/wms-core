@@ -57,6 +57,10 @@
 		<level value="info" />
 		<appender-ref ref="FILE" />
 	</logger>
+	<logger name="com.alibaba.druid" additivity="true">
+		<level value="info" />
+		<appender-ref ref="FILE" />
+	</logger>	
 	<root>
 		<level value="info" />
 		<appender-ref ref="CONSOLE" />

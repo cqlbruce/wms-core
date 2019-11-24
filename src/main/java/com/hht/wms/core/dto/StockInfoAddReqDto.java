@@ -2,11 +2,14 @@ package com.hht.wms.core.dto;
 
 import java.math.BigDecimal;
 
+import lombok.Data;
+
+@Data
 public class StockInfoAddReqDto {
 	
 	private String po ; 
 	
-	private String sku ; 
+	private String item ; 
 	
 	private String so ; 
 	
@@ -111,189 +114,6 @@ public class StockInfoAddReqDto {
 	 */
 	private String remarks ;
 
-	public String getPo() {
-		return po;
-	}
-
-	public void setPo(String po) {
-		this.po = po;
-	}
-
-	public String getSku() {
-		return sku;
-	}
-
-	public void setSku(String sku) {
-		this.sku = sku;
-	}
-
-	public String getSo() {
-		return so;
-	}
-
-	public void setSo(String so) {
-		this.so = so;
-	}
-
-	public String getCustomsMeterialNo() {
-		return customsMeterialNo;
-	}
-
-	public void setCustomsMeterialNo(String customsMeterialNo) {
-		this.customsMeterialNo = customsMeterialNo;
-	}
-
-	public int getRcvdCtns() {
-		return rcvdCtns;
-	}
-
-	public void setRcvdCtns(int rcvdCtns) {
-		this.rcvdCtns = rcvdCtns;
-	}
-
-	public int getRcvdPcs() {
-		return rcvdPcs;
-	}
-
-	public void setRcvdPcs(int rcvdPcs) {
-		this.rcvdPcs = rcvdPcs;
-	}
-
-	public BigDecimal getGwPerBoxActul() {
-		return gwPerBoxActul;
-	}
-
-	public void setGwPerBoxActul(BigDecimal gwPerBoxActul) {
-		this.gwPerBoxActul = gwPerBoxActul;
-	}
-
-	public BigDecimal getCustsDeclaPieceWeigh() {
-		return custsDeclaPieceWeigh;
-	}
-
-	public void setCustsDeclaPieceWeigh(BigDecimal custsDeclaPieceWeigh) {
-		this.custsDeclaPieceWeigh = custsDeclaPieceWeigh;
-	}
-
-	public BigDecimal getBoxLengthActul() {
-		return boxLengthActul;
-	}
-
-	public void setBoxLengthActul(BigDecimal boxLengthActul) {
-		this.boxLengthActul = boxLengthActul;
-	}
-
-	public BigDecimal getBoxWidthActul() {
-		return boxWidthActul;
-	}
-
-	public void setBoxWidthActul(BigDecimal boxWidthActul) {
-		this.boxWidthActul = boxWidthActul;
-	}
-
-	public BigDecimal getBoxHighActul() {
-		return boxHighActul;
-	}
-
-	public void setBoxHighActul(BigDecimal boxHighActul) {
-		this.boxHighActul = boxHighActul;
-	}
-
-	public int getDeclaCount() {
-		return declaCount;
-	}
-
-	public void setDeclaCount(int declaCount) {
-		this.declaCount = declaCount;
-	}
-
-	public String getDeclaUnit() {
-		return declaUnit;
-	}
-
-	public void setDeclaUnit(String declaUnit) {
-		this.declaUnit = declaUnit;
-	}
-
-	public BigDecimal getDeclaUnitPrice() {
-		return declaUnitPrice;
-	}
-
-	public void setDeclaUnitPrice(BigDecimal declaUnitPrice) {
-		this.declaUnitPrice = declaUnitPrice;
-	}
-
-	public String getDeclaCurrency() {
-		return declaCurrency;
-	}
-
-	public void setDeclaCurrency(String declaCurrency) {
-		this.declaCurrency = declaCurrency;
-	}
-
-	public String getCustomsMerchNo() {
-		return customsMerchNo;
-	}
-
-	public void setCustomsMerchNo(String customsMerchNo) {
-		this.customsMerchNo = customsMerchNo;
-	}
-
-	public String getMerchName() {
-		return merchName;
-	}
-
-	public void setMerchName(String merchName) {
-		this.merchName = merchName;
-	}
-
-	public String getOriginCountry() {
-		return originCountry;
-	}
-
-	public void setOriginCountry(String originCountry) {
-		this.originCountry = originCountry;
-	}
-
-	public String getDestCountry() {
-		return destCountry;
-	}
-
-	public void setDestCountry(String destCountry) {
-		this.destCountry = destCountry;
-	}
-
-	public String getWarehousePosition() {
-		return warehousePosition;
-	}
-
-	public void setWarehousePosition(String warehousePosition) {
-		this.warehousePosition = warehousePosition;
-	}
-
-	public String getInboundNo() {
-		return inboundNo;
-	}
-
-	public void setInboundNo(String inboundNo) {
-		this.inboundNo = inboundNo;
-	}
-
-	public String getSupplierName() {
-		return supplierName;
-	}
-
-	public void setSupplierName(String supplierName) {
-		this.supplierName = supplierName;
-	}
-
-	public String getRemarks() {
-		return remarks;
-	}
-
-	public void setRemarks(String remarks) {
-		this.remarks = remarks;
-	} 
 	
 	
 }

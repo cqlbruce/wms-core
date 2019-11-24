@@ -37,14 +37,15 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(value = IllegalArgumentException.class)
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ResponseStatus(HttpStatus.OK)
     public Resp illegalArgumentExceptionHandler(HttpServletRequest request, IllegalArgumentException e) {
         LOG.info(e.getMessage(), e);
         return Resp.fail(e.getMessage());
     }
-
+    
     @ExceptionHandler(value = Exception.class)
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+//    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ResponseStatus(HttpStatus.OK)
     public Resp exceptionHandler(HttpServletRequest request, Exception e) {
         LOG.info(e.getMessage(), e);
         return Resp.fail( e.getLocalizedMessage());

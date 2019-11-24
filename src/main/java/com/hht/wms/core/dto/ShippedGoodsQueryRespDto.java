@@ -8,10 +8,9 @@
  */
 package com.hht.wms.core.dto;
 
-import com.hht.wms.core.entity.ShippedGoods;
-import com.hht.wms.core.entity.StockGoods;
-
 import java.util.List;
+
+import com.hht.wms.core.dto.vo.ShippedGoods;
 
 /**
  * 〈一句话功能简述〉<br> 

@@ -8,16 +8,19 @@
  */
 package com.hht.wms.core.controller;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import io.swagger.annotations.ApiOperation;
 
 /**
  * 〈其他下载控制类〉
@@ -33,6 +36,8 @@ public class DownloadController {
     private static final Logger LOG = LoggerFactory.getLogger(DownloadController.class);
 
     @RequestMapping("stockFile")
+//    @GetMapping("stockFile")
+    @ApiOperation(value = "库存模板文件下载", notes = "")
     public byte[] stockFile() {
     	ByteArrayOutputStream bos = null ; 
         try {
@@ -60,7 +65,9 @@ public class DownloadController {
         return null;
     }
 
+//    @GetMapping("shippedFile")
     @RequestMapping("shippedFile")
+    @ApiOperation(value = "出库模板文件下载", notes = "")
     public byte[] shippedFile() {
     	ByteArrayOutputStream bos = null ; 
         try {

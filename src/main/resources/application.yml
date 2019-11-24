@@ -2,11 +2,17 @@ server:
   port: 9080
   servlet:
     context-path: /wms-core
-    
-mybatis:
+   
+   
+mybatis-plus:
   mapper-locations: classpath:mapper/*.xml
+  typeAliasesPackage: com.hht.wms.core.entity
+  #type-aliases-super-type: java.lang.Object
+  
+#mybatis:
+ # mapper-locations: classpath:mapper/*.xml
   #config-location: classpath:mybatis-config.xml
-  typeAliasesPackage: com.shanhe.springboot.entity
+  #typeAliasesPackage: com.shanhe.springboot.entity
     
 spring:
   profiles:
