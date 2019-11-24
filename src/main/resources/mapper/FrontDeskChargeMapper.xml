@@ -17,6 +17,9 @@
 	<if test="tranDate != null and tranDate !=''">
 		and tran_date=#{tranDate,jdbcType=VARCHAR}
 	</if>	
+	<if test="so != null and so !=''">
+		and so=#{so,jdbcType=VARCHAR}
+	</if>	
    </where> 	
     order by id  LIMIT #{beginSize},#{size} 
   </select>
@@ -35,7 +38,10 @@
 	</if>
 	<if test="tranDate != null and tranDate !=''">
 		and tran_date=#{tranDate,jdbcType=VARCHAR}
-	</if>	
+	</if>
+	<if test="so != null and so !=''">
+		and so=#{so,jdbcType=VARCHAR}
+	</if>		
 	</where>
    </select>  
   
@@ -54,6 +60,9 @@
 	</if>
 	<if test="tranDate != null and tranDate !=''">
 		and tran_date=#{tranDate,jdbcType=VARCHAR}
+	</if>	
+	<if test="so != null and so !=''">
+		and so=#{so,jdbcType=VARCHAR}
 	</if>	
    </where> 	
   </select>  

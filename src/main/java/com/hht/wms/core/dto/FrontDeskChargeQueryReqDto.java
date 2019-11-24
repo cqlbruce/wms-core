@@ -12,7 +12,9 @@ public class FrontDeskChargeQueryReqDto {
     private String tranDate ;
 	
 	private String inboundNo ;
-
+	
+	private String so ;
+	
 	private int  page ;
 	
 	private int beginSize ; 
