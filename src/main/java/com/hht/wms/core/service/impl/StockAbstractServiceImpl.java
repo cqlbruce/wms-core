@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,12 +50,23 @@ public class StockAbstractServiceImpl extends ServiceImpl<StockAbstractInfoDao, 
 		int beginSize = (reqDto.getPage()-1) * reqDto.getSize() ; 
 		reqDto.setBeginSize(beginSize);
 		List<StockAbstractInfo> list =  baseMapper.queryList(reqDto);
+		if(CollectionUtils.isEmpty(list)) {
+			return respDto ;
+		}
+		
 		List<String> inboundNoList = new ArrayList<String>();
 		for(StockAbstractInfo sai : list) {
-			inboundNoList.add(sai.getInboundNo());
+			if(StringUtils.isNotEmpty(sai.getInboundNo())) {
+				inboundNoList.add(sai.getInboundNo());
+			}
 		}
 		//获取对应入仓单号 库存信息
 		List<StockInfo> siList = stockInfoMapper.selectByInboundNoList(inboundNoList) ; 
+		if(CollectionUtils.isEmpty(siList)) {
+			respDto.setItems(list);
+			respDto.setTotal(list.size());
+			return respDto ;
+		}		
 		//加工数据结构
 		Map<String,List<StockInfo>> map = new HashMap<String,List<StockInfo>>();
 		for(StockInfo si : siList) {
@@ -70,14 +82,16 @@ public class StockAbstractServiceImpl extends ServiceImpl<StockAbstractInfoDao, 
 		//设置根据明细设置 总批次状态
 		for(StockAbstractInfo sai : list) {
 			List<StockInfo> tempList = map.get(sai.getInboundNo());
+			if(CollectionUtils.isEmpty(tempList)) {
+				sai.setStatus(Constant.INBOUND_STATUS_READY );
+				continue ; 
+			}
 			String status = Constant.INBOUND_STATUS_FINISH;
-			if(CollectionUtils.isNotEmpty(tempList)) {
-				// status 0 登记  1 已入库
-				for(StockInfo si : tempList) {
-					if(Constant.INBOUND_STATUS_READY.equals(si.getStatus())) {
-						status = Constant.INBOUND_STATUS_READY ; 
-						break ; 
-					}
+			// status 0 登记  1 已入库
+			for(StockInfo si : tempList) {
+				if(Constant.INBOUND_STATUS_READY.equals(si.getStatus())||StringUtils.isEmpty(si.getStatus())) {
+					status = Constant.INBOUND_STATUS_READY ; 
+					break ; 
 				}
 			}
 			sai.setStatus(status);
