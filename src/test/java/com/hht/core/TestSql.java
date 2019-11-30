@@ -1,17 +1,13 @@
 package com.hht.core;
 
-import java.util.List;
-
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.alibaba.fastjson.JSON;
 import com.hht.wms.core.dao.ShippedInfoDao;
 import com.hht.wms.core.dao.StockInfoDao;
 import com.hht.wms.core.dto.ShippedInfoReqDto;
-import com.hht.wms.core.entity.ShippedInfo;
 import com.hht.wms.core.service.ShippedInfoService;
 
 public class TestSql extends TestBase{
