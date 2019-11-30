@@ -21,7 +21,9 @@ import com.hht.wms.core.dto.FrontDeskChargeQueryReqDto;
 import com.hht.wms.core.dto.FrontDeskChargeQueryRespDto;
 import com.hht.wms.core.dto.IdReqDto;
 import com.hht.wms.core.entity.FrontDeskCharge;
+import com.hht.wms.core.entity.StockAbstractInfo;
 import com.hht.wms.core.service.FrontDeskChargeService;
+import com.hht.wms.core.service.StockAbstractService;
 import com.hht.wms.core.util.DateUtil;
 import com.hht.wms.core.util.NumberUtil;
 import com.hht.wms.core.util.SnowFlakeUtil;
@@ -39,30 +41,43 @@ public class FrontDeskChargeController {
 	@Autowired
 	private FrontDeskChargeService frontDeskChargeService ; 
 	
+	@Autowired
+	private StockAbstractService stockAbstractService ; 
+	
 	
 	@PostMapping("add")
     @ApiOperation(value = "新增前台收费", notes = "")
 	public Resp<?> add(@RequestBody FrontDeskChargeAddReqDto reqDto) {
  		logger.info("...FrontDeskChargeAddReqDto..............{}",JSON.toJSON(reqDto) );
-		//页面需输入   入仓号 代收款合计  支付方式  收据编码  一车几单
-		List<FrontDeskChargeDetail> detailList = reqDto.getItems() ; 
-		FrontDeskCharge fdc = new FrontDeskCharge();
-		BeanUtils.copyProperties(reqDto, fdc);
-		fdc.setTranDate(DateUtil.getNowTime(DateUtil.ISO_DATE_FORMAT_CROSSBAR));
-		int i = 0 ; 
-		for(FrontDeskChargeDetail detail : detailList) {
-			fdc.setId(SnowFlakeUtil.getNewNextId());
-			BeanUtils.copyProperties(detail, fdc);
-			fdc.setFeeTotal(NumberUtil.getBigDecimal(reqDto.getEnterGateFee()).add(reqDto.getCustomsDeclarationFee()));
-			if(0!=i) {
-				fdc.setEnterGateFee(BigDecimal.ZERO);
-				fdc.setFeeTotal(BigDecimal.ZERO);
-				fdc.setRecAmt(BigDecimal.ZERO);
-				fdc.setCustomsDeclarationFee(BigDecimal.ZERO);
-			}			
-			frontDeskChargeService.add(fdc);
-			i++ ; 
-		}
+ 		try {
+ 			//页面需输入   入仓号 代收款合计  支付方式  收据编码  一车几单
+ 			List<FrontDeskChargeDetail> detailList = reqDto.getItems() ; 
+ 			FrontDeskCharge fdc = new FrontDeskCharge();
+ 			BeanUtils.copyProperties(reqDto, fdc);
+ 			fdc.setTranDate(DateUtil.getNowTime(DateUtil.ISO_DATE_FORMAT_CROSSBAR));
+ 			int i = 0 ; 
+ 			for(FrontDeskChargeDetail detail : detailList) {
+ 				fdc.setId(SnowFlakeUtil.getNewNextId());
+ 				BeanUtils.copyProperties(detail, fdc);
+ 				fdc.setFeeTotal(NumberUtil.getBigDecimal(reqDto.getEnterGateFee()).add(reqDto.getCustomsDeclarationFee()));
+ 				if(0!=i) {
+ 					fdc.setEnterGateFee(BigDecimal.ZERO);
+ 					fdc.setFeeTotal(BigDecimal.ZERO);
+ 					fdc.setRecAmt(BigDecimal.ZERO);
+ 					fdc.setCustomsDeclarationFee(BigDecimal.ZERO);
+ 				}			
+ 				frontDeskChargeService.add(fdc);
+ 				i++ ; 
+
+ 				StockAbstractInfo abstractInfo = new StockAbstractInfo();
+ 				abstractInfo.setInboundNo(detail.getInboundNo());
+ 				abstractInfo.setCustId(fdc.getCustId());
+ 				abstractInfo.setCarNum(fdc.getCarNum());
+ 				stockAbstractService.add(abstractInfo) ;
+ 			}
+ 		}catch(Exception e ) {
+ 			logger.error("新增前台收费异常" , e);
+ 		}
 		return Resp.success("新增前台收费成功");
 	}
 	
