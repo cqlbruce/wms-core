@@ -2,6 +2,8 @@ package com.hht.wms.core.service.impl;
 
 import java.util.List;
 
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +27,18 @@ public class CustInfoServiceImpl extends ServiceImpl<CustInfoDao, CustInfo> impl
 	
 	@Override
 	public int add(CustInfo custInfo) throws Exception {
-		custInfo.setId(SnowFlakeUtil.getNewNextId());
+		String custId = custInfo.getCustId() ; 
 		custInfo.setCustId(SnowFlakeUtil.getNewNextId());
+		if(StringUtils.isNotEmpty(custId)) {
+			CustInfoQueryReqDto reqDto = new CustInfoQueryReqDto();
+			reqDto.setCustId(reqDto.getCustId());
+			List<CustInfo> list = baseMapper.queryList(reqDto);
+			if(CollectionUtils.isNotEmpty(list)) {
+				//如果客户id存在，则沿用原来的
+				custInfo.setCustId(custId);
+			}
+		}
+		custInfo.setId(SnowFlakeUtil.getNewNextId());
 		custInfo.setProjectId(SnowFlakeUtil.getNewNextId());
 		return baseMapper.insert(custInfo);
 	}
