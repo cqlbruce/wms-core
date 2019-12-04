@@ -205,7 +205,7 @@ CREATE TABLE `cust_info` (
   `project_name` varchar(128) COLLATE utf8_bin DEFAULT NULL COMMENT '项目名称',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `update_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
-  PRIMARY KEY (`cust_id`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 
