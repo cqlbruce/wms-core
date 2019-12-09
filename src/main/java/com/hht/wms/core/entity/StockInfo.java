@@ -96,7 +96,7 @@ public class StockInfo {
      * 表字段 : stock_info.firstLegalCount
      */		
 	@TableField
-    private Integer firstLegalCount;	
+    private BigDecimal firstLegalCount;	
 	
 	
     /**
@@ -112,7 +112,7 @@ public class StockInfo {
          * 表字段 : stock_info.secondLegalCount
      */		
 	@TableField
-    private Integer secondLegalCount;	
+    private BigDecimal secondLegalCount;	
 	
 	
     /**
@@ -128,7 +128,7 @@ public class StockInfo {
          * 表字段 : stock_info.transactionCount
      */			
 	@TableField
-    private Integer transactionCount;		
+    private BigDecimal transactionCount;		
 	
     /**
      * 实收件数
