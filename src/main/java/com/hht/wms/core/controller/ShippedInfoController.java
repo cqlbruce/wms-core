@@ -38,6 +38,7 @@ import com.hht.wms.core.entity.ShippedAbstractInfo;
 import com.hht.wms.core.entity.ShippedInfo;
 import com.hht.wms.core.service.ShippedAbstractService;
 import com.hht.wms.core.service.ShippedInfoService;
+import com.hht.wms.core.util.DateUtil;
 import com.hht.wms.core.util.ExcelUtil;
 import com.hht.wms.core.util.NumberUtil;
 import com.hht.wms.core.util.SnowFlakeUtil;
@@ -110,8 +111,8 @@ public class ShippedInfoController {
 	       	   	OutboundReqDto outboundReqDto = new OutboundReqDto(); 
 				outboundReqDto.setClp(clp);
 				outboundReqDto.setId(SnowFlakeUtil.getNewNextId());
-				outboundReqDto.setSo(ExcelUtil.getCellValue(row.getCell(0)));
-				outboundReqDto.setPo(ExcelUtil.getCellValue(row.getCell(1)));
+				outboundReqDto.setSo(ExcelUtil.getCellValue(row.getCell(1)));
+				outboundReqDto.setPo(ExcelUtil.getCellValue(row.getCell(0)));
 				outboundReqDto.setItem(ExcelUtil.getCellValue(row.getCell(2)));
 				int ctns = Integer.parseInt(ExcelUtil.getCellValue(row.getCell(3)));
 				outboundReqDto.setCtns(ctns);
@@ -138,8 +139,8 @@ public class ShippedInfoController {
 		return Resp.success("uploadStock");
 	}
 	
-//	@RequestMapping("download")
-	@PostMapping("download")
+	@RequestMapping("download")
+//	@PostMapping("download")
     @ApiOperation(value = "出仓数据导出", notes = "")
 	public byte[] shippedInfodownload(@RequestBody ShippedInfoExportReqDto reqDto) {
  		logger.info("......shippedInfoReqDto..............{}",JSON.toJSON(reqDto) );
@@ -177,13 +178,16 @@ public class ShippedInfoController {
  		//从第二行插进入
  		int startInsertRow = 2 ; 
  		String shipInfoTemplate= "fileTemplate/shipInfoTemplate.xlsx"; 
- 		String shipInfoUrl = "A:/temp/aa.xlsx" ;
-// 		String shipInfoUrl = new StringBuffer("/data/app/file/wms-core/shipInfo")
-//			.append(reqDto.getShippedNo())
-//			.append(DateUtil.getNowTime(DateUtil.FULL_DATETIME_FORMAT))
-//			.append(".xlsx")
-//			.toString();
+// 		String shipInfoTemplate= "D://temp//shipInfoTemplate.xlsx";  		
+// 		String shipInfoUrl = "D:\\temp\\shipInfoTemplate.xlsx" ;
+ 		String shipInfoUrl = new StringBuffer("/data/app/files/wms-core/shipinfo/")
+			.append(reqDto.getClp())
+			.append(DateUtil.getNowTime(DateUtil.AMR_ARS_DATE_FORMAT))
+			.append(SnowFlakeUtil.getNewNextId())
+			.append(".xlsx")
+			.toString();
  		XSSFWorkbook wb = ExcelUtil.returnWorkBookGivenFileHandle(shipInfoTemplate); 
+// 		XSSFWorkbook wb = ExcelUtil.returnWorkBookGivenFileHandle(shipInfoUrl); 
         XSSFSheet sheet = wb.getSheetAt(0);  
         int declaCountAll = 0 ; 
         int pcsAll = 0 ; 

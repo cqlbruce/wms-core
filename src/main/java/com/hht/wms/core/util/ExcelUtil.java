@@ -1,5 +1,6 @@
 package com.hht.wms.core.util;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -165,8 +166,10 @@ public class ExcelUtil {
      * @param wb 
      */  
     public static byte[] saveExcel(XSSFWorkbook wb , String excelPath) {
+    	
         FileOutputStream fileOut = null;  
         try {  
+        	FileUtils.mkdirs(excelPath);
             fileOut = new FileOutputStream(excelPath);  
             wb.write(fileOut);  
             fileOut.flush();

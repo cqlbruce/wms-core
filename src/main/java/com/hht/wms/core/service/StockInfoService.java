@@ -18,5 +18,8 @@ public interface StockInfoService {
 	List<StockInfo> queryByThreeElemet(String so , String po , String item);
 	
 	int modify(StockInfoModifyReqDto reqDto) ;
+	
+	void deleteById(String id);
+
 
 }

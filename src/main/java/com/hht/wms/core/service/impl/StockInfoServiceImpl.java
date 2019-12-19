@@ -42,6 +42,12 @@ public class StockInfoServiceImpl extends ServiceImpl<StockInfoDao, StockInfo> i
 	
 	@Autowired
 	private FrontDeskChargeDao frontDeskChargeMapper ; 
+	
+	public void deleteById(String id) {
+		
+		int total = baseMapper.deleteById(id);
+		
+	}
 
 
 	@Override

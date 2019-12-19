@@ -23,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.alibaba.fastjson.JSON;
 import com.hht.wms.core.common.Resp;
+import com.hht.wms.core.dto.IdReqDto;
 import com.hht.wms.core.dto.OutboundReqDto;
 import com.hht.wms.core.dto.StockAbstractQueryReqDto;
 import com.hht.wms.core.dto.StockAbstractQueryRespDto;
@@ -49,6 +50,16 @@ public class StockController {
 	
 	@Autowired
 	private StockInfoService stockInfoService ; 
+	
+	
+	@SuppressWarnings("rawtypes")
+	@PostMapping("delete")
+    @ApiOperation(value = "库存信息删除", notes = "")
+	public Resp delete(@RequestBody IdReqDto reqDto) throws Exception{
+ 		logger.info("...delete..............{}",JSON.toJSON(reqDto.getId()));
+ 		stockInfoService.deleteById(reqDto.getId());
+		return Resp.success("库存信息删除");
+    }	
 	
 	@SuppressWarnings("unchecked")
 	@PostMapping("load")
