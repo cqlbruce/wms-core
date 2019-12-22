@@ -9,6 +9,8 @@ public class StockAbstractQueryReqDto {
 	
 	private String custId ; 
 	
+	private String so ; 
+	
 	private int  page ;
 	
 	private int size;

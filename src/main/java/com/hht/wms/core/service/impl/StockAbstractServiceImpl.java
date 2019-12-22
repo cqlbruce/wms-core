@@ -46,7 +46,6 @@ public class StockAbstractServiceImpl extends ServiceImpl<StockAbstractInfoDao, 
 			respDto.setTotal(0);
 			return respDto ;
 		}
-		respDto.setTotal(total);
 		int beginSize = (reqDto.getPage()-1) * reqDto.getSize() ; 
 		reqDto.setBeginSize(beginSize);
 		List<StockAbstractInfo> list =  baseMapper.queryList(reqDto);
@@ -77,8 +76,10 @@ public class StockAbstractServiceImpl extends ServiceImpl<StockAbstractInfoDao, 
 			}
 			tempList = new ArrayList<StockInfo>();
 			tempList.add(si);
+			map.put(si.getInboundNo(), tempList);
 		}
 		
+		List<StockAbstractInfo> resultList = new ArrayList<StockAbstractInfo>();
 		//设置根据明细设置 总批次状态
 		for(StockAbstractInfo sai : list) {
 			List<StockInfo> tempList = map.get(sai.getInboundNo());
@@ -87,16 +88,30 @@ public class StockAbstractServiceImpl extends ServiceImpl<StockAbstractInfoDao, 
 				continue ; 
 			}
 			String status = Constant.INBOUND_STATUS_FINISH;
+			//so 过滤标志
+			boolean flag = false  ; 
 			// status 0 登记  1 已入库
 			for(StockInfo si : tempList) {
+				//入库
 				if(Constant.INBOUND_STATUS_READY.equals(si.getStatus())||StringUtils.isEmpty(si.getStatus())) {
 					status = Constant.INBOUND_STATUS_READY ; 
 					break ; 
 				}
+				
+				//so 判断
+				if(StringUtils.isEmpty(reqDto.getSo())||(StringUtils.isNotEmpty(reqDto.getSo())&&reqDto.getSo().equals(si.getSo()))) {
+					flag = true ; 
+				}
+			}
+			
+			if(flag) {
+				resultList.add(sai);
 			}
 			sai.setStatus(status);
 		}
+		System.out.println("==========="+total+"-------------");
 		respDto.setItems(list);
+		respDto.setTotal(total);
 		return respDto ;
 	}
 

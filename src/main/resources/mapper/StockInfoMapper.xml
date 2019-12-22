@@ -4,7 +4,7 @@
 
 
   <select id="selectByInboundNoList" resultType="com.hht.wms.core.entity.StockInfo">
-    select * from stock_info where inbound_no IN 
+    select * from stock_info where inbound_no in 
 	<foreach collection="list" item="inboundNo" index="index" open="(" close=")" separator=",">
 		#{inboundNo}
     </foreach>
