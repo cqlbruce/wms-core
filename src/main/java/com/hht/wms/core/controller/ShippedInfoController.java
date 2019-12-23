@@ -114,10 +114,10 @@ public class ShippedInfoController {
 				outboundReqDto.setSo(ExcelUtil.getCellValue(row.getCell(1)));
 				outboundReqDto.setPo(ExcelUtil.getCellValue(row.getCell(0)));
 				outboundReqDto.setItem(ExcelUtil.getCellValue(row.getCell(2)));
-				int ctns = Integer.parseInt(ExcelUtil.getCellValue(row.getCell(3)));
-				outboundReqDto.setCtns(ctns);
-	       	   	int pcs = Integer.parseInt(ExcelUtil.getCellValue(row.getCell(4))) ;
-	       	   	outboundReqDto.setPcs(pcs);
+	       	   	int pcs = Integer.parseInt(ExcelUtil.getCellValue(row.getCell(3))) ;
+	       	   	outboundReqDto.setPcs(pcs);				
+//				int ctns = Integer.parseInt(ExcelUtil.getCellValue(row.getCell(4)));
+				outboundReqDto.setCtns(NumberUtil.strToBigDecimal(ExcelUtil.getCellValue(row.getCell(4))));
 	       	    outboundReqDto.setGw(NumberUtil.strToBigDecimal(ExcelUtil.getCellValue(row.getCell(5))));
 	       	    outboundReqDto.setVolume(NumberUtil.strToBigDecimal(ExcelUtil.getCellValue(row.getCell(6))));
 	       	   	outList.add(outboundReqDto);

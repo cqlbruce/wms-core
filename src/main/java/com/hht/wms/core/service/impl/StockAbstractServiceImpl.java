@@ -63,7 +63,7 @@ public class StockAbstractServiceImpl extends ServiceImpl<StockAbstractInfoDao, 
 		List<StockInfo> siList = stockInfoMapper.selectByInboundNoList(inboundNoList) ; 
 		if(CollectionUtils.isEmpty(siList)) {
 			respDto.setItems(list);
-			respDto.setTotal(list.size());
+			respDto.setTotal(total);
 			return respDto ;
 		}		
 		//加工数据结构

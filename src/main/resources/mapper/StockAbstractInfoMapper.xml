@@ -59,28 +59,38 @@
    
    
   <select id="queryList" resultType="com.hht.wms.core.entity.StockAbstractInfo" parameterType="com.hht.wms.core.dto.StockAbstractQueryReqDto" >
-    select * from stock_abstract_info 
+    select * from stock_abstract_info t1 , stock_info t2
   <where>  
 	<if test="inboundNo != null and inboundNo != ''">
-		and inbound_no = #{inboundNo,jdbcType=VARCHAR}
+		and t1.inbound_no = #{inboundNo,jdbcType=VARCHAR}
 	</if>	
 	<if test="custId != null and custId != ''">
-		and cust_id = #{custId,jdbcType=VARCHAR}
+		and t1.cust_id = #{custId,jdbcType=VARCHAR}
+	</if>		
+	<if test="so != null and so != ''">
+		and t2.so = #{so,jdbcType=VARCHAR}
+		and t1.inbound_no = t2.inbound_no 
 	</if>		
    </where> 	
-    order by rcvd_date , inbound_no  LIMIT #{beginSize},#{size}    	
+    order by t1.rcvd_date , t1.inbound_no  LIMIT #{beginSize},#{size}    	
      
   </select>
    
   <select id="selectCount" resultType="java.lang.Integer"  parameterType="com.hht.wms.core.dto.StockAbstractQueryReqDto" >
-    select count(1) from stock_abstract_info 
+    select count(1) from stock_abstract_info t1 , stock_info t2
   <where>  
 	<if test="inboundNo != null and inboundNo != ''">
-		and inbound_no = #{inboundNo,jdbcType=VARCHAR}
+		and t1.inbound_no = #{inboundNo,jdbcType=VARCHAR}
 	</if>	
 	<if test="custId != null and custId != ''">
-		and cust_id = #{custId,jdbcType=VARCHAR}
+		and t1.cust_id = #{custId,jdbcType=VARCHAR}
 	</if>		
+	<if test="so != null and so != ''">
+		and t2.so = #{so,jdbcType=VARCHAR}
+		and t1.inbound_no = t2.inbound_no 
+	</if>		
+	
+	
    </where> 	
   </select>  
  

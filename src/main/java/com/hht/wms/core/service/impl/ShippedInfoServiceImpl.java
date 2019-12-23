@@ -76,13 +76,16 @@ public class ShippedInfoServiceImpl extends ServiceImpl<ShippedInfoDao, ShippedI
 			logger.info("库存扣减前===={}",JSON.toJSON(stockInfo));
 			//------扣减库存 计算
 			//本次出仓箱数
-			BigDecimal shippedCtns = new BigDecimal(reqDto.getPcs()).divide(new BigDecimal(stockInfo.getItemsPerBox()), 2 , RoundingMode.HALF_DOWN);
+//			BigDecimal shippedCtns = new BigDecimal(reqDto.getPcs()).divide(new BigDecimal(stockInfo.getItemsPerBox()), 2 , RoundingMode.HALF_DOWN);
+			BigDecimal shippedCtns = reqDto.getCtns() ; 
 			//本次出仓毛重
-			BigDecimal shippedGw = new BigDecimal(reqDto.getPcs()).multiply(stockInfo.getGwPerBoxActul()) ;
+//			BigDecimal shippedGw = new BigDecimal(reqDto.getPcs()).multiply(stockInfo.getGwPerBoxActul()) ;
+			BigDecimal shippedGw = reqDto.getGw();
 			//本次出仓净重
 			BigDecimal shippedWeigh = new BigDecimal(reqDto.getPcs()).multiply(stockInfo.getCustsDeclaPieceWeigh()) ;
 			//本次出仓体积
-			BigDecimal shippedVolume = new BigDecimal(reqDto.getPcs()).multiply(stockInfo.getBoxPerVolumeActul()) ;
+//			BigDecimal shippedVolume = new BigDecimal(reqDto.getPcs()).multiply(stockInfo.getBoxPerVolumeActul()) ;
+			BigDecimal shippedVolume = reqDto.getVolume();
 			//总出仓箱数
 			stockInfo.setShippedCtns(stockInfo.getShippedCtns().add(shippedCtns));
 			//总出仓件数
@@ -116,6 +119,7 @@ public class ShippedInfoServiceImpl extends ServiceImpl<ShippedInfoDao, ShippedI
 			shippedInfo.setShippedCtns(shippedCtns);
 			shippedInfo.setShippedGw(shippedGw);
 			shippedInfo.setShippedDate(DateUtil.getNowTime(DateUtil.ISO_DATE_FORMAT_CROSSBAR));
+			shippedInfo.setShippedOrderDate(DateUtil.getNowTime(DateUtil.ISO_DATE_FORMAT_CROSSBAR));
 			shippedInfo.setShippedVolume(shippedVolume);
 			shippedInfo.setShippedAllWeigh(shippedWeigh);
 			shippedInfo.setCreateTime(null);

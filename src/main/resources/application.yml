@@ -56,7 +56,8 @@ druid:
 logging:
   config: classpath:logback-boot.xml
   level:
-    com.hht.wms: info
+    #com.hht.wms: info
+    com.hht.wms: debug
   
    
    

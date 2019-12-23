@@ -13,7 +13,7 @@ public class OutboundReqDto {
 	
 	private int pcs ; 
 	
-	private int ctns ; 
+	private BigDecimal ctns ; 
 	
 	private String so ;
 	
