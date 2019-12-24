@@ -123,6 +123,9 @@ public class ShippedInfoServiceImpl extends ServiceImpl<ShippedInfoDao, ShippedI
 			shippedInfo.setShippedVolume(shippedVolume);
 			shippedInfo.setShippedAllWeigh(shippedWeigh);
 			shippedInfo.setCreateTime(null);
+			shippedInfo.setPieceWeigh(stockInfo.getCustsDeclaPieceWeigh());
+			shippedInfo.setCustomsMerchNo(stockInfo.getCustomsMerchNo());
+			shippedInfo.setMerchName(stockInfo.getProductName());
 			shippedInfo.setUpdateTime(null);
 			shippedInfo.setId(SnowFlakeUtil.getNextId());
 			logger.info("shippedInfo1======={}",JSON.toJSON(shippedInfo));

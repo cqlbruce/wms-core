@@ -41,14 +41,26 @@ public class StockAbstractServiceImpl extends ServiceImpl<StockAbstractInfoDao, 
 	public StockAbstractQueryRespDto queryList(StockAbstractQueryReqDto reqDto) {
 		logger.info("---StockAbstractServiceImpl ---queryList-----{}",JSON.toJSON(reqDto));
 		StockAbstractQueryRespDto respDto = new StockAbstractQueryRespDto();
-		int total = baseMapper.selectCount(reqDto);
+		int total = 0 ; 
+		if(StringUtils.isNotEmpty(reqDto.getSo())) {
+			total = baseMapper.selectCountUnitSo(reqDto);
+		}else {
+			total = baseMapper.selectCount(reqDto);
+		}
 		if(total==0) {
 			respDto.setTotal(0);
 			return respDto ;
 		}
 		int beginSize = (reqDto.getPage()-1) * reqDto.getSize() ; 
 		reqDto.setBeginSize(beginSize);
-		List<StockAbstractInfo> list =  baseMapper.queryList(reqDto);
+		List<StockAbstractInfo> list = null ;
+		if(StringUtils.isNotEmpty(reqDto.getSo())) {
+			list =  baseMapper.queryListUnitSo(reqDto);
+
+		}else {
+			list =  baseMapper.queryList(reqDto);
+		}
+		
 		if(CollectionUtils.isEmpty(list)) {
 			return respDto ;
 		}

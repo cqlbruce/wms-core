@@ -86,7 +86,7 @@ public class StockInfoServiceImpl extends ServiceImpl<StockInfoDao, StockInfo> i
        	   	if(null != info.getBoxHighActul() && null != info.getBoxLengthActul() && null != info.getBoxWidthActul()) {
        	   		info.setBoxPerVolumeActul(info.getBoxHighActul().multiply(info.getBoxLengthActul()).multiply(info.getBoxWidthActul()).divide(new BigDecimal("1000000"), RoundingMode.HALF_UP));
        	   	}
-			//实测总体积 = 实测单箱体积 * 件数
+			//实测总体积 = 实测单箱体积 * 箱数
        	   	if(null != info.getBoxPerVolumeActul()) {
     			info.setBoxAllVolumeActul(info.getBoxPerVolumeActul().multiply(new BigDecimal(info.getRcvdCtns())));
        	   	}
@@ -151,8 +151,8 @@ public class StockInfoServiceImpl extends ServiceImpl<StockInfoDao, StockInfo> i
 		info.setStockCtns(new BigDecimal(reqDto.getRcvdCtns()));
 		//实测单箱体积 = 长 * 宽 * 高
  		info.setBoxPerVolumeActul(info.getBoxHighActul().multiply(info.getBoxLengthActul()).multiply(info.getBoxWidthActul()).divide(new BigDecimal("1000000"), RoundingMode.HALF_UP));
- 		info.setBoxAllVolumeActul(info.getBoxPerVolumeActul().multiply(info.getStockCtns()).divide(new BigDecimal("1000000"), RoundingMode.HALF_UP));
- 		info.setStockVolume(info.getBoxPerVolumeActul().multiply(info.getStockCtns()).divide(new BigDecimal("1000000"), RoundingMode.HALF_UP));
+ 		info.setBoxAllVolumeActul(info.getBoxPerVolumeActul().multiply(info.getStockCtns()));
+ 		info.setStockVolume(info.getBoxPerVolumeActul().multiply(info.getStockCtns()));
  		
  		//单箱毛重
 // 		reqDto.setGwPerBoxActul(NumberUtil.strToBigDecimal(reqDto.getGwPerBoxActul()));

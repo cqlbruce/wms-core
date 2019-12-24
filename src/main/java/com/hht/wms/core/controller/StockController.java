@@ -234,6 +234,7 @@ public class StockController {
 	       	   	//42 体积单位
            	   
 	       	   	// 43 原产国
+	       	    info.setOriginCountry(ExcelUtil.getCellValue(row.getCell(43)));
            	   
 	       	   	//44 境内货源地
            	   
