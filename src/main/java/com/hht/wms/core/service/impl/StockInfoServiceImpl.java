@@ -77,21 +77,26 @@ public class StockInfoServiceImpl extends ServiceImpl<StockInfoDao, StockInfo> i
 			//收货日期
 			info.setRcvdDate(DateUtil.getNowTime(DateUtil.AMR_ARS_DATE_FORMAT));
 			//一箱几件 info.setTransactionUnit
-       	   	info.setItemsPerBox(info.getRcvdPcs()/info.getRcvdCtns());           	   
+			if(0==info.getRcvdCtns()) {
+				info.setItemsPerBox(0);
+			}else {
+				info.setItemsPerBox(info.getRcvdPcs()/info.getRcvdCtns());
+			}
+       	   	           	   
 			//实收总毛重 = 每箱毛重 * 实收件数
        	   	if(null != info.getGwPerBoxActul()) {
        	   		info.setGwAllActul(info.getGwPerBoxActul().multiply(new BigDecimal(info.getRcvdCtns())));
        	   	}
 			//实测单箱体积 = 长 * 宽 * 高
        	   	if(null != info.getBoxHighActul() && null != info.getBoxLengthActul() && null != info.getBoxWidthActul()) {
-       	   		info.setBoxPerVolumeActul(info.getBoxHighActul().multiply(info.getBoxLengthActul()).multiply(info.getBoxWidthActul()).divide(new BigDecimal("1000000"), RoundingMode.HALF_UP));
+       	   		info.setBoxPerVolumeActul(info.getBoxHighActul().multiply(info.getBoxLengthActul()).multiply(info.getBoxWidthActul()).divide(new BigDecimal("1000000"), 4 , RoundingMode.HALF_UP));
        	   	}
 			//实测总体积 = 实测单箱体积 * 箱数
        	   	if(null != info.getBoxPerVolumeActul()) {
     			info.setBoxAllVolumeActul(info.getBoxPerVolumeActul().multiply(new BigDecimal(info.getRcvdCtns())));
        	   	}
 			//入仓报关单件净重 四舍五入 保留两位小数
-			info.setCustsDeclaPieceWeigh(info.getCustsDeclaAllWeigh().divide(new BigDecimal(info.getRcvdPcs()), 2 , RoundingMode.HALF_UP));
+			info.setCustsDeclaPieceWeigh(info.getCustsDeclaAllWeigh().divide(new BigDecimal(info.getRcvdPcs()), 4 , RoundingMode.HALF_UP));
 			//总库存箱数
 			info.setStockCtns(new BigDecimal(info.getRcvdCtns()));
 			//总库存件数
@@ -150,7 +155,7 @@ public class StockInfoServiceImpl extends ServiceImpl<StockInfoDao, StockInfo> i
  		
 		info.setStockCtns(new BigDecimal(reqDto.getRcvdCtns()));
 		//实测单箱体积 = 长 * 宽 * 高
- 		info.setBoxPerVolumeActul(info.getBoxHighActul().multiply(info.getBoxLengthActul()).multiply(info.getBoxWidthActul()).divide(new BigDecimal("1000000"), RoundingMode.HALF_UP));
+ 		info.setBoxPerVolumeActul(info.getBoxHighActul().multiply(info.getBoxLengthActul()).multiply(info.getBoxWidthActul()).divide(new BigDecimal("1000000"),4, RoundingMode.HALF_UP));
  		info.setBoxAllVolumeActul(info.getBoxPerVolumeActul().multiply(info.getStockCtns()));
  		info.setStockVolume(info.getBoxPerVolumeActul().multiply(info.getStockCtns()));
  		

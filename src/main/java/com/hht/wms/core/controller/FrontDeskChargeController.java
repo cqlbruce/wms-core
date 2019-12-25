@@ -85,7 +85,7 @@ public class FrontDeskChargeController {
 	@PostMapping("export")
     @ApiOperation(value = "前台收费导出", notes = "")
 	public Resp<FrontDeskChargeQueryRespDto> export(@RequestBody FrontDeskChargeQueryReqDto reqDto) {
-		FrontDeskChargeQueryRespDto respDto = frontDeskChargeService.query(reqDto);
+		FrontDeskChargeQueryRespDto respDto = frontDeskChargeService.queryList(reqDto);
 		return Resp.success("查询前台收费成功" , respDto );
 	}
 	

@@ -103,7 +103,7 @@ public class ShippedInfoController {
 	       	   	}
 	       	   	//如果第0列为空，则直接返回
 	       	   	row.getCell(0).setCellType(CellType.STRING);
-	       	   	if(StringUtils.isEmpty(row.getCell(0).getStringCellValue())) {
+	       	   	if(StringUtils.isEmpty(row.getCell(0).getStringCellValue())&&StringUtils.isEmpty(row.getCell(1).getStringCellValue())) {
 	       	   		continue ; 
 	       	   	}	       	   
 				

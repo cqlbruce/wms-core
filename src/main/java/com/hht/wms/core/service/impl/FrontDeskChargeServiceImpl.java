@@ -32,7 +32,7 @@ public class FrontDeskChargeServiceImpl extends ServiceImpl<FrontDeskChargeDao, 
 	}
 
 	@Override
-	public FrontDeskChargeQueryRespDto query(FrontDeskChargeQueryReqDto reqDto) {
+	public FrontDeskChargeQueryRespDto queryByPage(FrontDeskChargeQueryReqDto reqDto) {
 		logger.info("FrontDeskChargeServiceImpl ---query--reqDto---{}",JSON.toJSON(reqDto));
 		FrontDeskChargeQueryRespDto respDto = new FrontDeskChargeQueryRespDto();
 		int total = frontDeskChargeMapper.selectCount(reqDto);
@@ -81,11 +81,10 @@ public class FrontDeskChargeServiceImpl extends ServiceImpl<FrontDeskChargeDao, 
 	}
 
 	@Override
-	public FrontDeskChargeQueryRespDto queryByPage(FrontDeskChargeQueryReqDto reqDto) {
+	public FrontDeskChargeQueryRespDto queryList(FrontDeskChargeQueryReqDto reqDto) {
 		FrontDeskChargeQueryRespDto respDto = new FrontDeskChargeQueryRespDto();
 		List<FrontDeskCharge> items = baseMapper.queryList(reqDto) ;
 		respDto.setItems(items);
-		// TODO Auto-generated method stub
 		return respDto;
 	}
 

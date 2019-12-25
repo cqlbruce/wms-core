@@ -154,14 +154,20 @@ public class StockController {
 	       	   	
 	       	   	//第一列SO
 	       	   	info.setSo(ExcelUtil.getCellValue(row.getCell(1)));
+	       	   	//第三列 海关系统物料号
+	       	    info.setCustomsMerchNo(ExcelUtil.getCellValue(row.getCell(3)));
 	       	   	//第四列PO
 	       	   	info.setPo(ExcelUtil.getCellValue(row.getCell(4)));
 	       	   	//第五列sku item
 	       	   	info.setItem(ExcelUtil.getCellValue(row.getCell(5)));
 //	       	    info.setId(id);
 	       	   	//第9列 箱数-实收箱数
-	       	   	int rcvdCtns = Integer.parseInt(ExcelUtil.getCellValue(row.getCell(9)));
-	       	   	info.setRcvdCtns(rcvdCtns);
+	       	   	if(StringUtils.isNotEmpty(ExcelUtil.getCellValue(row.getCell(9)))) {
+		       	   	int rcvdCtns = Integer.parseInt(ExcelUtil.getCellValue(row.getCell(9)));
+		       	   	info.setRcvdCtns(rcvdCtns);
+	       	   	}else {
+	       	   		info.setRcvdCtns(0);
+	       	   	}
 	       	   	//第11列 数量-实收件数 -- 成交数量
 	       	    info.setSecondLegalCount(NumberUtil.strToBigDecimal(ExcelUtil.getCellValue(row.getCell(11))));
 
