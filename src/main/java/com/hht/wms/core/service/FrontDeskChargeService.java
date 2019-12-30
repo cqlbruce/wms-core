@@ -18,4 +18,6 @@ public interface FrontDeskChargeService {
 	int update(FrontDeskCharge reqDto);
 	
 	int delete(String id);
+	
+	FrontDeskCharge selectByInboundNo(FrontDeskChargeQueryReqDto reqDto);
 }

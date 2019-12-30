@@ -26,6 +26,12 @@ public class FrontDeskChargeServiceImpl extends ServiceImpl<FrontDeskChargeDao, 
 	private FrontDeskChargeDao frontDeskChargeMapper ; 
 	
 
+	
+	public FrontDeskCharge selectByInboundNo(FrontDeskChargeQueryReqDto reqDto) {
+		return baseMapper.selectByInboundNo(reqDto);
+	}
+	
+	
 	@Override
 	public int add(FrontDeskCharge reqDto) {
 		return baseMapper.insert(reqDto) ;
@@ -57,7 +63,11 @@ public class FrontDeskChargeServiceImpl extends ServiceImpl<FrontDeskChargeDao, 
 			logger.error("入仓编号为空，无法更新前台收费信息");
 			throw new Exception("入仓编号为空，无法更新前台收费信息");
 		}
-		FrontDeskCharge charge = baseMapper.selectByInboundNo(info.getInboundNo());
+		
+		FrontDeskChargeQueryReqDto reqDto = new FrontDeskChargeQueryReqDto();
+		reqDto.setInboundNo(info.getInboundNo());
+		FrontDeskCharge charge = baseMapper.selectByInboundNo(reqDto);
+		
 		if(null == charge) {
 			logger.error("对应入仓编号{}的前台收费信息为空，不做更新",info.getInboundNo());
 			return 0  ; 

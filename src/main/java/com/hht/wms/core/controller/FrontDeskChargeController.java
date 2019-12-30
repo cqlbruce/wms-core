@@ -45,6 +45,9 @@ public class FrontDeskChargeController {
 	private StockAbstractService stockAbstractService ; 
 	
 	
+	
+	
+	
 	@PostMapping("add")
     @ApiOperation(value = "新增前台收费", notes = "")
 	public Resp<?> add(@RequestBody FrontDeskChargeAddReqDto reqDto) {

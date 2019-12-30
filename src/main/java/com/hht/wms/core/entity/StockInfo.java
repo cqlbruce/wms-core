@@ -130,6 +130,28 @@ public class StockInfo {
 	@TableField
     private BigDecimal transactionCount;		
 	
+	
+	/**
+	  * 成交总价
+	  * 表字段 : stock_info.transTotalPrice
+	 */			
+	@TableField
+	private BigDecimal transTotalPrice;	
+
+	/**
+	 * 成交单价
+	 * 表字段 : stock_info.transUnitPrice
+	*/			
+	@TableField
+	private BigDecimal transUnitPrice;	
+
+	/**
+	 * 申报要素
+	 * 表字段 : stock_info.declaElement
+	*/			
+	@TableField
+	private String declaElement;	
+	
     /**
      * 实收件数
      * 表字段 : stock_info.rcvd_pcs
@@ -377,6 +399,13 @@ public class StockInfo {
 	@TableField
     private String destCountry;
 
+    /**
+     * 商检标识
+     * 表字段 : stock_info.commercialInspectionFlag
+     */
+	@TableField
+    private String commercialInspectionFlag;	
+	
     /**
      * 海关监管条件
      * 表字段 : stock_info.supervision_conditions

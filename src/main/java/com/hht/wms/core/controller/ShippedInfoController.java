@@ -28,14 +28,17 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.alibaba.fastjson.JSON;
 import com.hht.wms.core.common.Resp;
+import com.hht.wms.core.dto.FrontDeskChargeQueryReqDto;
 import com.hht.wms.core.dto.OutboundReqDto;
 import com.hht.wms.core.dto.ShippedAbstractQueryReqDto;
 import com.hht.wms.core.dto.ShippedAbstractQueryRespDto;
 import com.hht.wms.core.dto.ShippedInfoExportReqDto;
 import com.hht.wms.core.dto.ShippedInfoReqDto;
 import com.hht.wms.core.dto.ShippedInfoRespDto;
+import com.hht.wms.core.entity.FrontDeskCharge;
 import com.hht.wms.core.entity.ShippedAbstractInfo;
 import com.hht.wms.core.entity.ShippedInfo;
+import com.hht.wms.core.service.FrontDeskChargeService;
 import com.hht.wms.core.service.ShippedAbstractService;
 import com.hht.wms.core.service.ShippedInfoService;
 import com.hht.wms.core.util.DateUtil;
@@ -57,6 +60,9 @@ public class ShippedInfoController {
 	
 	@Autowired
 	private ShippedAbstractService shippedAbstractService ; 
+	
+	@Autowired
+	private FrontDeskChargeService frontDeskChargeService ; 
 	
 	@SuppressWarnings("unchecked")
 	@PostMapping("abstract/load")
@@ -179,13 +185,13 @@ public class ShippedInfoController {
  		int startInsertRow = 2 ; 
  		String shipInfoTemplate= "fileTemplate/shipInfoTemplate.xlsx"; 
 // 		String shipInfoTemplate= "D://temp//shipInfoTemplate.xlsx";  		
-// 		String shipInfoUrl = "D:\\temp\\shipInfoTemplate.xlsx" ;
- 		String shipInfoUrl = new StringBuffer("/data/app/files/wms-core/shipinfo/")
-			.append(reqDto.getClp())
-			.append(DateUtil.getNowTime(DateUtil.AMR_ARS_DATE_FORMAT))
-			.append(SnowFlakeUtil.getNewNextId())
-			.append(".xlsx")
-			.toString();
+ 		String shipInfoUrl = "D:\\temp\\shipInfoTemplate.xlsx" ;
+// 		String shipInfoUrl = new StringBuffer("/data/app/files/wms-core/shipinfo/")
+//			.append(reqDto.getClp())
+//			.append(DateUtil.getNowTime(DateUtil.AMR_ARS_DATE_FORMAT))
+//			.append(SnowFlakeUtil.getNewNextId())
+//			.append(".xlsx")
+//			.toString();
  		XSSFWorkbook wb = ExcelUtil.returnWorkBookGivenFileHandle(shipInfoTemplate); 
 // 		XSSFWorkbook wb = ExcelUtil.returnWorkBookGivenFileHandle(shipInfoUrl); 
         XSSFSheet sheet = wb.getSheetAt(0);  
@@ -202,39 +208,55 @@ public class ShippedInfoController {
  	        row.createCell((short) 0).setCellValue(shipInfo.getShippedDate());//入仓还是出仓日期？
  	        row.createCell((short) 1).setCellValue("");//供应商信息
  	        row.createCell((short) 2).setCellValue(shipInfo.getSo()); 	        
- 	        row.createCell((short) 3).setCellValue(shipInfo.getCustomsMeterialNo());//物料号
- 	        row.createCell((short) 4).setCellValue(shipInfo.getCustomsMerchNo());//海关编码 	        
- 	        row.createCell((short) 5).setCellValue("");//货物名称
+ 	        row.createCell((short) 3).setCellValue(shipInfo.getPo()); 	        
+ 	        row.createCell((short) 4).setCellValue(shipInfo.getItem()); 	        
+ 	        row.createCell((short) 5).setCellValue(shipInfo.getCustomsMeterialNo());//物料号
+ 	        row.createCell((short) 6).setCellValue(shipInfo.getCustomsMerchNo());//海关编码 	        
+ 	        row.createCell((short) 7).setCellValue("");//货物名称
  	        int declaCount = shipInfo.getDeclaCount()==null? 0 : shipInfo.getDeclaCount() ;
  	        declaCountAll += declaCount ;
- 	        row.createCell((short) 6).setCellValue(declaCount);//申报数量     
- 	        row.createCell((short) 7).setCellValue(shipInfo.getDeclaUnit());//申报单位
+ 	        row.createCell((short) 8).setCellValue(declaCount);//申报数量     
+ 	        row.createCell((short) 9).setCellValue(shipInfo.getDeclaUnit());//申报单位
  	        int pcs = shipInfo.getShippedPcs() ;
  	        pcsAll += pcs ; 
- 	        row.createCell((short) 8).setCellValue(shipInfo.getShippedPcs());//件数   
- 	        row.createCell((short) 9).setCellValue("");//包装单位
+ 	        row.createCell((short) 10).setCellValue(shipInfo.getShippedPcs());//件数   
+ 	        row.createCell((short) 11).setCellValue("");//包装单位
  	        BigDecimal gw = shipInfo.getShippedGw() ;
  	        gwAll = gwAll.add(gw);
- 	        row.createCell((short) 10).setCellValue(gw.toString());//出仓毛重       
+ 	        row.createCell((short) 12).setCellValue(gw.toString());//出仓毛重       
  	        
  	        BigDecimal allWeigh = shipInfo.getShippedAllWeigh() ;
  	        allWeighAll = allWeighAll.add(allWeigh);
- 	        row.createCell((short) 11).setCellValue(allWeigh.toString());//净重
+ 	        row.createCell((short) 13).setCellValue(allWeigh.toString());//净重
  	        BigDecimal volume = shipInfo.getShippedVolume() ;
  	        volumeAll = volumeAll.add(volume);
- 	        row.createCell((short) 12).setCellValue(volume.toString());//体积        
- 	        row.createCell((short) 13).setCellValue(shipInfo.getDeclaTotalPrice().toString());//价值
- 	        row.createCell((short) 14).setCellValue(shipInfo.getDeclaCurrency());//币种        
+ 	        row.createCell((short) 14).setCellValue(volume.toString());//体积        
+ 	        row.createCell((short) 15).setCellValue(shipInfo.getDeclaTotalPrice().toString());//价值
+ 	        row.createCell((short) 16).setCellValue(shipInfo.getDeclaCurrency());//币种        
+ 	        
+ 	        row.createCell((short) 17).setCellValue(shipInfo.getWarehousePosition());//库位        
+ 	        row.createCell((short) 18).setCellValue(shipInfo.getInboundNo());//入仓号        
+ 	        row.createCell((short) 19).setCellValue(shipInfo.getOriginCountry());//原产国
+ 	        row.createCell((short) 20).setCellValue(shipInfo.getDestCountry());//最终目的国
+ 	        
+ 	       FrontDeskChargeQueryReqDto fcReqDto =  new FrontDeskChargeQueryReqDto();
+ 	       fcReqDto.setInboundNo(shipInfo.getInboundNo());
+ 	       fcReqDto.setSo(shipInfo.getSo());
+ 	       FrontDeskCharge fc= frontDeskChargeService.selectByInboundNo(fcReqDto);
+ 	       if(null != fc) {
+ 	    	  row.createCell((short) 21).setCellValue(fc.getCommercialInspectionFlag().equals("1") ? "是" : "否");//商检提醒   
+ 	       }
+ 	       
         }
         
         int rowNum = sheet.getLastRowNum() ;
 	    XSSFRow row1 = sheet.createRow(rowNum+1);  
-	    row1.createCell((short) 5).setCellValue("合计：");//入仓还是出仓日期？
-	    row1.createCell((short) 6).setCellValue(declaCountAll);
-	    row1.createCell((short) 8).setCellValue(pcsAll);
-	    row1.createCell((short) 10).setCellValue(gwAll.toString());
-	    row1.createCell((short) 11).setCellValue(allWeighAll.toString());
-	    row1.createCell((short) 13).setCellValue(volumeAll.toString());
+	    row1.createCell((short) 7).setCellValue("合计：");//入仓还是出仓日期？
+	    row1.createCell((short) 8).setCellValue(declaCountAll);
+	    row1.createCell((short) 10).setCellValue(pcsAll);
+	    row1.createCell((short) 12).setCellValue(gwAll.toString());
+	    row1.createCell((short) 13).setCellValue(allWeighAll.toString());
+	    row1.createCell((short) 15).setCellValue(volumeAll.toString());
 	    
 	    XSSFRow row2 = sheet.createRow(rowNum+3);  
 	    row2.createCell((short) 0).setCellValue("柜号：");//入仓还是出仓日期？

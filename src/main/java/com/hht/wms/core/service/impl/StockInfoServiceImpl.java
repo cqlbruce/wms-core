@@ -17,6 +17,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.hht.wms.core.dao.FrontDeskChargeDao;
 import com.hht.wms.core.dao.StockAbstractInfoDao;
 import com.hht.wms.core.dao.StockInfoDao;
+import com.hht.wms.core.dto.FrontDeskChargeQueryReqDto;
 import com.hht.wms.core.dto.StockInfoModifyReqDto;
 import com.hht.wms.core.dto.StockInfoQueryReqDto;
 import com.hht.wms.core.dto.StockInfoRespDto;
@@ -96,7 +97,7 @@ public class StockInfoServiceImpl extends ServiceImpl<StockInfoDao, StockInfo> i
     			info.setBoxAllVolumeActul(info.getBoxPerVolumeActul().multiply(new BigDecimal(info.getRcvdCtns())));
        	   	}
 			//入仓报关单件净重 四舍五入 保留两位小数
-			info.setCustsDeclaPieceWeigh(info.getCustsDeclaAllWeigh().divide(new BigDecimal(info.getRcvdPcs()), 4 , RoundingMode.HALF_UP));
+			info.setCustsDeclaPieceWeigh(info.getCustsDeclaAllWeigh().divide(new BigDecimal(info.getRcvdPcs()), 6 , RoundingMode.HALF_UP));
 			//总库存箱数
 			info.setStockCtns(new BigDecimal(info.getRcvdCtns()));
 			//总库存件数
@@ -122,7 +123,10 @@ public class StockInfoServiceImpl extends ServiceImpl<StockInfoDao, StockInfo> i
 			
 			logger.info("add stock info ==========={} " , JSON.toJSON(info) );
 			//增加库存记录
-			FrontDeskCharge charge = frontDeskChargeMapper.selectByInboundNo(info.getInboundNo());
+			
+			FrontDeskChargeQueryReqDto reqDto = new FrontDeskChargeQueryReqDto();
+			reqDto.setInboundNo(info.getInboundNo());
+			FrontDeskCharge charge = frontDeskChargeMapper.selectByInboundNo(reqDto);
 			if(null != charge) {
 				info.setCarNum(charge.getCarNum());
 			}

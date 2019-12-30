@@ -205,6 +205,7 @@ public class StockController {
 	       	    info.setProductName(ExcelUtil.getCellValue(row.getCell(24)));
            	   
 	       	   	//25 申报要素 --
+	       	    info.setDeclaElement(ExcelUtil.getCellValue(row.getCell(25)));
            	   
 	       	   	//26 申报数量  与 第11列 数量有什么区别
            	   
