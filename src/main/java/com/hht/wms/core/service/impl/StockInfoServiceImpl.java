@@ -45,9 +45,7 @@ public class StockInfoServiceImpl extends ServiceImpl<StockInfoDao, StockInfo> i
 	private FrontDeskChargeDao frontDeskChargeMapper ; 
 	
 	public void deleteById(String id) {
-		
-		int total = baseMapper.deleteById(id);
-		
+		baseMapper.deleteById(id);
 	}
 
 
