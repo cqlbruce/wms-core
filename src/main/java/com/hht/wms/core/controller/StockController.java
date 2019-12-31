@@ -155,7 +155,7 @@ public class StockController {
 	       	   	//第一列SO
 	       	   	info.setSo(ExcelUtil.getCellValue(row.getCell(1)));
 	       	   	//第三列 海关系统物料号
-	       	    info.setCustomsMerchNo(ExcelUtil.getCellValue(row.getCell(3)));
+	       	   	info.setCustomsMeterialNo(ExcelUtil.getCellValue(row.getCell(3)));
 	       	   	//第四列PO
 	       	   	info.setPo(ExcelUtil.getCellValue(row.getCell(4)));
 	       	   	//第五列sku item
@@ -198,6 +198,8 @@ public class StockController {
            	   
 	       	   	//22 海关编码 
 	       	    info.setCustomsNo(ExcelUtil.getCellValue(row.getCell(22)));
+	       	    info.setCustomsMerchNo(ExcelUtil.getCellValue(row.getCell(22)));
+   
            	   
 	       	   	//23商检代码
 	       	   	info.setCustomsMerchNo(ExcelUtil.getCellValue(row.getCell(23)));

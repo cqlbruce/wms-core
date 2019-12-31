@@ -97,15 +97,40 @@ public class ShippedInfoServiceImpl extends ServiceImpl<ShippedInfoDao, ShippedI
 			//总出仓体积
 			stockInfo.setShippedVolume(stockInfo.getShippedVolume().add(shippedVolume));
 			//总库存箱数
-			stockInfo.setStockCtns(stockInfo.getStockCtns().subtract(shippedCtns));
+			BigDecimal stockCtns = stockInfo.getStockCtns().subtract(shippedCtns) ;
+			if(stockCtns.compareTo(BigDecimal.ZERO)<0) {
+				logger.error("出仓失败，库存箱数为负数{} " , stockCtns);
+				throw new Exception("出仓失败，库存箱数为负数");
+			}
+			stockInfo.setStockCtns(stockCtns);
 			//总库存件数
-			stockInfo.setStockPcs(stockInfo.getStockPcs()-reqDto.getPcs());
+			int stockPcs = stockInfo.getStockPcs()-reqDto.getPcs() ; 
+			if(stockPcs < 0) {
+				logger.error("出仓失败，库存件数为负数{} " , stockPcs);
+				throw new Exception("出仓失败，库存件数为负数");
+			}			
+			stockInfo.setStockPcs(stockPcs);
 			//总库存毛重
-			stockInfo.setStockGw(stockInfo.getStockGw().subtract(shippedGw));
+			BigDecimal stockGw = stockInfo.getStockGw().subtract(shippedGw) ; 
+			if(stockGw.compareTo(BigDecimal.ZERO)<0) {
+				logger.error("出仓失败，总库存毛重为负数{} " , stockGw);
+				throw new Exception("出仓失败，总库存毛重为负数");
+			}			
+			stockInfo.setStockGw(stockGw);
 			//总库存净重
-			stockInfo.setStockWeigh(stockInfo.getStockWeigh().subtract(shippedWeigh));
+			BigDecimal stockWeigh = stockInfo.getStockWeigh().subtract(shippedWeigh);
+			if(stockWeigh.compareTo(BigDecimal.ZERO)<0) {
+				logger.error("出仓失败，总库存净重为负数{} " , stockWeigh);
+				throw new Exception("出仓失败，总库存净重为负数");
+			}				
+			stockInfo.setStockWeigh(stockWeigh);
 			//总库存体积
-			stockInfo.setStockVolume(stockInfo.getStockVolume().subtract(shippedVolume));
+			BigDecimal stockVolume = stockInfo.getStockVolume().subtract(shippedVolume);
+			if(stockVolume.compareTo(BigDecimal.ZERO)<0) {
+				logger.error("出仓失败，总库存体积为负数{} " , stockVolume);
+				throw new Exception("出仓失败，总库存体积为负数");
+			}				
+			stockInfo.setStockVolume(stockVolume);
 			stockInfo.setCreateTime(null);
 			stockInfo.setUpdateTime(null);
 			logger.info("库存扣减==后===={}",JSON.toJSON(stockInfo));
