@@ -202,7 +202,7 @@ public class StockController {
    
            	   
 	       	   	//23商检代码
-	       	   	info.setCustomsMerchNo(ExcelUtil.getCellValue(row.getCell(23)));
+	       	   	info.setCommercialInspectionNo(ExcelUtil.getCellValue(row.getCell(23)));
 	       	   	//24 报关品名 --
 	       	    info.setProductName(ExcelUtil.getCellValue(row.getCell(24)));
            	   
@@ -215,10 +215,15 @@ public class StockController {
 	       	   	info.setDeclaUnit(ExcelUtil.getCellValue(row.getCell(27)));
 	       	   	//28 申报单价
 	       	   	info.setDeclaUnitPrice(NumberUtil.strToBigDecimal(ExcelUtil.getCellValue(row.getCell(28))));
+	       	   	info.setTransUnitPrice(NumberUtil.strToBigDecimal(ExcelUtil.getCellValue(row.getCell(28))));
+	       	   	
 	       	   	//29 申报价值 申报总价
 	       	   	info.setDeclaTotalPrice(NumberUtil.strToBigDecimal(ExcelUtil.getCellValue(row.getCell(29))));
+	       	   	info.setTransTotalPrice(NumberUtil.strToBigDecimal(ExcelUtil.getCellValue(row.getCell(29))));
+	       	    
 	       	   	//30 申报币种
 	       	   	info.setDeclaCurrency(ExcelUtil.getCellValue(row.getCell(30)));
+	       	    info.setTransactionCurrency(ExcelUtil.getCellValue(row.getCell(30)));
 	       	   	//31 第一法定数量
 	       	    info.setFirstLegalCount(NumberUtil.strToBigDecimal(ExcelUtil.getCellValue(row.getCell(31))));
 	       	   	//32 第一法定单位

@@ -124,8 +124,8 @@ public class ShippedInfoController {
 	       	   	outboundReqDto.setPcs(pcs);				
 //				int ctns = Integer.parseInt(ExcelUtil.getCellValue(row.getCell(4)));
 				outboundReqDto.setCtns(NumberUtil.strToBigDecimal(ExcelUtil.getCellValue(row.getCell(4))));
-	       	    outboundReqDto.setGw(NumberUtil.strToBigDecimal(ExcelUtil.getCellValue(row.getCell(5))));
-	       	    outboundReqDto.setVolume(NumberUtil.strToBigDecimal(ExcelUtil.getCellValue(row.getCell(6))));
+//	       	    outboundReqDto.setGw(NumberUtil.strToBigDecimal(ExcelUtil.getCellValue(row.getCell(5))));
+//	       	    outboundReqDto.setVolume(NumberUtil.strToBigDecimal(ExcelUtil.getCellValue(row.getCell(6))));
 	       	   	outList.add(outboundReqDto);
 	        }
 
@@ -185,17 +185,17 @@ public class ShippedInfoController {
  		int startInsertRow = 2 ; 
  		String shipInfoTemplate= "fileTemplate/shipInfoTemplate.xlsx"; 
 // 		String shipInfoTemplate= "D://temp//shipInfoTemplate.xlsx";  		
- 		String shipInfoUrl = "D:\\temp\\shipInfoTemplate.xlsx" ;
-// 		String shipInfoUrl = new StringBuffer("/data/app/files/wms-core/shipinfo/")
-//			.append(reqDto.getClp())
-//			.append(DateUtil.getNowTime(DateUtil.AMR_ARS_DATE_FORMAT))
-//			.append(SnowFlakeUtil.getNewNextId())
-//			.append(".xlsx")
-//			.toString();
+// 		String shipInfoUrl = "A:\\temp\\shipInfoTemplate.xlsx" ;
+ 		String shipInfoUrl = new StringBuffer("/data/app/files/wms-core/shipinfo/")
+			.append(reqDto.getClp())
+			.append(DateUtil.getNowTime(DateUtil.AMR_ARS_DATE_FORMAT))
+			.append(SnowFlakeUtil.getNewNextId())
+			.append(".xlsx")
+			.toString();
  		XSSFWorkbook wb = ExcelUtil.returnWorkBookGivenFileHandle(shipInfoTemplate); 
 // 		XSSFWorkbook wb = ExcelUtil.returnWorkBookGivenFileHandle(shipInfoUrl); 
         XSSFSheet sheet = wb.getSheetAt(0);  
-        int declaCountAll = 0 ; 
+        BigDecimal declaCountAll = BigDecimal.ZERO; 
         int pcsAll = 0 ; 
         BigDecimal gwAll = BigDecimal.ZERO;
         BigDecimal allWeighAll = BigDecimal.ZERO;
@@ -213,9 +213,9 @@ public class ShippedInfoController {
  	        row.createCell((short) 5).setCellValue(shipInfo.getCustomsMeterialNo());//物料号
  	        row.createCell((short) 6).setCellValue(shipInfo.getCustomsMerchNo());//海关编码 	        
  	        row.createCell((short) 7).setCellValue("");//货物名称
- 	        int declaCount = shipInfo.getDeclaCount()==null? 0 : shipInfo.getDeclaCount() ;
- 	        declaCountAll += declaCount ;
- 	        row.createCell((short) 8).setCellValue(declaCount);//申报数量     
+ 	        BigDecimal declaCount = shipInfo.getDeclaCount() ;
+ 	        declaCountAll.add(declaCount);
+ 	        row.createCell((short) 8).setCellValue(declaCount.toString());//申报数量     
  	        row.createCell((short) 9).setCellValue(shipInfo.getDeclaUnit());//申报单位
  	        int pcs = shipInfo.getShippedPcs() ;
  	        pcsAll += pcs ; 
@@ -252,7 +252,7 @@ public class ShippedInfoController {
         int rowNum = sheet.getLastRowNum() ;
 	    XSSFRow row1 = sheet.createRow(rowNum+1);  
 	    row1.createCell((short) 7).setCellValue("合计：");//入仓还是出仓日期？
-	    row1.createCell((short) 8).setCellValue(declaCountAll);
+	    row1.createCell((short) 8).setCellValue(declaCountAll.toString());
 	    row1.createCell((short) 10).setCellValue(pcsAll);
 	    row1.createCell((short) 12).setCellValue(gwAll.toString());
 	    row1.createCell((short) 13).setCellValue(allWeighAll.toString());

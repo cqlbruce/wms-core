@@ -79,12 +79,15 @@ public class ShippedInfoServiceImpl extends ServiceImpl<ShippedInfoDao, ShippedI
 			BigDecimal shippedCtns = reqDto.getCtns() ; 
 			//本次出仓毛重
 //			BigDecimal shippedGw = new BigDecimal(reqDto.getPcs()).multiply(stockInfo.getGwPerBoxActul()) ;
-			BigDecimal shippedGw = reqDto.getGw();
+//			BigDecimal shippedGw = reqDto.getGw();
+			BigDecimal shippedGw = shippedCtns.multiply(stockInfo.getGwPerBoxActul());
 			//本次出仓净重
 			BigDecimal shippedWeigh = new BigDecimal(reqDto.getPcs()).multiply(stockInfo.getCustsDeclaPieceWeigh()) ;
 			//本次出仓体积
 //			BigDecimal shippedVolume = new BigDecimal(reqDto.getPcs()).multiply(stockInfo.getBoxPerVolumeActul()) ;
-			BigDecimal shippedVolume = reqDto.getVolume();
+//			BigDecimal shippedVolume = reqDto.getVolume();
+			BigDecimal shippedVolume = shippedCtns.multiply(stockInfo.getBoxPerVolumeActul());
+			
 			//总出仓箱数
 			stockInfo.setShippedCtns(stockInfo.getShippedCtns().add(shippedCtns));
 			//总出仓件数
@@ -97,10 +100,10 @@ public class ShippedInfoServiceImpl extends ServiceImpl<ShippedInfoDao, ShippedI
 			stockInfo.setShippedVolume(stockInfo.getShippedVolume().add(shippedVolume));
 			//总库存箱数
 			BigDecimal stockCtns = stockInfo.getStockCtns().subtract(shippedCtns) ;
-			if(stockCtns.compareTo(BigDecimal.ZERO)<0) {
-				logger.error("出仓失败，库存箱数为负数{} " , stockCtns);
-				throw new Exception("出仓失败，库存箱数为负数");
-			}
+//			if(stockCtns.compareTo(BigDecimal.ZERO)<0) {
+//				logger.error("出仓失败，库存箱数为负数{} " , stockCtns);
+//				throw new Exception("出仓失败，库存箱数为负数");
+//			}
 			stockInfo.setStockCtns(stockCtns);
 			//总库存件数
 			int stockPcs = stockInfo.getStockPcs()-reqDto.getPcs() ; 
@@ -111,24 +114,24 @@ public class ShippedInfoServiceImpl extends ServiceImpl<ShippedInfoDao, ShippedI
 			stockInfo.setStockPcs(stockPcs);
 			//总库存毛重
 			BigDecimal stockGw = stockInfo.getStockGw().subtract(shippedGw) ; 
-			if(stockGw.compareTo(BigDecimal.ZERO)<0) {
-				logger.error("出仓失败，总库存毛重为负数{} " , stockGw);
-				throw new Exception("出仓失败，总库存毛重为负数");
-			}			
+//			if(stockGw.compareTo(BigDecimal.ZERO)<0) {
+//				logger.error("出仓失败，总库存毛重为负数{} " , stockGw);
+//				throw new Exception("出仓失败，总库存毛重为负数");
+//			}			
 			stockInfo.setStockGw(stockGw);
 			//总库存净重
 			BigDecimal stockWeigh = stockInfo.getStockWeigh().subtract(shippedWeigh);
-			if(stockWeigh.compareTo(BigDecimal.ZERO)<0) {
-				logger.error("出仓失败，总库存净重为负数{} " , stockWeigh);
-				throw new Exception("出仓失败，总库存净重为负数");
-			}				
+//			if(stockWeigh.compareTo(BigDecimal.ZERO)<0) {
+//				logger.error("出仓失败，总库存净重为负数{} " , stockWeigh);
+//				throw new Exception("出仓失败，总库存净重为负数");
+//			}				
 			stockInfo.setStockWeigh(stockWeigh);
 			//总库存体积
 			BigDecimal stockVolume = stockInfo.getStockVolume().subtract(shippedVolume);
-			if(stockVolume.compareTo(BigDecimal.ZERO)<0) {
-				logger.error("出仓失败，总库存体积为负数{} " , stockVolume);
-				throw new Exception("出仓失败，总库存体积为负数");
-			}				
+//			if(stockVolume.compareTo(BigDecimal.ZERO)<0) {
+//				logger.error("出仓失败，总库存体积为负数{} " , stockVolume);
+//				throw new Exception("出仓失败，总库存体积为负数");
+//			}				
 			stockInfo.setStockVolume(stockVolume);
 			stockInfo.setCreateTime(null);
 			stockInfo.setUpdateTime(null);
@@ -146,6 +149,18 @@ public class ShippedInfoServiceImpl extends ServiceImpl<ShippedInfoDao, ShippedI
 			shippedInfo.setShippedOrderDate(DateUtil.getNowTime(DateUtil.ISO_DATE_FORMAT_CROSSBAR));
 			shippedInfo.setShippedVolume(shippedVolume);
 			shippedInfo.setShippedAllWeigh(shippedWeigh);
+//			一、申报单位为 千克
+//		    	出仓 成交数量 = PCS * 单件净重
+//		    	出仓 成交单位: 千克
+//		            二、申报单位为 非千克
+//		                        出仓 成交数量 = PCS 
+//		                        出仓 成交单位 = 申报单位
+			if("千克".equals(stockInfo.getDeclaUnit())) {
+				shippedInfo.setDeclaCount(new BigDecimal(reqDto.getPcs()).multiply(stockInfo.getCustsDeclaPieceWeigh()));
+			}else {
+				shippedInfo.setDeclaCount(new BigDecimal(reqDto.getPcs()));
+			}
+			
 			shippedInfo.setCreateTime(null);
 			shippedInfo.setPieceWeigh(stockInfo.getCustsDeclaPieceWeigh());
 			shippedInfo.setCustomsMerchNo(stockInfo.getCustomsMerchNo());

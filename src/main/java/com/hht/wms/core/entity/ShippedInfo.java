@@ -129,56 +129,56 @@ public class ShippedInfo {
      * 报关单号
      * 表字段 : shipped_info.merch_name
      */
-	  @TableField
+	@TableField
     private String merchName;
 
     /**
      * 申报数量/成交数量
      * 表字段 : shipped_info.decla_count
      */
-	  @TableField
-    private Integer declaCount;
+	@TableField
+    private BigDecimal declaCount;
 
     /**
      * 申报单位/成交单位
      * 表字段 : shipped_info.decla_unit
      */
-	  @TableField
+	@TableField
     private String declaUnit;
 
     /**
      * 申报单位/成交单位
      * 表字段 : shipped_info.decla_unit_price
      */
-	  @TableField
+	@TableField
     private BigDecimal declaUnitPrice;
 
     /**
      * 申报总价/成交总价
      * 表字段 : shipped_info.decla_total_price
      */
-	  @TableField
+	@TableField
     private BigDecimal declaTotalPrice;
 
     /**
      * 成交币种/申报币种
      * 表字段 : shipped_info.decla_currency
      */
-	  @TableField
+	@TableField
     private String declaCurrency;
 
     /**
      * 原产国
      * 表字段 : shipped_info.origin_country
      */
-	  @TableField
+	@TableField
     private String originCountry;
 
     /**
      * 目的国
      * 表字段 : shipped_info.dest_country
      */
-	  @TableField
+	@TableField
     private String destCountry;
 
     /**

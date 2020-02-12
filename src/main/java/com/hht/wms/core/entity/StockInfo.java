@@ -39,6 +39,12 @@ public class StockInfo {
      */
 	@TableField
     private String po;
+	
+	@TableField
+	private String transactionCurrency ;
+	
+	@TableField
+	private String commercialInspectionNo ;
 
     /**
      * 货物款号 asn-item
@@ -352,7 +358,7 @@ public class StockInfo {
      * 表字段 : stock_info.decla_count
      */
 	@TableField
-    private Integer declaCount;
+    private BigDecimal declaCount;
 
     /**
      * 申报单位/成交单位

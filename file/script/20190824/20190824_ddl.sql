@@ -59,6 +59,7 @@ CREATE TABLE `stock_info` (
   `transaction_count` decimal(18,6) COLLATE utf8_bin DEFAULT NULL COMMENT '成交数量',
   `trans_total_price` decimal(18,6) COLLATE utf8_bin DEFAULT NULL COMMENT '成交总价',
   `trans_unit_price` decimal(18,6) COLLATE utf8_bin DEFAULT NULL COMMENT '成交单价',
+  `transaction_currency` char(3) COLLATE utf8_bin DEFAULT NULL COMMENT '成交币种',
   `customs_meterial_no` varchar(32) COLLATE utf8_bin DEFAULT NULL COMMENT '海关系统物料号', 
   `rcvd_date` varchar(16) COLLATE utf8_bin DEFAULT NULL COMMENT '收货日期',
   `rcvd_ctns` int(10) COLLATE utf8_bin DEFAULT NULL COMMENT '实收箱数',
@@ -90,14 +91,15 @@ CREATE TABLE `stock_info` (
   `customs_merch_no` varchar(32) COLLATE utf8_bin DEFAULT NULL COMMENT '海关商品编码',
   `customs_no` varchar(32) COLLATE utf8_bin DEFAULT NULL COMMENT '海关编码',
   `merch_name` varchar(64) COLLATE utf8_bin DEFAULT NULL COMMENT '报关单号',
-  `decla_count` int(32) COLLATE utf8_bin DEFAULT NULL COMMENT '申报数量/成交数量',
+  `decla_count` decimal(18,6) COLLATE utf8_bin DEFAULT NULL COMMENT '申报数量/成交数量',
   `decla_unit` varchar(32) COLLATE utf8_bin DEFAULT NULL COMMENT '申报单位/成交单位',
   `decla_unit_price` decimal(18,6) COLLATE utf8_bin DEFAULT NULL COMMENT '申报单位',
   `decla_total_price` decimal(18,6) COLLATE utf8_bin DEFAULT NULL COMMENT '申报总价',
   `decla_currency` char(3) COLLATE utf8_bin DEFAULT NULL COMMENT '成交币种/申报币种',
-  `decla_element` varchar(32) COLLATE utf8_bin DEFAULT NULL COMMENT '申报要素',
+  `decla_element` varchar(128) COLLATE utf8_bin DEFAULT NULL COMMENT '申报要素',
   `origin_country` varchar(128) COLLATE utf8_bin DEFAULT NULL COMMENT '原产国',
   `commercial_inspection_flag` char(1) COLLATE utf8_bin DEFAULT NULL COMMENT '商检标识 0 否  1 是',
+  `commercial_inspection_no` varchar(12) COLLATE utf8_bin DEFAULT NULL COMMENT '商检代码',
   `dest_country` varchar(128) COLLATE utf8_bin DEFAULT NULL COMMENT '目的国',
   `supervision_conditions` varchar(32) COLLATE utf8_bin DEFAULT NULL COMMENT '海关监管条件',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
@@ -105,8 +107,6 @@ CREATE TABLE `stock_info` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 -----------------------------库存信息表 end-------------------------------------------
-
-
 DROP TABLE IF EXISTS `shipped_abstract_info`;
 
 CREATE TABLE `shipped_abstract_info` (
@@ -146,7 +146,7 @@ CREATE TABLE `shipped_info` (
   `shipped_volume` decimal(18,6) COLLATE utf8_bin DEFAULT NULL COMMENT '出仓体积',
   `customs_merch_no` varchar(32) COLLATE utf8_bin DEFAULT NULL COMMENT '海关商品编码',
   `merch_name` varchar(64) COLLATE utf8_bin DEFAULT NULL COMMENT '报关单号',
-  `decla_count` int(32) COLLATE utf8_bin DEFAULT NULL COMMENT '申报数量/成交数量',
+  `decla_count` decimal(18,6) COLLATE utf8_bin DEFAULT NULL COMMENT '申报数量/成交数量',
   `decla_unit` varchar(32) COLLATE utf8_bin DEFAULT NULL COMMENT '申报单位/成交单位',
   `decla_unit_price` decimal(18,6) COLLATE utf8_bin DEFAULT NULL COMMENT '申报单位/成交单位',
   `decla_total_price` decimal(18,6) COLLATE utf8_bin DEFAULT NULL COMMENT '申报总价/成交总价',
