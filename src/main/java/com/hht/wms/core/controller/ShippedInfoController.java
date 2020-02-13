@@ -212,7 +212,7 @@ public class ShippedInfoController {
  	        row.createCell((short) 4).setCellValue(shipInfo.getItem()); 	        
  	        row.createCell((short) 5).setCellValue(shipInfo.getCustomsMeterialNo());//物料号
  	        row.createCell((short) 6).setCellValue(shipInfo.getCustomsMerchNo());//海关编码 	        
- 	        row.createCell((short) 7).setCellValue("");//货物名称
+ 	        row.createCell((short) 7).setCellValue(shipInfo.getMerchName());//货物名称
  	        BigDecimal declaCount = shipInfo.getDeclaCount() ;
  	        declaCountAll.add(declaCount);
  	        row.createCell((short) 8).setCellValue(declaCount.toString());//申报数量     

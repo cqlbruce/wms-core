@@ -7,10 +7,6 @@ import org.apache.commons.lang3.StringUtils;
 
 public class NumberUtil {
 	
-	
-	
-	
-	
 	public static BigDecimal  strToBigDecimal(String str) {
 		if(StringUtils.isEmpty(str)) {
 			return BigDecimal.ZERO;
@@ -24,5 +20,7 @@ public class NumberUtil {
 		}
 		return decimal;
 	}	
+	
+
 
 }
