@@ -1,6 +1,7 @@
 package com.hht.wms.core.dto;
 
 /**
+ **入仓费用查询
  * @author 蓝小路
  * @version V1.0
  * @Package com.hht.wms.core.dto
@@ -8,11 +9,31 @@ package com.hht.wms.core.dto;
  * @Copyright © 2019-2020 ****有限公司
  */
 public class StockFeeQueryReqDto {
+	
+	
+	//客户ID
+	private String custId ; 
+	
+	//项目名称
+	private String projectId ;
+	
+	//进仓日期
+	private String rcvdDate ;
+	
+	//入仓落纸号
+	private String so ; 
+	
+	//车牌号
+	private String carNum ; 
+	
+	//柜号 
+	private String cntrNo;
+	
+//	private 
+	
     private String beginDate;
 
     private String endDate;
-
-    private String so ;
 
     private int page ;
 

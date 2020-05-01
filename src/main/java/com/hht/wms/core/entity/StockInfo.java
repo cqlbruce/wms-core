@@ -34,8 +34,8 @@ public class StockInfo {
     private String so;
 
     /**
-     * 客户采购订单号
-     * 表字段 : stock_info.po
+               * 客户采购订单号
+     *	 表字段 : stock_info.po
      */
 	@TableField
     private String po;
@@ -47,8 +47,8 @@ public class StockInfo {
 	private String commercialInspectionNo ;
 
     /**
-     * 货物款号 asn-item
-     * 表字段 : stock_info.sku
+     	* 货物款号 asn-item
+     	* 表字段 : stock_info.sku
      */
 	@TableField
     private String item;
