@@ -224,3 +224,45 @@ CREATE TABLE `cust_info` (
 
 
 
+-----------------------------库存费用信息表 begin-------------------------------------------
+
+
+DROP TABLE IF EXISTS `stock_fee_info`;
+
+CREATE TABLE `stock_fee_info` (
+  `id` varchar(32) COLLATE utf8_bin NOT NULL COMMENT '主键 id',
+  `cust_id` varchar(128) COLLATE utf8_bin DEFAULT NULL COMMENT '客户id 对应客户管理',
+  `so` varchar(32) COLLATE utf8_bin DEFAULT NULL COMMENT '入仓落货纸号',
+  `po` varchar(32) COLLATE utf8_bin DEFAULT NULL COMMENT '客户采购订单号',
+  `item` varchar(32) COLLATE utf8_bin DEFAULT NULL COMMENT '货物款号 asn-item',
+  `inbound_no` varchar(32) COLLATE utf8_bin DEFAULT NULL COMMENT '入仓编号',
+  `continuation_sheet_fee` decimal(18,6) COLLATE utf8_bin DEFAULT NULL COMMENT '续页费',
+  `enter_gate_fee` decimal(18,6) COLLATE utf8_bin DEFAULT NULL COMMENT '入闸费',
+  `unload_unit_price` decimal(18,6) COLLATE utf8_bin DEFAULT NULL COMMENT '装卸单价',
+  `unload_fee` decimal(18,6) COLLATE utf8_bin DEFAULT NULL COMMENT '卸货费',
+  `assorted_packing_fee` decimal(18,6) COLLATE utf8_bin DEFAULT NULL COMMENT '混装费',
+  `overtime_fee` decimal(18,6) COLLATE utf8_bin DEFAULT NULL COMMENT '加班费',
+  `del_bill_fee` decimal(18,6) COLLATE utf8_bin DEFAULT NULL COMMENT '删单费',
+  `commercial_inspection_fee` decimal(18,6) COLLATE utf8_bin DEFAULT NULL COMMENT '查货/商检费',
+  `traffic_fee` decimal(18,6) COLLATE utf8_bin DEFAULT NULL COMMENT '运输费',
+  `pledge_car_fee` decimal(18,6) COLLATE utf8_bin DEFAULT NULL COMMENT '押车费',
+  `payment_inAdvance_fee` decimal(18,6) COLLATE utf8_bin DEFAULT NULL COMMENT '代垫费',
+  `payment_inAdvance_tax_fee` decimal(18,6) COLLATE utf8_bin DEFAULT NULL COMMENT '代垫税费',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `update_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',  
+  )
+
+-----------------------------库存费用信息表 end-------------------------------------------
+
+
+
+-----------------------------出仓费用信息表 begin-------------------------------------------
+
+  
+  
+
+
+-----------------------------出仓费用信息表 end-------------------------------------------
+
+
+
