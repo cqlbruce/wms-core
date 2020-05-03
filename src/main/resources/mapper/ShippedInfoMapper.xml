@@ -55,7 +55,7 @@
 		and shipped_date &lt;= #{endDate,jdbcType=VARCHAR} 
 	</if>		
    </where> 	
-    order by id  LIMIT #{beginSize},#{size}    	
+    order by shipped_date desc ,  id  LIMIT #{beginSize},#{size}    	
   </select>
    
   <select id="selectCount" resultType="java.lang.Integer"  parameterType="com.hht.wms.core.dto.ShippedInfoReqDto" >

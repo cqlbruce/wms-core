@@ -2,6 +2,10 @@ package com.hht.wms.core.dto.vo;
 
 import java.math.BigDecimal;
 
+import com.hht.wms.core.dto.CustInfoQueryReqDto;
+
+import lombok.Data;
+
 /**
  * @author 蓝小路
  * @version V1.0
@@ -9,9 +13,17 @@ import java.math.BigDecimal;
  * @date 2019/9/22 3:43
  * @Copyright © 2019-2020 ****有限公司
  */
+@Data
 public class ShippedFee {
+	
+	//客户ID
+	private String custId ; 
+	
+	//项目名称
+	private String projectId ;
+	
     /**
-     * 出仓日期
+               * 出仓日期
      * */
     private String shippedDate;
 

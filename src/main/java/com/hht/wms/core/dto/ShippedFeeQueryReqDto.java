@@ -8,6 +8,8 @@ package com.hht.wms.core.dto;
  * @Copyright © 2019-2020 ****有限公司
  */
 public class ShippedFeeQueryReqDto {
+	
+	
     private int page;
 
     private int limit;

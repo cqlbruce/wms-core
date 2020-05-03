@@ -27,7 +27,7 @@
 		and inbound_no=#{inbundNo,jdbcType=VARCHAR}
 	</if>   	
    </where> 	
-   	order by id  LIMIT #{beginSize},#{size}    	
+   	order by rcvd_date desc ,  id  LIMIT #{beginSize},#{size}    	
   </select>
   
   <select id="selectCount" resultType="java.lang.Integer" parameterType="com.hht.wms.core.dto.StockInfoQueryReqDto" >

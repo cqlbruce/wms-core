@@ -10,7 +10,7 @@ package com.hht.wms.core.dto;
 
 import java.util.List;
 
-import com.hht.wms.core.dto.vo.ShippedGoods;
+import com.hht.wms.core.entity.ShippedInfo;
 
 /**
  * 〈一句话功能简述〉<br> 
@@ -24,7 +24,7 @@ public class ShippedGoodsQueryRespDto {
 
     private int total;
 
-    List<ShippedGoods> items;
+    List<ShippedInfo> items;
 
     public int getTotal() {
         return total;
@@ -34,11 +34,13 @@ public class ShippedGoodsQueryRespDto {
         this.total = total;
     }
 
-    public List<ShippedGoods> getItems() {
-        return items;
-    }
+	public List<ShippedInfo> getItems() {
+		return items;
+	}
 
-    public void setItems(List<ShippedGoods> items) {
-        this.items = items;
-    }
+	public void setItems(List<ShippedInfo> items) {
+		this.items = items;
+	}
+
+
 }

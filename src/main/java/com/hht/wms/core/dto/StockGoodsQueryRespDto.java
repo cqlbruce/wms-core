@@ -10,7 +10,7 @@ package com.hht.wms.core.dto;
 
 import java.util.List;
 
-import com.hht.wms.core.dto.vo.StockGoods;
+import com.hht.wms.core.entity.StockInfo;
 
 /**
  * 〈进仓货物查询返回DTO〉
@@ -23,7 +23,7 @@ public class StockGoodsQueryRespDto {
 
     private int total;
 
-    List<StockGoods> items;
+    List<StockInfo> items;
 
     public int getTotal() {
         return total;
@@ -33,11 +33,15 @@ public class StockGoodsQueryRespDto {
         this.total = total;
     }
 
-    public List<StockGoods> getItems() {
-        return items;
-    }
+	public List<StockInfo> getItems() {
+		return items;
+	}
 
-    public void setItems(List<StockGoods> items) {
-        this.items = items;
-    }
+	public void setItems(List<StockInfo> items) {
+		this.items = items;
+	}
+
+
+    
+    
 }
