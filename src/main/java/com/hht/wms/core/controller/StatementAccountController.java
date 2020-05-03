@@ -1,9 +1,5 @@
 package com.hht.wms.core.controller;
 
-import java.math.BigDecimal;
-import java.util.List;
-
-import org.assertj.core.util.Lists;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,18 +15,16 @@ import com.hht.wms.core.dto.ShippedFeeExportReqDto;
 import com.hht.wms.core.dto.ShippedFeeExportRespDto;
 import com.hht.wms.core.dto.ShippedFeeQueryReqDto;
 import com.hht.wms.core.dto.ShippedFeeQueryRespDto;
-import com.hht.wms.core.dto.ShippedGoodsQueryRespDto;
+import com.hht.wms.core.dto.ShippedFeeUpdateReqDto;
 import com.hht.wms.core.dto.ShippedInfoReqDto;
 import com.hht.wms.core.dto.ShippedInfoRespDto;
 import com.hht.wms.core.dto.StockFeeExportReqDto;
 import com.hht.wms.core.dto.StockFeeExportRespDto;
 import com.hht.wms.core.dto.StockFeeQueryReqDto;
 import com.hht.wms.core.dto.StockFeeQueryRespDto;
+import com.hht.wms.core.dto.StockFeeUpdateReqDto;
 import com.hht.wms.core.dto.StockInfoQueryReqDto;
 import com.hht.wms.core.dto.StockInfoRespDto;
-import com.hht.wms.core.dto.vo.ShippedFee;
-import com.hht.wms.core.dto.vo.ShippedGoods;
-import com.hht.wms.core.dto.vo.StockFee;
 import com.hht.wms.core.service.ShippedInfoService;
 import com.hht.wms.core.service.StockInfoService;
 
@@ -49,7 +43,28 @@ public class StatementAccountController {
     @Autowired
     private ShippedInfoService shippedInfoService ; 
     
+    @SuppressWarnings("unchecked")
+	@PostMapping("stockFeeUpdate")
+    @ApiOperation(value = "入仓费用修改", notes = "")
+    public Resp<?> stockFeeUpdate(@RequestBody StockFeeUpdateReqDto reqDto) {
+    	
+    	
+    	
+    	
+    	
+        return Resp.success("修改成功", "");
+    }
 
+    
+    @SuppressWarnings("unchecked")
+	@PostMapping("shippedFeeUpdate")
+    @ApiOperation(value = "入仓费用修改", notes = "")
+    public Resp<?> shippedFeeUpdate(@RequestBody ShippedFeeUpdateReqDto reqDto) {
+    	
+    	
+        return Resp.success("修改成功", "");
+    }    
+    
     @SuppressWarnings("unchecked")
 	@PostMapping("loadStockFee")
     @ApiOperation(value = "入仓费用查询", notes = "")
