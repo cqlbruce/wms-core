@@ -38,19 +38,25 @@ public class ShippedFee {
     private String clp;
 
     /**
-     * 车牌/柜号
-     * */
-    private String car;
+     * 车牌号
+     * 表字段 : front_desk_charge.car_num
+     */
+    private String carNum;
+	
+    /**
+     * 柜号
+     */
+    private String cntrNo;
 
     /**
      * 运输路线
      * */
-    private String route;
+    private String trafficLine;
 
     /**
      * 柜型
      * */
-    private String cabinetType;
+    private String cntrType;
 
     /**
      * 总出仓箱数
@@ -61,68 +67,43 @@ public class ShippedFee {
      * 总出仓体积
      * */
     private BigDecimal shippedVolume;
+    
+    
+    //分拣费
+    private BigDecimal sortingFee;
+    
+    //入闸费
+    private BigDecimal enterGateFee;
+    
+    
+    //入仓总箱数
+    private BigDecimal rcvdCtns;
+    
+    
+    //装卸单价
+    private BigDecimal unloadUnitPrice;
 
-    public String getShippedDate() {
-        return shippedDate;
-    }
+    //装货费
+    private BigDecimal loadFee;
+    
+    
+    //查货/商检费
+    private BigDecimal commercialInspectionFee;
+    
+    //运输费
+    private BigDecimal trafficFee;    
+    
+    //押车费
+    private BigDecimal pledgeCarFee;      
+    
+    //代垫费
+    private BigDecimal paymentInAdvanceFee;  
+    
+    //代垫税费
+    private BigDecimal paymentInAdvanceTaxFee;  
+    
+    //费用合计
+    private BigDecimal total;  
 
-    public void setShippedDate(String shippedDate) {
-        this.shippedDate = shippedDate;
-    }
 
-    public String getShptNo() {
-        return shptNo;
-    }
-
-    public void setShptNo(String shptNo) {
-        this.shptNo = shptNo;
-    }
-
-    public String getClp() {
-        return clp;
-    }
-
-    public void setClp(String clp) {
-        this.clp = clp;
-    }
-
-    public String getCar() {
-        return car;
-    }
-
-    public void setCar(String car) {
-        this.car = car;
-    }
-
-    public String getRoute() {
-        return route;
-    }
-
-    public void setRoute(String route) {
-        this.route = route;
-    }
-
-    public String getCabinetType() {
-        return cabinetType;
-    }
-
-    public void setCabinetType(String cabinetType) {
-        this.cabinetType = cabinetType;
-    }
-
-    public BigDecimal getShippedCtns() {
-        return shippedCtns;
-    }
-
-    public void setShippedCtns(BigDecimal shippedCtns) {
-        this.shippedCtns = shippedCtns;
-    }
-
-    public BigDecimal getShippedVolume() {
-        return shippedVolume;
-    }
-
-    public void setShippedVolume(BigDecimal shippedVolume) {
-        this.shippedVolume = shippedVolume;
-    }
 }

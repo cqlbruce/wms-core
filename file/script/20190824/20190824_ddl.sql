@@ -248,9 +248,11 @@ CREATE TABLE `stock_fee_info` (
   `pledge_car_fee` decimal(18,6) COLLATE utf8_bin DEFAULT NULL COMMENT '押车费',
   `payment_inAdvance_fee` decimal(18,6) COLLATE utf8_bin DEFAULT NULL COMMENT '代垫费',
   `payment_inAdvance_tax_fee` decimal(18,6) COLLATE utf8_bin DEFAULT NULL COMMENT '代垫税费',
+  `total` decimal(18,6) COLLATE utf8_bin DEFAULT NULL COMMENT '合计',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `update_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',  
-  )
+  PRIMARY KEY (`id`)
+  )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -----------------------------库存费用信息表 end-------------------------------------------
 
@@ -259,8 +261,32 @@ CREATE TABLE `stock_fee_info` (
 -----------------------------出仓费用信息表 begin-------------------------------------------
 
   
-  
+DROP TABLE IF EXISTS `shipped_fee_info`;
 
+CREATE TABLE `shipped_fee_info` (
+  `id` varchar(32) COLLATE utf8_bin NOT NULL COMMENT '主键 id',
+  `so` varchar(32) COLLATE utf8_bin DEFAULT NULL COMMENT '入仓落货纸号',
+  `po` varchar(32) COLLATE utf8_bin DEFAULT NULL COMMENT '客户采购订单号',
+  `item` varchar(32) COLLATE utf8_bin DEFAULT NULL COMMENT '货物款号 asn-item',
+  `inbound_no` varchar(32) COLLATE utf8_bin DEFAULT NULL COMMENT '入仓编号',
+  `clp` varchar(32) COLLATE utf8_bin DEFAULT NULL COMMENT '出仓单号clp',    
+  `shpt_no` varchar(32) COLLATE utf8_bin DEFAULT NULL COMMENT 'shpt_No',    
+  `traffic_line` varchar(64) COLLATE utf8_bin DEFAULT NULL COMMENT '运输路线',    
+  `cntr_type` varchar(32) COLLATE utf8_bin DEFAULT NULL COMMENT '柜形',
+  `sorting_fee` decimal(18,6) COLLATE utf8_bin DEFAULT NULL COMMENT '分拣费',
+  `enter_gate_fee` decimal(18,6) COLLATE utf8_bin DEFAULT NULL COMMENT '入闸费',
+  `unload_unit_price` decimal(18,6) COLLATE utf8_bin DEFAULT NULL COMMENT '装卸单价',
+  `load_fee` decimal(18,6) COLLATE utf8_bin DEFAULT NULL COMMENT '装货费',
+  `commercial_inspection_fee` decimal(18,6) COLLATE utf8_bin DEFAULT NULL COMMENT '查货/商检费',
+  `traffic_fee` decimal(18,6) COLLATE utf8_bin DEFAULT NULL COMMENT '运输费',
+  `pledge_car_fee` decimal(18,6) COLLATE utf8_bin DEFAULT NULL COMMENT '押车费',
+  `payment_inAdvance_fee` decimal(18,6) COLLATE utf8_bin DEFAULT NULL COMMENT '代垫费',
+  `payment_inAdvance_tax_fee` decimal(18,6) COLLATE utf8_bin DEFAULT NULL COMMENT '代垫税费',
+  `total` decimal(18,6) COLLATE utf8_bin DEFAULT NULL COMMENT '合计',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `update_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',    
+  PRIMARY KEY (`id`)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -----------------------------出仓费用信息表 end-------------------------------------------
 
