@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hht.wms.core.dao.FeeInfoDao">
+
+ 
+ 
+   <select id="StockFeeQueryList" resultType="com.hht.wms.core.dto.vo.StockFee" parameterType="com.hht.wms.core.dto.StockFeeQueryReqDto" >
+    select * from stock_abstract_info t1 
+  <where>  
+	<if test="inboundNo != null and inboundNo != ''">
+		and t1.inbound_no = #{inboundNo,jdbcType=VARCHAR}
+	</if>	
+	<if test="custId != null and custId != ''">
+		and t1.cust_id = #{custId,jdbcType=VARCHAR}
+	</if>		
+   </where> 	
+    order by t1.rcvd_date , t1.inbound_no  LIMIT #{beginSize},#{size}    	
+  </select>
+ 
+   
+</mapper>
