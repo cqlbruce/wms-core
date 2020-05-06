@@ -26,6 +26,12 @@
 	<if test="inbundNo != null and inbundNo != ''">
 		and inbound_no=#{inbundNo,jdbcType=VARCHAR}
 	</if>   	
+	<if test="volumeMoreThanZero != null and volumeMoreThanZero != '' and volumeMoreThanZero =='true'">
+		and stock_volume &gt; 0
+	</if>   	
+	<if test="pcsMoreThanZero != null and pcsMoreThanZero != '' and pcsMoreThanZero == 'true'">
+		and stock_pcs &gt; 0
+	</if>   	
    </where> 	
    	order by rcvd_date desc ,  id  LIMIT #{beginSize},#{size}    	
   </select>
@@ -45,6 +51,12 @@
 	<if test="inbundNo != null and inbundNo != ''">
 		and inbound_no=#{inbundNo,jdbcType=VARCHAR}
 	</if>   	
+	<if test="volumeMoreThanZero != null and volumeMoreThanZero != '' and volumeMoreThanZero =='true'">
+		and stock_volume &gt; 0
+	</if>   	
+	<if test="pcsMoreThanZero != null and pcsMoreThanZero != '' and pcsMoreThanZero == 'true'">
+		and stock_pcs &gt; 0
+	</if>   			
   </where>  
   </select>  
   

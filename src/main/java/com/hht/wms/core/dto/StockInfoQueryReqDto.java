@@ -11,6 +11,12 @@ public class StockInfoQueryReqDto {
 	private String item ;
 	
 	private String inbundNo ; 
+	
+	private String volumeMoreThanZero;
+	
+	private String pcsMoreThanZero;
+	
+	private String custId ; 
 		
 	private int  page ;
 	
@@ -18,5 +24,4 @@ public class StockInfoQueryReqDto {
 	
 	private int beginSize ; 
 	
-
 }

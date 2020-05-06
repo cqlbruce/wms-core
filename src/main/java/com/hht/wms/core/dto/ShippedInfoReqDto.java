@@ -17,6 +17,8 @@ public class ShippedInfoReqDto {
 	
 	private String custId;
 	
+	private String inbundNo;
+	
 	private String cntrNo ; 
 	
 	private String beginDate ; 
