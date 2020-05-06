@@ -1,83 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.hht.wms.core.dao.FrontDeskChargeDao">
-  
-   <select id="queryByPage" resultType="com.hht.wms.core.entity.FrontDeskCharge" parameterType="com.hht.wms.core.dto.FrontDeskChargeQueryReqDto" >
-    select * from front_desk_charge 
-  	<where>  
-	<if test="inboundNo != null and inboundNo !=''">
-		inbound_no=#{inboundNo,jdbcType=VARCHAR}
-	</if>
-	<if test="custId != null and custId !=''">
-		and cust_id=#{custId,jdbcType=VARCHAR}
-	</if>	
-	<if test="carNum != null and carNum !=''">
-		and car_num=#{carNum,jdbcType=VARCHAR}
-	</if>
-	<if test="tranDate != null and tranDate !=''">
-		and tran_date=#{tranDate,jdbcType=VARCHAR}
-	</if>	
-	<if test="so != null and so !=''">
-		and so=#{so,jdbcType=VARCHAR}
-	</if>	
-   </where> 	
-    order by id  LIMIT #{beginSize},#{size} 
-  </select>
-  
-   <select id="queryList" resultType="com.hht.wms.core.entity.FrontDeskCharge" parameterType="com.hht.wms.core.dto.FrontDeskChargeQueryReqDto" >
-    select * from front_desk_charge 
-  	<where>  
-	<if test="inboundNo != null and inboundNo !=''">
-		inbound_no=#{inboundNo,jdbcType=VARCHAR}
-	</if>
-	<if test="custId != null and custId !=''">
-		and cust_id=#{custId,jdbcType=VARCHAR}
-	</if>	
-	<if test="carNum != null and carNum !=''">
-		and car_num=#{carNum,jdbcType=VARCHAR}
-	</if>
-	<if test="tranDate != null and tranDate !=''">
-		and tran_date=#{tranDate,jdbcType=VARCHAR}
-	</if>
-	<if test="so != null and so !=''">
-		and so=#{so,jdbcType=VARCHAR}
-	</if>		
-	</where>
-   </select>  
-  
-   
-  <select id="selectCount" resultType="java.lang.Integer"  parameterType="com.hht.wms.core.dto.FrontDeskChargeQueryReqDto" >
-    select count(1) from front_desk_charge 
-  	<where>  
-	<if test="inboundNo != null and inboundNo !=''">
-		inbound_no=#{inboundNo,jdbcType=VARCHAR}
-	</if>
-	<if test="custId != null and custId !=''">
-		and cust_id=#{custId,jdbcType=VARCHAR}
-	</if>	
-	<if test="carNum != null and carNum !=''">
-		and car_num=#{carNum,jdbcType=VARCHAR}
-	</if>
-	<if test="tranDate != null and tranDate !=''">
-		and tran_date=#{tranDate,jdbcType=VARCHAR}
-	</if>	
-	<if test="so != null and so !=''">
-		and so=#{so,jdbcType=VARCHAR}
-	</if>	
-   </where> 	
-  </select>  
+<mapper namespace="com.hht.wms.core.dao.StockFeeInfoDao">
 
-  <select id="selectByInboundNo" resultType="com.hht.wms.core.entity.FrontDeskCharge"  parameterType="com.hht.wms.core.dto.FrontDeskChargeQueryReqDto">
-    select * from front_desk_charge 
-  	<where>  
-	<if test="inboundNo != null and inboundNo !=''">
-		and inbound_no=#{inboundNo,jdbcType=VARCHAR}
-	</if>
-	<if test="so != null and so !=''">
-		and so=#{so,jdbcType=VARCHAR}
-	</if>	
-   </where> 	
-   limit 1
-  </select>   
+
+
+
+
+
+
    
 </mapper>

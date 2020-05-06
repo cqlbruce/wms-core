@@ -231,7 +231,6 @@ DROP TABLE IF EXISTS `stock_fee_info`;
 
 CREATE TABLE `stock_fee_info` (
   `id` varchar(32) COLLATE utf8_bin NOT NULL COMMENT '主键 id',
-  `cust_id` varchar(128) COLLATE utf8_bin DEFAULT NULL COMMENT '客户id 对应客户管理',
   `so` varchar(32) COLLATE utf8_bin DEFAULT NULL COMMENT '入仓落货纸号',
   `po` varchar(32) COLLATE utf8_bin DEFAULT NULL COMMENT '客户采购订单号',
   `item` varchar(32) COLLATE utf8_bin DEFAULT NULL COMMENT '货物款号 asn-item',

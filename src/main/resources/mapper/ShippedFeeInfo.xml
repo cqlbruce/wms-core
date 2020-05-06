@@ -1,83 +1,122 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.hht.wms.core.dao.FrontDeskChargeDao">
-  
-   <select id="queryByPage" resultType="com.hht.wms.core.entity.FrontDeskCharge" parameterType="com.hht.wms.core.dto.FrontDeskChargeQueryReqDto" >
-    select * from front_desk_charge 
-  	<where>  
-	<if test="inboundNo != null and inboundNo !=''">
-		inbound_no=#{inboundNo,jdbcType=VARCHAR}
-	</if>
-	<if test="custId != null and custId !=''">
-		and cust_id=#{custId,jdbcType=VARCHAR}
-	</if>	
-	<if test="carNum != null and carNum !=''">
-		and car_num=#{carNum,jdbcType=VARCHAR}
-	</if>
-	<if test="tranDate != null and tranDate !=''">
-		and tran_date=#{tranDate,jdbcType=VARCHAR}
-	</if>	
-	<if test="so != null and so !=''">
-		and so=#{so,jdbcType=VARCHAR}
-	</if>	
-   </where> 	
-    order by id  LIMIT #{beginSize},#{size} 
-  </select>
-  
-   <select id="queryList" resultType="com.hht.wms.core.entity.FrontDeskCharge" parameterType="com.hht.wms.core.dto.FrontDeskChargeQueryReqDto" >
-    select * from front_desk_charge 
-  	<where>  
-	<if test="inboundNo != null and inboundNo !=''">
-		inbound_no=#{inboundNo,jdbcType=VARCHAR}
-	</if>
-	<if test="custId != null and custId !=''">
-		and cust_id=#{custId,jdbcType=VARCHAR}
-	</if>	
-	<if test="carNum != null and carNum !=''">
-		and car_num=#{carNum,jdbcType=VARCHAR}
-	</if>
-	<if test="tranDate != null and tranDate !=''">
-		and tran_date=#{tranDate,jdbcType=VARCHAR}
-	</if>
-	<if test="so != null and so !=''">
-		and so=#{so,jdbcType=VARCHAR}
-	</if>		
-	</where>
-   </select>  
-  
-   
-  <select id="selectCount" resultType="java.lang.Integer"  parameterType="com.hht.wms.core.dto.FrontDeskChargeQueryReqDto" >
-    select count(1) from front_desk_charge 
-  	<where>  
-	<if test="inboundNo != null and inboundNo !=''">
-		inbound_no=#{inboundNo,jdbcType=VARCHAR}
-	</if>
-	<if test="custId != null and custId !=''">
-		and cust_id=#{custId,jdbcType=VARCHAR}
-	</if>	
-	<if test="carNum != null and carNum !=''">
-		and car_num=#{carNum,jdbcType=VARCHAR}
-	</if>
-	<if test="tranDate != null and tranDate !=''">
-		and tran_date=#{tranDate,jdbcType=VARCHAR}
-	</if>	
-	<if test="so != null and so !=''">
-		and so=#{so,jdbcType=VARCHAR}
-	</if>	
-   </where> 	
-  </select>  
+<mapper namespace="com.hht.wms.core.dao.ShippedFeeInfoDao">
 
-  <select id="selectByInboundNo" resultType="com.hht.wms.core.entity.FrontDeskCharge"  parameterType="com.hht.wms.core.dto.FrontDeskChargeQueryReqDto">
-    select * from front_desk_charge 
-  	<where>  
-	<if test="inboundNo != null and inboundNo !=''">
-		and inbound_no=#{inboundNo,jdbcType=VARCHAR}
-	</if>
-	<if test="so != null and so !=''">
-		and so=#{so,jdbcType=VARCHAR}
-	</if>	
-   </where> 	
-   limit 1
-  </select>   
+
+
+
+
+  <insert id="insertOrUpdate" parameterType="com.hht.wms.core.entity.StockFeeInfo" >
+  <foreach collection="list" item="items" index="index" separator=";">
+    insert into stock_fee_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="items.id != null" >
+        id,
+      </if>
+      <if test="items.so != null" >
+        so,
+      </if>      
+      <if test="items.po != null" >
+        po,
+      </if>
+      <if test="items.item != null" >
+        item,
+      </if>
+      <if test="items.inboundNo != null" >
+        inbound_no,
+      </if>
+      <if test="items.clp != null" >
+        clp,
+      </if>                  
+      <if test="items.shptNo != null" >
+        shpt_no,
+      </if>                  
+      <if test="items.trafficLine != null" >
+        traffic_line,
+      </if>                  
+      <if test="items.cntrType != null" >
+        cntr_type,
+      </if>                  
+      <if test="items.sortingFee != null" >
+        sorting_fee,
+      </if>                  
+      <if test="items.enterGateFee != null" >
+        enter_gate_fee,
+      </if>                  
+      <if test="items.unloadUnitPrice != null" >
+        unload_unit_price,
+      </if>                  
+      <if test="items.loadFee != null" >
+        unload_unit_price,
+      </if>           
+      <if test="items.commercial_inspection_fee != null" >
+        commercial_inspection_fee,
+      </if>           
+      <if test="items.trafficFee != null" >
+        traffic_fee,
+      </if>           
+      <if test="items.unloadUnitPrice != null" >
+        unload_unit_price,
+      </if>           
+      <if test="items.unloadUnitPrice != null" >
+        unload_unit_price,
+      </if>           
+      <if test="items.unloadUnitPrice != null" >
+        unload_unit_price,
+      </if>           
+      <if test="items.unloadUnitPrice != null" >
+        unload_unit_price,
+      </if>           
+      
+      
+      
+      
+      
+      <if test="items.createTime != null" >
+        create_time,
+      </if>
+      <if test="items.updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="item.clp != null" >
+        #{item.clp,jdbcType=VARCHAR},
+      </if>
+      <if test="item.shippedDate != null" >
+        #{item.shippedDate,jdbcType=VARCHAR},
+      </if>      
+      <if test="item.custId != null" >
+        #{item.custId,jdbcType=VARCHAR},
+      </if>
+      <if test="item.cntrNo != null" >
+        #{item.cntrNo,jdbcType=VARCHAR},
+      </if>
+      <if test="item.seal != null" >
+        #{item.seal,jdbcType=VARCHAR},
+      </if>            
+      <if test="item.cntrWeigh != null" >
+        #{item.cntrWeigh,jdbcType=VARCHAR},
+      </if>           
+      <if test="item.createTime != null" >
+        #{item.createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="item.updateTime != null" >
+        #{item.updateTime,jdbcType=VARCHAR},
+      </if>            
+    </trim>
+    	on duplicate key update 
+    	clp = #{item.clp,jdbcType=VARCHAR},
+    	shipped_date = #{item.shippedDate,jdbcType=VARCHAR},
+    	cust_id = #{item.custId,jdbcType=VARCHAR},
+    	cntr_no = #{item.cntrNo,jdbcType=VARCHAR},
+    	seal = #{item.seal,jdbcType=VARCHAR},
+    	cntr_weigh = #{item.cntrWeigh,jdbcType=VARCHAR},
+    	create_time = #{item.createTime,jdbcType=VARCHAR},
+    	update_time = #{item.updateTime,jdbcType=VARCHAR}
+    </foreach>
+  </insert>
+
+ 
    
 </mapper>

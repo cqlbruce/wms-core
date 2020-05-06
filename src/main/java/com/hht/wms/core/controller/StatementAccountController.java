@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSON;
 import com.hht.wms.core.common.Resp;
+import com.hht.wms.core.dao.ShippedFeeInfoDao;
+import com.hht.wms.core.dao.StockFeeInfoDao;
 import com.hht.wms.core.dto.ShippedFeeExportReqDto;
 import com.hht.wms.core.dto.ShippedFeeExportRespDto;
 import com.hht.wms.core.dto.ShippedFeeQueryReqDto;
@@ -43,12 +45,21 @@ public class StatementAccountController {
     @Autowired
     private ShippedInfoService shippedInfoService ; 
     
+    @Autowired
+    private ShippedFeeInfoDao shippedFeeInfoDao ; 
+    
+    @Autowired
+    private StockFeeInfoDao stockFeeInfoDao ;  
+    
+    
+    
     @SuppressWarnings("unchecked")
 	@PostMapping("stockFeeUpdate")
     @ApiOperation(value = "入仓费用修改", notes = "")
     public Resp<?> stockFeeUpdate(@RequestBody StockFeeUpdateReqDto reqDto) {
     	
     	
+    	stockFeeInfoDao.insert(reqDto);
     	
     	
     	
@@ -60,6 +71,8 @@ public class StatementAccountController {
 	@PostMapping("shippedFeeUpdate")
     @ApiOperation(value = "入仓费用修改", notes = "")
     public Resp<?> shippedFeeUpdate(@RequestBody ShippedFeeUpdateReqDto reqDto) {
+    	
+    	
     	
     	
         return Resp.success("修改成功", "");
