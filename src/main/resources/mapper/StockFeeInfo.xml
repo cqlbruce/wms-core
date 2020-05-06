@@ -3,6 +3,141 @@
 <mapper namespace="com.hht.wms.core.dao.StockFeeInfoDao">
 
 
+ <insert id="insertOrUpdate" parameterType="com.hht.wms.core.entity.StockFeeInfo" >
+  <foreach collection="list" item="items" index="index" separator=";">
+    insert into stock_fee_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="items.id != null" >
+        id,
+      </if>
+      <if test="items.so != null" >
+        so,
+      </if>      
+      <if test="items.po != null" >
+        po,
+      </if>
+      <if test="items.item != null" >
+        item,
+      </if>
+      <if test="items.inboundNo != null" >
+        inbound_no,
+      </if>
+      <if test="items.continuationSheetFee != null" >
+        continuation_sheet_fee,
+      </if>                  
+      <if test="items.enterGateFee != null" >
+        enter_gate_fee,
+      </if>                  
+      <if test="items.unloadUnitPrice != null" >
+        unload_unit_price,
+      </if>                  
+      <if test="items.unloadFee != null" >
+        unload_fee,
+      </if>                  
+      <if test="items.assortedPackingFee != null" >
+        assorted_packing_fee,
+      </if>                  
+      <if test="items.overtimeFee != null" >
+        overtime_fee,
+      </if>                  
+      <if test="items.delBillFee != null" >
+        del_bill_fee,
+      </if>                  
+      <if test="items.commercialInspectionFee != null" >
+        commercial_inspection_fee,
+      </if>           
+      <if test="items.trafficFee != null" >
+        traffic_fee,
+      </if>           
+      <if test="items.pledgeCarFee != null" >
+        pledge_car_fee,
+      </if>           
+      <if test="items.paymentInAdvanceFee != null" >
+        payment_inAdvance_fee,
+      </if>           
+      <if test="items.paymentInAdvanceTaxFee != null" >
+        payment_inAdvance_tax_fee,
+      </if>           
+      <if test="items.total != null" >
+        total,
+      </if>           
+       <if test="items.createTime != null" >
+        create_time,
+      </if>      
+      <if test="items.updateTime != null" >
+        update_time,
+      </if>       
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+ 
+      <if test="items.id != null" >
+        #{items.id,jdbcType=VARCHAR},
+      </if>   
+      <if test="items.so != null" >
+        #{items.so,jdbcType=VARCHAR},
+      </if>      
+      <if test="items.po != null" >
+        #{items.po,jdbcType=VARCHAR},
+      </if>
+      <if test="items.item != null" >
+        #{items.item,jdbcType=VARCHAR},
+      </if>
+      <if test="items.inboundNo != null" >
+        #{items.inboundNo,jdbcType=VARCHAR},
+      </if>
+      <if test="items.continuationSheetFee != null" >
+        #{items.continuationSheetFee,jdbcType=VARCHAR},
+      </if>                  
+      <if test="items.enterGateFee != null" >
+        #{items.enterGateFee,jdbcType=VARCHAR},
+      </if>                  
+      <if test="items.unloadUnitPrice != null" >
+        #{items.unloadUnitPrice,jdbcType=VARCHAR},
+      </if>                  
+      <if test="items.unloadFee != null" >
+        #{items.unloadFee,jdbcType=VARCHAR},
+      </if>                  
+      <if test="items.assortedPackingFee != null" >
+        #{items.assortedPackingFee,jdbcType=VARCHAR},
+      </if>                  
+      <if test="items.overtimeFee != null" >
+        #{items.overtimeFee,jdbcType=VARCHAR},
+      </if>                  
+      <if test="items.delBillFee != null" >
+        #{items.delBillFee,jdbcType=VARCHAR},
+      </if>                  
+      <if test="items.commercialInspectionFee != null" >
+        #{items.commercialInspectionFee,jdbcType=VARCHAR},
+      </if>           
+      <if test="items.trafficFee != null" >
+        #{items.trafficFee,jdbcType=VARCHAR},
+      </if>           
+      <if test="items.pledgeCarFee != null" >
+        #{items.pledgeCarFee,jdbcType=VARCHAR},
+      </if>           
+      <if test="items.paymentInAdvanceFee != null" >
+        #{items.paymentInAdvanceFee,jdbcType=VARCHAR},
+      </if>           
+      <if test="items.paymentInAdvanceTaxFee != null" >
+        #{items.paymentInAdvanceTaxFee,jdbcType=VARCHAR},
+      </if>           
+      <if test="items.total != null" >
+        #{items.total,jdbcType=VARCHAR},
+      </if>           
+       <if test="items.createTime != null" >
+        #{items.createTime,jdbcType=VARCHAR},
+      </if>      
+      <if test="items.updateTime != null" >
+        #{items.updateTime,jdbcType=VARCHAR},
+      </if>       
+    </trim>
+    	on duplicate key update 
+    	inboundNo = #{items.inboundNo,jdbcType=VARCHAR},
+    	so = #{items.so,jdbcType=VARCHAR},
+    	po = #{items.po,jdbcType=VARCHAR},
+    	item = #{items.item,jdbcType=VARCHAR},
+    </foreach>
+  </insert>
 
 
 

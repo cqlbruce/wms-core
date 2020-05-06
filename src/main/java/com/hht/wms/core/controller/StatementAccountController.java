@@ -1,7 +1,11 @@
 package com.hht.wms.core.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,6 +31,8 @@ import com.hht.wms.core.dto.StockFeeQueryRespDto;
 import com.hht.wms.core.dto.StockFeeUpdateReqDto;
 import com.hht.wms.core.dto.StockInfoQueryReqDto;
 import com.hht.wms.core.dto.StockInfoRespDto;
+import com.hht.wms.core.entity.ShippedFeeInfo;
+import com.hht.wms.core.entity.StockFeeInfo;
 import com.hht.wms.core.service.ShippedInfoService;
 import com.hht.wms.core.service.StockInfoService;
 
@@ -57,12 +63,10 @@ public class StatementAccountController {
 	@PostMapping("stockFeeUpdate")
     @ApiOperation(value = "入仓费用修改", notes = "")
     public Resp<?> stockFeeUpdate(@RequestBody StockFeeUpdateReqDto reqDto) {
-    	
-    	
-    	stockFeeInfoDao.insert(reqDto);
-    	
-    	
-    	
+    	List<ShippedFeeInfo> list = new ArrayList<ShippedFeeInfo>();
+    	ShippedFeeInfo sfi = new ShippedFeeInfo();
+    	BeanUtils.copyProperties(reqDto, sfi);
+    	shippedFeeInfoDao.insertOrUpdate(list);
         return Resp.success("修改成功", "");
     }
 
@@ -71,10 +75,10 @@ public class StatementAccountController {
 	@PostMapping("shippedFeeUpdate")
     @ApiOperation(value = "入仓费用修改", notes = "")
     public Resp<?> shippedFeeUpdate(@RequestBody ShippedFeeUpdateReqDto reqDto) {
-    	
-    	
-    	
-    	
+    	List<StockFeeInfo> list = new ArrayList<StockFeeInfo>();
+    	StockFeeInfo sfi = new StockFeeInfo();
+    	BeanUtils.copyProperties(reqDto, sfi);
+    	stockFeeInfoDao.insertOrUpdate(list);
         return Resp.success("修改成功", "");
     }    
     

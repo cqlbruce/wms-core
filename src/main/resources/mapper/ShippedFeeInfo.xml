@@ -2,13 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hht.wms.core.dao.ShippedFeeInfoDao">
 
-
-
-
-
-  <insert id="insertOrUpdate" parameterType="com.hht.wms.core.entity.StockFeeInfo" >
+  <insert id="insertOrUpdate" parameterType="com.hht.wms.core.entity.ShippedFeeInfo" >
   <foreach collection="list" item="items" index="index" separator=";">
-    insert into stock_fee_info
+    insert into shipped_fee_info
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="items.id != null" >
         id,
@@ -47,73 +43,103 @@
         unload_unit_price,
       </if>                  
       <if test="items.loadFee != null" >
-        unload_unit_price,
+        load_fee,
       </if>           
-      <if test="items.commercial_inspection_fee != null" >
+      <if test="items.commercialInspectionFee != null" >
         commercial_inspection_fee,
       </if>           
       <if test="items.trafficFee != null" >
         traffic_fee,
       </if>           
-      <if test="items.unloadUnitPrice != null" >
-        unload_unit_price,
+      <if test="items.pledgeCarFee != null" >
+        pledge_car_fee,
       </if>           
-      <if test="items.unloadUnitPrice != null" >
-        unload_unit_price,
+      <if test="items.paymentInAdvanceFee != null" >
+        payment_inAdvance_fee,
       </if>           
-      <if test="items.unloadUnitPrice != null" >
-        unload_unit_price,
+      <if test="items.paymentInAdvanceTaxFee != null" >
+        payment_inAdvance_tax_fee,
       </if>           
-      <if test="items.unloadUnitPrice != null" >
-        unload_unit_price,
+      <if test="items.total != null" >
+        total,
       </if>           
-      
-      
-      
-      
-      
-      <if test="items.createTime != null" >
+       <if test="items.createTime != null" >
         create_time,
-      </if>
+      </if>      
       <if test="items.updateTime != null" >
         update_time,
-      </if>
+      </if>       
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="item.clp != null" >
-        #{item.clp,jdbcType=VARCHAR},
+      <if test="items.id != null" >
+        #{item.id,jdbcType=VARCHAR},
       </if>
-      <if test="item.shippedDate != null" >
-        #{item.shippedDate,jdbcType=VARCHAR},
+      <if test="items.so != null" >
+        #{item.so,jdbcType=VARCHAR},
       </if>      
-      <if test="item.custId != null" >
-        #{item.custId,jdbcType=VARCHAR},
+      <if test="items.po != null" >
+        #{item.po,jdbcType=VARCHAR},
       </if>
-      <if test="item.cntrNo != null" >
-        #{item.cntrNo,jdbcType=VARCHAR},
+      <if test="items.item != null" >
+        #{items.item,jdbcType=VARCHAR},
       </if>
-      <if test="item.seal != null" >
-        #{item.seal,jdbcType=VARCHAR},
-      </if>            
-      <if test="item.cntrWeigh != null" >
-        #{item.cntrWeigh,jdbcType=VARCHAR},
+      <if test="items.inboundNo != null" >
+        #{items.inboundNo,jdbcType=VARCHAR},      
+      </if>
+      <if test="items.clp != null" >
+        #{items.clp,jdbcType=VARCHAR},      
+      </if>                  
+      <if test="items.shptNo != null" >
+        #{items.shptNo,jdbcType=VARCHAR},      
+      </if>                  
+      <if test="items.trafficLine != null" >
+        #{items.trafficLine,jdbcType=VARCHAR},      
+      </if>                  
+      <if test="items.cntrType != null" >
+        #{items.cntrType,jdbcType=VARCHAR},      
+      </if>                  
+      <if test="items.sortingFee != null" >
+        #{items.sortingFee,jdbcType=VARCHAR},      
+      </if>                  
+      <if test="items.enterGateFee != null" >
+        #{items.enterGateFee,jdbcType=VARCHAR},      
+      </if>                  
+      <if test="items.unloadUnitPrice != null" >
+        #{items.unloadUnitPrice,jdbcType=VARCHAR},      
+      </if>                  
+      <if test="items.loadFee != null" >
+        #{items.loadFee,jdbcType=VARCHAR},      
       </if>           
-      <if test="item.createTime != null" >
-        #{item.createTime,jdbcType=VARCHAR},
-      </if>
-      <if test="item.updateTime != null" >
-        #{item.updateTime,jdbcType=VARCHAR},
-      </if>            
+      <if test="items.commercialInspectionFee != null" >
+        #{items.commercialInspectionFee,jdbcType=VARCHAR},      
+      </if>           
+      <if test="items.trafficFee != null" >
+        #{items.trafficFee,jdbcType=VARCHAR},      
+      </if>           
+      <if test="items.pledgeCarFee != null" >
+        #{items.pledgeCarFee,jdbcType=VARCHAR},      
+      </if>           
+      <if test="items.paymentInAdvanceFee != null" >
+        #{items.paymentInAdvanceFee,jdbcType=VARCHAR},      
+      </if>           
+      <if test="items.paymentInAdvanceTaxFee != null" >
+        #{items.paymentInAdvanceTaxFee,jdbcType=VARCHAR},      
+      </if>           
+      <if test="items.total != null" >
+        #{items.total,jdbcType=VARCHAR},      
+      </if>           
+       <if test="items.createTime != null" >
+        #{items.createTime,jdbcType=VARCHAR},      
+      </if>      
+      <if test="items.updateTime != null" >
+        #{items.updateTime,jdbcType=VARCHAR},      
+      </if>       
     </trim>
     	on duplicate key update 
-    	clp = #{item.clp,jdbcType=VARCHAR},
-    	shipped_date = #{item.shippedDate,jdbcType=VARCHAR},
-    	cust_id = #{item.custId,jdbcType=VARCHAR},
-    	cntr_no = #{item.cntrNo,jdbcType=VARCHAR},
-    	seal = #{item.seal,jdbcType=VARCHAR},
-    	cntr_weigh = #{item.cntrWeigh,jdbcType=VARCHAR},
-    	create_time = #{item.createTime,jdbcType=VARCHAR},
-    	update_time = #{item.updateTime,jdbcType=VARCHAR}
+    	clp = #{items.clp,jdbcType=VARCHAR},
+    	so = #{items.so,jdbcType=VARCHAR},
+    	po = #{items.po,jdbcType=VARCHAR},
+    	item = #{items.item,jdbcType=VARCHAR},
     </foreach>
   </insert>
 
