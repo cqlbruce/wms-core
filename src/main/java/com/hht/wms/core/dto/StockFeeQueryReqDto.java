@@ -25,21 +25,19 @@ public class StockFeeQueryReqDto {
 	//项目名称
 	private String projectId ;
 	
-	//进仓日期
-	private String rcvdDate ;
-	
 	//入仓落纸号
 	private String so ; 
-
-    //合计
-    private BigDecimal total ; 
-    
+	
+	//进仓开始日期
     private String beginDate;
 
+    //进仓结束日期
     private String endDate;
 
     private int page ;
 
     private int limit ;
+    
+    private int beginSize;
 
 }

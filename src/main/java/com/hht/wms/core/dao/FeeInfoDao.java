@@ -7,12 +7,12 @@ import com.hht.wms.core.dto.StockFeeQueryReqDto;
 import com.hht.wms.core.dto.vo.ShippedFee;
 import com.hht.wms.core.dto.vo.StockFee;
 
-public interface FeeInfoDao{
+public interface FeeInfoDao {
 	
-	
-	
-    List<StockFee> StockFeeQueryList(StockFeeQueryReqDto reqDto);
+    List<StockFee> stockFeeQueryList(StockFeeQueryReqDto reqDto);
+    
+    int stockFeeSelectCount(StockFeeQueryReqDto reqDto);
 
-    List<ShippedFee> ShippedFeeQueryList(ShippedFeeQueryReqDto reqDto);
+    List<ShippedFee> shippedFeeQueryList(ShippedFeeQueryReqDto reqDto);
 
 }
