@@ -132,10 +132,10 @@
       </if>       
     </trim>
     	on duplicate key update 
-    	inboundNo = #{items.inboundNo,jdbcType=VARCHAR},
+    	inbound_no = #{items.inboundNo,jdbcType=VARCHAR},
     	so = #{items.so,jdbcType=VARCHAR},
     	po = #{items.po,jdbcType=VARCHAR},
-    	item = #{items.item,jdbcType=VARCHAR},
+    	item = #{items.item,jdbcType=VARCHAR}
     </foreach>
   </insert>
 

@@ -8,6 +8,16 @@ import lombok.Data;
 public class ShippedFeeUpdateReqDto {
 
 	
+	
+	
+	private String so  ; 
+	
+	private String po ; 
+	
+	private String item ; 
+	
+	private String clp ; 
+	
     //装卸单价
     private BigDecimal unloadUnitPrice;
 

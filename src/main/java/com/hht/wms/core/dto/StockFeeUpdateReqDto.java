@@ -7,6 +7,16 @@ import lombok.Data;
 @Data
 public class StockFeeUpdateReqDto {
 	
+	
+	private String so ; 
+	
+	private String po ; 
+	
+	private String item ; 
+	
+	private String inboundNo ; 
+	
+	
     //续页费
     private BigDecimal continuationSheetFee ; 
 

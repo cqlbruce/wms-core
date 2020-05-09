@@ -19,6 +19,13 @@ public class ShippedFeeInfo {
      */
 	@TableId
     private String id;
+	
+    /**
+     * 客户采购订单号
+     * 表字段 : shipped_fee_info.po
+     */
+	@TableField
+    private String clp;	
 
     /**
      * 客户采购订单号
@@ -52,28 +59,28 @@ public class ShippedFeeInfo {
      * 表字段 : shipped_fee_info.shpt_no
      */
 	@TableField
-    private String shpt_no;	  
+    private String shptNo;	  
 	
     /**
      * 运输路线
      * 表字段 : shipped_fee_info.traffic_line
      */
 	@TableField
-    private String traffic_line;	  	
-	
+    private String trafficLine;	  	
+	 
     /**
      * 柜形
      * 表字段 : shipped_fee_info.cntr_type
      */
 	@TableField
-    private String cntr_type;	  		
+    private String cntrType;	  		
 	
     /**
      * 分拣费
      * 表字段 : shipped_fee_info.sorting_fee
      */
 	@TableField
-    private BigDecimal sorting_fee;	  	
+    private BigDecimal sortingFee;	  	
 	
 	  
     /**
@@ -95,7 +102,7 @@ public class ShippedFeeInfo {
      * 表字段 : shipped_fee_info.load_fee
      */
 	@TableField
-    private BigDecimal load_fee;		  
+    private BigDecimal loadFee;		  
 
 	
     /**
@@ -154,7 +161,6 @@ public class ShippedFeeInfo {
 	@TableField
     private Date updateTime;	
 	
-		
 	
 
 }

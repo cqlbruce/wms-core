@@ -72,13 +72,13 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="items.id != null" >
-        #{item.id,jdbcType=VARCHAR},
+        #{items.id,jdbcType=VARCHAR},
       </if>
       <if test="items.so != null" >
-        #{item.so,jdbcType=VARCHAR},
+        #{items.so,jdbcType=VARCHAR},
       </if>      
       <if test="items.po != null" >
-        #{item.po,jdbcType=VARCHAR},
+        #{items.po,jdbcType=VARCHAR},
       </if>
       <if test="items.item != null" >
         #{items.item,jdbcType=VARCHAR},
@@ -139,7 +139,7 @@
     	clp = #{items.clp,jdbcType=VARCHAR},
     	so = #{items.so,jdbcType=VARCHAR},
     	po = #{items.po,jdbcType=VARCHAR},
-    	item = #{items.item,jdbcType=VARCHAR},
+    	item = #{items.item,jdbcType=VARCHAR}
     </foreach>
   </insert>
 

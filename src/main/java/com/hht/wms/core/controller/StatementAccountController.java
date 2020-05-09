@@ -36,6 +36,7 @@ import com.hht.wms.core.entity.StockFeeInfo;
 import com.hht.wms.core.service.FeeInfoService;
 import com.hht.wms.core.service.ShippedInfoService;
 import com.hht.wms.core.service.StockInfoService;
+import com.hht.wms.core.util.SnowFlakeUtil;
 
 import io.swagger.annotations.ApiOperation;
 
@@ -64,24 +65,28 @@ public class StatementAccountController {
     
     
     @SuppressWarnings("unchecked")
-	@PostMapping("stockFeeUpdate")
-    @ApiOperation(value = "入仓费用修改", notes = "")
+	@PostMapping("shippedFeeUpdate")
+    @ApiOperation(value = "出仓费用修改", notes = "")
     public Resp<?> stockFeeUpdate(@RequestBody StockFeeUpdateReqDto reqDto) {
     	List<ShippedFeeInfo> list = new ArrayList<ShippedFeeInfo>();
     	ShippedFeeInfo sfi = new ShippedFeeInfo();
+    	sfi.setId(SnowFlakeUtil.getNextId());
     	BeanUtils.copyProperties(reqDto, sfi);
+    	list.add(sfi);
     	shippedFeeInfoDao.insertOrUpdate(list);
         return Resp.success("修改成功", "");
     }
 
     
     @SuppressWarnings("unchecked")
-	@PostMapping("shippedFeeUpdate")
+	@PostMapping("stockFeeUpdate")
     @ApiOperation(value = "入仓费用修改", notes = "")
     public Resp<?> shippedFeeUpdate(@RequestBody ShippedFeeUpdateReqDto reqDto) {
     	List<StockFeeInfo> list = new ArrayList<StockFeeInfo>();
     	StockFeeInfo sfi = new StockFeeInfo();
+    	sfi.setId(SnowFlakeUtil.getNextId());
     	BeanUtils.copyProperties(reqDto, sfi);
+    	list.add(sfi);
     	stockFeeInfoDao.insertOrUpdate(list);
         return Resp.success("修改成功", "");
     }    
