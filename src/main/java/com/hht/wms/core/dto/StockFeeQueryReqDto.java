@@ -36,7 +36,7 @@ public class StockFeeQueryReqDto {
 
     private int page ;
 
-    private int limit ;
+    private int size ;
     
     private int beginSize;
 

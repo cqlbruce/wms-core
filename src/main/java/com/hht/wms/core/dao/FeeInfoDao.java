@@ -14,5 +14,8 @@ public interface FeeInfoDao {
     int stockFeeSelectCount(StockFeeQueryReqDto reqDto);
 
     List<ShippedFee> shippedFeeQueryList(ShippedFeeQueryReqDto reqDto);
+    
+    int shippedFeeSelectCount(ShippedFeeQueryReqDto reqDto);
+    
 
 }

@@ -15,14 +15,13 @@ public class ShippedFeeQueryReqDto {
 	
     private int page;
 
-    private int limit;
+    private int size;
+
+    private int beginSize;
     
     private String custId;
     
     private String projectId;
-    
-    //柜号
-    private String cntrNo ; 
 
     private String beginDate;
 
@@ -31,10 +30,5 @@ public class ShippedFeeQueryReqDto {
     private String shptNo;
 
     private String clp;
-
-    //车牌号
-    private String carNum;
-
-    private String route;
 
 }

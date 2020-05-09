@@ -101,9 +101,7 @@ public class StatementAccountController {
     @ApiOperation(value = "入仓费用导出", notes = "")
     public Resp<StockFeeExportRespDto> exportStockFee(@RequestBody StockFeeExportReqDto reqDto) {
         logger.info("入仓费用导出..........{}", JSON.toJSON(reqDto) );
-
         StockFeeExportRespDto respDto = new StockFeeExportRespDto();
-
         return Resp.success("查询成功", respDto);
     }
 
@@ -112,9 +110,7 @@ public class StatementAccountController {
     @ApiOperation(value = "出仓费用查询", notes = "")
     public Resp<ShippedFeeQueryRespDto> loadShippedFee(@RequestBody ShippedFeeQueryReqDto reqDto) {
         logger.info("出仓费用查询.........{}", JSON.toJSON(reqDto) );
-
         ShippedFeeQueryRespDto respDto = new ShippedFeeQueryRespDto();
-
         return Resp.success("查询成功", respDto);
     }
 
@@ -123,9 +119,7 @@ public class StatementAccountController {
     @ApiOperation(value = "出仓费用导出", notes = "")
     public Resp<ShippedFeeExportRespDto> exportShippedFee(@RequestBody ShippedFeeExportReqDto reqDto) {
         logger.info("出仓费用导出.........{}", JSON.toJSON(reqDto) );
-
         ShippedFeeExportRespDto respDto = new ShippedFeeExportRespDto();
-
         return Resp.success("查询成功", respDto);
     }
 
@@ -136,8 +130,6 @@ public class StatementAccountController {
         logger.info("进仓货物查询.........{}", JSON.toJSON(reqDto) );
         StockInfoRespDto respDto = stockInfoService.loadStock(reqDto);
         return Resp.success("查询成功", respDto);
-
-
     }
 
     @SuppressWarnings("unchecked")
@@ -155,9 +147,7 @@ public class StatementAccountController {
     @ApiOperation(value = "出仓货物查询", notes = "")
     public Resp<ShippedInfoRespDto> loadShippedGoods(@RequestBody ShippedInfoReqDto reqDto) {
         logger.info("出仓货物查询.........{}", JSON.toJSON(reqDto) );
-        
         ShippedInfoRespDto respDto = shippedInfoService.queryList(reqDto);
-        
         return Resp.success("查询成功", respDto);
      
     }
