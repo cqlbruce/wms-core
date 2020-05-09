@@ -110,7 +110,7 @@ public class StatementAccountController {
     @ApiOperation(value = "出仓费用查询", notes = "")
     public Resp<ShippedFeeQueryRespDto> loadShippedFee(@RequestBody ShippedFeeQueryReqDto reqDto) {
         logger.info("出仓费用查询.........{}", JSON.toJSON(reqDto) );
-        ShippedFeeQueryRespDto respDto = new ShippedFeeQueryRespDto();
+        ShippedFeeQueryRespDto respDto = feeInfoService.shippedFeeInfoQueryByPage(reqDto);
         return Resp.success("查询成功", respDto);
     }
 
