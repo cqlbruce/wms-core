@@ -1,5 +1,6 @@
 package com.hht.wms.core.controller;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +25,7 @@ import com.hht.wms.core.dto.ShippedFeeQueryRespDto;
 import com.hht.wms.core.dto.ShippedFeeUpdateReqDto;
 import com.hht.wms.core.dto.ShippedInfoReqDto;
 import com.hht.wms.core.dto.ShippedInfoRespDto;
+import com.hht.wms.core.dto.ShippedStatisticsRespDto;
 import com.hht.wms.core.dto.StockFeeExportReqDto;
 import com.hht.wms.core.dto.StockFeeExportRespDto;
 import com.hht.wms.core.dto.StockFeeQueryReqDto;
@@ -31,6 +33,7 @@ import com.hht.wms.core.dto.StockFeeQueryRespDto;
 import com.hht.wms.core.dto.StockFeeUpdateReqDto;
 import com.hht.wms.core.dto.StockInfoQueryReqDto;
 import com.hht.wms.core.dto.StockInfoRespDto;
+import com.hht.wms.core.dto.StockStatisticsRespDto;
 import com.hht.wms.core.entity.ShippedFeeInfo;
 import com.hht.wms.core.entity.StockFeeInfo;
 import com.hht.wms.core.service.FeeInfoService;
@@ -65,15 +68,64 @@ public class StatementAccountController {
     
     
     @SuppressWarnings("unchecked")
+	@PostMapping("shippedStatistics")
+    @ApiOperation(value = "出仓数据统计", notes = "")
+    public Resp<ShippedStatisticsRespDto> shippedStatistics() {
+        logger.info("出仓数据统计........");
+		ShippedStatisticsRespDto respDto = new ShippedStatisticsRespDto();
+
+    	try {
+    		
+//    		select sum(shipped_volume) from shipped_info where shipped_date='2019-11-17' ;
+//			select count(distinct  inbound_no) from stock_info where rcvd_date='20191209'; 
+    		respDto.setVeryDayCarCount(8);
+    		respDto.setVeryDayShippedVolume(new BigDecimal("9.0"));
+    		
+    	}catch(Exception e) {
+    		logger.error("出仓数据统计异常");
+    	}
+        return Resp.success("修改成功", respDto);
+    }        
+    
+    
+    @SuppressWarnings("unchecked")
+	@PostMapping("stockStatistics")
+    @ApiOperation(value = "入仓数据统计", notes = "")
+    public Resp<StockStatisticsRespDto> stockStatistics() {
+        logger.info("入仓统计........}" );
+        StockStatisticsRespDto respDto = new StockStatisticsRespDto();
+    	try {
+    		//select sum(stock_volume) from stock_info where rcvd_date='20191209'; 
+    		//select count(1) from stock_info where rcvd_date='20191209'; 
+    		//select count(distinct  inbound_no) from stock_info where rcvd_date='20191209'; 
+    		respDto.setRealTimePcs(8);
+    		respDto.setRealTimeVolume(new BigDecimal("9.0"));
+    		respDto.setTickets(9);
+    		respDto.setVeryDayVolume(new BigDecimal("9.0"));
+    		
+    	}catch(Exception e) {
+    		logger.error("入仓数据统计异常");
+    	}
+        return Resp.success("修改成功", respDto);
+    }    
+    
+    
+    @SuppressWarnings("unchecked")
 	@PostMapping("shippedFeeUpdate")
     @ApiOperation(value = "出仓费用修改", notes = "")
-    public Resp<?> stockFeeUpdate(@RequestBody StockFeeUpdateReqDto reqDto) {
+    public Resp<?> stockFeeUpdate(@RequestBody ShippedFeeUpdateReqDto reqDto) {
+        logger.info("出仓费用修改.........{}", JSON.toJSON(reqDto) );
     	List<ShippedFeeInfo> list = new ArrayList<ShippedFeeInfo>();
-    	ShippedFeeInfo sfi = new ShippedFeeInfo();
-    	sfi.setId(SnowFlakeUtil.getNextId());
-    	BeanUtils.copyProperties(reqDto, sfi);
-    	list.add(sfi);
-    	shippedFeeInfoDao.insertOrUpdate(list);
+    	try {
+        	ShippedFeeInfo sfi = new ShippedFeeInfo();
+        	sfi.setId(SnowFlakeUtil.getNextId());
+        	BeanUtils.copyProperties(reqDto, sfi);
+        	list.add(sfi);
+        	shippedFeeInfoDao.insertOrUpdate(list);
+    	}catch(Exception e) {
+    		logger.error("出仓费用修改");
+    	}
+
         return Resp.success("修改成功", "");
     }
 
@@ -81,13 +133,19 @@ public class StatementAccountController {
     @SuppressWarnings("unchecked")
 	@PostMapping("stockFeeUpdate")
     @ApiOperation(value = "入仓费用修改", notes = "")
-    public Resp<?> shippedFeeUpdate(@RequestBody ShippedFeeUpdateReqDto reqDto) {
+    public Resp<?> shippedFeeUpdate(@RequestBody StockFeeUpdateReqDto reqDto) {
+        logger.info("入仓费用修改.........{}", JSON.toJSON(reqDto) );
     	List<StockFeeInfo> list = new ArrayList<StockFeeInfo>();
-    	StockFeeInfo sfi = new StockFeeInfo();
-    	sfi.setId(SnowFlakeUtil.getNextId());
-    	BeanUtils.copyProperties(reqDto, sfi);
-    	list.add(sfi);
-    	stockFeeInfoDao.insertOrUpdate(list);
+    	try {
+        	StockFeeInfo sfi = new StockFeeInfo();
+        	sfi.setId(SnowFlakeUtil.getNextId());
+        	BeanUtils.copyProperties(reqDto, sfi);
+        	list.add(sfi);
+        	stockFeeInfoDao.insertOrUpdate(list);
+    	}catch(Exception e) {
+    		logger.error("入仓费用修改异常!");
+    	}
+
         return Resp.success("修改成功", "");
     }    
     
