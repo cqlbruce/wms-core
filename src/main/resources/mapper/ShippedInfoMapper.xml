@@ -82,4 +82,10 @@
    </where> 	
   </select>  
   
+  <select id="shippedStatics" resultType="com.hht.wms.core.dto.ShippedStatisticsRespDto" parameterType="java.lang.String" >
+	select sum(shipped_volume) as veryDayShippedVolume , count(distinct  clp) as veryDayCarCount from shipped_info where shipped_date=#{shippedDate,jdbcType=VARCHAR}
+  </select>
+  
+  
+  
 </mapper>

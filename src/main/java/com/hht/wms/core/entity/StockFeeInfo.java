@@ -110,7 +110,7 @@ public class StockFeeInfo {
      * 表字段 : stock_fee_info.commercial_inspection_fee
      */
 	@TableField
-    private String commercialInspectionFee;	
+    private BigDecimal commercialInspectionFee;	
 	
     /**
      * 运输费
@@ -128,30 +128,30 @@ public class StockFeeInfo {
 	
 	
     /**
-     * 代垫费
-     * 表字段 : stock_fee_info.del_bill_fee
+                * 代垫费
+                * 表字段 : stock_fee_info.del_bill_fee
      */
 	@TableField
-    private String paymentInAdvanceFee;	
+    private BigDecimal paymentInAdvanceFee;	
 	
 	
     /**
-     * 代垫税费
-     * 表字段 : stock_fee_info.payment_inAdvance_tax_fee
+                * 代垫税费
+                * 表字段 : stock_fee_info.payment_inAdvance_tax_fee
      */
 	@TableField
-    private String paymentInAdvanceTaxFee;	
+    private BigDecimal paymentInAdvanceTaxFee;	
 	
     /**
-     * 合计
-     * 表字段 : stock_fee_info.total
+               * 合计
+               * 表字段 : stock_fee_info.total
      */
 	@TableField
-    private String total;	
+    private BigDecimal total;	
 	
     /**
-     * 创建时间
-     * 表字段 : stock_fee_info.create_time
+               * 创建时间
+               * 表字段 : stock_fee_info.create_time
      */
 	@TableField
     private Date createTime;

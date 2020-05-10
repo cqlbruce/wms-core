@@ -34,6 +34,8 @@ import com.hht.wms.core.dto.StockFeeUpdateReqDto;
 import com.hht.wms.core.dto.StockInfoQueryReqDto;
 import com.hht.wms.core.dto.StockInfoRespDto;
 import com.hht.wms.core.dto.StockStatisticsRespDto;
+import com.hht.wms.core.dto.vo.ShippedFee;
+import com.hht.wms.core.dto.vo.StockFee;
 import com.hht.wms.core.entity.ShippedFeeInfo;
 import com.hht.wms.core.entity.StockFeeInfo;
 import com.hht.wms.core.service.FeeInfoService;
@@ -73,11 +75,9 @@ public class StatementAccountController {
     public Resp<ShippedStatisticsRespDto> shippedStatistics() {
         logger.info("出仓数据统计........");
 		ShippedStatisticsRespDto respDto = new ShippedStatisticsRespDto();
-
+		String srt = "";
     	try {
-    		
-//    		select sum(shipped_volume) from shipped_info where shipped_date='2019-11-17' ;
-//			select count(distinct  inbound_no) from stock_info where rcvd_date='20191209'; 
+//    		select sum(shipped_volume) as veryDayShippedVolume from shipped_info where shipped_date='2019-11-17' join (select count(distinct  clp) as veryDayCarCount from shipped_info where shipped_date='2019-11-17') ;
     		respDto.setVeryDayCarCount(8);
     		respDto.setVeryDayShippedVolume(new BigDecimal("9.0"));
     		
@@ -95,9 +95,8 @@ public class StatementAccountController {
         logger.info("入仓统计........}" );
         StockStatisticsRespDto respDto = new StockStatisticsRespDto();
     	try {
-    		//select sum(stock_volume) from stock_info where rcvd_date='20191209'; 
-    		//select count(1) from stock_info where rcvd_date='20191209'; 
-    		//select count(distinct  inbound_no) from stock_info where rcvd_date='20191209'; 
+    		//select sum(stock_volume) as realTimeVolume , sum(stock_pcs) as realTimePcs from stock_info ;
+    		//select count(distinct inbound_no) as tickets , sum(box_all_volume_actul) as veryDayVolume from stock_info where rcvd_date='20191209'; 
     		respDto.setRealTimePcs(8);
     		respDto.setRealTimeVolume(new BigDecimal("9.0"));
     		respDto.setTickets(9);
@@ -138,8 +137,13 @@ public class StatementAccountController {
     	List<StockFeeInfo> list = new ArrayList<StockFeeInfo>();
     	try {
         	StockFeeInfo sfi = new StockFeeInfo();
+        	sfi.setCommercialInspectionFee(reqDto.getCommercialInspectionFee());
         	sfi.setId(SnowFlakeUtil.getNextId());
         	BeanUtils.copyProperties(reqDto, sfi);
+        	BigDecimal total = reqDto.getAssortedPackingFee().add(reqDto.getCommercialInspectionFee()).add(reqDto.getContinuationSheetFee())
+        			.add(reqDto.getDelBillFee()).add(reqDto.getEnterGateFee()).add(reqDto.getOvertimeFee()).add(reqDto.getPaymentInAdvanceFee())
+        			.add(reqDto.getPaymentInAdvanceTaxFee()).add(reqDto.getPledgeCarFee()).add(reqDto.getTrafficFee()).add(reqDto.getUnloadFee());
+        	sfi.setTotal(total);
         	list.add(sfi);
         	stockFeeInfoDao.insertOrUpdate(list);
     	}catch(Exception e) {
@@ -162,9 +166,11 @@ public class StatementAccountController {
     @SuppressWarnings("unchecked")
 	@PostMapping("exportStockFee")
     @ApiOperation(value = "入仓费用导出", notes = "")
-    public Resp<StockFeeExportRespDto> exportStockFee(@RequestBody StockFeeExportReqDto reqDto) {
+    public Resp<StockFeeExportRespDto> exportStockFee(@RequestBody StockFeeQueryReqDto reqDto) {
         logger.info("入仓费用导出..........{}", JSON.toJSON(reqDto) );
         StockFeeExportRespDto respDto = new StockFeeExportRespDto();
+        List<StockFee>  list = feeInfoService.stockFeeInfoQueryList(reqDto);
+        respDto.setItems(list);
         return Resp.success("查询成功", respDto);
     }
 
@@ -180,9 +186,11 @@ public class StatementAccountController {
     @SuppressWarnings("unchecked")
 	@PostMapping("exportShippedFee")
     @ApiOperation(value = "出仓费用导出", notes = "")
-    public Resp<ShippedFeeExportRespDto> exportShippedFee(@RequestBody ShippedFeeExportReqDto reqDto) {
+    public Resp<ShippedFeeExportRespDto> exportShippedFee(@RequestBody ShippedFeeQueryReqDto reqDto) {
         logger.info("出仓费用导出.........{}", JSON.toJSON(reqDto) );
         ShippedFeeExportRespDto respDto = new ShippedFeeExportRespDto();
+        List<ShippedFee> list = feeInfoService.shippedFeeInfoQueryList(reqDto);
+        respDto.setItems(list);
         return Resp.success("查询成功", respDto);
     }
 

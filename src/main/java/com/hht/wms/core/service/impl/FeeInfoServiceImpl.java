@@ -63,6 +63,25 @@ public class FeeInfoServiceImpl  implements FeeInfoService {
 		return respDto ; 		
 		
 	}
+
+
+	@Override
+	public List<StockFee> stockFeeInfoQueryList(StockFeeQueryReqDto reqDto) {
+		logger.info("FeeInfoServiceImpl ---stockFeeInfoQueryList--reqDto---{}",JSON.toJSON(reqDto));
+		List<StockFee> list = feeInfoDao.stockFeeQueryList(reqDto);
+		return list;
+	}
+
+
+	@Override
+	public List<ShippedFee> shippedFeeInfoQueryList(ShippedFeeQueryReqDto reqDto) {
+		logger.info("FeeInfoServiceImpl ---shippedFeeInfoQueryList--reqDto---{}",JSON.toJSON(reqDto));
+		List<ShippedFee> list = feeInfoDao.shippedFeeQueryList(reqDto);
+		return list;
+	}
+	
+	
+	
 	
 	
 

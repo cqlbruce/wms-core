@@ -28,6 +28,9 @@ public class StockFee {
 	//进仓日期
 	private String rcvdDate ;
 	
+	private String po ; 
+	
+	private String item;
 
     /**
                * 入仓落货纸号

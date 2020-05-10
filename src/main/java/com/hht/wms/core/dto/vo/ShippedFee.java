@@ -22,6 +22,12 @@ public class ShippedFee {
 	//项目名称
 	private String projectId ;
 	
+	private String so ;
+	
+	private String po ;
+	
+	private String item ;
+	
     /**
                * 出仓日期
      * */

@@ -4,9 +4,11 @@
 
  
  
-   <select id="stockFeeQueryList" resultType="com.hht.wms.core.dto.vo.StockFee" parameterType="com.hht.wms.core.dto.StockFeeQueryReqDto" >
-    select t1.cust_id , t1.project_id , t1.car_num ,  t4.rcvd_date ,  t2.so , t2.inbound_no , t2.rcvd_ctns , t2.box_all_volume_actul
-    , t1.customs_declaration_fee from front_desk_charge t1 ,   stock_abstract_info t4 , stock_info t2  left outer join stock_fee_info 
+   <select id="stockFeeQueryByPage" resultType="com.hht.wms.core.dto.vo.StockFee" parameterType="com.hht.wms.core.dto.StockFeeQueryReqDto" >
+    select t1.cust_id , t1.project_id , t1.car_num ,  t4.rcvd_date , t2.po , t2.item , t2.so , t2.inbound_no , t2.rcvd_ctns , t2.box_all_volume_actul
+    , t1.customs_declaration_fee , t3.continuation_sheet_fee , t3.enter_gate_fee , t3.unload_unit_price , t3.unload_fee , t3.assorted_packing_fee,
+    t3.overtime_fee , t3.del_bill_fee , t3.commercial_inspection_fee , t3.traffic_fee , t3.pledge_car_fee , t3.payment_inAdvance_fee ,
+    t3.payment_inAdvance_tax_fee , t3.total from front_desk_charge t1 , stock_abstract_info t4 , stock_info t2  left outer join stock_fee_info 
     t3 on t2.inbound_no=t3.inbound_no and t2.so=t3.so and t2.item=t3.item
   	<where>  
 		<if test="custId != null and custId != ''">
@@ -52,8 +54,8 @@
    	</where>
   </select>  
   
-   <select id="shippedFeeQueryList" resultType="com.hht.wms.core.dto.vo.StockFee" parameterType="com.hht.wms.core.dto.StockFeeQueryReqDto" >
-    select t1.cust_id , t1.project_id , t2.shipped_date ,  t2.cntr_no ,t3.shpt_no,  t2.clp , t3.cntr_type , t3.traffic_line , t2.shipped_ctns , t2.shipped_volume
+   <select id="shippedFeeQueryByPage" resultType="com.hht.wms.core.dto.vo.StockFee" parameterType="com.hht.wms.core.dto.StockFeeQueryReqDto" >
+    select t1.cust_id , t1.project_id , t2.shipped_date ,  t2.so , t2.po , t2.item , t2.cntr_no ,t3.shpt_no,  t2.clp , t3.cntr_type , t3.traffic_line , t2.shipped_ctns , t2.shipped_volume
     , t3.sorting_fee ,t1.customs_declaration_fee, t3.enter_gate_fee , t3.unload_unit_price , t3.load_fee , t3.commercial_inspection_fee,t3.traffic_fee,
     t3.pledge_car_fee,t3.payment_inAdvance_fee,t3.payment_inAdvance_tax_fee,t3.total from front_desk_charge t1 , 
     shipped_info t2 left outer join shipped_fee_info t3 on t2.clp=t3.clp and t2.so=t3.so and t2.item=t3.item
@@ -75,6 +77,7 @@
    	   	order by t1.inbound_no  LIMIT #{beginSize},#{size}    	
   </select>
 
+
   <select id="shippedFeeSelectCount" resultType="java.lang.Integer" parameterType="com.hht.wms.core.dto.StockFeeQueryReqDto" >
     select count(1) from front_desk_charge t1 , 
     shipped_info t2 left outer join shipped_fee_info t3 on t2.clp=t3.clp and t2.so=t3.so and t2.item=t3.item
@@ -94,6 +97,53 @@
 			and t1.inbound_no = t2.inbound_no
    	</where>
   </select>  
+  
+  
+  
+    <select id="stockFeeQueryList" resultType="com.hht.wms.core.dto.vo.StockFee" parameterType="com.hht.wms.core.dto.StockFeeQueryReqDto" >
+    select t1.cust_id , t1.project_id , t2.shipped_date ,  t2.so , t2.po , t2.item , t2.cntr_no ,t3.shpt_no,  t2.clp , t3.cntr_type , t3.traffic_line , t2.shipped_ctns , t2.shipped_volume
+    , t3.sorting_fee ,t1.customs_declaration_fee, t3.enter_gate_fee , t3.unload_unit_price , t3.load_fee , t3.commercial_inspection_fee,t3.traffic_fee,
+    t3.pledge_car_fee,t3.payment_inAdvance_fee,t3.payment_inAdvance_tax_fee,t3.total from front_desk_charge t1 , 
+    shipped_info t2 left outer join shipped_fee_info t3 on t2.clp=t3.clp and t2.so=t3.so and t2.item=t3.item
+  	<where>  
+		<if test="custId != null and custId != ''">
+			and t1.cust_id = #{custId,jdbcType=VARCHAR}
+		</if>	
+		<if test="projectId != null and projectId != ''">
+			and t1.project_id = #{projectId,jdbcType=VARCHAR}
+		</if>	
+		<if test="beginDate != null and beginDate != ''">
+			and t1.tran_date &gt;= #{beginDate,jdbcType=VARCHAR}
+		</if>		
+		<if test="endDate != null and endDate != ''">
+			and t1.tran_date &lt;= #{endDate,jdbcType=VARCHAR} 
+		</if>		
+			and t1.inbound_no = t2.inbound_no
+   	</where>
+  </select>
+  
+
+    <select id="shippedFeeQueryList" resultType="com.hht.wms.core.dto.vo.StockFee" parameterType="com.hht.wms.core.dto.StockFeeQueryReqDto" >
+    select t1.cust_id , t1.project_id , t2.shipped_date ,  t2.so , t2.po , t2.item , t2.cntr_no ,t3.shpt_no,  t2.clp , t3.cntr_type , t3.traffic_line , t2.shipped_ctns , t2.shipped_volume
+    , t3.sorting_fee ,t1.customs_declaration_fee, t3.enter_gate_fee , t3.unload_unit_price , t3.load_fee , t3.commercial_inspection_fee,t3.traffic_fee,
+    t3.pledge_car_fee,t3.payment_inAdvance_fee,t3.payment_inAdvance_tax_fee,t3.total from front_desk_charge t1 , 
+    shipped_info t2 left outer join shipped_fee_info t3 on t2.clp=t3.clp and t2.so=t3.so and t2.item=t3.item
+  	<where>  
+		<if test="custId != null and custId != ''">
+			and t1.cust_id = #{custId,jdbcType=VARCHAR}
+		</if>	
+		<if test="projectId != null and projectId != ''">
+			and t1.project_id = #{projectId,jdbcType=VARCHAR}
+		</if>	
+		<if test="beginDate != null and beginDate != ''">
+			and t1.tran_date &gt;= #{beginDate,jdbcType=VARCHAR}
+		</if>		
+		<if test="endDate != null and endDate != ''">
+			and t1.tran_date &lt;= #{endDate,jdbcType=VARCHAR} 
+		</if>		
+			and t1.inbound_no = t2.inbound_no
+   	</where>
+  </select>
  
  
 </mapper>

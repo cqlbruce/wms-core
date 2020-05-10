@@ -16,6 +16,9 @@ public class StockFeeUpdateReqDto {
 	
 	private String inboundNo ; 
 	
+	private String custId ; 
+
+	private String projectId;
 	
     //续页费
     private BigDecimal continuationSheetFee ; 

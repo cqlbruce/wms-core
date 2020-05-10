@@ -8,7 +8,9 @@ import lombok.Data;
 public class ShippedFeeUpdateReqDto {
 
 	
+	private String custId ; 
 	
+	private String projectId;
 	
 	private String so  ; 
 	
