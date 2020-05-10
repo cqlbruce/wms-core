@@ -81,9 +81,9 @@ public class ShippedFee {
     //入闸费
     private BigDecimal enterGateFee;
     
-    
-    //入仓总箱数
-    private BigDecimal rcvdCtns;
+//    
+//    //入仓总箱数
+//    private BigDecimal rcvdCtns;
     
     
     //装卸单价
@@ -91,7 +91,6 @@ public class ShippedFee {
 
     //装货费
     private BigDecimal loadFee;
-    
     
     //查货/商检费
     private BigDecimal commercialInspectionFee;
@@ -107,6 +106,9 @@ public class ShippedFee {
     
     //代垫税费
     private BigDecimal paymentInAdvanceTaxFee;  
+    
+    //报关费
+    private BigDecimal customsDeclarationFee;
     
     //费用合计
     private BigDecimal total;  

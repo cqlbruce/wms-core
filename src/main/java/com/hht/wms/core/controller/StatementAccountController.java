@@ -41,6 +41,7 @@ import com.hht.wms.core.entity.StockFeeInfo;
 import com.hht.wms.core.service.FeeInfoService;
 import com.hht.wms.core.service.ShippedInfoService;
 import com.hht.wms.core.service.StockInfoService;
+import com.hht.wms.core.util.DateUtil;
 import com.hht.wms.core.util.SnowFlakeUtil;
 
 import io.swagger.annotations.ApiOperation;
@@ -75,16 +76,15 @@ public class StatementAccountController {
     public Resp<ShippedStatisticsRespDto> shippedStatistics() {
         logger.info("出仓数据统计........");
 		ShippedStatisticsRespDto respDto = new ShippedStatisticsRespDto();
-		String srt = "";
     	try {
 //    		select sum(shipped_volume) as veryDayShippedVolume from shipped_info where shipped_date='2019-11-17' join (select count(distinct  clp) as veryDayCarCount from shipped_info where shipped_date='2019-11-17') ;
-    		respDto.setVeryDayCarCount(8);
-    		respDto.setVeryDayShippedVolume(new BigDecimal("9.0"));
+//    		shipped_date 2019-11-17
+    		respDto = shippedInfoService.shippedStatics(DateUtil.getNowTime(DateUtil.ISO_DATE_FORMAT_CROSSBAR));
     		
     	}catch(Exception e) {
     		logger.error("出仓数据统计异常");
     	}
-        return Resp.success("修改成功", respDto);
+        return Resp.success("出仓数据统计", respDto);
     }        
     
     
@@ -93,19 +93,20 @@ public class StatementAccountController {
     @ApiOperation(value = "入仓数据统计", notes = "")
     public Resp<StockStatisticsRespDto> stockStatistics() {
         logger.info("入仓统计........}" );
-        StockStatisticsRespDto respDto = new StockStatisticsRespDto();
+		StockStatisticsRespDto resp = new StockStatisticsRespDto();
+
     	try {
-    		//select sum(stock_volume) as realTimeVolume , sum(stock_pcs) as realTimePcs from stock_info ;
-    		//select count(distinct inbound_no) as tickets , sum(box_all_volume_actul) as veryDayVolume from stock_info where rcvd_date='20191209'; 
-    		respDto.setRealTimePcs(8);
-    		respDto.setRealTimeVolume(new BigDecimal("9.0"));
-    		respDto.setTickets(9);
-    		respDto.setVeryDayVolume(new BigDecimal("9.0"));
+    		StockStatisticsRespDto r1 = stockInfoService.stockStatics("");
+    		StockStatisticsRespDto r2 = stockInfoService.stockStatics(DateUtil.getNowTime(DateUtil.AMR_DATE_WITHOUT_SLASH_FORMAT));
+    		resp.setRealTimePcs(r1.getRealTimePcs());
+    		resp.setRealTimeVolume(r1.getRealTimeVolume());
+    		resp.setTickets(r2.getTickets());
+    		resp.setVeryDayVolume(r2.getVeryDayVolume());
     		
     	}catch(Exception e) {
     		logger.error("入仓数据统计异常");
     	}
-        return Resp.success("修改成功", respDto);
+        return Resp.success("入仓数据统计成功", resp);
     }    
     
     
@@ -119,6 +120,9 @@ public class StatementAccountController {
         	ShippedFeeInfo sfi = new ShippedFeeInfo();
         	sfi.setId(SnowFlakeUtil.getNextId());
         	BeanUtils.copyProperties(reqDto, sfi);
+        	BigDecimal total = reqDto.getCommercialInspectionFee().add(reqDto.getEnterGateFee()).add(reqDto.getLoadFee()).add(reqDto.getPaymentInAdvanceFee())
+        			.add(reqDto.getPaymentInAdvanceTaxFee()).add(reqDto.getPledgeCarFee()).add(reqDto.getSortingFee()).add(reqDto.getTrafficFee());
+        	sfi.setTotal(total);
         	list.add(sfi);
         	shippedFeeInfoDao.insertOrUpdate(list);
     	}catch(Exception e) {

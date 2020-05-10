@@ -18,6 +18,7 @@ import com.hht.wms.core.dao.ShippedInfoDao;
 import com.hht.wms.core.dto.OutboundReqDto;
 import com.hht.wms.core.dto.ShippedInfoReqDto;
 import com.hht.wms.core.dto.ShippedInfoRespDto;
+import com.hht.wms.core.dto.ShippedStatisticsRespDto;
 import com.hht.wms.core.entity.ShippedAbstractInfo;
 import com.hht.wms.core.entity.ShippedInfo;
 import com.hht.wms.core.entity.StockInfo;
@@ -191,6 +192,13 @@ public class ShippedInfoServiceImpl extends ServiceImpl<ShippedInfoDao, ShippedI
 	@Override
 	public void batchUpdate(List<ShippedInfo> list) {
 		baseMapper.batchUpdate(list);
+	}
+
+
+	@Override
+	public ShippedStatisticsRespDto shippedStatics(String shippedDate) {
+		// TODO Auto-generated method stub
+		return baseMapper.shippedStatics(shippedDate);
 	}
 
 

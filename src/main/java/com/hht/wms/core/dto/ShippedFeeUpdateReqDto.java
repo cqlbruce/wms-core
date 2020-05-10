@@ -18,7 +18,9 @@ public class ShippedFeeUpdateReqDto {
 	
 	private String item ; 
 	
-	private String clp ; 
+	private String clp ;
+	
+	private String shptNo;
 	
     //装卸单价
     private BigDecimal unloadUnitPrice;

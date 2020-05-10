@@ -32,6 +32,7 @@ public class FrontDeskChargeServiceImpl extends ServiceImpl<FrontDeskChargeDao, 
 	}
 	
 	
+	
 	@Override
 	public int add(FrontDeskCharge reqDto) {
 		return baseMapper.insert(reqDto) ;
@@ -96,6 +97,13 @@ public class FrontDeskChargeServiceImpl extends ServiceImpl<FrontDeskChargeDao, 
 		List<FrontDeskCharge> items = baseMapper.queryList(reqDto) ;
 		respDto.setItems(items);
 		return respDto;
+	}
+
+
+
+	@Override
+	public FrontDeskCharge selectById(String id) {
+		return baseMapper.selectById(id);
 	}
 
 }

@@ -13,6 +13,6 @@ public interface StockAbstractService {
 	
 	StockAbstractQueryRespDto queryList(StockAbstractQueryReqDto reqDto );
 
-	
+	int deleteById(String inboundNo);
 
 }

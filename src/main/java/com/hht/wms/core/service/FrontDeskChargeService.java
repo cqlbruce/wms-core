@@ -20,4 +20,7 @@ public interface FrontDeskChargeService {
 	int delete(String id);
 	
 	FrontDeskCharge selectByInboundNo(FrontDeskChargeQueryReqDto reqDto);
+	
+	FrontDeskCharge selectById(String id);
+
 }

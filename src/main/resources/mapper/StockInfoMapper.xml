@@ -76,25 +76,14 @@
   </select>    
   
   
-  <select id="queryByThreeElemet"  resultType="com.hht.wms.core.dto.StockStatisticsRespDto"   parameterType="java.lang.String">
-  	select * from stock_info 
+  <select id="stockStatics"  resultType="com.hht.wms.core.dto.StockStatisticsRespDto"   parameterType="java.lang.String">
+  	select sum(stock_volume) as realTimeVolume , sum(stock_pcs) as realTimePcs ,  count(distinct inbound_no) as tickets , sum(box_all_volume_actul) as veryDayVolume from stock_info 
     <where>    	
-  	<if test="so != null and so !=''">
-		so = #{so,jdbcType=VARCHAR}
+  	<if test="date != null and date !=''">
+		 rcvd_date=#{date,jdbcType=VARCHAR}
 	</if>
-	<if test="po != null and po !=''">
-		and po = #{po,jdbcType=VARCHAR}
-	</if>    
-	<if test="item != null and item !=''">
-		and item = #{item,jdbcType=VARCHAR}
-	</if>    	
     </where>  
   </select> 
-  
-  
-  
-      		//select sum(stock_volume) as realTimeVolume , sum(stock_pcs) as realTimePcs from stock_info ;
-    		//select count(distinct inbound_no) as tickets , sum(box_all_volume_actul) as veryDayVolume from stock_info where rcvd_date='20191209'; 
   
   
 </mapper>

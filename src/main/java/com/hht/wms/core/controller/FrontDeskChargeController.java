@@ -24,6 +24,7 @@ import com.hht.wms.core.entity.FrontDeskCharge;
 import com.hht.wms.core.entity.StockAbstractInfo;
 import com.hht.wms.core.service.FrontDeskChargeService;
 import com.hht.wms.core.service.StockAbstractService;
+import com.hht.wms.core.service.StockInfoService;
 import com.hht.wms.core.util.DateUtil;
 import com.hht.wms.core.util.NumberUtil;
 import com.hht.wms.core.util.SnowFlakeUtil;
@@ -44,6 +45,8 @@ public class FrontDeskChargeController {
 	@Autowired
 	private StockAbstractService stockAbstractService ; 
 	
+	@Autowired
+	private StockInfoService stockInfoService ;
 	
 	
 	
@@ -117,7 +120,13 @@ public class FrontDeskChargeController {
 	@PostMapping("delete")
     @ApiOperation(value = "删除前台收费", notes = "")
 	public Resp delete(@RequestBody IdReqDto reqDto) {
+		FrontDeskCharge fc = frontDeskChargeService.selectById(reqDto.getId());
+//		frontDeskChargeService
+//		stockInfoService.deleteByInboundNo(fc.getInboundNo());
+//		stockAbstractService
 		frontDeskChargeService.delete(reqDto.getId());
+		
+		
 		return Resp.success("删除前台收费成功");
 	}
 

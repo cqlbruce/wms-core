@@ -21,6 +21,7 @@ import com.hht.wms.core.dto.FrontDeskChargeQueryReqDto;
 import com.hht.wms.core.dto.StockInfoModifyReqDto;
 import com.hht.wms.core.dto.StockInfoQueryReqDto;
 import com.hht.wms.core.dto.StockInfoRespDto;
+import com.hht.wms.core.dto.StockStatisticsRespDto;
 import com.hht.wms.core.dto.vo.ThreeElement;
 import com.hht.wms.core.entity.FrontDeskCharge;
 import com.hht.wms.core.entity.StockAbstractInfo;
@@ -43,6 +44,11 @@ public class StockInfoServiceImpl extends ServiceImpl<StockInfoDao, StockInfo> i
 	
 	@Autowired
 	private FrontDeskChargeDao frontDeskChargeMapper ; 
+
+	
+	public int deleteByInboundNo(String inboundNo) {
+		return baseMapper.deleteByInboundNo(inboundNo);
+	}
 	
 	public void deleteById(String id) {
 		baseMapper.deleteById(id);
@@ -194,6 +200,12 @@ public class StockInfoServiceImpl extends ServiceImpl<StockInfoDao, StockInfo> i
 		te.setSo(so);
 //		StockInfo stockInfo = 
 		return baseMapper.queryByThreeElemet(te);
+	}
+
+
+	@Override
+	public StockStatisticsRespDto stockStatics(String date) {
+		return baseMapper.stockStatics(date);
 	}
 
 

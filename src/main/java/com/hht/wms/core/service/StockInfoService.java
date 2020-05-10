@@ -5,6 +5,7 @@ import java.util.List;
 import com.hht.wms.core.dto.StockInfoModifyReqDto;
 import com.hht.wms.core.dto.StockInfoQueryReqDto;
 import com.hht.wms.core.dto.StockInfoRespDto;
+import com.hht.wms.core.dto.StockStatisticsRespDto;
 import com.hht.wms.core.entity.StockInfo;
 
 public interface StockInfoService {
@@ -21,5 +22,8 @@ public interface StockInfoService {
 	
 	void deleteById(String id);
 
+    StockStatisticsRespDto stockStatics(String date);
+
+    int deleteByInboundNo(String inboundNo);
 
 }

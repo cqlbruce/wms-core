@@ -36,6 +36,7 @@ public class StockAbstractServiceImpl extends ServiceImpl<StockAbstractInfoDao, 
 		return baseMapper.insert(stockAbstractInfo) ; 
 	}
 	
+	
 
 	@Override
 	public StockAbstractQueryRespDto queryList(StockAbstractQueryReqDto reqDto) {
@@ -125,6 +126,13 @@ public class StockAbstractServiceImpl extends ServiceImpl<StockAbstractInfoDao, 
 		respDto.setItems(list);
 		respDto.setTotal(total);
 		return respDto ;
+	}
+
+
+
+	@Override
+	public int deleteById(String inboundNo) {
+		return baseMapper.deleteById(inboundNo);
 	}
 
 	

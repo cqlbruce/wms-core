@@ -57,7 +57,7 @@ public class FeeInfoServiceImpl  implements FeeInfoService {
 		}
 		int beginSize = (reqDto.getPage()-1)*reqDto.getSize();
 		reqDto.setBeginSize(beginSize);
-		List<ShippedFee> list = feeInfoDao.shippedFeeQueryList(reqDto);
+		List<ShippedFee> list = feeInfoDao.shippedFeeQueryByPage(reqDto);
 		respDto.setItems(list);
 		respDto.setTotal(total);
 		return respDto ; 		
