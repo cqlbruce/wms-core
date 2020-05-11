@@ -42,6 +42,7 @@ import com.hht.wms.core.service.FeeInfoService;
 import com.hht.wms.core.service.ShippedInfoService;
 import com.hht.wms.core.service.StockInfoService;
 import com.hht.wms.core.util.DateUtil;
+import com.hht.wms.core.util.NumberUtil;
 import com.hht.wms.core.util.SnowFlakeUtil;
 
 import io.swagger.annotations.ApiOperation;
@@ -101,8 +102,7 @@ public class StatementAccountController {
     		resp.setRealTimePcs(r1.getRealTimePcs());
     		resp.setRealTimeVolume(r1.getRealTimeVolume());
     		resp.setTickets(r2.getTickets());
-    		resp.setVeryDayVolume(r2.getVeryDayVolume());
-    		
+    		resp.setVeryDayVolume(NumberUtil.getBigDecimal(r2.getVeryDayVolume()));
     	}catch(Exception e) {
     		logger.error("入仓数据统计异常");
     	}
