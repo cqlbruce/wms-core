@@ -78,10 +78,8 @@ public class StatementAccountController {
         logger.info("出仓数据统计........");
 		ShippedStatisticsRespDto respDto = new ShippedStatisticsRespDto();
     	try {
-//    		select sum(shipped_volume) as veryDayShippedVolume from shipped_info where shipped_date='2019-11-17' join (select count(distinct  clp) as veryDayCarCount from shipped_info where shipped_date='2019-11-17') ;
-//    		shipped_date 2019-11-17
     		respDto = shippedInfoService.shippedStatics(DateUtil.getNowTime(DateUtil.ISO_DATE_FORMAT_CROSSBAR));
-    		
+    		respDto.setVeryDayShippedVolume(NumberUtil.getBigDecimal(respDto.getVeryDayShippedVolume()));
     	}catch(Exception e) {
     		logger.error("出仓数据统计异常");
     	}
