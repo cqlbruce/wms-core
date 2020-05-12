@@ -10,7 +10,9 @@ import com.hht.wms.core.entity.ShippedInfo;
 
 public interface ShippedInfoService {
 	
-	ShippedInfoRespDto queryList(ShippedInfoReqDto reqDto );
+	ShippedInfoRespDto queryByPage(ShippedInfoReqDto reqDto );
+	
+	List<ShippedInfo> queryList(ShippedInfoReqDto reqDto );
 	
 	int outbound(OutboundReqDto reqDto) throws Exception;
 	

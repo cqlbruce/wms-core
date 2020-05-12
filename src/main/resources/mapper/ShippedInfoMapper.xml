@@ -3,6 +3,42 @@
 <mapper namespace="com.hht.wms.core.dao.ShippedInfoDao">
    <!--   自定义 -->
    
+   
+      
+  <select id="queryList" resultType="com.hht.wms.core.entity.ShippedInfo" parameterType="com.hht.wms.core.dto.ShippedInfoReqDto" >
+    select t2.cust_id , t2.project_id , t1.*    from shipped_info t1 , front_desk_charge t2
+  <where>  
+	<if test="so != null and so !=''">
+		and t1.so=#{so,jdbcType=VARCHAR}
+	</if>
+	<if test="po != null and po !=''">
+		and t1.po = #{po,jdbcType=VARCHAR}
+	</if>    
+	<if test="item != null and item != ''">
+		and t1.item = #{item,jdbcType=VARCHAR}
+	</if>
+	<if test="custId != null and custId != ''">
+		and t2.cust_id = #{custId,jdbcType=VARCHAR}
+	</if>	
+	<if test="projectId != null and projectId != ''">
+		and t2.project_id = #{projectId,jdbcType=VARCHAR}
+	</if>	
+	<if test="clp != null and clp != ''">
+		and t1.clp = #{clp,jdbcType=VARCHAR}
+	</if>	
+	<if test="inbundNo != null and inbundNo != ''">
+		and t1.inbound_no = #{inbundNo,jdbcType=VARCHAR}
+	</if>	
+	<if test="beginDate != null and beginDate != ''">
+		and t1.shipped_date &gt;= #{beginDate,jdbcType=VARCHAR}
+	</if>		
+	<if test="endDate != null and endDate != ''">
+		and t1.shipped_date &lt;= #{endDate,jdbcType=VARCHAR} 
+	</if>		
+		and t1.inbound_no = t2.inbound_no
+   </where> 	
+  </select>
+   
 	<update id="batchUpdate" parameterType="java.util.List">
 		<foreach collection="list" index="index" item="item" separator=";">
       	update shipped_info 
@@ -33,56 +69,72 @@
   </select>
    
    
-  <select id="queryList" resultType="com.hht.wms.core.entity.ShippedInfo" parameterType="com.hht.wms.core.dto.ShippedInfoReqDto" >
+  <select id="queryByPage" resultType="com.hht.wms.core.entity.ShippedInfo" parameterType="com.hht.wms.core.dto.ShippedInfoReqDto" >
     select t2.cust_id , t2.project_id , t1.*    from shipped_info t1 , front_desk_charge t2
   <where>  
 	<if test="so != null and so !=''">
-		so=#{so,jdbcType=VARCHAR}
+		and t1.so=#{so,jdbcType=VARCHAR}
 	</if>
 	<if test="po != null and po !=''">
-		and po = #{po,jdbcType=VARCHAR}
+		and t1.po = #{po,jdbcType=VARCHAR}
 	</if>    
 	<if test="item != null and item != ''">
-		and item = #{item,jdbcType=VARCHAR}
+		and t1.item = #{item,jdbcType=VARCHAR}
 	</if>
+	<if test="custId != null and custId != ''">
+		and t2.cust_id = #{custId,jdbcType=VARCHAR}
+	</if>	
+	<if test="projectId != null and projectId != ''">
+		and t2.project_id = #{projectId,jdbcType=VARCHAR}
+	</if>	
 	<if test="clp != null and clp != ''">
-		and clp = #{clp,jdbcType=VARCHAR}
+		and t1.clp = #{clp,jdbcType=VARCHAR}
 	</if>	
 	<if test="inbundNo != null and inbundNo != ''">
-		and inbund_no = #{inbundNo,jdbcType=VARCHAR}
+		and t1.inbound_no = #{inbundNo,jdbcType=VARCHAR}
 	</if>	
 	<if test="beginDate != null and beginDate != ''">
-		and shipped_date &gt;= #{beginDate,jdbcType=VARCHAR}
+		and t1.shipped_date &gt;= #{beginDate,jdbcType=VARCHAR}
 	</if>		
 	<if test="endDate != null and endDate != ''">
-		and shipped_date &lt;= #{endDate,jdbcType=VARCHAR} 
+		and t1.shipped_date &lt;= #{endDate,jdbcType=VARCHAR} 
 	</if>		
 		and t1.inbound_no = t2.inbound_no
    </where> 	
-    	order by shipped_date desc ,  id  LIMIT #{beginSize},#{size}    	
+    	order by t1.shipped_date desc ,  t1.id  LIMIT #{beginSize},#{size}    	
   </select>
    
   <select id="selectCount" resultType="java.lang.Integer"  parameterType="com.hht.wms.core.dto.ShippedInfoReqDto" >
-    select count(1) from shipped_info 
+    select count(1)  from shipped_info t1 , front_desk_charge t2
   <where>  
 	<if test="so != null and so !=''">
-		so=#{so,jdbcType=VARCHAR}
+		and t1.so=#{so,jdbcType=VARCHAR}
 	</if>
 	<if test="po != null and po !=''">
-		and po = #{po,jdbcType=VARCHAR}
+		and t1.po = #{po,jdbcType=VARCHAR}
 	</if>    
 	<if test="item != null and item != ''">
-		and item = #{item,jdbcType=VARCHAR}
+		and t1.item = #{item,jdbcType=VARCHAR}
 	</if>
+	<if test="custId != null and custId != ''">
+		and t2.cust_id = #{custId,jdbcType=VARCHAR}
+	</if>	
+	<if test="projectId != null and projectId != ''">
+		and t2.project_id = #{projectId,jdbcType=VARCHAR}
+	</if>	
 	<if test="clp != null and clp != ''">
-		and clp = #{clp,jdbcType=VARCHAR}
+		and t1.clp = #{clp,jdbcType=VARCHAR}
+	</if>	
+	<if test="inbundNo != null and inbundNo != ''">
+		and t1.inbound_no = #{inbundNo,jdbcType=VARCHAR}
 	</if>	
 	<if test="beginDate != null and beginDate != ''">
-		and shipped_date &gt;= #{beginDate,jdbcType=VARCHAR}
+		and t1.shipped_date &gt;= #{beginDate,jdbcType=VARCHAR}
 	</if>		
 	<if test="endDate != null and endDate != ''">
-		and shipped_date &lt;= #{endDate,jdbcType=VARCHAR}
+		and t1.shipped_date &lt;= #{endDate,jdbcType=VARCHAR} 
 	</if>		
+		and t1.inbound_no = t2.inbound_no
    </where> 	
   </select>  
   

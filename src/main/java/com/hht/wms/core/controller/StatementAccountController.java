@@ -18,7 +18,6 @@ import com.alibaba.fastjson.JSON;
 import com.hht.wms.core.common.Resp;
 import com.hht.wms.core.dao.ShippedFeeInfoDao;
 import com.hht.wms.core.dao.StockFeeInfoDao;
-import com.hht.wms.core.dto.ShippedFeeExportReqDto;
 import com.hht.wms.core.dto.ShippedFeeExportRespDto;
 import com.hht.wms.core.dto.ShippedFeeQueryReqDto;
 import com.hht.wms.core.dto.ShippedFeeQueryRespDto;
@@ -26,7 +25,6 @@ import com.hht.wms.core.dto.ShippedFeeUpdateReqDto;
 import com.hht.wms.core.dto.ShippedInfoReqDto;
 import com.hht.wms.core.dto.ShippedInfoRespDto;
 import com.hht.wms.core.dto.ShippedStatisticsRespDto;
-import com.hht.wms.core.dto.StockFeeExportReqDto;
 import com.hht.wms.core.dto.StockFeeExportRespDto;
 import com.hht.wms.core.dto.StockFeeQueryReqDto;
 import com.hht.wms.core.dto.StockFeeQueryRespDto;
@@ -37,7 +35,9 @@ import com.hht.wms.core.dto.StockStatisticsRespDto;
 import com.hht.wms.core.dto.vo.ShippedFee;
 import com.hht.wms.core.dto.vo.StockFee;
 import com.hht.wms.core.entity.ShippedFeeInfo;
+import com.hht.wms.core.entity.ShippedInfo;
 import com.hht.wms.core.entity.StockFeeInfo;
+import com.hht.wms.core.entity.StockInfo;
 import com.hht.wms.core.service.FeeInfoService;
 import com.hht.wms.core.service.ShippedInfoService;
 import com.hht.wms.core.service.StockInfoService;
@@ -210,7 +210,9 @@ public class StatementAccountController {
     @ApiOperation(value = "存仓货物导出", notes = "")
     public Resp<StockInfoRespDto> exportStockGoods(@RequestBody StockInfoQueryReqDto reqDto) {
         logger.info("存仓货物导出.........{}", JSON.toJSON(reqDto) );
-        StockInfoRespDto respDto = stockInfoService.loadStock(reqDto);
+        StockInfoRespDto respDto = new StockInfoRespDto();
+        List<StockInfo> list = stockInfoService.queryList(reqDto);
+        respDto.setItems(list);
         return Resp.success("查询成功", respDto);
         
     }
@@ -220,7 +222,7 @@ public class StatementAccountController {
     @ApiOperation(value = "出仓货物查询", notes = "")
     public Resp<ShippedInfoRespDto> loadShippedGoods(@RequestBody ShippedInfoReqDto reqDto) {
         logger.info("出仓货物查询.........{}", JSON.toJSON(reqDto) );
-        ShippedInfoRespDto respDto = shippedInfoService.queryList(reqDto);
+        ShippedInfoRespDto respDto = shippedInfoService.queryByPage(reqDto);
         return Resp.success("查询成功", respDto);
      
     }
@@ -230,7 +232,9 @@ public class StatementAccountController {
     @ApiOperation(value = "出仓货物导出", notes = "")
     public Resp<ShippedInfoRespDto> exportShippedGoods(@RequestBody ShippedInfoReqDto reqDto) {
         logger.info("出仓货物导出.........{}", JSON.toJSON(reqDto) );
-        ShippedInfoRespDto respDto = shippedInfoService.queryList(reqDto);
+        ShippedInfoRespDto respDto = new ShippedInfoRespDto();
+        List<ShippedInfo> list = shippedInfoService.queryList(reqDto);
+        respDto.setItems(list);
         return Resp.success("查询成功", respDto);
     }
 }

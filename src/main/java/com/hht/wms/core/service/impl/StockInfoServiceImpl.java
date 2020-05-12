@@ -56,6 +56,17 @@ public class StockInfoServiceImpl extends ServiceImpl<StockInfoDao, StockInfo> i
 
 
 	@Override
+	public List<StockInfo> queryList(StockInfoQueryReqDto reqDto) {
+		logger.info("---StockInfoServiceImpl---loadStock-----{}",JSON.toJSON(reqDto));
+		String beginDate = reqDto.getBeginDate();
+		String endDate = reqDto.getEndDate();
+		reqDto.setBeginDate(beginDate==null?beginDate:beginDate.replace("-", ""));
+		reqDto.setEndDate(endDate==null?endDate:endDate.replace("-", ""));
+		List<StockInfo> list =  baseMapper.queryByPage(reqDto);
+		return list ;
+	}
+
+	@Override
 	public StockInfoRespDto loadStock(StockInfoQueryReqDto reqDto) {
 		logger.info("---StockInfoServiceImpl---loadStock-----{}",JSON.toJSON(reqDto));
 		String beginDate = reqDto.getBeginDate();
@@ -72,7 +83,7 @@ public class StockInfoServiceImpl extends ServiceImpl<StockInfoDao, StockInfo> i
 		respDto.setTotal(total);
 		int beginSize = (reqDto.getPage()-1) * reqDto.getSize() ; 
 		reqDto.setBeginSize(beginSize);
-		List<StockInfo> list =  baseMapper.queryList(reqDto);
+		List<StockInfo> list =  baseMapper.queryByPage(reqDto);
 		respDto.setItems(list);
 		return respDto ;
 	}

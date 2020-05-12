@@ -66,6 +66,12 @@
 		<if test="projectId != null and projectId != ''">
 			and t1.project_id = #{projectId,jdbcType=VARCHAR}
 		</if>	
+		<if test="clp != null and clp != ''">
+			and t2.clp = #{clp,jdbcType=VARCHAR}
+		</if>	
+		<if test="shptNo != null and shptNo != ''">
+			and t3.shpt_no = #{shptNo,jdbcType=VARCHAR}
+		</if>					
 		<if test="beginDate != null and beginDate != ''">
 			and t1.tran_date &gt;= #{beginDate,jdbcType=VARCHAR}
 		</if>		
@@ -88,12 +94,18 @@
 		<if test="projectId != null and projectId != ''">
 			and t1.project_id = #{projectId,jdbcType=VARCHAR}
 		</if>	
+		<if test="clp != null and clp != ''">
+			and t2.clp = #{clp,jdbcType=VARCHAR}
+		</if>	
+		<if test="shptNo != null and shptNo != ''">
+			and t3.shpt_no = #{shptNo,jdbcType=VARCHAR}
+		</if>					
 		<if test="beginDate != null and beginDate != ''">
 			and t1.tran_date &gt;= #{beginDate,jdbcType=VARCHAR}
 		</if>		
 		<if test="endDate != null and endDate != ''">
 			and t1.tran_date &lt;= #{endDate,jdbcType=VARCHAR} 
-		</if>		
+		</if>			
 			and t1.inbound_no = t2.inbound_no
    	</where>
   </select>  

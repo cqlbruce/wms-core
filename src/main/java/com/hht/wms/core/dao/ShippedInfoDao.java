@@ -10,6 +10,8 @@ import com.hht.wms.core.util.BaseDao;
 public interface ShippedInfoDao extends BaseDao<ShippedInfo>{
     
     //自定义
+    List<ShippedInfo> queryByPage(ShippedInfoReqDto reqDto) ;
+    
     List<ShippedInfo> queryList(ShippedInfoReqDto reqDto) ;
     
     int selectCount(ShippedInfoReqDto reqDto) ;

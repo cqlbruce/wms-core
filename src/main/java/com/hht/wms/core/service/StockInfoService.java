@@ -25,5 +25,8 @@ public interface StockInfoService {
     StockStatisticsRespDto stockStatics(String date);
 
     int deleteByInboundNo(String inboundNo);
+    
+    List<StockInfo> queryList(StockInfoQueryReqDto reqDto);
+
 
 }

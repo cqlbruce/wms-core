@@ -11,6 +11,8 @@ public class ShippedInfoReqDto {
 	
 	private String item ;
 	
+	private String projectId;
+	
 	private String clp ; 
 	
 	private String seal ; 

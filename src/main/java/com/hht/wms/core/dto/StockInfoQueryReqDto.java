@@ -17,6 +17,8 @@ public class StockInfoQueryReqDto {
 	private String pcsMoreThanZero;
 	
 	private String custId ; 
+	
+	private String projectId;
 		
 	private int  page ;
 	

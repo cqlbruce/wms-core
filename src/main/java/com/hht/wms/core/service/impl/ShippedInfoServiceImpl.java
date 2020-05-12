@@ -46,7 +46,16 @@ public class ShippedInfoServiceImpl extends ServiceImpl<ShippedInfoDao, ShippedI
 	
 	
 	@Override
-	public ShippedInfoRespDto queryList(ShippedInfoReqDto reqDto) {
+	public List<ShippedInfo>  queryList(ShippedInfoReqDto reqDto) {
+		logger.info("---ShippedInfoServiceImpl---reqDto-----{}",JSON.toJSON(reqDto));
+		List<ShippedInfo> list =  baseMapper.queryList(reqDto);
+		return list ;
+	}
+	
+
+	
+	@Override
+	public ShippedInfoRespDto queryByPage(ShippedInfoReqDto reqDto) {
 		logger.info("---ShippedInfoServiceImpl---reqDto-----{}",JSON.toJSON(reqDto));
 		ShippedInfoRespDto respDto = new ShippedInfoRespDto();
 		int total = baseMapper.selectCount(reqDto);
@@ -57,7 +66,7 @@ public class ShippedInfoServiceImpl extends ServiceImpl<ShippedInfoDao, ShippedI
 		respDto.setTotal(total);
 		int beginSize = (reqDto.getPage()-1) * reqDto.getSize() ; 
 		reqDto.setBeginSize(beginSize);
-		List<ShippedInfo> list =  baseMapper.queryList(reqDto);
+		List<ShippedInfo> list =  baseMapper.queryByPage(reqDto);
 		respDto.setItems(list);
 		return respDto ;
 	}

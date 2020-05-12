@@ -10,6 +10,8 @@ import com.hht.wms.core.util.BaseDao;
 
 public interface StockInfoDao extends BaseDao<StockInfo>{
     
+    List<StockInfo> queryByPage(StockInfoQueryReqDto reqDto);
+    
     List<StockInfo> queryList(StockInfoQueryReqDto reqDto);
     
     int selectCount(StockInfoQueryReqDto reqDto);
