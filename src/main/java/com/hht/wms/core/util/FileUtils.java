@@ -21,4 +21,14 @@ public class FileUtils {
 			}
 		}
 	}
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		String beginDate = "";
+		System.out.println(beginDate.replace("-", ""));
+		
+		
+	}
+	
 }

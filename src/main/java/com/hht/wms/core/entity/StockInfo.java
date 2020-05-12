@@ -12,6 +12,9 @@ import lombok.Data;
 @Data
 @TableName("stock_info")
 public class StockInfo {
+	
+	private String projectId ; 
+	
     /**
      * 主键 id
      * 表字段 : stock_info.id

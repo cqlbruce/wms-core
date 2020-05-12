@@ -12,7 +12,7 @@
 
 	<!--   自定义 -->
   <select id="queryList" resultType="com.hht.wms.core.entity.StockInfo" parameterType="com.hht.wms.core.dto.StockInfoQueryReqDto" >
-    select * from stock_info 
+    select t1.* , t2.project_id from stock_info t1 , front_desk_charge t2 
   <where>  
 	<if test="so != null and so !=''">
 		so=#{so,jdbcType=VARCHAR}
@@ -23,6 +23,12 @@
 	<if test="item != null and item != ''">
 		and item=#{item,jdbcType=VARCHAR}
 	</if>    	
+	<if test="beginDate != null and beginDate != ''">
+		and rcvd_date &gt;= #{beginDate,jdbcType=VARCHAR}
+	</if>		
+	<if test="endDate != null and endDate != ''">
+		and rcvd_date &lt;= #{endDate,jdbcType=VARCHAR} 
+	</if>		
 	<if test="inbundNo != null and inbundNo != ''">
 		and inbound_no=#{inbundNo,jdbcType=VARCHAR}
 	</if>   	
@@ -32,8 +38,9 @@
 	<if test="pcsMoreThanZero != null and pcsMoreThanZero != '' and pcsMoreThanZero == 'true'">
 		and stock_pcs &gt; 0
 	</if>   	
+	    and t1.inbound_no = t2.inbound_no
    </where> 	
-   	order by rcvd_date desc ,  id  LIMIT #{beginSize},#{size}    	
+   		order by rcvd_date desc ,  id  LIMIT #{beginSize},#{size}    	
   </select>
   
   <select id="selectCount" resultType="java.lang.Integer" parameterType="com.hht.wms.core.dto.StockInfoQueryReqDto" >

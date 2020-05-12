@@ -28,7 +28,7 @@
 		</if>		
 			and t1.inbound_no = t2.inbound_no and t2.inbound_no = t4.inbound_no
    	</where>
-   	   	order by t1.inbound_no  LIMIT #{beginSize},#{size}    	
+   	   	order by t4.rcvd_date desc , t1.inbound_no  LIMIT #{beginSize},#{size}    	
   </select>
 
   <select id="stockFeeSelectCount" resultType="java.lang.Integer" parameterType="com.hht.wms.core.dto.StockFeeQueryReqDto" >
@@ -74,7 +74,7 @@
 		</if>		
 			and t1.inbound_no = t2.inbound_no
    	</where>
-   	   	order by t1.inbound_no  LIMIT #{beginSize},#{size}    	
+   	   	order by  t2.shipped_date desc ,  t1.inbound_no  LIMIT #{beginSize},#{size}    	
   </select>
 
 

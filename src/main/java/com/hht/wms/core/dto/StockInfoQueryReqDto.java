@@ -24,4 +24,7 @@ public class StockInfoQueryReqDto {
 	
 	private int beginSize ; 
 	
+	private String beginDate ; 
+	
+	private String endDate;
 }

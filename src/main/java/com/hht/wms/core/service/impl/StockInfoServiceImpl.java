@@ -58,6 +58,11 @@ public class StockInfoServiceImpl extends ServiceImpl<StockInfoDao, StockInfo> i
 	@Override
 	public StockInfoRespDto loadStock(StockInfoQueryReqDto reqDto) {
 		logger.info("---StockInfoServiceImpl---loadStock-----{}",JSON.toJSON(reqDto));
+		String beginDate = reqDto.getBeginDate();
+		String endDate = reqDto.getEndDate();
+		reqDto.setBeginDate(beginDate==null?beginDate:beginDate.replace("-", ""));
+		reqDto.setEndDate(endDate==null?endDate:endDate.replace("-", ""));
+		
 		StockInfoRespDto respDto = new StockInfoRespDto();
 		int total = baseMapper.selectCount(reqDto);
 		if(total==0) {

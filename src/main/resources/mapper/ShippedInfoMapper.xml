@@ -34,7 +34,7 @@
    
    
   <select id="queryList" resultType="com.hht.wms.core.entity.ShippedInfo" parameterType="com.hht.wms.core.dto.ShippedInfoReqDto" >
-    select * from shipped_info 
+    select t2.cust_id , t2.project_id , t1.*    from shipped_info t1 , front_desk_charge t2
   <where>  
 	<if test="so != null and so !=''">
 		so=#{so,jdbcType=VARCHAR}
@@ -48,14 +48,18 @@
 	<if test="clp != null and clp != ''">
 		and clp = #{clp,jdbcType=VARCHAR}
 	</if>	
+	<if test="inbundNo != null and inbundNo != ''">
+		and inbund_no = #{inbundNo,jdbcType=VARCHAR}
+	</if>	
 	<if test="beginDate != null and beginDate != ''">
 		and shipped_date &gt;= #{beginDate,jdbcType=VARCHAR}
 	</if>		
 	<if test="endDate != null and endDate != ''">
 		and shipped_date &lt;= #{endDate,jdbcType=VARCHAR} 
 	</if>		
+		and t1.inbound_no = t2.inbound_no
    </where> 	
-    order by shipped_date desc ,  id  LIMIT #{beginSize},#{size}    	
+    	order by shipped_date desc ,  id  LIMIT #{beginSize},#{size}    	
   </select>
    
   <select id="selectCount" resultType="java.lang.Integer"  parameterType="com.hht.wms.core.dto.ShippedInfoReqDto" >
