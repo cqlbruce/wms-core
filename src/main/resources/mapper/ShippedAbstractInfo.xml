@@ -90,7 +90,7 @@
 		and shipped_date = #{shippedDate,jdbcType=VARCHAR}
 	</if>   
    </where> 	
-    order by clp  LIMIT #{beginSize},#{size}    	
+    order by shipped_date desc , clp  LIMIT #{beginSize},#{size}    	
   </select>
    
   <select id="selectCount" resultType="java.lang.Integer"  parameterType="com.hht.wms.core.dto.ShippedAbstractQueryReqDto" >

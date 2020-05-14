@@ -79,6 +79,7 @@ public class FrontDeskChargeController {
  				abstractInfo.setInboundNo(detail.getInboundNo());
  				abstractInfo.setCustId(fdc.getCustId());
  				abstractInfo.setCarNum(fdc.getCarNum());
+ 				abstractInfo.setRcvdDate(DateUtil.getNowTime(DateUtil.ISO_DATE_FORMAT_CROSSBAR));
  				stockAbstractService.add(abstractInfo) ;
  			}
  		}catch(Exception e ) {

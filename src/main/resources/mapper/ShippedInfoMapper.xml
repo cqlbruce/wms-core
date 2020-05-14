@@ -37,6 +37,7 @@
 	</if>		
 		and t1.inbound_no = t2.inbound_no
    </where> 	
+   order by t1.shipped_date desc
   </select>
    
 	<update id="batchUpdate" parameterType="java.util.List">

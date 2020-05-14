@@ -46,6 +46,8 @@
 	</if>   	
 	    and t1.inbound_no = t2.inbound_no
    </where> 	
+   
+   order by t1.rcvd_date desc ,
   </select>
 
 	<!--   自定义 -->

@@ -21,7 +21,7 @@
 		and so=#{so,jdbcType=VARCHAR}
 	</if>	
    </where> 	
-    order by id  LIMIT #{beginSize},#{size} 
+    order by tran_date desc , id  LIMIT #{beginSize},#{size} 
   </select>
   
    <select id="queryList" resultType="com.hht.wms.core.entity.FrontDeskCharge" parameterType="com.hht.wms.core.dto.FrontDeskChargeQueryReqDto" >
