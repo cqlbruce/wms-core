@@ -11,7 +11,7 @@
   </select>
   
   	<!--   自定义 -->
-  <select id="queryList" resultType="com.hht.wms.core.entity.StockInfo" parameterType="com.hht.wms.core.dto.StockInfoQueryReqDto" >
+  <select id="queryList" resultType="com.hht.wms.core.dto.vo.StockInfoVo" parameterType="com.hht.wms.core.dto.StockInfoQueryReqDto" >
     select t1.* , t2.project_id from stock_info t1 , front_desk_charge t2 
   <where>  
 	<if test="so != null and so !=''">
@@ -47,11 +47,11 @@
 	    and t1.inbound_no = t2.inbound_no
    </where> 	
    
-   order by t1.rcvd_date desc ,
+   order by t1.rcvd_date desc 
   </select>
 
 	<!--   自定义 -->
-  <select id="queryByPage" resultType="com.hht.wms.core.entity.StockInfo" parameterType="com.hht.wms.core.dto.StockInfoQueryReqDto" >
+  <select id="queryByPage" resultType="com.hht.wms.core.dto.vo.StockInfoVo" parameterType="com.hht.wms.core.dto.StockInfoQueryReqDto" >
     select t1.* , t2.project_id from stock_info t1 , front_desk_charge t2 
   <where>  
 	<if test="so != null and so !=''">

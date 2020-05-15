@@ -11,6 +11,7 @@
     t3.payment_inAdvance_tax_fee , t3.total from front_desk_charge t1 , stock_abstract_info t4 , stock_info t2  left outer join stock_fee_info 
     t3 on t2.inbound_no=t3.inbound_no and t2.so=t3.so and t2.item=t3.item
   	<where>  
+  	    and t1.inbound_no = t2.inbound_no and t2.inbound_no = t4.inbound_no
 		<if test="custId != null and custId != ''">
 			and t1.cust_id = #{custId,jdbcType=VARCHAR}
 		</if>	
@@ -26,7 +27,7 @@
 		<if test="endDate != null and endDate != ''">
 			and t1.tran_date &lt;= #{endDate,jdbcType=VARCHAR} 
 		</if>		
-			and t1.inbound_no = t2.inbound_no and t2.inbound_no = t4.inbound_no
+			
    	</where>
    	   	order by t4.rcvd_date desc , t1.inbound_no  LIMIT #{beginSize},#{size}    	
   </select>
@@ -35,6 +36,7 @@
     select count(1) from front_desk_charge t1 ,   stock_abstract_info t4 , stock_info t2  left outer join stock_fee_info 
     t3 on t2.inbound_no=t3.inbound_no and t2.so=t3.so and t2.item=t3.item
   	<where>  
+  	    and t1.inbound_no = t2.inbound_no and t2.inbound_no = t4.inbound_no
 		<if test="custId != null and custId != ''">
 			and t1.cust_id = #{custId,jdbcType=VARCHAR}
 		</if>	
@@ -50,7 +52,6 @@
 		<if test="endDate != null and endDate != ''">
 			and t1.tran_date &lt;= #{endDate,jdbcType=VARCHAR} 
 		</if>		
-			and t1.inbound_no = t2.inbound_no and t2.inbound_no = t4.inbound_no
    	</where>
   </select>  
   
@@ -131,7 +132,7 @@
 		<if test="endDate != null and endDate != ''">
 			and t1.tran_date &lt;= #{endDate,jdbcType=VARCHAR} 
 		</if>		
-			and t1.inbound_no = t2.inbound_no
+			and t1.inbound_no = t2.inbound_no and t2.inbound_no = t4.inbound_no
    	</where>
   </select>
   

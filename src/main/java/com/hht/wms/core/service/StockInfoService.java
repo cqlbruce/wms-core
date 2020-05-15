@@ -6,6 +6,7 @@ import com.hht.wms.core.dto.StockInfoModifyReqDto;
 import com.hht.wms.core.dto.StockInfoQueryReqDto;
 import com.hht.wms.core.dto.StockInfoRespDto;
 import com.hht.wms.core.dto.StockStatisticsRespDto;
+import com.hht.wms.core.dto.vo.StockInfoVo;
 import com.hht.wms.core.entity.StockInfo;
 
 public interface StockInfoService {
@@ -26,7 +27,7 @@ public interface StockInfoService {
 
     int deleteByInboundNo(String inboundNo);
     
-    List<StockInfo> queryList(StockInfoQueryReqDto reqDto);
+    List<StockInfoVo> queryList(StockInfoQueryReqDto reqDto);
 
 
 }

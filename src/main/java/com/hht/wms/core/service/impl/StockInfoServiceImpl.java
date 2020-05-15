@@ -5,6 +5,7 @@ import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -22,6 +23,7 @@ import com.hht.wms.core.dto.StockInfoModifyReqDto;
 import com.hht.wms.core.dto.StockInfoQueryReqDto;
 import com.hht.wms.core.dto.StockInfoRespDto;
 import com.hht.wms.core.dto.StockStatisticsRespDto;
+import com.hht.wms.core.dto.vo.StockInfoVo;
 import com.hht.wms.core.dto.vo.ThreeElement;
 import com.hht.wms.core.entity.FrontDeskCharge;
 import com.hht.wms.core.entity.StockAbstractInfo;
@@ -56,13 +58,13 @@ public class StockInfoServiceImpl extends ServiceImpl<StockInfoDao, StockInfo> i
 
 
 	@Override
-	public List<StockInfo> queryList(StockInfoQueryReqDto reqDto) {
+	public List<StockInfoVo> queryList(StockInfoQueryReqDto reqDto) {
 		logger.info("---StockInfoServiceImpl---loadStock-----{}",JSON.toJSON(reqDto));
 		String beginDate = reqDto.getBeginDate();
 		String endDate = reqDto.getEndDate();
 		reqDto.setBeginDate(beginDate==null?beginDate:beginDate.replace("-", ""));
 		reqDto.setEndDate(endDate==null?endDate:endDate.replace("-", ""));
-		List<StockInfo> list =  baseMapper.queryByPage(reqDto);
+		List<StockInfoVo> list =  baseMapper.queryList(reqDto);
 		return list ;
 	}
 
@@ -83,7 +85,7 @@ public class StockInfoServiceImpl extends ServiceImpl<StockInfoDao, StockInfo> i
 		respDto.setTotal(total);
 		int beginSize = (reqDto.getPage()-1) * reqDto.getSize() ; 
 		reqDto.setBeginSize(beginSize);
-		List<StockInfo> list =  baseMapper.queryByPage(reqDto);
+		List<StockInfoVo> list =  baseMapper.queryByPage(reqDto);
 		respDto.setItems(list);
 		return respDto ;
 	}
@@ -94,7 +96,11 @@ public class StockInfoServiceImpl extends ServiceImpl<StockInfoDao, StockInfo> i
 		int i = 0 ; 
 		List<StockAbstractInfo> abstractInfoList = new ArrayList<StockAbstractInfo>(); 
 		for(StockInfo info : stockInfoList) {
-			
+//			public List<StockInfo> queryByThreeElemet(String so , String po , String item) {
+//			 List<StockInfo> list = queryByThreeElemet(info.getSo() , info.getPo() , info.getItem());
+//			 if(CollectionUtils.isNotEmpty(list)&&list.size()>0) {
+//				 continue;
+//			 }
 			//收货日期
 			info.setRcvdDate(DateUtil.getNowTime(DateUtil.AMR_ARS_DATE_FORMAT));
 			//一箱几件 info.setTransactionUnit

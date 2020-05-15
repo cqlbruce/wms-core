@@ -2,13 +2,13 @@ package com.hht.wms.core.dto;
 
 import java.util.List;
 
-import com.hht.wms.core.entity.StockInfo;
+import com.hht.wms.core.dto.vo.StockInfoVo;
 
 public class StockInfoRespDto {
 
 	private int total ; 
 	
-	List<StockInfo> items ;
+	List<StockInfoVo> items ;
 
 	public int getTotal() {
 		return total;
@@ -18,11 +18,11 @@ public class StockInfoRespDto {
 		this.total = total;
 	}
 
-	public List<StockInfo> getItems() {
+	public List<StockInfoVo> getItems() {
 		return items;
 	}
 
-	public void setItems(List<StockInfo> items) {
+	public void setItems(List<StockInfoVo> items) {
 		this.items = items;
 	} 
 	

@@ -19,6 +19,7 @@ import com.hht.wms.core.dto.OutboundReqDto;
 import com.hht.wms.core.dto.ShippedInfoReqDto;
 import com.hht.wms.core.dto.ShippedInfoRespDto;
 import com.hht.wms.core.dto.ShippedStatisticsRespDto;
+import com.hht.wms.core.dto.vo.ShippedInfoVo;
 import com.hht.wms.core.entity.ShippedAbstractInfo;
 import com.hht.wms.core.entity.ShippedInfo;
 import com.hht.wms.core.entity.StockInfo;
@@ -46,9 +47,9 @@ public class ShippedInfoServiceImpl extends ServiceImpl<ShippedInfoDao, ShippedI
 	
 	
 	@Override
-	public List<ShippedInfo>  queryList(ShippedInfoReqDto reqDto) {
+	public List<ShippedInfoVo>  queryList(ShippedInfoReqDto reqDto) {
 		logger.info("---ShippedInfoServiceImpl---reqDto-----{}",JSON.toJSON(reqDto));
-		List<ShippedInfo> list =  baseMapper.queryList(reqDto);
+		List<ShippedInfoVo> list =  baseMapper.queryList(reqDto);
 		return list ;
 	}
 	
@@ -66,7 +67,7 @@ public class ShippedInfoServiceImpl extends ServiceImpl<ShippedInfoDao, ShippedI
 		respDto.setTotal(total);
 		int beginSize = (reqDto.getPage()-1) * reqDto.getSize() ; 
 		reqDto.setBeginSize(beginSize);
-		List<ShippedInfo> list =  baseMapper.queryByPage(reqDto);
+		List<ShippedInfoVo> list =  baseMapper.queryByPage(reqDto);
 		respDto.setItems(list);
 		return respDto ;
 	}

@@ -3,7 +3,7 @@
 <mapper namespace="com.hht.wms.core.dao.FrontDeskChargeDao">
   
    <select id="queryByPage" resultType="com.hht.wms.core.entity.FrontDeskCharge" parameterType="com.hht.wms.core.dto.FrontDeskChargeQueryReqDto" >
-    select * from front_desk_charge 
+    select * from front_desk_charge
   	<where>  
 	<if test="inboundNo != null and inboundNo !=''">
 		inbound_no=#{inboundNo,jdbcType=VARCHAR}

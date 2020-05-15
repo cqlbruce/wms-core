@@ -6,13 +6,14 @@ import com.hht.wms.core.dto.OutboundReqDto;
 import com.hht.wms.core.dto.ShippedInfoReqDto;
 import com.hht.wms.core.dto.ShippedInfoRespDto;
 import com.hht.wms.core.dto.ShippedStatisticsRespDto;
+import com.hht.wms.core.dto.vo.ShippedInfoVo;
 import com.hht.wms.core.entity.ShippedInfo;
 
 public interface ShippedInfoService {
 	
 	ShippedInfoRespDto queryByPage(ShippedInfoReqDto reqDto );
 	
-	List<ShippedInfo> queryList(ShippedInfoReqDto reqDto );
+	List<ShippedInfoVo> queryList(ShippedInfoReqDto reqDto );
 	
 	int outbound(OutboundReqDto reqDto) throws Exception;
 	

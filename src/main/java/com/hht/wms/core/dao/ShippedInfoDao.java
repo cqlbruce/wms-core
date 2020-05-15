@@ -4,15 +4,16 @@ import java.util.List;
 
 import com.hht.wms.core.dto.ShippedInfoReqDto;
 import com.hht.wms.core.dto.ShippedStatisticsRespDto;
+import com.hht.wms.core.dto.vo.ShippedInfoVo;
 import com.hht.wms.core.entity.ShippedInfo;
 import com.hht.wms.core.util.BaseDao;
 
 public interface ShippedInfoDao extends BaseDao<ShippedInfo>{
     
     //自定义
-    List<ShippedInfo> queryByPage(ShippedInfoReqDto reqDto) ;
+    List<ShippedInfoVo> queryByPage(ShippedInfoReqDto reqDto) ;
     
-    List<ShippedInfo> queryList(ShippedInfoReqDto reqDto) ;
+    List<ShippedInfoVo> queryList(ShippedInfoReqDto reqDto) ;
     
     int selectCount(ShippedInfoReqDto reqDto) ;
     
@@ -21,5 +22,4 @@ public interface ShippedInfoDao extends BaseDao<ShippedInfo>{
     void batchUpdate(List<ShippedInfo> list);
     
     ShippedStatisticsRespDto shippedStatics(String shippedDate);
-
 }

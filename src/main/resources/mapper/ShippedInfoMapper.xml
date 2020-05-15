@@ -5,7 +5,7 @@
    
    
       
-  <select id="queryList" resultType="com.hht.wms.core.entity.ShippedInfo" parameterType="com.hht.wms.core.dto.ShippedInfoReqDto" >
+  <select id="queryList" resultType="com.hht.wms.core.dto.vo.ShippedInfoVo" parameterType="com.hht.wms.core.dto.ShippedInfoReqDto" >
     select t2.cust_id , t2.project_id , t1.*    from shipped_info t1 , front_desk_charge t2
   <where>  
 	<if test="so != null and so !=''">
@@ -70,7 +70,7 @@
   </select>
    
    
-  <select id="queryByPage" resultType="com.hht.wms.core.entity.ShippedInfo" parameterType="com.hht.wms.core.dto.ShippedInfoReqDto" >
+  <select id="queryByPage" resultType="com.hht.wms.core.dto.vo.ShippedInfoVo" parameterType="com.hht.wms.core.dto.ShippedInfoReqDto" >
     select t2.cust_id , t2.project_id , t1.*    from shipped_info t1 , front_desk_charge t2
   <where>  
 	<if test="so != null and so !=''">

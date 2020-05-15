@@ -4,15 +4,16 @@ import java.util.List;
 
 import com.hht.wms.core.dto.StockInfoQueryReqDto;
 import com.hht.wms.core.dto.StockStatisticsRespDto;
+import com.hht.wms.core.dto.vo.StockInfoVo;
 import com.hht.wms.core.dto.vo.ThreeElement;
 import com.hht.wms.core.entity.StockInfo;
 import com.hht.wms.core.util.BaseDao;
 
 public interface StockInfoDao extends BaseDao<StockInfo>{
     
-    List<StockInfo> queryByPage(StockInfoQueryReqDto reqDto);
+    List<StockInfoVo> queryByPage(StockInfoQueryReqDto reqDto);
     
-    List<StockInfo> queryList(StockInfoQueryReqDto reqDto);
+    List<StockInfoVo> queryList(StockInfoQueryReqDto reqDto);
     
     int selectCount(StockInfoQueryReqDto reqDto);
     

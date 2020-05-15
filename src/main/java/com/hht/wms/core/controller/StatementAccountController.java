@@ -33,11 +33,11 @@ import com.hht.wms.core.dto.StockInfoQueryReqDto;
 import com.hht.wms.core.dto.StockInfoRespDto;
 import com.hht.wms.core.dto.StockStatisticsRespDto;
 import com.hht.wms.core.dto.vo.ShippedFee;
+import com.hht.wms.core.dto.vo.ShippedInfoVo;
 import com.hht.wms.core.dto.vo.StockFee;
+import com.hht.wms.core.dto.vo.StockInfoVo;
 import com.hht.wms.core.entity.ShippedFeeInfo;
-import com.hht.wms.core.entity.ShippedInfo;
 import com.hht.wms.core.entity.StockFeeInfo;
-import com.hht.wms.core.entity.StockInfo;
 import com.hht.wms.core.service.FeeInfoService;
 import com.hht.wms.core.service.ShippedInfoService;
 import com.hht.wms.core.service.StockInfoService;
@@ -211,7 +211,7 @@ public class StatementAccountController {
     public Resp<StockInfoRespDto> exportStockGoods(@RequestBody StockInfoQueryReqDto reqDto) {
         logger.info("存仓货物导出.........{}", JSON.toJSON(reqDto) );
         StockInfoRespDto respDto = new StockInfoRespDto();
-        List<StockInfo> list = stockInfoService.queryList(reqDto);
+        List<StockInfoVo> list = stockInfoService.queryList(reqDto);
         respDto.setItems(list);
         return Resp.success("查询成功", respDto);
         
@@ -233,7 +233,7 @@ public class StatementAccountController {
     public Resp<ShippedInfoRespDto> exportShippedGoods(@RequestBody ShippedInfoReqDto reqDto) {
         logger.info("出仓货物导出.........{}", JSON.toJSON(reqDto) );
         ShippedInfoRespDto respDto = new ShippedInfoRespDto();
-        List<ShippedInfo> list = shippedInfoService.queryList(reqDto);
+        List<ShippedInfoVo> list = shippedInfoService.queryList(reqDto);
         respDto.setItems(list);
         return Resp.success("查询成功", respDto);
     }
