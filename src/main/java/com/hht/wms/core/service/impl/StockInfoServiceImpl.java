@@ -231,5 +231,8 @@ public class StockInfoServiceImpl extends ServiceImpl<StockInfoDao, StockInfo> i
 	}
 
 
+	public StockStatisticsRespDto currentMonthStatics(String month) {
+		return baseMapper.currentMonthStatics(month);
+	}
 	
 }

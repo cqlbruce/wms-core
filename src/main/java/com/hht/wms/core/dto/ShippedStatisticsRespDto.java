@@ -14,5 +14,8 @@ public class ShippedStatisticsRespDto {
 	//当天出仓总体积
 	private BigDecimal veryDayShippedVolume;
 	
+	//当月出仓总体积
+	private BigDecimal currentMonthShippedVolume;
+	
 
 }

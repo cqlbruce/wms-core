@@ -23,6 +23,7 @@ public interface StockInfoDao extends BaseDao<StockInfo>{
     
     StockStatisticsRespDto stockStatics(String date);
     
+    StockStatisticsRespDto currentMonthStatics(String month);
     
     int deleteByInboundNo(String inboundNo);
     

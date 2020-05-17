@@ -120,7 +120,7 @@ public class ShippedInfoServiceImpl extends ServiceImpl<ShippedInfoDao, ShippedI
 			int stockPcs = stockInfo.getStockPcs()-reqDto.getPcs() ; 
 			if(stockPcs < 0) {
 				logger.error("出仓失败，库存件数为负数{} " , stockPcs);
-				throw new Exception("出仓失败，库存件数为负数,出仓单号:" + stockInfo.getInboundNo() + "...Po:"+ stockInfo.getPo() +"...item:" 
+				throw new Exception("由此条记录开始出仓失败，库存件数为负数,出仓单号:" + stockInfo.getInboundNo() + "...Po:"+ stockInfo.getPo() +"...item:" 
 				+ stockInfo.getItem() + "...So:" + stockInfo.getSo() + "...库存PCS: " + stockInfo.getStockPcs() + "...待出仓PCS:" + reqDto.getPcs());
 			}			
 			stockInfo.setStockPcs(stockPcs);
@@ -211,5 +211,9 @@ public class ShippedInfoServiceImpl extends ServiceImpl<ShippedInfoDao, ShippedI
 		return baseMapper.shippedStatics(shippedDate);
 	}
 
-
+	@Override
+	public ShippedStatisticsRespDto shippedMonthStatics(String shippedMonth) {
+		// TODO Auto-generated method stub
+		return baseMapper.shippedMonthStatics(shippedMonth);
+	}
 }

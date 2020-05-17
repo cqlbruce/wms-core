@@ -69,6 +69,36 @@ public class StatementAccountController {
     @Autowired
     private FeeInfoService feeInfoService; 
     
+	
+    @SuppressWarnings("unchecked")
+	@PostMapping("shippedMonthStatics")
+    @ApiOperation(value = "当月出仓数据统计", notes = "")
+    public Resp<ShippedStatisticsRespDto> shippedMonthStatics() {
+        logger.info("当月出仓数据统计........");
+        ShippedStatisticsRespDto respDto = new ShippedStatisticsRespDto();
+    	try {
+    		respDto = shippedInfoService.shippedMonthStatics(DateUtil.getNowTime(DateUtil.ISO_DATE_FORMAT_CROSSBAR).substring(0 , 7));
+    		respDto.setCurrentMonthShippedVolume(NumberUtil.getBigDecimal(respDto.getCurrentMonthShippedVolume()));
+    	}catch(Exception e) {
+    		logger.error("当月出仓数据统计" , e);
+    	}
+        return Resp.success("当月出仓数据统计", respDto);
+    }   
+    
+    @SuppressWarnings("unchecked")
+	@PostMapping("currentMonthStatics")
+    @ApiOperation(value = "当月入仓数据统计", notes = "")
+    public Resp<StockStatisticsRespDto> currentMonthStatics() {
+        logger.info("当月入仓数据统计........}" );
+		StockStatisticsRespDto resp = new StockStatisticsRespDto();
+    	try {
+    		StockStatisticsRespDto r2 = stockInfoService.currentMonthStatics(DateUtil.getNowTime(DateUtil.AMR_DATE_WITHOUT_SLASH_FORMAT).substring(0 , 6));
+    		resp.setCurrentMonthVolume(NumberUtil.getBigDecimal(r2.getCurrentMonthVolume()));
+    	}catch(Exception e) {
+    		logger.error("当月入仓数据统计" , e);
+    	}
+        return Resp.success("当月入仓数据统计成功", resp);
+    }    
     
     
     @SuppressWarnings("unchecked")
@@ -81,7 +111,7 @@ public class StatementAccountController {
     		respDto = shippedInfoService.shippedStatics(DateUtil.getNowTime(DateUtil.ISO_DATE_FORMAT_CROSSBAR));
     		respDto.setVeryDayShippedVolume(NumberUtil.getBigDecimal(respDto.getVeryDayShippedVolume()));
     	}catch(Exception e) {
-    		logger.error("出仓数据统计异常");
+    		logger.error("出仓数据统计异常" , e);
     	}
         return Resp.success("出仓数据统计", respDto);
     }        
@@ -102,7 +132,7 @@ public class StatementAccountController {
     		resp.setTickets(r2.getTickets());
     		resp.setVeryDayVolume(NumberUtil.getBigDecimal(r2.getVeryDayVolume()));
     	}catch(Exception e) {
-    		logger.error("入仓数据统计异常");
+    		logger.error("入仓数据统计异常" , e);
     	}
         return Resp.success("入仓数据统计成功", resp);
     }    
@@ -124,7 +154,7 @@ public class StatementAccountController {
         	list.add(sfi);
         	shippedFeeInfoDao.insertOrUpdate(list);
     	}catch(Exception e) {
-    		logger.error("出仓费用修改");
+    		logger.error("出仓费用修改" , e);
     	}
 
         return Resp.success("修改成功", "");
@@ -149,7 +179,7 @@ public class StatementAccountController {
         	list.add(sfi);
         	stockFeeInfoDao.insertOrUpdate(list);
     	}catch(Exception e) {
-    		logger.error("入仓费用修改异常!");
+    		logger.error("入仓费用修改异常!" , e);
     	}
 
         return Resp.success("修改成功", "");

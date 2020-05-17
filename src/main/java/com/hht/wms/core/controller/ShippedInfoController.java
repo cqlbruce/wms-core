@@ -77,7 +77,7 @@ public class ShippedInfoController {
     @ApiOperation(value = "出仓数据", notes = "")
 	public Resp<ShippedInfoRespDto> shippedInfoQuery(@RequestBody ShippedInfoReqDto reqDto) {
  		logger.info("shippedInfoQuery..............{}",JSON.toJSON(reqDto) );
-		return Resp.success("出仓数据查询成功" , shippedInfoService.queryList(reqDto));
+		return Resp.success("出仓数据查询成功" , shippedInfoService.queryByPage(reqDto));
     }
 	
 	

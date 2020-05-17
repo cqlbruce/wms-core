@@ -151,5 +151,14 @@
     </where>  
   </select> 
   
+   <select id="currentMonthStatics"  resultType="com.hht.wms.core.dto.StockStatisticsRespDto"   parameterType="java.lang.String">
+  	select sum(box_all_volume_actul) as currentMonthVolume from stock_info 
+    <where>    	
+  	<if test="month != null and month !=''">
+		 rcvd_date like CONCAT(#{month,jdbcType=VARCHAR},'%')
+	</if>
+    </where>  
+  </select> 
+  
   
 </mapper>

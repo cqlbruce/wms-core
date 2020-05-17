@@ -22,6 +22,8 @@ public interface ShippedInfoService {
 	void batchUpdate(List<ShippedInfo> list); 
 	
     ShippedStatisticsRespDto shippedStatics(String shippedDate);
+    
+	ShippedStatisticsRespDto shippedMonthStatics(String shippedMonth);
 
 	
 }

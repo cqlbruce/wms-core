@@ -20,4 +20,7 @@ public class StockStatisticsRespDto {
 	//当天入库总体积
 	private BigDecimal veryDayVolume;
 	
+	//当月入仓总体积
+	private BigDecimal currentMonthVolume;
+	
 }
